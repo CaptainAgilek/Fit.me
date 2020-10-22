@@ -20,6 +20,7 @@ const typeDefs = gql`
 
   type Mutation {
     signin(email: String!, password: String!): AuthInfo!
+    signup(email: String!, password: String!): AuthInfo!
   }
 `;
 
