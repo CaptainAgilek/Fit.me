@@ -10,7 +10,6 @@ export async function verifyRegistration(token, dbConnection) {
     if (!user) {
       return null;
     }
-
     return user;
   };
 
@@ -23,8 +22,8 @@ export async function verifyRegistration(token, dbConnection) {
         [token],
       );
     }
-    return { is_verified: true };
+    return true;
   }
 
-  return { is_verified: false };
+  return false;
 }

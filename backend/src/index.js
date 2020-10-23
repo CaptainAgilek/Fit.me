@@ -10,10 +10,6 @@ import rootResolver from './modules/rootResolver';
 dotenv.config();
 
 const typeDefs = gql`
-  type RegistrationVerificationResponse {
-    is_verified: Boolean
-  }
-
   type User {
     user_id: Int!
     email: String!
@@ -21,7 +17,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    verifyRegistration(token: String!): RegistrationVerificationResponse!
+    verifyRegistration(token: String!): Boolean!
     users: [User]!
     user(email: String!): User
     todo: String!

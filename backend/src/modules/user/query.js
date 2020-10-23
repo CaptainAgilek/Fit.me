@@ -15,7 +15,6 @@ export const user = async (_, { email }, { dbConnection }) => {
   if (!user) {
     return null;
   }
-
   return user;
 };
 
