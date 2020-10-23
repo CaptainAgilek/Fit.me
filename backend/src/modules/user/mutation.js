@@ -48,7 +48,7 @@ export const signup = async (_, { email, password }, { dbConnection }) => {
        from: '"Fit.me" <sedm22@vse.cz>', // sender address
        to: email,
        subject: "Hello ✔", // Subject line
-       text: "Hello, prosim potvrdte registraci kliknutim na link " + process.env.FRONTEND_URL + verificationToken, // plain text body
+       text: "Hello, prosim potvrdte registraci kliknutim na link " + process.env.FRONTEND_URL + "verification?token=" + verificationToken, // plain text body
      });
 
   const token = createToken({ id: insertResponse.insertId });
