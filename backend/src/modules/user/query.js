@@ -1,4 +1,4 @@
-import { verifyRegistration as VerifyRegistrationToken } from '../../libs/registrationVerification';
+import { verifyRegistrationToken } from './helper';
 
 export const users = async (_, __, { dbConnection }) => {
   const users = await dbConnection.query('SELECT * FROM user');
@@ -19,5 +19,5 @@ export const user = async (_, { email }, { dbConnection }) => {
 };
 
 export const verifyRegistration = async(_, { token }, {dbConnection}) => {
-  return await VerifyRegistrationToken(token, dbConnection);
+  return await verifyRegistrationToken(token, dbConnection);
 }

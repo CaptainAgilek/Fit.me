@@ -1,6 +1,8 @@
 import * as argon2 from 'argon2';
 import { createToken } from '../../libs/token';
-import nodemailer from 'nodemailer';
+import { sendEmail } from '../../libs/mailer';
+import { checkAlreadyTakenEmail } from './helper';
+import { USER_TYPE } from './enum';
 
 export const signin = async (_, { email, password }) => {
   if (!(email === 'a@a.com' && password === 'pass')) {
@@ -15,43 +17,41 @@ export const signin = async (_, { email, password }) => {
   };
 };
 
-export const signup = async (_, { email, password }, { dbConnection }) => {
-  const emailTaken = (
-    await dbConnection.query('SELECT * FROM user WHERE email = ?', [email])
-  )[0];
-
-  if (emailTaken) {
-    throw new Error('Email is already registered.');
-  }
+export const signup = async (_, { email, password, firstname, lastname, type }, { dbConnection }) => {
+  await checkAlreadyTakenEmail(email, dbConnection);
 
   const hashedPassword = await argon2.hash(password);
-  const verificationToken = createToken({ email: email });
+  const verificationToken = Date.now().toString() + (1000000 + Math.floor(Math.random() * 1000000000000));
 
-  const insertResponse = await dbConnection.query(
+  const insertUserResponse = await dbConnection.query(
     `INSERT INTO user (user_id, email, password, verification_token, is_verified)
     VALUES (NULL, ?, ?, ?, ?);`,
     [email, hashedPassword, verificationToken, false],
   );
 
-  const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: process.env.SMTP_PORT,
-      secure: false, // true for 465, false for other ports
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
+  switch (type) {
+    case USER_TYPE.SPORTSMAN:
+    const insertSportsmanResponse = await dbConnection.query(
+      `INSERT INTO sportsman (user_id, firstname, lastname)
+      VALUES (?, ?, ?);`,
+      [insertUserResponse.insertId, firstname, lastname],
+    );
+      break;
+    default:
 
-    //
-    const info = await transporter.sendMail({
-       from: '"Fit.me" <sedm22@vse.cz>', // sender address
-       to: email,
-       subject: "Hello ✔", // Subject line
-       text: "Hello, prosim potvrdte registraci kliknutim na link " + process.env.FRONTEND_URL + "verification?token=" + verificationToken, // plain text body
-     });
+  }
 
-  const token = createToken({ id: insertResponse.insertId });
+  const mailResult = await sendEmail(
+    '"Fit.me" <sedm22@vse.cz>',
+    email,
+    'Hello ✔',
+    'Hello, prosim potvrdte registraci kliknutim na link ' +
+      process.env.FRONTEND_URL +
+      'verification?token=' +
+      verificationToken,
+  );
+
+  const token = createToken({ id: insertUserResponse.insertId });
 
   return { token: token };
 };
