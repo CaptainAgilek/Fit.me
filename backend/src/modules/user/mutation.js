@@ -17,11 +17,17 @@ export const signin = async (_, { email, password }) => {
   };
 };
 
-export const signup = async (_, { email, password, firstname, lastname, type }, { dbConnection }) => {
+export const signup = async (
+  _,
+  { email, password, firstname, lastname, type },
+  { dbConnection },
+) => {
   await checkAlreadyTakenEmail(email, dbConnection);
 
   const hashedPassword = await argon2.hash(password);
-  const verificationToken = Date.now().toString() + (1000000 + Math.floor(Math.random() * 1000000000000));
+  const verificationToken =
+    Date.now().toString() +
+    (1000000 + Math.floor(Math.random() * 1000000000000));
 
   const insertUserResponse = await dbConnection.query(
     `INSERT INTO user (user_id, email, password, verification_token, is_verified)
@@ -31,14 +37,20 @@ export const signup = async (_, { email, password, firstname, lastname, type }, 
 
   switch (type) {
     case USER_TYPE.SPORTSMAN:
-    const insertSportsmanResponse = await dbConnection.query(
-      `INSERT INTO sportsman (user_id, firstname, lastname)
-      VALUES (?, ?, ?);`,
-      [insertUserResponse.insertId, firstname, lastname],
-    );
+      const insertSportsmanResponse = await dbConnection.query(
+        `INSERT INTO sportsman (user_id, firstname, lastname)
+        VALUES (?, ?, ?);`,
+        [insertUserResponse.insertId, firstname, lastname],
+      );
+      break;
+    case USER_TYPE.ORGANIZATION:
+    //TODO
+      break;
+    case USER_TYPE.TRAINER:
+    //TODO
       break;
     default:
-
+      throw Error('Invalid user type');
   }
 
   const mailResult = await sendEmail(
