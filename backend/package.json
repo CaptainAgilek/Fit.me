@@ -23,7 +23,8 @@
     "express": "^4.17.1",
     "graphql": "^15.3.0",
     "jsonwebtoken": "^8.5.1",
-    "mariadb": "^2.1.1"
+    "mariadb": "^2.1.1",
+    "nodemailer": "^6.4.14"
   },
   "devDependencies": {
     "backpack-core": "^0.8.4",

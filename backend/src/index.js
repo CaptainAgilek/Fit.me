@@ -10,7 +10,22 @@ import rootResolver from './modules/rootResolver';
 dotenv.config();
 
 const typeDefs = gql`
+  enum UserType {
+    SPORTSMAN
+    ORGANIZATION
+    TRAINER
+  }
+
+  type User {
+    user_id: Int!
+    email: String!
+    is_verified: Boolean!
+  }
+
   type Query {
+    verifyRegistration(token: String!): Boolean!
+    users: [User]!
+    user(email: String!): User
     todo: String!
   }
 
@@ -20,6 +35,7 @@ const typeDefs = gql`
 
   type Mutation {
     signin(email: String!, password: String!): AuthInfo!
+    signup(email: String!, password: String!, firstname: String, lastname: String, type: UserType!): AuthInfo!
   }
 `;
 
