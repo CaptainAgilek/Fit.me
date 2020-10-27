@@ -1,8 +1,8 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import { Container, Form } from 'react-bootstrap';
 
-import { AvatarPicture, EditAvatarPopUp } from 'src/atoms/';
+import { AvatarPicture, GenericPopUp, UserPro } from 'src/atoms/';
 
 export function EditableAvatarPicture({ src, alt, size = '3', className, onChange }) {
   return (
@@ -14,7 +14,23 @@ export function EditableAvatarPicture({ src, alt, size = '3', className, onChang
                   className={ className }
       />
 
-      <EditAvatarPopUp/>
+      <GenericPopUp
+        triggerVariant="outline-primary"
+        triggerText="Change Avatar"
+        modalTitle="Upload new avatar"
+        modalBody={
+          <Form>
+            <Form.File
+              id="custom-file"
+              label="Custom file input"
+              custom
+            />
+          </Form>
+        }
+        footerLeftVariant="outline-secondary"
+        footerLeftText="Cancel"
+        footerRightVariant="outline-primary"
+        footerRightText="Upload" />
     </>
   );
 }
