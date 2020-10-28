@@ -90,10 +90,9 @@ export default class SignUp extends Component {
     render() {
       const {errors} = this.state;
 
-      return (
-
-            <form onSubmit={this.handleSubmit} method="POST" noValidate>
-                <h3>Sign Up</h3>
+        return (
+            <form>
+                <h3>Registration</h3>
 
 
                 <div className="form-group">
