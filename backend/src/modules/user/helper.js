@@ -1,4 +1,5 @@
 import { verifyToken } from '../../libs/token';
+import { MINIMAL_VERIFICATION_TOKEN_LENGTH, MAXIMAL_VERIFICATION_TOKEN_RANDOM_LENGTH } from './const';
 
 const getUser = async (auth) => {
   if (auth) {
@@ -15,7 +16,7 @@ const getUser = async (auth) => {
   }
 };
 
-export async function checkAlreadyTakenEmail(email, dbConnection) {
+export const checkAlreadyTakenEmail = async (email, dbConnection) => {
   const emailTaken = (
     await dbConnection.query('SELECT * FROM user WHERE email = ?', [email])
   )[0];
@@ -25,7 +26,7 @@ export async function checkAlreadyTakenEmail(email, dbConnection) {
   }
 }
 
-export async function verifyRegistrationToken(token, dbConnection) {
+export const  verifyRegistrationToken = async (token, dbConnection) => {
   const userByTokenFunc = async (token, dbConnection) => {
     const user = (
       await dbConnection.query(
@@ -53,6 +54,10 @@ export async function verifyRegistrationToken(token, dbConnection) {
   }
 
   return false;
+}
+
+export const getRegistrationToken = async () => {
+  return Date.now().toString() + (MINIMAL_VERIFICATION_TOKEN_LENGTH + Math.floor(Math.random() * MAXIMAL_VERIFICATION_TOKEN_RANDOM_LENGTH));
 }
 
 export default getUser;

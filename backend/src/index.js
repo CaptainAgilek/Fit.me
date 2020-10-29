@@ -16,17 +16,33 @@ const typeDefs = gql`
     TRAINER
   }
 
+  type Role {
+    role_id: Int!
+    name: String!
+  }
+
   type User {
     user_id: Int!
     email: String!
     is_verified: Boolean!
+    roles: [Role]!
+  }
+
+  type Sportsman {
+    user_id: Int!
+    firstname: String!
+    lastname: String!
+    username: String!
   }
 
   type Query {
-    verifyRegistration(token: String!): Boolean!
     users: [User]!
     user(email: String!): User
     todo: String!
+    roles: [Role]!
+    role(name: String!): Role!
+    sportsmen: [Sportsman]!
+    sportsman(user_id: Int!): Sportsman!
   }
 
   type AuthInfo {
@@ -34,6 +50,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    assignRoleToUser(name: String!, user_id: Int!): Boolean!
+    verifyRegistration(token: String!): Boolean!
     signin(email: String!, password: String!): AuthInfo!
     signup(email: String!, password: String!, firstname: String, lastname: String, type: UserType!): AuthInfo!
   }
