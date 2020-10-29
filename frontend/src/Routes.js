@@ -6,10 +6,12 @@ import { VerificationPage } from 'src/pages/VerificationPage';
 import { PageNotFound } from 'src/pages/PageNotFound';
 import { RegistrationPage } from 'src/pages/RegistrationPage';
 import SignUp from "./components/signup.component";
+import { UserProfilePage } from 'src/pages/UserProfilePage';
 
 export const route = {
   home: () => `/`,
-  verification: () => "/verification/"
+  verification: () => "/verification/",
+  userProfile: () => `/user-profile`
 };
 
 export function Routes() {
@@ -21,6 +23,7 @@ export function Routes() {
       <Route path="/sign-up" component={SignUp} />
 
       <Route path={route.verification()} exact component={VerificationPage} />
+      <Route path={route.userProfile()} exact component={UserProfilePage} />
       <Route path="*" component={PageNotFound} />
     </Switch>
   );
