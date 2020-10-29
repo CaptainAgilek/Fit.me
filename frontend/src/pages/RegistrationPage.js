@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Field } from "@progress/kendo-react-form";
+
 
 export function RegistrationPage() {
 
@@ -31,7 +31,7 @@ export function RegistrationPage() {
               onChange={e => setEmail(e.target.value)}
               required />
           </label>
-          
+
           <label>
             Password:
               <input
