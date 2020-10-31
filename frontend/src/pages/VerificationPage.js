@@ -1,8 +1,8 @@
 import React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { gql, useMutation  } from '@apollo/client';
 
-const VERIFY_REGISTRATION_QUERY = gql`
-  query VerifyRegistration($token: String!) {
+const VERIFY_REGISTRATION_MUTATION = gql`
+  mutation VerifyRegistration($token: String!) {
     verifyRegistration(token: $token)
   }
 `;
@@ -10,7 +10,7 @@ export function VerificationPage(props) {
   var params = new URLSearchParams(props.location.search);
   const token = params.get('token');
 
-  const tokenState = useQuery(VERIFY_REGISTRATION_QUERY, {
+  const tokenState = useMutation(VERIFY_REGISTRATION_MUTATION, {
     variables: { token },
   });
 
