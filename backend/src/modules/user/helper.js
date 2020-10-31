@@ -44,7 +44,7 @@ export const  verifyRegistrationToken = async (token, dbConnection) => {
   const userByToken = await userByTokenFunc(token, dbConnection);
 
   if (userByToken) {
-    if (!userByToken.is_verified[0]) {
+    if (!userByToken.is_verified) {
       const dbResponse = await dbConnection.query(
         `UPDATE user SET is_verified = true WHERE verification_token = ?;`,
         [token],

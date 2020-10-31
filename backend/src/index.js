@@ -16,6 +16,19 @@ const typeDefs = gql`
     TRAINER
   }
 
+  type Benefit {
+    benefit_id: Int!
+    name: String!
+  }
+
+  type Place {
+    place_id: Int!
+    user_id: Int!
+    city: String
+    street: String
+    zip: String
+  }
+
   type Role {
     role_id: Int!
     name: String!
@@ -32,7 +45,12 @@ const typeDefs = gql`
     user_id: Int!
     firstname: String!
     lastname: String!
-    username: String!
+    username: String
+    email: String
+    phone: String
+    user: User!
+    places: [Place]!
+    benefits: [Benefit]!
   }
 
   type Query {
@@ -42,7 +60,7 @@ const typeDefs = gql`
     roles: [Role]!
     role(name: String!): Role!
     sportsmen: [Sportsman]!
-    sportsman(user_id: Int!): Sportsman!
+    sportsman(user_id: Int!): Sportsman
   }
 
   type AuthInfo {
