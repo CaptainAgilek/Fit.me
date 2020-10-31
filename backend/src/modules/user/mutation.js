@@ -1,7 +1,7 @@
 import * as argon2 from 'argon2';
 import { createToken } from '../../libs/token';
 import { sendEmail } from '../../libs/mailer';
-import { checkAlreadyTakenEmail, verifyRegistrationToken, getRegitrationToken } from './helper';
+import { checkAlreadyTakenEmail, verifyRegistrationToken, getRegistrationToken } from './helper';
 import { assignRoleToUser } from '../role/mutation';
 import { ROLE_NAME } from '../role/enum';
 import { USER_TYPE } from './enum';
@@ -31,7 +31,7 @@ export const signup = async (
   await checkAlreadyTakenEmail(email, dbConnection);
 
   const hashedPassword = await argon2.hash(password);
-  const verificationToken = getRegistrationToken();
+  const verificationToken = await getRegistrationToken();
 
   const insertUserResponse = await dbConnection.query(
     `INSERT INTO user (user_id, email, password, verification_token, is_verified)
