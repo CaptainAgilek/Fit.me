@@ -56,5 +56,15 @@ export default {
         [parent.user_id],
       );
     },
+    async profile_photo(parent, _, { dbConnection }) {
+      return (
+        await dbConnection.query(
+          `SELECT photo_id, user_id, description, url, gallery_name, is_profile_picture FROM photo
+          JOIN user USING (user_id)
+          WHERE user_id = ? AND is_profile_picture=true`,
+          [parent.user_id],
+        )
+      )[0];
+    }
   },
 };
