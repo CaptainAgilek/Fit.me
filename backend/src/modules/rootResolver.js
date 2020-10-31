@@ -4,7 +4,6 @@ import { mutations as UserMutations } from './user';
 import { mutations as RoleMutations } from './role';
 import { queries as SportsmanQueries } from './sportsman';
 
-
 export default {
   Query: {
     ...RoleQueries,
@@ -20,12 +19,42 @@ export default {
   },
   User: {
     async roles(parent, _, { dbConnection }) {
-        return await dbConnection.query(`SELECT role_id, name FROM role
+      return await dbConnection.query(
+        `SELECT role_id, name FROM role
           JOIN role_user USING (role_id)
           JOIN user USING (user_id)
-          WHERE user_id = ?`, [
-          parent.user_id,
-        ]);
+          WHERE user_id = ?`,
+        [parent.user_id],
+      );
+    },
+  },
+  Sportsman: {
+    async user(parent, _, { dbConnection }) {
+      return (
+        await dbConnection.query(
+          `SELECT user_id, user.email, verification_token, is_verified FROM user
+          JOIN sportsman USING (user_id)
+          WHERE user_id = ?`,
+          [parent.user_id],
+        )
+      )[0];
+    },
+    async places(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT place_id, user_id, city, street, zip FROM place
+          JOIN user USING (user_id)
+          WHERE user_id = ?`,
+        [parent.user_id],
+      );
+    },
+    async benefits(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT benefit_id, name FROM benefit
+          JOIN benefit_sportsman USING (benefit_id)
+          JOIN sportsman USING (user_id)
+          WHERE user_id = ?`,
+        [parent.user_id],
+      );
     },
   },
 };
