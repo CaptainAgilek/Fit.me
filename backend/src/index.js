@@ -16,6 +16,15 @@ const typeDefs = gql`
     TRAINER
   }
 
+  type Photo {
+    photo_id: Int!
+    user_id: Int!
+    description: String
+    url: String!
+    gallery_name: String
+    is_profile_picture: Boolean!
+  }
+
   type Benefit {
     benefit_id: Int!
     name: String!
@@ -51,6 +60,7 @@ const typeDefs = gql`
     user: User!
     places: [Place]!
     benefits: [Benefit]!
+    profile_photo: Photo
   }
 
   type Query {
