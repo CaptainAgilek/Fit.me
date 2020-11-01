@@ -1,4 +1,4 @@
-import React from 'react';
+import React,  { useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 import { gql, useMutation, useQuery } from '@apollo/client';
@@ -41,6 +41,9 @@ export function UserProfilePage() {
   const userFetcher = useQuery(USER_PROFILE_QUERY, {
       variables: { filter },
   });
+    
+  const [profileImageUrl, setProfileImageUrl] = useState("https://www.ppmagazin.com/wp-content/uploads/2020/05/Aktuality_Kalousek.jpg");
+
 
   const userReservations = [{ className: "class name mock", date: "25.10.2020" }, { className: "class name mock1", date: "26.10.2020" }]
 
@@ -52,6 +55,7 @@ export function UserProfilePage() {
       onReload = {userFetcher.refetch()}
       user={ user }
       userReservations={ userReservations }
+      setProfileImageUrl={setProfileImageUrl}
     />
   );
 }

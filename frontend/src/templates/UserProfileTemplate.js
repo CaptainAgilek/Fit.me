@@ -15,6 +15,7 @@ export function UserProfileTemplate({
   onReload,
   user,
   userReservations
+  setProfileImageUrl
 }) {
   return (
     <Container>
@@ -39,6 +40,8 @@ export function UserProfileTemplate({
                       size="4"
                       className="mb2"
                       onDeleteClick=""
+                      setProfileImageUrl={setProfileImageUrl}
+                      user_id={user.user_id}
                     />
                 </Row>
 
