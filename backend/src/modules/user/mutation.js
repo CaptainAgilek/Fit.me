@@ -1,8 +1,14 @@
 import * as argon2 from 'argon2';
 import { createToken } from '../../libs/token';
 import { sendEmail } from '../../libs/mailer';
-import { checkAlreadyTakenEmail } from './helper';
+import { checkAlreadyTakenEmail, verifyRegistrationToken, getRegitrationToken } from './helper';
+import { assignRoleToUser } from '../role/mutation';
+import { ROLE_NAME } from '../role/enum';
 import { USER_TYPE } from './enum';
+
+export const verifyRegistration = async(_, { token }, {dbConnection}) => {
+  return await verifyRegistrationToken(token, dbConnection);
+}
 
 export const signin = async (_, { email, password }) => {
   if (!(email === 'a@a.com' && password === 'pass')) {
@@ -25,15 +31,14 @@ export const signup = async (
   await checkAlreadyTakenEmail(email, dbConnection);
 
   const hashedPassword = await argon2.hash(password);
-  const verificationToken =
-    Date.now().toString() +
-    (1000000 + Math.floor(Math.random() * 1000000000000));
+  const verificationToken = getRegistrationToken();
 
   const insertUserResponse = await dbConnection.query(
     `INSERT INTO user (user_id, email, password, verification_token, is_verified)
     VALUES (NULL, ?, ?, ?, ?);`,
     [email, hashedPassword, verificationToken, false],
   );
+  await assignRoleToUser(_, { name: ROLE_NAME.ROLE_USER, user_id: insertUserResponse.insertId }, { dbConnection });
 
   switch (type) {
     case USER_TYPE.SPORTSMAN:
@@ -42,6 +47,8 @@ export const signup = async (
         VALUES (?, ?, ?);`,
         [insertUserResponse.insertId, firstname, lastname],
       );
+      await assignRoleToUser(_, { name: ROLE_NAME.ROLE_SPORTSMAN, user_id: insertUserResponse.insertId }, { dbConnection });
+
       break;
     case USER_TYPE.ORGANIZATION:
     //TODO

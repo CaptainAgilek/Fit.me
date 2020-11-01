@@ -23,10 +23,15 @@
     "graphql": "^15.3.0",
     "lodash": "4.17.20",
     "react": "^16.13.1",
+<<<<<<< HEAD
     "react-bootstrap": "^0.32.4",
+=======
+    "react-bootstrap": "^1.4.0",
+>>>>>>> c1f2e22a16107390d9e7b93c8e38d4875bceedd4
     "react-dom": "^16.13.1",
     "react-router-dom": "5.2.0",
-    "react-scripts": "3.4.3",
+    "react-scripts": "^3.4.4",
+    "reactjs-popup": "^2.0.4",
     "yup": "0.29.3"
   },
   "eslintConfig": {
