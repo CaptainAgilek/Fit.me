@@ -104,6 +104,8 @@ const main = async () => {
 
   app.disable('x-powered-by');
   app.use(cors());
+  app.use(express.static('public'));
+  app.use('/photos', express.static(__dirname + '/photos'));
 
   let dbConnection = null;
 
