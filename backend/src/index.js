@@ -16,6 +16,13 @@ const typeDefs = gql`
     TRAINER
   }
 
+  type UploadedFileResponse {
+    filename: String!
+    mimetype: String!
+    encoding: String!
+    url: String!
+  }
+
   type Photo {
     photo_id: Int!
     user_id: Int!
@@ -78,10 +85,17 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    singleUpload(file: Upload!): UploadedFileResponse!
     assignRoleToUser(name: String!, user_id: Int!): Boolean!
     verifyRegistration(token: String!): Boolean!
     signin(email: String!, password: String!): AuthInfo!
-    signup(email: String!, password: String!, firstname: String, lastname: String, type: UserType!): AuthInfo!
+    signup(
+      email: String!
+      password: String!
+      firstname: String
+      lastname: String
+      type: UserType!
+    ): AuthInfo!
   }
 `;
 

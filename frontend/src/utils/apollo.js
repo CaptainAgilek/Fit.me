@@ -8,6 +8,7 @@ import {
   ApolloLink,
   from,
 } from '@apollo/client';
+import { createUploadLink } from 'apollo-upload-client'
 import { onError } from '@apollo/client/link/error';
 
 import { useAuth } from 'src/utils/auth';
@@ -30,6 +31,10 @@ const hasNetworkStatusCode = (error, code) => {
 const httpLink = createHttpLink({
   uri: config.GRAPHQL_API,
 });
+
+const uploadLink = createUploadLink({
+    uri: config.GRAPHQL_API,
+  })
 
 export function EnhancedAppoloProvider({ children }) {
   const history = useHistory();
@@ -61,7 +66,7 @@ export function EnhancedAppoloProvider({ children }) {
   });
 
   const client = new ApolloClient({
-    link: from([logoutLink, authLink, httpLink]),
+    link: from([logoutLink, authLink, uploadLink]),
     cache: new InMemoryCache(),
     defaultOptions: {
       watchQuery: {
