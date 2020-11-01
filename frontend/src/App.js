@@ -9,7 +9,7 @@ import { Routes } from 'src/Routes';
 //import SignUp from "./components/signup.component";
 //import Login from "./components/login.component";
 
-//import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 export function App() {
