@@ -49,27 +49,26 @@ export function EditableAvatarPicture({
         triggerVariant="outline-primary"
         triggerText="Change Avatar"
         modalTitle="Upload new avatar"
-        modalBody={
-          <Form>
-            <Form.File
-              id="custom-file"
-              label={inputLabel}
-              onChange={({
-                target: {
-                  validity,
-                  files: [file],
-                },
-              }) => validity.valid && setSelectedFile(file)}
-              custom
-            />
-          </Form>
-        }
         footerLeftVariant="outline-secondary"
         footerLeftText="Cancel"
         footerRightVariant="outline-primary"
         footerRightText="Upload"
         rightButtonOnClick={() => handleFileUpload(selectedFile)}
-      />
+      >
+        <Form>
+          <Form.File
+            id="custom-file"
+            label={inputLabel}
+            onChange={({
+              target: {
+                validity,
+                files: [file],
+              },
+            }) => validity.valid && setSelectedFile(file)}
+            custom
+          />
+        </Form>
+      </GenericPopUp>
     </>
   );
 }

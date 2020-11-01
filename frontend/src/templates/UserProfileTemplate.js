@@ -14,7 +14,7 @@ export function UserProfileTemplate({
   data,
   onReload,
   user,
-  userReservations
+  userReservations,
   setProfileImageUrl
 }) {
   return (
@@ -41,7 +41,7 @@ export function UserProfileTemplate({
                       className="mb2"
                       onDeleteClick=""
                       setProfileImageUrl={setProfileImageUrl}
-                      user_id={user.user_id}
+                      user_id={data.sportsman.user_id}
                     />
                 </Row>
 
