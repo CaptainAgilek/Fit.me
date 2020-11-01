@@ -6,14 +6,15 @@ import { AuthProvider } from 'src/utils/auth';
 import { EnhancedAppoloProvider } from 'src/utils/apollo';
 import { Routes } from 'src/Routes';
 
-import SignUp from "./components/signup.component";
-import Login from "./components/login.component";
-import 'bootstrap/dist/css/bootstrap.min.css';
+//import SignUp from "./components/signup.component";
+//import Login from "./components/login.component";
+
+//import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 export function App() {
   return (
-    <Router>
+  /*  <Router>
     <div className="App">
       <nav className="navbar navbar-expand-lg navbar-light fixed-top">
         <div className="container">
@@ -39,16 +40,16 @@ export function App() {
           </Switch>
         </div>
       </div>
-    </div></Router>
+    </div></Router>*/
 
-    /*<BrowserRouter>
+    <BrowserRouter>
       <AuthProvider>
         <EnhancedAppoloProvider>
           <ScrollToTop />
           <Routes />
         </EnhancedAppoloProvider>
       </AuthProvider>
-    </BrowserRouter>*/
+    </BrowserRouter>
 
   );
 }

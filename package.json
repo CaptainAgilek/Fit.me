@@ -5,5 +5,11 @@
   },
   "devDependencies": {
     "prettier": "2.1.2"
+  },
+  "dependencies": {
+    "axios": "^0.21.0",
+    "bootstrap": "^3.4.1",
+    "react-bootstrap": "^1.4.0",
+    "tachyons": "^4.12.0"
   }
 }

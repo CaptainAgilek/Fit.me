@@ -1,4 +1,14 @@
 import React, { Component } from "react";
+import { gql, useMutation } from '@apollo/client';
+
+const ADD_TODO = gql`
+  mutation AddTodo($type: String!) {
+    addTodo(type: $type) {
+      id
+      type
+    }
+  }  
+`;
 
 const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
 const validPasswordRegex = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/);
@@ -11,23 +21,6 @@ const validateForm = (errors) => {
 }
 
 export default class SignUp extends Component {
-  /*constructor(props) {
-    super(props);
-    this.state = {value: ''};
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({value: event.target.value});
-  }
-
-  handleSubmit(event) {
-    alert('A name was submitted: ' + this.state.value);
-    event.preventDefault();
-  }*/
-
     constructor(props) {
       super(props);
       this.state = {
@@ -52,20 +45,20 @@ export default class SignUp extends Component {
         case 'fullName':
           errors.fullName =
             value.length < 5
-              ? 'Full Name must be 5 characters long!'
+              ? 'Full Name must be 5 characters long'
               : '';
           break;
         case 'email':
           errors.email =
             validEmailRegex.test(value)
               ? ''
-              : 'Email is not valid!';
+              : 'Email is not valid';
           break;
         case 'password':
           errors.password =
            validPasswordRegex.test(value)
                ? ''
-               : 'Password is not valid!';
+               : 'Password must be 8 characters long';
            break;
             /*value.length < 8
               ? 'Password must be 8 characters long!'
@@ -94,24 +87,12 @@ export default class SignUp extends Component {
       }
     }
 
-
     render() {
       const {errors} = this.state;
-      /*const handleSubmit = event => {
-         event.preventDefault();
-         alert('You have submitted the form.');
-         console.log("athlete:" + event.target.elements.athlete.value);
-         console.log("trainer:" + event.target.elements.trainer.value);
-         console.log("organization:" + event.target.elements.organization.value);
-
-         console.log(event.target.fullname.value);
-         console.log(event.target.email.value);
-         console.log(event.target.password.value);
-         console.log(event.target.conpassword.value);
-       }*/
 
       return (
-            <form /*onSubmit={handleSubmit}*/ onSubmit={this.handleSubmit} noValidate>
+
+            <form onSubmit={this.handleSubmit} method="POST" noValidate>
                 <h3>Sign Up</h3>
 
                 <div className="form-group">
