@@ -6,7 +6,7 @@ import { ReservationList, UserProfileActionButton, GenericPopUp } from 'src/atom
 import { EditableAvatarPicture } from 'src/molecules/';
 import { UserProfileForm } from 'src/organisms/';
 
-export function UserProfileTemplate( { user, userReservations } ) {
+export function UserProfileTemplate( { user, userReservations, setProfileImageUrl } ) {
   return (
     <Container>
       <Row>
@@ -19,6 +19,8 @@ export function UserProfileTemplate( { user, userReservations } ) {
                           size="4"
                           className="mb2"
                           onDeleteClick=""
+                          setProfileImageUrl={setProfileImageUrl}
+                          user_id= {user.user_id}
               />
             </Row>
 

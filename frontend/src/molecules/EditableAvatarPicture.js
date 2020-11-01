@@ -6,11 +6,12 @@ import { Container, Form } from 'react-bootstrap';
 import { AvatarPicture, GenericPopUp, UserPro } from 'src/atoms/';
 
 const UPLOAD_PHOTO_MUTATION = gql`
-  mutation SingleUpload($file: Upload!) {
-    singleUpload(file: $file) {
+  mutation SingleUpload($file: Upload!, $user_id: Int!) {
+    singleUpload(file: $file, user_id: $user_id) {
       filename
       mimetype
       encoding
+      url
     }
   }
 `;
@@ -21,16 +22,23 @@ export function EditableAvatarPicture({
   size = '3',
   className,
   onChange,
+  setProfileImageUrl,
+  user_id
 }) {
   const [uploadFileHandler] = useMutation(UPLOAD_PHOTO_MUTATION);
-  
+
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const inputLabel = selectedFile ? selectedFile.name : "Custom file input";
+  const inputLabel = selectedFile ? selectedFile.name : 'Custom file input';
 
-  const handleFileUpload = (selectedFile) => {
+  const handleFileUpload = async (selectedFile) => {
     if (!selectedFile) return;
-    uploadFileHandler({ variables: { file: selectedFile } });
+    const upload = await uploadFileHandler({
+      variables: { file: selectedFile, user_id: user_id },
+    });
+    if (upload.data) {
+      setProfileImageUrl(upload.data.singleUpload.url);
+    }
   };
 
   return (
