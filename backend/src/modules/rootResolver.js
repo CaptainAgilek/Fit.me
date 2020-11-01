@@ -2,6 +2,7 @@ import { queries as RoleQueries } from './role';
 import { queries as UserQueries } from './user';
 import { mutations as UserMutations } from './user';
 import { mutations as RoleMutations } from './role';
+import { mutations as PhotoMutations } from './photo';
 import { queries as SportsmanQueries } from './sportsman';
 
 export default {
@@ -14,6 +15,7 @@ export default {
     },
   },
   Mutation: {
+    ...PhotoMutations,
     ...RoleMutations,
     ...UserMutations,
   },

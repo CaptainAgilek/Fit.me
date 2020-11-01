@@ -14,7 +14,8 @@ export function GenericPopUp({
   footerLeftVariant,
   footerLeftText,
   footerRightVariant,
-  footerRightText
+  footerRightText,
+  rightButtonOnClick
 }) {
   const [show, setShow] = useState(false);
 
@@ -39,7 +40,7 @@ export function GenericPopUp({
         </Modal.Body>
         <Modal.Footer>
           <UserProfileActionButton variant={footerLeftVariant} onClick={handleClose}>{footerLeftText}</UserProfileActionButton>
-          <UserProfileActionButton variant={footerRightVariant} onClick={handleClose}>{footerRightText}</UserProfileActionButton>
+          <UserProfileActionButton variant={footerRightVariant} onClick={handleClose, rightButtonOnClick}>{footerRightText}</UserProfileActionButton>
         </Modal.Footer>
       </Modal>
     </>

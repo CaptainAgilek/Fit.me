@@ -16,6 +16,21 @@ const typeDefs = gql`
     TRAINER
   }
 
+  type UploadedFileResponse {
+    filename: String!
+    mimetype: String!
+    encoding: String!
+    url: String!
+  }
+
+  input PhotoInput {
+    user_id: Int!
+    description: String
+    url: String!
+    gallery_name: String
+    is_profile_picture: Boolean!
+  }
+
   type Photo {
     photo_id: Int!
     user_id: Int!
@@ -78,10 +93,18 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    insertPhoto(input: PhotoInput!): Boolean!
+    singleUpload(file: Upload!, user_id: Int!): UploadedFileResponse!
     assignRoleToUser(name: String!, user_id: Int!): Boolean!
     verifyRegistration(token: String!): Boolean!
     signin(email: String!, password: String!): AuthInfo!
-    signup(email: String!, password: String!, firstname: String, lastname: String, type: UserType!): AuthInfo!
+    signup(
+      email: String!
+      password: String!
+      firstname: String
+      lastname: String
+      type: UserType!
+    ): AuthInfo!
   }
 `;
 
@@ -90,6 +113,8 @@ const main = async () => {
 
   app.disable('x-powered-by');
   app.use(cors());
+  app.use(express.static('public'));
+  app.use('/photos', express.static(__dirname + '/photos'));
 
   let dbConnection = null;
 
