@@ -24,3 +24,7 @@ code {
   color: white;
   text-align: center;
 }
+
+.botOffset {
+  margin-bottom: 0.8rem;
+}

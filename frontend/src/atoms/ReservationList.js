@@ -2,8 +2,6 @@ import React from 'react';
 
 import { Card, ListGroup } from 'react-bootstrap';
 
-import classNames from 'classnames';
-
 export function ReservationList({ reservations }) {
   return (
     <>

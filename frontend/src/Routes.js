@@ -9,7 +9,7 @@ import { UserProfilePage } from 'src/pages/UserProfilePage';
 export const route = {
   home: () => `/`,
   verification: () => "/verification/",
-  userProfile: () => `/user-profile`
+  userProfile: (username) => `/profile/${username}`,
 };
 
 export function Routes() {
@@ -17,7 +17,7 @@ export function Routes() {
     <Switch>
       <Route path={route.home()} exact component={HomePage} />
       <Route path={route.verification()} exact component={VerificationPage} />
-      <Route path={route.userProfile()} exact component={UserProfilePage} />
+      <Route path={route.userProfile(':username')} exact component={UserProfilePage} />
       <Route path="*" component={PageNotFound} />
     </Switch>
   );

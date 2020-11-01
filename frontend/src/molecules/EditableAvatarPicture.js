@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Container, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
-import { AvatarPicture, GenericPopUp, UserPro } from 'src/atoms/';
+import { AvatarPicture, GenericPopUp } from 'src/atoms/';
 
 export function EditableAvatarPicture({ src, alt, size = '3', className, onChange }) {
   return (
@@ -11,26 +11,24 @@ export function EditableAvatarPicture({ src, alt, size = '3', className, onChang
                   src={ src }
                   alt={ alt }
                   size={ size }
-                  className={ className }
+                  className={ "botOffset" }
       />
 
       <GenericPopUp
         triggerVariant="outline-primary"
         triggerText="Change Avatar"
         modalTitle="Upload new avatar"
-        modalBody={
-          <Form>
-            <Form.File
-              id="custom-file"
-              label="Custom file input"
-              custom
-            />
-          </Form>
-        }
         footerLeftVariant="outline-secondary"
         footerLeftText="Cancel"
         footerRightVariant="outline-primary"
-        footerRightText="Upload" />
+        footerRightText="Upload"
+      >
+        <Form>
+          <Form.File id="formcheck-api-regular">
+            <Form.File.Input />
+          </Form.File>
+        </Form>
+      </GenericPopUp>
     </>
   );
 }

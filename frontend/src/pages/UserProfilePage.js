@@ -1,33 +1,57 @@
 import React from 'react';
 
-import { UserProfileTemplate } from 'src/templates/UserProfileTemplate';
+import { useParams } from 'react-router-dom';
+import { gql, useMutation, useQuery } from '@apollo/client';
 
-export const UserBenefitsEnum = {
-    MULTISPORT: "Multisport",
-    ACTIVE_PASS: "Active Pass"
-}
+import { UserProfileTemplate } from 'src/templates/UserProfileTemplate';
+import { PageNotFound } from './PageNotFound';
+import { UserBenefitsEnum } from 'src/utils/const';
+import { useAuth } from 'src/utils/auth';
+
+const USER_PROFILE_QUERY = gql`
+  query getSportsman($filter: SportsmanFilter!) {
+    sportsman(filter: $filter) {
+    	user_id
+      firstname
+      lastname
+      username
+    	email
+      phone
+      places {
+        city
+        street
+        zip
+      }
+      benefits {
+        name
+      }
+      profile_photo {
+        url
+      }
+    }
+  }
+`;
 
 export function UserProfilePage() {
+  const { user } = useAuth();
+  const { username } = useParams();
 
-  const user = {
-    firstName: "first name mock",
-    lastName: "last name mock",
-    username: "username mock",
-    email: "email@mock.com",
-    mobile: "222222222",
-    address: {
-      street: "street name mock",
-      city: "",
-      country: "",
-      zip: "",
-    },
-    benefits: [UserBenefitsEnum.MULTISPORT],
-    profileImageUrl: "https://www.ppmagazin.com/wp-content/uploads/2020/05/Aktuality_Kalousek.jpg"
-  }
+  const filter = {username: username};
+
+  const userFetcher = useQuery(USER_PROFILE_QUERY, {
+      variables: { filter },
+  });
 
   const userReservations = [{ className: "class name mock", date: "25.10.2020" }, { className: "class name mock1", date: "26.10.2020" }]
 
   return (
-    <UserProfileTemplate user={ user } userReservations={ userReservations }/>
+    <UserProfileTemplate
+      loading = {userFetcher.loading}
+      error = {userFetcher.error}
+      data = {userFetcher.data}
+      onReload = {userFetcher.refetch()}
+      user={ user }
+      userReservations={ userReservations }
+    />
   );
 }
