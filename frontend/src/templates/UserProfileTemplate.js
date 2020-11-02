@@ -7,6 +7,7 @@ import * as yup from 'yup';
 import { ReservationList, UserProfileActionButton, GenericPopUp, Loading, ChangePasswordForm } from 'src/atoms/';
 import { EditableAvatarPicture, ErrorBanner } from 'src/molecules/';
 import { UserProfileForm } from 'src/organisms/';
+import { route } from 'src/Routes';
 
 export function UserProfileTemplate({
   loading,
@@ -16,9 +17,11 @@ export function UserProfileTemplate({
   user,
   userReservations
 }) {
+  const linkToRegistration = route.home();
+
   return (
     <Container>
-        { loading && !data && (<Loading />) }
+        {loading && !data && (<Loading />) }
 
         {error && (
           <ErrorBanner
@@ -28,7 +31,14 @@ export function UserProfileTemplate({
           />
         )}
 
-        {data && (
+        {data && data.sportsman == null && (
+          <Row className="justify-content-md-center" sm="4">
+            <p>Unknown User</p>
+            <a href={linkToRegistration}>Registration</a>
+          </Row>
+        )}
+
+        {data && data.sportsman != null && (
           <Row>
             <Col sm="12" md="3">
               <Container>

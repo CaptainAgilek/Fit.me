@@ -12,6 +12,5 @@ export function Loading() {
         </Spinner>
       </Col>
     </Row>
-
   );
 }
