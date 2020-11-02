@@ -7,12 +7,7 @@ import { EnhancedAppoloProvider } from 'src/utils/apollo';
 import { Routes } from 'src/Routes';
 
 import { HomePage } from 'src/pages/HomePage';
-import SignUp from "./components/signup.component";
-import Login from "./components/login.component";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-//import SignUp from "./components/signup.component";
-//import Login from "./components/login.component";
 
 //import 'bootstrap/dist/css/bootstrap.min.css';
 

@@ -27,11 +27,11 @@ export function Routes() {
 
 
 
-      <Route path={route.signIn()} exact component={SignInPage} />
+      {/*<Route path={route.signIn()} exact component={SignInPage} />*/}
       <Route path={route.signUp()} exact component={SignUpPage} />
 
 
-      <Route path="/sign-up" component={SignUp} />
+      {/*<Route path={route.signUp()} exact component={SignUp} />*/}
       <Route path={route.verification()} exact component={VerificationPage} />
       <Route path={route.userProfile(':username')} exact component={UserProfilePage} />
       <Route path="*" component={PageNotFound} />

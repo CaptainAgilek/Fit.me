@@ -6,18 +6,18 @@ import { ErrorBanner } from 'src/atoms/';
 import { FormikField, LoadingButton } from 'src/molecules/';
 
 const initialValues = {
-  role: '',
+  type: 'SPORTSMAN',
   firstName: '',
-  lastName: '',
+  lastname: '',
   email: '',
   password: '',
   passwordConfirmation: ''
 };
 
 const schema = yup.object().shape({
-  //role: yup.string().required().label('Choosing a role is required'),
+  // role: yup.string().required().label('Choosing a role is required'),
   firstName: yup.string().required().label('First name'),
-  lastName: yup.string().required().label('Last name'),
+  lastname: yup.string().required().label('Last name'),
   email: yup.string().email().required().label('Email'),
   password: yup.string().required().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, 'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number').label('Password'),
   passwordConfirmation: yup
@@ -44,17 +44,17 @@ export function SignUpForm({
     <Form className={className}>
       {errorMessage && <ErrorBanner title={errorMessage} className="mb3" />}
 
-      <div role="group" aria-labelledby="radio-group">
+      <div aria-labelledby="radio-group">
         <label>
-          <Field type="radio" name="role" value="Sportsman" />
+          <Field type="radio" name="type" value="SPORTSMAN" />
           Sportsman
         </label>
         <label>
-          <Field type="radio" name="role" value="Trainer" />
+          <Field type="radio" name="type" value="TRAINER" />
           Trainer
         </label>
         <label>
-          <Field type="radio" name="role" value="Organization" />
+          <Field type="radio" name="type" value="ORGANIZATION" />
           Organization
         </label>
       </div>
@@ -62,7 +62,7 @@ export function SignUpForm({
         <FormikField
           id="firstName"
           name="firstName"
-          label="Fist Name"
+          label="First Name"
           type="text"
           autoFocus="autofocus"
           autoComplete="on"
@@ -71,7 +71,7 @@ export function SignUpForm({
         />
         <FormikField
           id="lastName"
-          name="lastName"
+          name="lastname"
           label="Last Name"
           type="text"
           autoFocus="autofocus"
@@ -108,7 +108,7 @@ export function SignUpForm({
           autoCapitalize="off"
         />
         <LoadingButton type="submit" className="mt2 mb3" loading={isLoading}>
-          Sign Up
+          Zaregistrovat se
         </LoadingButton>
         {children}
       </Form>

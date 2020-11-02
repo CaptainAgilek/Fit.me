@@ -5,35 +5,23 @@ import { useHistory } from 'react-router-dom';
 
 import { SignUpTemplate } from 'src/templates/SignUpTemplate';
 
-export const RolesEnum = {
-    SPORTSMAN: "Sportsman",
-    TRAINER: "Trainer",
-    ORGANIZATION: "Organization"
-}
-
 const SIGNUP_MUTATION = gql`
   mutation signUp(
     $email: String!
     $password: String!
     $firstname: String!
     $lastname: String!
-    $type: SPORTSMAN
+    $type: UserType!
   ) {
     signup(
       email: $email
       password: $password
       firstname: $firstname
       lastname: $lastname
-      type: $role
+      type: $type
     ) {
-      user {
-        id
-        firstname
-        lastname
-        type
-      }
       token
-    } 
+    }
   }
 `;
 
@@ -45,12 +33,23 @@ export function SignUpPage() {
       auth.signin({ token, user });
       history.replace('/');
     },
-    onError: () => {},
+    onError: (error) => {
+      console.log(error);
+    },
   });
+
 
   const handleSignUpFormSubmit = useCallback(
     (variables) => {
-      signupRequest({ variables });
+      signupRequest({
+        variables: {
+          email: variables.email,
+          password: variables.password,
+          firstname: variables.firstName,
+          lastname: variables.lastname,
+          type: variables.type
+        },
+      });
     },
     [signupRequest],
   );
