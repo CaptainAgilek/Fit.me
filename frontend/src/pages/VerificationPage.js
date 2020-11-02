@@ -11,17 +11,25 @@ export function VerificationPage(props) {
   const token = params.get('token');
 
   const [tokenStateRequest, tokenState] = useMutation(VERIFY_REGISTRATION_MUTATION);
-  tokenStateRequest({ variables: { token } });
-  
-  let verifiedText = 'Probíhá ověřování';
+  useEffect(() => { tokenStateRequest({ variables: { token } });}, [token]);
+
+  let message = 'Nevalidní token ' + token;
 
   if (token) {
+    if (!tokenState.data && tokenState.loading) {
+      message = 'Loading...';
+    }
+
+    if (tokenState.error) {
+      message = tokenState.error.message;
+    }
+
     if (tokenState.data) {
       if (tokenState.data && tokenState.data.verifyRegistration) {
-        verifiedText =
+        message =
           'Gratulujeme, Vaše emailová adresa byla ověřena, můžete se přihlásit.';
       } else {
-        verifiedText = 'Váš email se nepodařilo ověřit.';
+        message = 'Váš email se nepodařilo ověřit.';
       }
     }
   }
@@ -29,7 +37,7 @@ export function VerificationPage(props) {
   return (
     <div className="appWrapper">
       <h1>Verification Page</h1>
-      <p>{verifiedText}</p>
+      <p>{message}</p>
     </div>
   );
 }
