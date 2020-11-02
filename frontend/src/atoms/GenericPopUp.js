@@ -40,7 +40,7 @@ export function GenericPopUp({
         </Modal.Body>
         <Modal.Footer>
           <UserProfileActionButton variant={footerLeftVariant} onClick={handleClose}>{footerLeftText}</UserProfileActionButton>
-          <UserProfileActionButton variant={footerRightVariant} onClick={handleClose, rightButtonOnClick}>{footerRightText}</UserProfileActionButton>
+          <UserProfileActionButton variant={footerRightVariant} onClick={() => {handleClose(); rightButtonOnClick()}}>{footerRightText}</UserProfileActionButton>
         </Modal.Footer>
       </Modal>
     </>

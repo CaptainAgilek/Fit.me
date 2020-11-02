@@ -22,7 +22,6 @@ export const insertPhoto = async (
   _,
   { input }, {dbConnection} ,
 ) => {
-      console.log(input);
   const insertPhoto = await dbConnection.query(
     `INSERT INTO photo (photo_id, user_id, description, url, gallery_name, is_profile_picture)
     VALUES (NULL, ?, ?, ?, ?, ?);`,
