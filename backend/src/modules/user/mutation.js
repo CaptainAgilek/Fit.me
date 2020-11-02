@@ -1,14 +1,18 @@
 import * as argon2 from 'argon2';
 import { createToken } from '../../libs/token';
 import { sendEmail } from '../../libs/mailer';
-import { checkAlreadyTakenEmail, verifyRegistrationToken, getRegistrationToken } from './helper';
+import {
+  checkAlreadyTakenEmail,
+  verifyRegistrationToken,
+  getRegistrationToken,
+} from './helper';
 import { assignRoleToUser } from '../role/mutation';
 import { ROLE_NAME } from '../role/enum';
 import { USER_TYPE } from './enum';
 
-export const verifyRegistration = async(_, { token }, {dbConnection}) => {
+export const verifyRegistration = async (_, { token }, { dbConnection }) => {
   return await verifyRegistrationToken(token, dbConnection);
-}
+};
 
 export const signin = async (_, { email, password }) => {
   if (!(email === 'a@a.com' && password === 'pass')) {
@@ -38,7 +42,11 @@ export const signup = async (
     VALUES (NULL, ?, ?, ?, ?);`,
     [email, hashedPassword, verificationToken, false],
   );
-  await assignRoleToUser(_, { name: ROLE_NAME.ROLE_USER, user_id: insertUserResponse.insertId }, { dbConnection });
+  await assignRoleToUser(
+    _,
+    { name: ROLE_NAME.ROLE_USER, user_id: insertUserResponse.insertId },
+    { dbConnection },
+  );
 
   switch (type) {
     case USER_TYPE.SPORTSMAN:
@@ -47,14 +55,21 @@ export const signup = async (
         VALUES (?, ?, ?);`,
         [insertUserResponse.insertId, firstname, lastname],
       );
-      await assignRoleToUser(_, { name: ROLE_NAME.ROLE_SPORTSMAN, user_id: insertUserResponse.insertId }, { dbConnection });
+      await assignRoleToUser(
+        _,
+        {
+          name: ROLE_NAME.ROLE_SPORTSMAN,
+          user_id: insertUserResponse.insertId,
+        },
+        { dbConnection },
+      );
 
       break;
     case USER_TYPE.ORGANIZATION:
-    //TODO
+      //TODO
       break;
     case USER_TYPE.TRAINER:
-    //TODO
+      //TODO
       break;
     default:
       throw Error('Invalid user type');
@@ -71,6 +86,11 @@ export const signup = async (
   );
 
   const token = createToken({ id: insertUserResponse.insertId });
+  const userObj = {
+    user_id: insertUserResponse.insertId,
+    email: email,
+    is_verified: false,
+  };
 
-  return { token: token };
+  return { user: userObj, token: token };
 };
