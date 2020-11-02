@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { gql, useMutation  } from '@apollo/client';
 
 const VERIFY_REGISTRATION_MUTATION = gql`
@@ -10,10 +10,9 @@ export function VerificationPage(props) {
   var params = new URLSearchParams(props.location.search);
   const token = params.get('token');
 
-  const tokenState = useMutation(VERIFY_REGISTRATION_MUTATION, {
-    variables: { token },
-  });
-
+  const [tokenStateRequest, tokenState] = useMutation(VERIFY_REGISTRATION_MUTATION);
+  tokenStateRequest({ variables: { token } });
+  
   let verifiedText = 'Probíhá ověřování';
 
   if (token) {
