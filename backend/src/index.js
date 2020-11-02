@@ -88,7 +88,14 @@ const typeDefs = gql`
     sportsman(user_id: Int!): Sportsman
   }
 
+  type AuthUser {
+    user_id: Int!
+    email: String!
+    is_verified: Boolean!
+  }
+
   type AuthInfo {
+    user: AuthUser!
     token: String!
   }
 
