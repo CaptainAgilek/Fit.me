@@ -14,8 +14,7 @@ export function UserProfileTemplate({
   data,
   onReload,
   user,
-  userReservations,
-  setProfileImageUrl
+  userReservations
 }) {
   return (
     <Container>
@@ -35,12 +34,11 @@ export function UserProfileTemplate({
               <Container>
                 <Row className="justify-content-md-center botOffset" xs={1}>
                     <EditableAvatarPicture
-                      src={data.sportsman.profile_photo.url}
+                      src={data.sportsman.profile_photo ? data.sportsman.profile_photo.url : null}
                       alt={data.sportsman.username}
                       size="4"
                       className="mb2"
                       onDeleteClick=""
-                      setProfileImageUrl={setProfileImageUrl}
                       user_id={data.sportsman.user_id}
                     />
                 </Row>
