@@ -41,11 +41,12 @@ export function SignUpPage() {
 
   const handleSignUpFormSubmit = useCallback(
     (variables) => {
+      console.log(variables)
       signupRequest({
         variables: {
           email: variables.email,
           password: variables.password,
-          firstname: variables.firstName,
+          firstname: variables.firstname,
           lastname: variables.lastname,
           type: variables.type
         },

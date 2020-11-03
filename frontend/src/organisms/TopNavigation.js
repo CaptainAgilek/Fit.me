@@ -16,7 +16,7 @@ export function TopNavigation() {
         noUnderline
         className="b white flex items-center pv2 ph3"
       >
-      <FontAwesomeIcon icon={faDumbbell} className="mr2 f4" />
+        <FontAwesomeIcon icon={faDumbbell} className="mr2 f4" />
         Fit.me
       </Link>
       <div className="flex-grow flex items-center">

@@ -1,30 +1,39 @@
 import React from 'react';
 
-import { Heading, Link, MainSection } from 'src/atoms/';
 import { SignUpForm, TopNavigation } from 'src/organisms/';
 import { route } from 'src/Routes';
+import { Button, Row, Col, Container } from 'react-bootstrap';
 
 export function SignUpTemplate({ isLoading, error, onSubmit }) {
   return (
-    <>
-      <TopNavigation />
-      <MainSection>
-        <Heading>Create an Account</Heading>
+    <Container>
+      <Row className="justify-content-md-center">
+        <h1>Registrace</h1>
+      </Row>
+      <Row>
+        {/*<TopNavigation />*/}
 
-        <SignUpForm
-          isLoading={isLoading}
-          errorMessage={error && error.message}
-          onSubmit={onSubmit}
-          className="mt3"
-        >
-          <div className="lh-copy silver">
-            Already have an account?{' '}
-            <Link className="f5 dark-gray" to={route.signIn()}>
-              Sign In
-            </Link>
+        <Col md={{ span: 6, offset: 3 }}>
+
+          <SignUpForm
+            isLoading={isLoading}
+            errorMessage={error && error.message}
+            onSubmit={onSubmit}
+            className="form-group"
+          >
+          </SignUpForm>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={{ span: 6, offset: 6 }}>
+          <div>
+            Už máte vytvořený účet?{' '}
+            <Button size="sm" to={route.signIn()}>
+              Přihlaste se
+            </Button>
           </div>
-        </SignUpForm>
-      </MainSection>
-    </>
+        </Col>
+      </Row>
+    </Container>
   );
 }
