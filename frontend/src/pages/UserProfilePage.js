@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { gql, useMutation, useQuery } from '@apollo/client';
 
 import { UserProfileTemplate } from 'src/templates/UserProfileTemplate';
-import { PageNotFound } from './PageNotFound';
 import { UserBenefitsEnum } from 'src/utils/const';
 import { useAuth } from 'src/utils/auth';
 
@@ -42,7 +41,7 @@ export function UserProfilePage() {
       variables: { filter },
   });
 
-  const userReservations = [{ className: "class name mock", date: "25.10.2020" }, { className: "class name mock1", date: "26.10.2020" }]
+  const userReservations = [{ id: 1, className: "class name mock", date: "25.10.2020" }, { id: 2, className: "class name mock1", date: "26.10.2020" }]
 
   return (
     <UserProfileTemplate

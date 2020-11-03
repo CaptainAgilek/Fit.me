@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { Container, Row, Col, Form } from 'react-bootstrap';
-import { Formik } from 'formik';
-import * as yup from 'yup';
+import { Container, Row, Col } from 'react-bootstrap';
 
 import { ReservationList, UserProfileActionButton, GenericPopUp, Loading, ChangePasswordForm } from 'src/atoms/';
 import { EditableAvatarPicture, ErrorBanner } from 'src/molecules/';

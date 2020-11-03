@@ -9,7 +9,7 @@ export function ReservationList({ reservations }) {
       <Card>
         <ListGroup>
           {reservations.map((reservation) => (
-            <ListGroup.Item>{reservation.className}<br/>{reservation.date}</ListGroup.Item>
+            <ListGroup.Item key={reservation.id}>{reservation.className}<br/>{reservation.date}</ListGroup.Item>
           ))}
         </ListGroup>
       </Card>

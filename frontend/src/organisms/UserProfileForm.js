@@ -23,9 +23,6 @@ const schema = yup.object({
 });
 
 export function UserProfileForm( {user} ) {
-
-  const address = user.places[0];
-
   const initialValues = {
     firstName: user.firstName,
     lastName: user.lastName,
@@ -78,7 +75,7 @@ export function UserProfileForm( {user} ) {
                     {errors.firstName}
                   </Form.Control.Feedback>
                 </Form.Group>
-                
+
                 <Form.Group as={Col} md="6" controlId="userProfileLastnameValidation">
                   <Form.Label>Last name</Form.Label>
                   <Form.Control
@@ -106,7 +103,6 @@ export function UserProfileForm( {user} ) {
                       value={values.username}
                       onChange={handleChange}
                       isValid={touched.username && !errors.username}
-                      isInvalid={errors.username}
                       isInvalid={errors.username}
                     />
                     <Form.Control.Feedback tooltip/>
