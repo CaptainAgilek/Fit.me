@@ -11,15 +11,15 @@ import { UserProfileActionButton } from 'src/atoms/';
 const schema = yup.object({
   firstName: yup.string().required(),
   lastName: yup.string().required(),
-  username: yup.string().required(),
+  username: yup.string().min(3).required(),
   email: yup.string().email().required(),
   mobile: yup.number(),
   address: yup.string(),
   city: yup.string(),
   state: yup.string(),
   zip: yup.number(),
-  multisport: yup.boolean(),
-  active_pass: yup.boolean()
+  hasMultisport: yup.boolean(),
+  hasActivePass: yup.boolean()
 });
 
 export function UserProfileForm( {user} ) {
@@ -36,8 +36,8 @@ export function UserProfileForm( {user} ) {
     city: user.places[0] ? user.places[0].city : "",
     country: user.places[0] ? user.places[0].city : "",
     zip: user.places[0] ? user.places[0].zip : "",
-    multisport: user.benefits.includes(UserBenefitsEnum.MULTISPORT),
-    active_pass: user.benefits.includes(UserBenefitsEnum.ACTIVE_PASS),
+    hasMultisport: user.benefits.includes(UserBenefitsEnum.MULTISPORT),
+    hasActivePass: user.benefits.includes(UserBenefitsEnum.ACTIVE_PASS),
   };
 
   return (
@@ -45,7 +45,9 @@ export function UserProfileForm( {user} ) {
       <Card.Body>
         <Formik
           validationSchema={schema}
-          onSubmit={console.log}
+          onSubmit={(values) => {
+            console.log("hodnoty", values)
+          }}
           initialValues={initialValues}
           enableReinitialize
         >
@@ -61,7 +63,7 @@ export function UserProfileForm( {user} ) {
             <Form noValidate onSubmit={handleSubmit}>
 
               <Form.Row>
-                <Form.Group as={Col} md="6" controlId="validationFormik101">
+                <Form.Group as={Col} md="6" controlId="userProfileFirstnameValidation">
                   <Form.Label>First name</Form.Label>
                   <Form.Control
                     type="text"
@@ -69,13 +71,15 @@ export function UserProfileForm( {user} ) {
                     value={values.firstName}
                     onChange={handleChange}
                     isValid={touched.firstName && !errors.firstName}
+                    isInvalid={errors.firstName}
                   />
                   <Form.Control.Feedback tooltip/>
                   <Form.Control.Feedback type="invalid" tooltip>
                     {errors.firstName}
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="6" controlId="validationFormik102">
+                
+                <Form.Group as={Col} md="6" controlId="userProfileLastnameValidation">
                   <Form.Label>Last name</Form.Label>
                   <Form.Control
                     type="text"
@@ -83,8 +87,8 @@ export function UserProfileForm( {user} ) {
                     value={values.lastName}
                     onChange={handleChange}
                     isValid={touched.lastName && !errors.lastName}
+                    isInvalid={errors.lastName}
                   />
-
                   <Form.Control.Feedback tooltip/>
                   <Form.Control.Feedback type="invalid" tooltip>
                     {errors.lastName}
@@ -93,7 +97,7 @@ export function UserProfileForm( {user} ) {
               </Form.Row>
 
               <Form.Row>
-                <Form.Group as={Col} controlId="validationFormikUsername2">
+                <Form.Group as={Col} controlId="userProfileUsernameValidation">
                   <Form.Label>Username</Form.Label>
                     <Form.Control
                       type="text"
@@ -101,7 +105,9 @@ export function UserProfileForm( {user} ) {
                       name="username"
                       value={values.username}
                       onChange={handleChange}
-                      isInvalid={!!errors.username}
+                      isValid={touched.username && !errors.username}
+                      isInvalid={errors.username}
+                      isInvalid={errors.username}
                     />
                     <Form.Control.Feedback tooltip/>
                     <Form.Control.Feedback type="invalid" tooltip>
@@ -111,7 +117,7 @@ export function UserProfileForm( {user} ) {
               </Form.Row>
 
               <Form.Row>
-                <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Group as={Col} controlId="userProfileEmailValidation">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
                     type="email"
@@ -119,7 +125,8 @@ export function UserProfileForm( {user} ) {
                     name="email"
                     value={values.email}
                     onChange={handleChange}
-                    isInvalid={!!errors.email}
+                    isValid={touched.email && !errors.email}
+                    isInvalid={errors.email}
                   />
                   <Form.Control.Feedback tooltip/>
                   <Form.Control.Feedback type="invalid" tooltip>
@@ -127,7 +134,7 @@ export function UserProfileForm( {user} ) {
                   </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group as={Col} controlId="formGridPassword">
+                <Form.Group as={Col} controlId="userProfileMobileValidation">
                   <Form.Label>Mobile</Form.Label>
                   <Form.Control
                     type="mobile"
@@ -135,7 +142,8 @@ export function UserProfileForm( {user} ) {
                     name="mobile"
                     value={values.mobile}
                     onChange={handleChange}
-                    isInvalid={!!errors.mobile}
+                    isValid={touched.email && !errors.mobile}
+                    isInvalid={errors.mobile}
                 />
                 <Form.Control.Feedback tooltip/>
                 <Form.Control.Feedback type="invalid" tooltip>
@@ -144,14 +152,16 @@ export function UserProfileForm( {user} ) {
                 </Form.Group>
               </Form.Row>
 
-              <Form.Group controlId="formGridAddress1">
+              <Form.Group controlId="userProfileAddressStreetValidation">
                 <Form.Label>Address</Form.Label>
                 <Form.Control
+                  type="text"
                   aria-describedby="inputGroupPrepend"
                   name="street"
                   value={values.street}
                   onChange={handleChange}
-                  isInvalid={!!errors.street}
+                  isValid={touched.street && !errors.street}
+                  isInvalid={errors.street}
                 />
                 <Form.Control.Feedback tooltip/>
                 <Form.Control.Feedback type="invalid" tooltip>
@@ -160,42 +170,45 @@ export function UserProfileForm( {user} ) {
               </Form.Group>
 
               <Form.Row>
-                <Form.Group as={Col} md="6" controlId="validationFormik103">
+                <Form.Group as={Col} md="6" controlId="userProfileAddressCityValidation">
                   <Form.Label>City</Form.Label>
                   <Form.Control
                     type="text"
                     name="city"
                     value={values.city}
                     onChange={handleChange}
-                    isInvalid={!!errors.city}
+                    isValid={touched.city && !errors.city}
+                    isInvalid={errors.city}
                   />
                   <Form.Control.Feedback tooltip/>
                   <Form.Control.Feedback type="invalid" tooltip>
                     {errors.city}
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="3" controlId="validationFormik104">
+                <Form.Group as={Col} md="3" controlId="userProfileAddressCountryValidation">
                   <Form.Label>State</Form.Label>
                   <Form.Control
                     type="text"
                     name="state"
                     value={values.state}
                     onChange={handleChange}
-                    isInvalid={!!errors.state}
+                    isValid={touched.state && !errors.state}
+                    isInvalid={errors.state}
                   />
                   <Form.Control.Feedback tooltip/>
                   <Form.Control.Feedback type="invalid" tooltip>
                     {errors.state}
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="3" controlId="validationFormik105">
+                <Form.Group as={Col} md="3" controlId="userProfileAddressZipValidation">
                   <Form.Label>Zip</Form.Label>
                   <Form.Control
                     type="text"
                     name="zip"
                     value={values.zip}
                     onChange={handleChange}
-                    isInvalid={!!errors.zip}
+                    isValid={touched.zip && !errors.zip}
+                    isInvalid={errors.zip}
                   />
                   <Form.Control.Feedback tooltip/>
                   <Form.Control.Feedback type="invalid" tooltip>
@@ -204,23 +217,33 @@ export function UserProfileForm( {user} ) {
                 </Form.Group>
               </Form.Row>
 
-              <Form.Group>
-                <Form.Label>Benefits</Form.Label>
-                <Form.Check
-                 type="switch"
-                 id="multisport-switch"
-                 label="Multisport"
-                 checked={values.multisport}
+            <Form.Group>
+               <Form.Switch
+                 name="hasMultisport"
+                 label="Multisport card"
+                 id="userProfileHasMultisportValidation"
+                 onChange={handleChange}
+                 isInvalid={!!errors.hasMultisport}
+                 feedback={errors.hasMultisport}
+                 value={values.hasMultisport}
+                 checked={values.hasMultisport}
                />
-               <Form.Check
-                 type="switch"
-                 label="Active Pass"
-                 id="active-pass-switch"
-                 checked={values.active_pass}
-               />
+             </Form.Group>
+
+             <Form.Group>
+                <Form.Switch
+                  name="hasActivePass"
+                  label="Active Pass"
+                  id="userProfileHasActivePassValidation"
+                  onChange={handleChange}
+                  isInvalid={!!errors.hasActivePass}
+                  feedback={errors.hasActivePass}
+                  value={values.hasActivePass}
+                  checked={values.hasActivePass}
+                />
               </Form.Group>
 
-              <UserProfileActionButton variant="primary">Submit form</UserProfileActionButton>
+              <UserProfileActionButton variant="primary" type="submit">Update profile</UserProfileActionButton>
             </Form>
           )}
         </Formik>
