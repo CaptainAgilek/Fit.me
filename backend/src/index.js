@@ -23,6 +23,15 @@ const typeDefs = gql`
     url: String!
   }
 
+  input SportsmanInput {
+    user_id: Int!
+    firstname: String!
+    lastname: String!
+    username: String!
+    email: String
+    phone: String
+  }
+
   input PhotoInput {
     user_id: Int!
     description: String
@@ -107,6 +116,7 @@ const typeDefs = gql`
   type Mutation {
     insertPhoto(input: PhotoInput!): Boolean!
     singleUpload(file: Upload!, user_id: Int!): UploadedFileResponse!
+    updateSportsman(input: SportsmanInput!): Boolean!
     deleteUser(user_id: Int!): Boolean!
     assignRoleToUser(name: String!, user_id: Int!): Boolean!
     verifyRegistration(token: String!): Boolean!
