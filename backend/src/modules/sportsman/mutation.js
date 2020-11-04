@@ -1,3 +1,5 @@
+import { insertPlace, updatePlace } from '../place/mutation';
+
 export const updateSportsman = async (_, { input }, { dbConnection }) => {
   const dbResponse = await dbConnection.query(
     `UPDATE sportsman SET firstname = ?, lastname = ?, username = ?, email = ?, phone = ?
@@ -11,6 +13,24 @@ export const updateSportsman = async (_, { input }, { dbConnection }) => {
       input.user_id,
     ],
   );
+  let placeResult = true;
 
-  return dbResponse.affectedRows === 1;
+  if (input.place) {
+    placeResult = false;
+
+    if (input.place.place_id) {
+      placeResult = await updatePlace(
+        _,
+        { input: input.place },
+        { dbConnection },
+      );
+    } else {
+      placeResult = await insertPlace(
+        _,
+        { input: input.place },
+        { dbConnection },
+      );
+    }
+  }
+  return dbResponse.affectedRows === 1 && placeResult;
 };

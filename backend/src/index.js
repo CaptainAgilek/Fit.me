@@ -23,7 +23,8 @@ const typeDefs = gql`
     url: String!
   }
 
-  input PlaceInput {
+  input CreateOrUpdatePlaceInput {
+    place_id: Int,
     user_id: Int!
     city: String!
     street: String
@@ -38,6 +39,7 @@ const typeDefs = gql`
     username: String!
     email: String
     phone: String
+    place: CreateOrUpdatePlaceInput
   }
 
   input PhotoInput {
@@ -118,8 +120,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    insertPlace(input: PlaceInput!): Boolean!
-    updatePlace(input: PlaceInput!): Boolean!
+    insertPlace(input: CreateOrUpdatePlaceInput!): Boolean!
+    updatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
     insertPhoto(input: PhotoInput!): Boolean!
     singleUpload(file: Upload!, user_id: Int!): UploadedFileResponse!
     updateSportsman(input: SportsmanInput!): Boolean!

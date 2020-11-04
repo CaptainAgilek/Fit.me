@@ -17,13 +17,14 @@ export const insertPlace = async (_, { input }, { dbConnection }) => {
 export const updatePlace = async (_, { input }, { dbConnection }) => {
   const dbResponse = await dbConnection.query(
     `UPDATE place SET city = ?, street = ?, zip = ?, country = ?
-     WHERE user_id = ?;`,
+     WHERE user_id = ? AND place_id = ?;`,
     [
       input.city,
       input.street ? input.street : null,
       input.zip ? input.zip : null,
       input.country,
       input.user_id,
+      input.place_id
     ],
   );
 
