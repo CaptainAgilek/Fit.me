@@ -135,6 +135,7 @@ const typeDefs = gql`
     verifyRegistration(token: String!): Boolean!
     signin(email: String!, password: String!): AuthInfo!
     signup(
+      username: String!
       email: String!
       password: String!
       firstname: String
