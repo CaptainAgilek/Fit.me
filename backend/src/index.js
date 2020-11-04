@@ -23,6 +23,14 @@ const typeDefs = gql`
     url: String!
   }
 
+  input PlaceInput {
+    user_id: Int!
+    city: String!
+    street: String
+    zip: String
+    country: String!
+  }
+
   input SportsmanInput {
     user_id: Int!
     firstname: String!
@@ -60,6 +68,7 @@ const typeDefs = gql`
     city: String
     street: String
     zip: String
+    country: String!
   }
 
   type Role {
@@ -109,6 +118,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    insertPlace(input: PlaceInput!): Boolean!
+    updatePlace(input: PlaceInput!): Boolean!
     insertPhoto(input: PhotoInput!): Boolean!
     singleUpload(file: Upload!, user_id: Int!): UploadedFileResponse!
     updateSportsman(input: SportsmanInput!): Boolean!
