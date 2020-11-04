@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
-import { Form, Col, Button, Row } from 'react-bootstrap';
+import { Form, Col, Button, Row, Badge } from 'react-bootstrap';
 
 import { ErrorBanner } from 'src/atoms/';
 import { route } from '../Routes';
@@ -47,8 +47,13 @@ export function SignUpForm({
       {({ errors, touched, handleSubmit }) => (
 
         <Form onSubmit={handleSubmit}>
-          {errorMessage && <ErrorBanner title={errorMessage} />}
-
+          <Row className='justify-content-md-center'>
+            <h3>
+              <Badge variant="warning">
+                {errorMessage}
+              </Badge>
+            </h3>
+          </Row>
           <Row className={'justify-content-md-center radio-group form-group'}>
             <Col>
               <label>
