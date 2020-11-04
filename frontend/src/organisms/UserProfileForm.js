@@ -60,7 +60,7 @@ export function UserProfileForm( {user, updateUserRequest} ) {
               }
             };
 
-            console.log("profile", profile)
+            console.log("updating profile", profile)
             updateUserRequest({ variables: { input: profile} });
           }}
           initialValues={initialValues}

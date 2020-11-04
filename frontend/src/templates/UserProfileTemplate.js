@@ -2,10 +2,9 @@ import React from 'react';
 
 import { Container, Row, Col } from 'react-bootstrap';
 
-import { ReservationList, UserProfileActionButton, GenericPopUp, Loading, ChangePasswordForm } from 'src/atoms/';
+import { ReservationList, UserProfileActionButton, GenericPopUp, Loading, ChangePasswordForm, RegistrationLink} from 'src/atoms/';
 import { EditableAvatarPicture, ErrorBanner } from 'src/molecules/';
 import { UserProfileForm } from 'src/organisms/';
-import { route } from 'src/Routes';
 
 export function UserProfileTemplate({
   state,
@@ -17,8 +16,6 @@ export function UserProfileTemplate({
   deleteUserRequest,
   updateUserRequest
 }) {
-  const linkToRegistration = route.home();
-
   return (
     <Container>
         {state.showLoading && (<Loading />) }
@@ -32,10 +29,7 @@ export function UserProfileTemplate({
         )}
 
         {state.showUknownUser && (
-          <Row className="justify-content-md-center" sm="4">
-            <p>Unknown User</p>
-            <a href={linkToRegistration}>Registration</a>
-          </Row>
+          <RegistrationLink />
         )}
 
         {state.showData && (

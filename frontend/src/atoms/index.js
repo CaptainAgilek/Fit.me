@@ -4,3 +4,4 @@ export { UserProfileActionButton } from './UserProfileActionButton';
 export { GenericPopUp } from './GenericPopUp';
 export { Loading } from './Loading';
 export { ChangePasswordForm } from './ChangePasswordForm';
+export { RegistrationLink } from './RegistrationLink';
