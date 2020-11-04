@@ -102,6 +102,7 @@ const typeDefs = gql`
   type Mutation {
     insertPhoto(input: PhotoInput!): Boolean!
     singleUpload(file: Upload!, user_id: Int!): UploadedFileResponse!
+    deleteUser(user_id: Int!): Boolean!
     assignRoleToUser(name: String!, user_id: Int!): Boolean!
     verifyRegistration(token: String!): Boolean!
     signin(email: String!, password: String!): AuthInfo!

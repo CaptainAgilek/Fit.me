@@ -94,3 +94,13 @@ export const signup = async (
 
   return { user: userObj, token: token };
 };
+
+//casdades delete, so rows in other tables where user_id is referenced are removed too
+export const deleteUser = async (_, { user_id }, { dbConnection }) => {
+  const deleteResponse = await dbConnection.query(
+    `DELETE FROM user WHERE user_id = ?`,
+    [user_id],
+  );
+
+  return deleteResponse.warningStatus === 0;
+};
