@@ -8,35 +8,36 @@ import { UserProfileForm } from 'src/organisms/';
 import { route } from 'src/Routes';
 
 export function UserProfileTemplate({
-  loading,
-  error,
+  state,
+  userFetcherError,
+  deleteUserError,
   data,
   onReload,
-  user,
-  userReservations
+  userReservations,
+  deleteUserRequest
 }) {
   const linkToRegistration = route.home();
 
   return (
     <Container>
-        {loading && !data && (<Loading />) }
+        {state.showLoading && (<Loading />) }
 
-        {error && (
+        {(userFetcherError || deleteUserError) && (
           <ErrorBanner
             title="Something went wrong!"
-            message={error.message}
+            message={userFetcherError !== undefined ? userFetcherError.message : deleteUserError.message}
             onClick={onReload}
           />
         )}
 
-        {data && data.sportsman == null && (
+        {state.showUknownUser && (
           <Row className="justify-content-md-center" sm="4">
             <p>Unknown User</p>
             <a href={linkToRegistration}>Registration</a>
           </Row>
         )}
 
-        {data && data.sportsman != null && (
+        {state.showData && (
           <Row>
             <Col sm="12" md="3">
               <Container>
@@ -81,6 +82,9 @@ export function UserProfileTemplate({
                     footerLeftText="Cancel"
                     footerRightVariant="danger"
                     footerRightText="Delete"
+                    rightButtonOnClick={ () => {
+                      deleteUserRequest({ variables: { userId: data.sportsman.user_id } });
+                    }}
                   >
                     Are you sure?
                   </GenericPopUp>

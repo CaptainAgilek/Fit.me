@@ -31,6 +31,12 @@ const USER_PROFILE_QUERY = gql`
   }
 `;
 
+const DELETE_USER_PROFILE_MUTATION = gql`
+  mutation deleteUser($userId: Int!)  {
+    deleteUser(user_id: $userId)
+  }
+`;
+
 export function UserProfilePage() {
   const { user } = useAuth();
   const { username } = useParams();
@@ -41,16 +47,32 @@ export function UserProfilePage() {
       variables: { filter },
   });
 
+  const [deleteUserRequest, deleteUserRequstState] = useMutation(
+    DELETE_USER_PROFILE_MUTATION,
+    {
+      onCompleted: () => {
+        userFetcher.refetch();
+      },
+    },
+  );
+
+  const state = {
+    showLoading: deleteUserRequstState.loading || (userFetcher.loading && !userFetcher.data),
+    showUknownUser: !deleteUserRequstState.error && !deleteUserRequstState.loading && userFetcher.data && userFetcher.data.sportsman == null,
+    showData: !deleteUserRequstState.error && !deleteUserRequstState.loading && userFetcher.data && userFetcher.data.sportsman != null,
+  }
+
   const userReservations = [{ id: 1, className: "class name mock", date: "25.10.2020" }, { id: 2, className: "class name mock1", date: "26.10.2020" }]
 
   return (
     <UserProfileTemplate
-      loading = {userFetcher.loading}
-      error = {userFetcher.error}
+      state = { state }
+      userFetcherError = {userFetcher.error}
+      deleteUserError = {deleteUserRequstState.error}
       data = {userFetcher.data}
       onReload = {userFetcher.refetch()}
-      user={ user }
-      userReservations={ userReservations }
+      userReservations= { userReservations }
+      deleteUserRequest= { deleteUserRequest }
     />
   );
 }
