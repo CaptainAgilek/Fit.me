@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
 
-import { Modal, Form, Button } from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal'
 
 import { UserProfileActionButton } from 'src/atoms/';
-
-import classNames from 'classnames';
 
 export function GenericPopUp({
   triggerVariant,
   triggerText,
   modalTitle,
-  modalBody,
   footerLeftVariant,
   footerLeftText,
   footerRightVariant,
   footerRightText,
-  rightButtonOnClick
+  rightButtonOnClick,
+  children
 }) {
   const [show, setShow] = useState(false);
 
@@ -24,7 +22,12 @@ export function GenericPopUp({
 
   return (
     <>
-      <UserProfileActionButton variant={triggerVariant} onClick={handleShow}>{triggerText}</UserProfileActionButton>
+      <UserProfileActionButton
+        variant={triggerVariant}
+        onClick={handleShow}
+      >
+        {triggerText}
+      </UserProfileActionButton>
 
       <Modal
         show={show}
@@ -36,7 +39,7 @@ export function GenericPopUp({
           <Modal.Title>{modalTitle}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {modalBody}
+          {children}
         </Modal.Body>
         <Modal.Footer>
           <UserProfileActionButton variant={footerLeftVariant} onClick={handleClose}>{footerLeftText}</UserProfileActionButton>

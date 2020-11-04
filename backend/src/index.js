@@ -85,7 +85,7 @@ const typeDefs = gql`
     roles: [Role]!
     role(name: String!): Role!
     sportsmen: [Sportsman]!
-    sportsman(user_id: Int!): Sportsman
+    sportsman(filter: SportsmanFilter!): Sportsman
   }
 
   type AuthUser {
@@ -97,6 +97,11 @@ const typeDefs = gql`
   type AuthInfo {
     user: AuthUser!
     token: String!
+  }
+
+  input SportsmanFilter {
+    id: Int
+    username: String
   }
 
   type Mutation {

@@ -2,8 +2,6 @@ import React from 'react';
 
 import { Card, ListGroup } from 'react-bootstrap';
 
-import classNames from 'classnames';
-
 export function ReservationList({ reservations }) {
   return (
     <>
@@ -11,7 +9,7 @@ export function ReservationList({ reservations }) {
       <Card>
         <ListGroup>
           {reservations.map((reservation) => (
-            <ListGroup.Item>{reservation.className}<br/>{reservation.date}</ListGroup.Item>
+            <ListGroup.Item key={reservation.id}>{reservation.className}<br/>{reservation.date}</ListGroup.Item>
           ))}
         </ListGroup>
       </Card>

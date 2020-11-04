@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 
-import { Container, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
-import { AvatarPicture, GenericPopUp, UserPro } from 'src/atoms/';
+import { AvatarPicture, GenericPopUp } from 'src/atoms/';
 
 const UPLOAD_PHOTO_MUTATION = gql`
   mutation SingleUpload($file: Upload!, $user_id: Int!) {
@@ -22,12 +22,12 @@ export function EditableAvatarPicture({
   size = '3',
   className,
   onChange,
-  setProfileImageUrl,
   user_id
 }) {
   const [uploadFileHandler] = useMutation(UPLOAD_PHOTO_MUTATION);
 
   const [selectedFile, setSelectedFile] = useState(null);
+  const [profileImageUrl, setProfileImageUrl] = useState(src)
 
   const inputLabel = selectedFile ? selectedFile.name : 'Custom file input';
 
@@ -43,33 +43,32 @@ export function EditableAvatarPicture({
 
   return (
     <>
-      <AvatarPicture src={src} alt={alt} size={size} className={className} />
+      <AvatarPicture src={profileImageUrl} alt={alt} size={size} className={className + " botOffset"} />
 
       <GenericPopUp
         triggerVariant="outline-primary"
         triggerText="Change Avatar"
         modalTitle="Upload new avatar"
-        modalBody={
-          <Form>
-            <Form.File
-              id="custom-file"
-              label={inputLabel}
-              onChange={({
-                target: {
-                  validity,
-                  files: [file],
-                },
-              }) => validity.valid && setSelectedFile(file)}
-              custom
-            />
-          </Form>
-        }
         footerLeftVariant="outline-secondary"
         footerLeftText="Cancel"
         footerRightVariant="outline-primary"
         footerRightText="Upload"
         rightButtonOnClick={() => handleFileUpload(selectedFile)}
-      />
+      >
+        <Form>
+          <Form.File
+            id="custom-file"
+            label={inputLabel}
+            onChange={({
+              target: {
+                validity,
+                files: [file],
+              },
+            }) => validity.valid && setSelectedFile(file)}
+            custom
+          />
+        </Form>
+      </GenericPopUp>
     </>
   );
 }
