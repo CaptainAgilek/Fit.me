@@ -1,23 +1,23 @@
 import React from 'react';
 
-import { SignUpForm } from 'src/organisms/';
+import { SignInForm } from 'src/organisms/';
 import { Row, Col, Container } from 'react-bootstrap';
 
-export function SignUpTemplate({ isLoading, error, onSubmit }) {
+export function SignInTemplate({ isLoading, error, onSubmit }) {
   return (
     <Container>
       <Row className="justify-content-md-center">
-        <h1>Registrace</h1>
+        <h1>Přihlášení</h1>
       </Row>
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
-          <SignUpForm
+          <SignInForm
             isLoading={isLoading}
             errorMessage={error && error.message}
             onSubmit={onSubmit}
             className="form-group"
           >
-          </SignUpForm>
+          </SignInForm>
         </Col>
       </Row>
     </Container>

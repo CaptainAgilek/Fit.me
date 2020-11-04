@@ -7,6 +7,7 @@ import {
   getRegistrationToken,
 } from './helper';
 import { assignRoleToUser } from '../role/mutation';
+import { user } from './query';
 import { ROLE_NAME } from '../role/enum';
 import { USER_TYPE } from './enum';
 
@@ -14,17 +15,23 @@ export const verifyRegistration = async (_, { token }, { dbConnection }) => {
   return await verifyRegistrationToken(token, dbConnection);
 };
 
-export const signin = async (_, { email, password }) => {
-  if (!(email === 'a@a.com' && password === 'pass')) {
-    throw Error('Invalid username or password');
+export const signin = async (
+  _,
+  { email, password },
+  { dbConnection },
+) => {
+  const storedUser = await user(email, dbConnection);
+
+  if (!storedUser.is_verified) {
+    throw Error('Uživatel není ověřený.');
   }
 
-  const mockUser = { id: 1, email };
-  const token = createToken(mockUser);
+  if (await argon2.verify(storedUser.password, password)) {
+    const token = createToken(storedUser);
+    return { user: storedUser, token: token };
+  }
 
-  return {
-    token,
-  };
+  throw Error('Nesprávné jméno nebo heslo.');
 };
 
 export const signup = async (
@@ -80,9 +87,9 @@ export const signup = async (
     email,
     'Hello ✔',
     'Hello, prosim potvrdte registraci kliknutim na link ' +
-      process.env.FRONTEND_URL +
-      'verification?token=' +
-      verificationToken,
+    process.env.FRONTEND_URL +
+    'verification?token=' +
+    verificationToken,
   );
 
   const token = createToken({ id: insertUserResponse.insertId });
@@ -95,7 +102,7 @@ export const signup = async (
   return { user: userObj, token: token };
 };
 
-//casdades delete, so rows in other tables where user_id is referenced are removed too
+// cascades delete, so rows in other tables where user_id is referenced are removed too
 export const deleteUser = async (_, { user_id }, { dbConnection }) => {
   const deleteResponse = await dbConnection.query(
     `DELETE FROM user WHERE user_id = ?`,
