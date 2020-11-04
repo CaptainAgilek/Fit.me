@@ -11,6 +11,7 @@ export function SignUpTemplate({ isLoading, error, onSubmit }) {
         <h1>Registrace</h1>
       </Row>
       <Row>
+        {/*todo dodelat navigaci*/}
         {/*<TopNavigation />*/}
 
         <Col md={{ span: 6, offset: 3 }}>
@@ -22,16 +23,6 @@ export function SignUpTemplate({ isLoading, error, onSubmit }) {
             className="form-group"
           >
           </SignUpForm>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={{ span: 6, offset: 6 }}>
-          <div>
-            Už máte vytvořený účet?{' '}
-            <Button size="sm" to={route.signIn()}>
-              Přihlaste se
-            </Button>
-          </div>
         </Col>
       </Row>
     </Container>

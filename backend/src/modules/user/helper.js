@@ -22,7 +22,7 @@ export const checkAlreadyTakenEmail = async (email, dbConnection) => {
   )[0];
 
   if (emailTaken) {
-    throw new Error('Email is already registered.');
+    throw new Error('Email je již používán.');
   }
 }
 

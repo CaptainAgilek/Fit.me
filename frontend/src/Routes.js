@@ -12,7 +12,6 @@ export const route = {
   home: () => `/`,
   verification: () => "/verification/",
 
-
   signIn: () => `/auth/signin`,
   signUp: () => `/auth/signup`,
 

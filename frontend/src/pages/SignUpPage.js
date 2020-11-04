@@ -7,6 +7,7 @@ import { SignUpTemplate } from 'src/templates/SignUpTemplate';
 
 const SIGNUP_MUTATION = gql`
   mutation signUp(
+    $username: String!
     $email: String!
     $password: String!
     $firstname: String!
@@ -14,6 +15,7 @@ const SIGNUP_MUTATION = gql`
     $type: UserType!
   ) {
     signup(
+      username: $username
       email: $email
       password: $password
       firstname: $firstname
@@ -41,9 +43,9 @@ export function SignUpPage() {
 
   const handleSignUpFormSubmit = useCallback(
     (variables) => {
-      console.log(variables)
       signupRequest({
         variables: {
+          username: variables.username,
           email: variables.email,
           password: variables.password,
           firstname: variables.firstname,

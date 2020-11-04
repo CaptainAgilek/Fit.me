@@ -29,7 +29,7 @@ export const signin = async (_, { email, password }) => {
 
 export const signup = async (
   _,
-  { email, password, firstname, lastname, type },
+  { email, password, firstname, lastname, username, type },
   { dbConnection },
 ) => {
   await checkAlreadyTakenEmail(email, dbConnection);
@@ -51,9 +51,9 @@ export const signup = async (
   switch (type) {
     case USER_TYPE.SPORTSMAN:
       const insertSportsmanResponse = await dbConnection.query(
-        `INSERT INTO sportsman (user_id, firstname, lastname)
-        VALUES (?, ?, ?);`,
-        [insertUserResponse.insertId, firstname, lastname],
+        `INSERT INTO sportsman (user_id, firstname, lastname, username)
+        VALUES (?, ?, ?, ?);`,
+        [insertUserResponse.insertId, firstname, lastname, username],
       );
       await assignRoleToUser(
         _,
