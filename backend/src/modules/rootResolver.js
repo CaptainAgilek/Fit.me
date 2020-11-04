@@ -4,6 +4,7 @@ import { mutations as UserMutations } from './user';
 import { mutations as RoleMutations } from './role';
 import { mutations as PhotoMutations } from './photo';
 import { queries as SportsmanQueries } from './sportsman';
+import { mutations as SportsmanMutations } from './sportsman';
 
 export default {
   Query: {
@@ -18,6 +19,7 @@ export default {
     ...PhotoMutations,
     ...RoleMutations,
     ...UserMutations,
+    ...SportsmanMutations,
   },
   User: {
     async roles(parent, _, { dbConnection }) {
