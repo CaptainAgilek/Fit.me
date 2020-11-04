@@ -1,10 +1,11 @@
 import { queries as RoleQueries } from './role';
 import { queries as UserQueries } from './user';
+import { queries as SportsmanQueries } from './sportsman';
 import { mutations as UserMutations } from './user';
 import { mutations as RoleMutations } from './role';
-import { mutations as PhotoMutations } from './photo';
-import { queries as SportsmanQueries } from './sportsman';
 import { mutations as SportsmanMutations } from './sportsman';
+import { mutations as PhotoMutations } from './photo';
+import { mutations as PlaceMutations } from './place';
 
 export default {
   Query: {
@@ -20,6 +21,7 @@ export default {
     ...RoleMutations,
     ...UserMutations,
     ...SportsmanMutations,
+    ...PlaceMutations,
   },
   User: {
     async roles(parent, _, { dbConnection }) {
@@ -45,7 +47,7 @@ export default {
     },
     async places(parent, _, { dbConnection }) {
       return await dbConnection.query(
-        `SELECT place_id, user_id, city, street, zip FROM place
+        `SELECT place_id, user_id, city, street, zip, country FROM place
           JOIN user USING (user_id)
           WHERE user_id = ?`,
         [parent.user_id],
