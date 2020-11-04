@@ -14,7 +14,8 @@ export function UserProfileTemplate({
   data,
   onReload,
   userReservations,
-  deleteUserRequest
+  deleteUserRequest,
+  updateUserRequest
 }) {
   const linkToRegistration = route.home();
 
@@ -94,7 +95,7 @@ export function UserProfileTemplate({
 
             <Col sm="12" md="6" >
               <Container>
-                  <UserProfileForm user={data.sportsman}/>
+                  <UserProfileForm user={data.sportsman} updateUserRequest={updateUserRequest}/>
               </Container>
             </Col>
 

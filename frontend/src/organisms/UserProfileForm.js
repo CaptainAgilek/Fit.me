@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -13,29 +13,29 @@ const schema = yup.object({
   lastName: yup.string().required(),
   username: yup.string().min(3).required(),
   email: yup.string().email().required(),
-  mobile: yup.number(),
-  address: yup.string(),
+  phone: yup.string(),
+  street: yup.string(),
   city: yup.string(),
-  state: yup.string(),
+  country: yup.string(),
   zip: yup.number(),
   hasMultisport: yup.boolean(),
   hasActivePass: yup.boolean()
 });
 
-export function UserProfileForm( {user} ) {
+export function UserProfileForm( {user, updateUserRequest} ) {
   const initialValues = {
     firstName: user.firstName,
     lastName: user.lastName,
     username: user.username,
     email: user.email,
-    mobile: user.mobile,
-    street: user.places[0] ? user.places[0].street : "",
-    city: user.places[0] ? user.places[0].city : "",
-    country: user.places[0] ? user.places[0].city : "",
-    zip: user.places[0] ? user.places[0].zip : "",
+    phone: user.phone,
+    street: user.places[0] ? user.places[0].street : undefined,
+    city: user.places[0] ? user.places[0].city : undefined,
+    country: user.places[0] ? user.places[0].country : undefined,
+    zip: user.places[0] ? user.places[0].zip : undefined,
     hasMultisport: user.benefits.includes(UserBenefitsEnum.MULTISPORT),
     hasActivePass: user.benefits.includes(UserBenefitsEnum.ACTIVE_PASS),
-  };
+  }
 
   return (
     <Card>
@@ -43,7 +43,25 @@ export function UserProfileForm( {user} ) {
         <Formik
           validationSchema={schema}
           onSubmit={(values) => {
-            console.log("hodnoty", values)
+            const profile = {
+              user_id: user.user_id,
+              firstname: values.firstName,
+              lastname: values.lastName,
+              username: values.username,
+              email: values.email,
+              phone: values.phone ? values.phone : null,
+              place: {
+                place_id: user.places[0] ? user.places[0].place_id : null,
+                user_id: user.user_id,
+                city: values.city,
+                street: values.street,
+                zip: parseInt(values.zip),
+                country: values.country,
+              }
+            };
+
+            console.log("profile", profile)
+            updateUserRequest({ variables: { input: profile} });
           }}
           initialValues={initialValues}
           enableReinitialize
@@ -133,13 +151,13 @@ export function UserProfileForm( {user} ) {
                 <Form.Group as={Col} controlId="userProfileMobileValidation">
                   <Form.Label>Mobile</Form.Label>
                   <Form.Control
-                    type="mobile"
+                    type="text"
                     aria-describedby="inputGroupPrepend"
-                    name="mobile"
-                    value={values.mobile}
+                    name="phone"
+                    value={values.phone}
                     onChange={handleChange}
-                    isValid={touched.email && !errors.mobile}
-                    isInvalid={errors.mobile}
+                    isValid={touched.phone && !errors.phone}
+                    isInvalid={errors.phone}
                 />
                 <Form.Control.Feedback tooltip/>
                 <Form.Control.Feedback type="invalid" tooltip>
@@ -149,7 +167,7 @@ export function UserProfileForm( {user} ) {
               </Form.Row>
 
               <Form.Group controlId="userProfileAddressStreetValidation">
-                <Form.Label>Address</Form.Label>
+                <Form.Label>Street</Form.Label>
                 <Form.Control
                   type="text"
                   aria-describedby="inputGroupPrepend"
@@ -182,24 +200,24 @@ export function UserProfileForm( {user} ) {
                   </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group as={Col} md="3" controlId="userProfileAddressCountryValidation">
-                  <Form.Label>State</Form.Label>
+                  <Form.Label>Country</Form.Label>
                   <Form.Control
                     type="text"
-                    name="state"
-                    value={values.state}
+                    name="country"
+                    value={values.country}
                     onChange={handleChange}
-                    isValid={touched.state && !errors.state}
-                    isInvalid={errors.state}
+                    isValid={touched.country && !errors.country}
+                    isInvalid={errors.country}
                   />
                   <Form.Control.Feedback tooltip/>
                   <Form.Control.Feedback type="invalid" tooltip>
-                    {errors.state}
+                    {errors.country}
                   </Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group as={Col} md="3" controlId="userProfileAddressZipValidation">
                   <Form.Label>Zip</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="integer"
                     name="zip"
                     value={values.zip}
                     onChange={handleChange}

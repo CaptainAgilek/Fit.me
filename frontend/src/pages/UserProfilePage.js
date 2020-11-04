@@ -17,8 +17,10 @@ const USER_PROFILE_QUERY = gql`
     	email
       phone
       places {
+        place_id
         city
         street
+        country
         zip
       }
       benefits {
@@ -37,6 +39,12 @@ const DELETE_USER_PROFILE_MUTATION = gql`
   }
 `;
 
+const UPDATE_USER_PROFILE_MUTATION = gql`
+  mutation updateUser($input: SportsmanInput!) {
+    updateSportsman(input: $input)
+  }
+`;
+
 export function UserProfilePage() {
   const { user } = useAuth();
   const { username } = useParams();
@@ -47,7 +55,7 @@ export function UserProfilePage() {
       variables: { filter },
   });
 
-  const [deleteUserRequest, deleteUserRequstState] = useMutation(
+  const [deleteUserRequest, deleteUserRequestState] = useMutation(
     DELETE_USER_PROFILE_MUTATION,
     {
       onCompleted: () => {
@@ -56,10 +64,19 @@ export function UserProfilePage() {
     },
   );
 
+  const [updateUserRequest, updateUserRequestState] = useMutation(
+    UPDATE_USER_PROFILE_MUTATION,
+    {
+      onCompleted: () => {
+        userFetcher.refetch();
+      },
+    },
+  );
+
   const state = {
-    showLoading: deleteUserRequstState.loading || (userFetcher.loading && !userFetcher.data),
-    showUknownUser: !deleteUserRequstState.error && !deleteUserRequstState.loading && userFetcher.data && userFetcher.data.sportsman == null,
-    showData: !deleteUserRequstState.error && !deleteUserRequstState.loading && userFetcher.data && userFetcher.data.sportsman != null,
+    showLoading: deleteUserRequestState.loading || (userFetcher.loading && !userFetcher.data),
+    showUknownUser: !deleteUserRequestState.error && !deleteUserRequestState.loading && userFetcher.data && userFetcher.data.sportsman == null,
+    showData: !deleteUserRequestState.error && !deleteUserRequestState.loading && userFetcher.data && userFetcher.data.sportsman != null,
   }
 
   const userReservations = [{ id: 1, className: "class name mock", date: "25.10.2020" }, { id: 2, className: "class name mock1", date: "26.10.2020" }]
@@ -68,11 +85,12 @@ export function UserProfilePage() {
     <UserProfileTemplate
       state = { state }
       userFetcherError = {userFetcher.error}
-      deleteUserError = {deleteUserRequstState.error}
+      deleteUserError = {deleteUserRequestState.error}
       data = {userFetcher.data}
       onReload = {userFetcher.refetch()}
       userReservations= { userReservations }
       deleteUserRequest= { deleteUserRequest }
+      updateUserRequest = { updateUserRequest }
     />
   );
 }

@@ -28,7 +28,7 @@ const typeDefs = gql`
     user_id: Int!
     city: String!
     street: String
-    zip: String
+    zip: Int
     country: String!
   }
 
