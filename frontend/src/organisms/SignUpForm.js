@@ -3,7 +3,6 @@ import { Formik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { Form, Col, Button, Row, Badge } from 'react-bootstrap';
 
-import { ErrorBanner } from 'src/atoms/';
 import { route } from '../Routes';
 
 const initialValues = {

@@ -3,7 +3,7 @@ export const users = async (_, __, { dbConnection }) => {
   return users;
 };
 
-export const user = async (_, { email }, { dbConnection }) => {
+export const user = async (email, dbConnection) => {
   const user = (
     await dbConnection.query(`SELECT * FROM user WHERE email = ?`, [
       email,
