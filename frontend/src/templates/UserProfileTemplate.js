@@ -5,6 +5,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { ReservationList, UserProfileActionButton, GenericPopUp, Loading, ChangePasswordForm, RegistrationLink} from 'src/atoms/';
 import { EditableAvatarPicture, ErrorBanner } from 'src/molecules/';
 import { UserProfileForm } from 'src/organisms/';
+import { DEFAULT_IMG_URL } from 'src/utils/const';
 
 export function UserProfileTemplate({
   state,
@@ -24,7 +25,7 @@ export function UserProfileTemplate({
           <ErrorBanner
             title="Something went wrong!"
             message={userFetcherError !== undefined ? userFetcherError.message : deleteUserError.message}
-            onClick={onReload}
+            onClick={() => { onReload(); } }
           />
         )}
 
@@ -38,7 +39,7 @@ export function UserProfileTemplate({
               <Container>
                 <Row className="justify-content-md-center botOffset" xs={1}>
                     <EditableAvatarPicture
-                      src={data.sportsman.profile_photo ? data.sportsman.profile_photo.url : null}
+                      src={data.sportsman.profile_photo ? data.sportsman.profile_photo.url : DEFAULT_IMG_URL}
                       alt={data.sportsman.username}
                       size="4"
                       className="mb2"
