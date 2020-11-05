@@ -102,7 +102,7 @@ export function UserProfilePage() {
       userFetcherError={userFetcher.error}
       deleteUserError={deleteUserRequestState.error}
       data={userFetcher.data}
-      onReload={() => userFetcher.refetch()}
+      onReload={() => { userFetcher.refetch(); }}
       userReservations={userReservations}
       deleteUserRequest={deleteUserRequest}
       updateUserRequest={updateUserRequest}
