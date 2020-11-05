@@ -1,4 +1,4 @@
-import React,  { useState } from 'react';
+import React, { useState } from 'react';
 
 import { useParams } from 'react-router-dom';
 import { gql, useMutation, useQuery } from '@apollo/client';
@@ -10,11 +10,11 @@ import { useAuth } from 'src/utils/auth';
 const USER_PROFILE_QUERY = gql`
   query getSportsman($filter: SportsmanFilter!) {
     sportsman(filter: $filter) {
-    	user_id
+      user_id
       firstname
       lastname
       username
-    	email
+      email
       phone
       places {
         place_id
@@ -34,7 +34,7 @@ const USER_PROFILE_QUERY = gql`
 `;
 
 const DELETE_USER_PROFILE_MUTATION = gql`
-  mutation deleteUser($userId: Int!)  {
+  mutation deleteUser($userId: Int!) {
     deleteUser(user_id: $userId)
   }
 `;
@@ -49,10 +49,10 @@ export function UserProfilePage() {
   const { user } = useAuth();
   const { username } = useParams();
 
-  const filter = {username: username};
+  const filter = { username: username };
 
   const userFetcher = useQuery(USER_PROFILE_QUERY, {
-      variables: { filter },
+    variables: { filter },
   });
 
   const [deleteUserRequest, deleteUserRequestState] = useMutation(
@@ -74,23 +74,36 @@ export function UserProfilePage() {
   );
 
   const state = {
-    showLoading: deleteUserRequestState.loading || (userFetcher.loading && !userFetcher.data),
-    showUknownUser: !deleteUserRequestState.error && !deleteUserRequestState.loading && userFetcher.data && userFetcher.data.sportsman == null,
-    showData: !deleteUserRequestState.error && !deleteUserRequestState.loading && userFetcher.data && userFetcher.data.sportsman != null,
-  }
+    showLoading:
+      deleteUserRequestState.loading ||
+      (userFetcher.loading && !userFetcher.data),
+    showUknownUser:
+      !deleteUserRequestState.error &&
+      !deleteUserRequestState.loading &&
+      userFetcher.data &&
+      userFetcher.data.sportsman == null,
+    showData:
+      !deleteUserRequestState.error &&
+      !deleteUserRequestState.loading &&
+      userFetcher.data &&
+      userFetcher.data.sportsman != null,
+  };
 
-  const userReservations = [{ id: 1, className: "class name mock", date: "25.10.2020" }, { id: 2, className: "class name mock1", date: "26.10.2020" }]
+  const userReservations = [
+    { id: 1, className: 'class name mock', date: '25.10.2020' },
+    { id: 2, className: 'class name mock1', date: '26.10.2020' },
+  ];
 
   return (
     <UserProfileTemplate
-      state = { state }
-      userFetcherError = {userFetcher.error}
-      deleteUserError = {deleteUserRequestState.error}
-      data = {userFetcher.data}
-      onReload = {userFetcher.refetch()}
-      userReservations= { userReservations }
-      deleteUserRequest= { deleteUserRequest }
-      updateUserRequest = { updateUserRequest }
+      state={state}
+      userFetcherError={userFetcher.error}
+      deleteUserError={deleteUserRequestState.error}
+      data={userFetcher.data}
+      onReload={() => userFetcher.refetch()}
+      userReservations={userReservations}
+      deleteUserRequest={deleteUserRequest}
+      updateUserRequest={updateUserRequest}
     />
   );
 }
