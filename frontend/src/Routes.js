@@ -23,6 +23,7 @@ export function Routes() {
     <Switch>
       <Route path={route.home()} exact component={HomePage} />
       <Route path={route.signUp()} exact component={SignUpPage} />
+      <Route path={route.signIn()} exact component={SignInPage} />
       <Route path={route.verification()} exact component={VerificationPage} />
       <Route path={route.userProfile(':username')} exact component={UserProfilePage} />
       <Route path="*" component={PageNotFound} />
