@@ -19,13 +19,13 @@ const schema = yup.object({
   country: yup.string(),
   zip: yup.number(),
   hasMultisport: yup.boolean(),
-  hasActivePass: yup.boolean()
+  hasActivePass: yup.boolean(),
 });
 
-export function UserProfileForm( {user, updateUserRequest} ) {
+export function UserProfileForm({ user, updateUserRequest }) {
   const initialValues = {
-    firstName: user.firstName,
-    lastName: user.lastName,
+    firstName: user.firstname,
+    lastName: user.lastname,
     username: user.username,
     email: user.email,
     phone: user.phone,
@@ -35,7 +35,7 @@ export function UserProfileForm( {user, updateUserRequest} ) {
     zip: user.places[0] ? user.places[0].zip : undefined,
     hasMultisport: user.benefits.includes(UserBenefitsEnum.MULTISPORT),
     hasActivePass: user.benefits.includes(UserBenefitsEnum.ACTIVE_PASS),
-  }
+  };
 
   return (
     <Card>
@@ -57,11 +57,11 @@ export function UserProfileForm( {user, updateUserRequest} ) {
                 street: values.street,
                 zip: parseInt(values.zip),
                 country: values.country,
-              }
+              },
             };
 
-            console.log("updating profile", profile)
-            updateUserRequest({ variables: { input: profile} });
+            console.log('updating profile', profile);
+            updateUserRequest({ variables: { input: profile } });
           }}
           initialValues={initialValues}
           enableReinitialize
@@ -76,9 +76,12 @@ export function UserProfileForm( {user, updateUserRequest} ) {
             errors,
           }) => (
             <Form noValidate onSubmit={handleSubmit}>
-
               <Form.Row>
-                <Form.Group as={Col} md="6" controlId="userProfileFirstnameValidation">
+                <Form.Group
+                  as={Col}
+                  md="6"
+                  controlId="userProfileFirstnameValidation"
+                >
                   <Form.Label>First name</Form.Label>
                   <Form.Control
                     type="text"
@@ -88,13 +91,17 @@ export function UserProfileForm( {user, updateUserRequest} ) {
                     isValid={touched.firstName && !errors.firstName}
                     isInvalid={errors.firstName}
                   />
-                  <Form.Control.Feedback tooltip/>
+                  <Form.Control.Feedback tooltip />
                   <Form.Control.Feedback type="invalid" tooltip>
                     {errors.firstName}
                   </Form.Control.Feedback>
                 </Form.Group>
 
-                <Form.Group as={Col} md="6" controlId="userProfileLastnameValidation">
+                <Form.Group
+                  as={Col}
+                  md="6"
+                  controlId="userProfileLastnameValidation"
+                >
                   <Form.Label>Last name</Form.Label>
                   <Form.Control
                     type="text"
@@ -104,7 +111,7 @@ export function UserProfileForm( {user, updateUserRequest} ) {
                     isValid={touched.lastName && !errors.lastName}
                     isInvalid={errors.lastName}
                   />
-                  <Form.Control.Feedback tooltip/>
+                  <Form.Control.Feedback tooltip />
                   <Form.Control.Feedback type="invalid" tooltip>
                     {errors.lastName}
                   </Form.Control.Feedback>
@@ -114,19 +121,19 @@ export function UserProfileForm( {user, updateUserRequest} ) {
               <Form.Row>
                 <Form.Group as={Col} controlId="userProfileUsernameValidation">
                   <Form.Label>Username</Form.Label>
-                    <Form.Control
-                      type="text"
-                      aria-describedby="inputGroupPrepend"
-                      name="username"
-                      value={values.username}
-                      onChange={handleChange}
-                      isValid={touched.username && !errors.username}
-                      isInvalid={errors.username}
-                    />
-                    <Form.Control.Feedback tooltip/>
-                    <Form.Control.Feedback type="invalid" tooltip>
-                      {errors.username}
-                    </Form.Control.Feedback>
+                  <Form.Control
+                    type="text"
+                    aria-describedby="inputGroupPrepend"
+                    name="username"
+                    value={values.username}
+                    onChange={handleChange}
+                    isValid={touched.username && !errors.username}
+                    isInvalid={errors.username}
+                  />
+                  <Form.Control.Feedback tooltip />
+                  <Form.Control.Feedback type="invalid" tooltip>
+                    {errors.username}
+                  </Form.Control.Feedback>
                 </Form.Group>
               </Form.Row>
 
@@ -142,7 +149,7 @@ export function UserProfileForm( {user, updateUserRequest} ) {
                     isValid={touched.email && !errors.email}
                     isInvalid={errors.email}
                   />
-                  <Form.Control.Feedback tooltip/>
+                  <Form.Control.Feedback tooltip />
                   <Form.Control.Feedback type="invalid" tooltip>
                     {errors.email}
                   </Form.Control.Feedback>
@@ -158,11 +165,11 @@ export function UserProfileForm( {user, updateUserRequest} ) {
                     onChange={handleChange}
                     isValid={touched.phone && !errors.phone}
                     isInvalid={errors.phone}
-                />
-                <Form.Control.Feedback tooltip/>
-                <Form.Control.Feedback type="invalid" tooltip>
-                  {errors.mobile}
-                </Form.Control.Feedback>
+                  />
+                  <Form.Control.Feedback tooltip />
+                  <Form.Control.Feedback type="invalid" tooltip>
+                    {errors.mobile}
+                  </Form.Control.Feedback>
                 </Form.Group>
               </Form.Row>
 
@@ -177,14 +184,18 @@ export function UserProfileForm( {user, updateUserRequest} ) {
                   isValid={touched.street && !errors.street}
                   isInvalid={errors.street}
                 />
-                <Form.Control.Feedback tooltip/>
+                <Form.Control.Feedback tooltip />
                 <Form.Control.Feedback type="invalid" tooltip>
                   {errors.street}
                 </Form.Control.Feedback>
               </Form.Group>
 
               <Form.Row>
-                <Form.Group as={Col} md="6" controlId="userProfileAddressCityValidation">
+                <Form.Group
+                  as={Col}
+                  md="6"
+                  controlId="userProfileAddressCityValidation"
+                >
                   <Form.Label>City</Form.Label>
                   <Form.Control
                     type="text"
@@ -194,12 +205,16 @@ export function UserProfileForm( {user, updateUserRequest} ) {
                     isValid={touched.city && !errors.city}
                     isInvalid={errors.city}
                   />
-                  <Form.Control.Feedback tooltip/>
+                  <Form.Control.Feedback tooltip />
                   <Form.Control.Feedback type="invalid" tooltip>
                     {errors.city}
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="3" controlId="userProfileAddressCountryValidation">
+                <Form.Group
+                  as={Col}
+                  md="3"
+                  controlId="userProfileAddressCountryValidation"
+                >
                   <Form.Label>Country</Form.Label>
                   <Form.Control
                     type="text"
@@ -209,12 +224,16 @@ export function UserProfileForm( {user, updateUserRequest} ) {
                     isValid={touched.country && !errors.country}
                     isInvalid={errors.country}
                   />
-                  <Form.Control.Feedback tooltip/>
+                  <Form.Control.Feedback tooltip />
                   <Form.Control.Feedback type="invalid" tooltip>
                     {errors.country}
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group as={Col} md="3" controlId="userProfileAddressZipValidation">
+                <Form.Group
+                  as={Col}
+                  md="3"
+                  controlId="userProfileAddressZipValidation"
+                >
                   <Form.Label>Zip</Form.Label>
                   <Form.Control
                     type="integer"
@@ -224,27 +243,27 @@ export function UserProfileForm( {user, updateUserRequest} ) {
                     isValid={touched.zip && !errors.zip}
                     isInvalid={errors.zip}
                   />
-                  <Form.Control.Feedback tooltip/>
+                  <Form.Control.Feedback tooltip />
                   <Form.Control.Feedback type="invalid" tooltip>
                     {errors.zip}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Form.Row>
 
-            <Form.Group>
-               <Form.Switch
-                 name="hasMultisport"
-                 label="Multisport card"
-                 id="userProfileHasMultisportValidation"
-                 onChange={handleChange}
-                 isInvalid={!!errors.hasMultisport}
-                 feedback={errors.hasMultisport}
-                 value={values.hasMultisport}
-                 checked={values.hasMultisport}
-               />
-             </Form.Group>
+              <Form.Group>
+                <Form.Switch
+                  name="hasMultisport"
+                  label="Multisport card"
+                  id="userProfileHasMultisportValidation"
+                  onChange={handleChange}
+                  isInvalid={!!errors.hasMultisport}
+                  feedback={errors.hasMultisport}
+                  value={values.hasMultisport}
+                  checked={values.hasMultisport}
+                />
+              </Form.Group>
 
-             <Form.Group>
+              <Form.Group>
                 <Form.Switch
                   name="hasActivePass"
                   label="Active Pass"
@@ -257,7 +276,9 @@ export function UserProfileForm( {user, updateUserRequest} ) {
                 />
               </Form.Group>
 
-              <UserProfileActionButton variant="primary" type="submit">Update profile</UserProfileActionButton>
+              <UserProfileActionButton variant="primary" type="submit">
+                Update profile
+              </UserProfileActionButton>
             </Form>
           )}
         </Formik>
