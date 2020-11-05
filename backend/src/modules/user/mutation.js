@@ -22,6 +22,10 @@ export const signin = async (
 ) => {
   const storedUser = await user(email, dbConnection);
 
+  if (!storedUser) {
+    throw Error('Neexistující jméno.');
+  }
+
   if (!storedUser.is_verified) {
     throw Error('Uživatel není ověřený.');
   }
