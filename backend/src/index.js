@@ -174,7 +174,7 @@ const main = async () => {
     playground: true,
   });
 
-  apolloServer.applyMiddleware({ app, cors: false });
+  apolloServer.applyMiddleware({ app, cors: true });
 
   const port = process.env.PORT || 4000;
 
