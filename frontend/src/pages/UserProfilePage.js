@@ -49,6 +49,8 @@ export function UserProfilePage() {
   const { user } = useAuth();
   const { username } = useParams();
 
+  console.log("user", user);
+
   const filter = { username: username };
 
   const userFetcher = useQuery(USER_PROFILE_QUERY, {
