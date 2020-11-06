@@ -5,7 +5,7 @@ import { route } from 'src/Routes';
 import { Row } from 'react-bootstrap';
 
 export function RegistrationLink() {
-  const linkToRegistration = route.home();
+  const linkToRegistration = route.signUp();
 
   return (
     <Row className="justify-content-md-center" sm="4">
