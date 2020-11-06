@@ -21,7 +21,6 @@ const SIGNIN_MUTATION = gql`
         roles {
           name
         }
-
       }
       token
     }
@@ -32,8 +31,8 @@ export function SignInPage() {
   const auth = useAuth();
   const history = useHistory();
   const [signInRequest, signInRequestState] = useMutation(SIGNIN_MUTATION, {
-    onCompleted: ({ signin: { token } }) => {
-      auth.signin(token);
+    onCompleted: ({ signin: { user, token } }) => {
+      auth.signin({ token, user });
       history.replace('/');
     },
     onError: (error) => {

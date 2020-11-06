@@ -33,8 +33,8 @@ export function UserProfileForm({ user, updateUserRequest }) {
     city: user.places[0] ? user.places[0].city : undefined,
     country: user.places[0] ? user.places[0].country : undefined,
     zip: user.places[0] ? user.places[0].zip : undefined,
-    hasMultisport: user.benefits.includes(UserBenefitsEnum.MULTISPORT),
-    hasActivePass: user.benefits.includes(UserBenefitsEnum.ACTIVE_PASS),
+    hasMultisport: user.benefits.find((benefit) => benefit.name == "Multisport"),
+    hasActivePass: user.benefits.find((benefit) => benefit.name == "Active Passs"),
   };
 
   return (
