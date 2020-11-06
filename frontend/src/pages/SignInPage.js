@@ -14,6 +14,15 @@ const SIGNIN_MUTATION = gql`
       email: $email
       password: $password
     ) {
+      user {
+        user_id
+        email
+        is_verified
+        roles {
+          name
+        }
+
+      }
       token
     }
   }
