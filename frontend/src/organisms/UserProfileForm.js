@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-import { UserBenefitsEnum } from 'src/utils/const';
 import { Form, Col, Card } from 'react-bootstrap';
 
-import { UserProfileActionButton } from 'src/atoms/';
+import { UserProfileActionButton, FormikSwitch } from 'src/atoms/';
+import { FormikGroup } from 'src/molecules/';
 
 const schema = yup.object({
   firstName: yup.string().required(),
@@ -29,10 +29,10 @@ export function UserProfileForm({ user, updateUserRequest }) {
     username: user.username,
     email: user.email,
     phone: user.phone,
-    street: user.places[0] ? user.places[0].street : undefined,
-    city: user.places[0] ? user.places[0].city : undefined,
-    country: user.places[0] ? user.places[0].country : undefined,
-    zip: user.places[0] ? user.places[0].zip : undefined,
+    street: user.places[0] ? user.places[0].street : "",
+    city: user.places[0] ? user.places[0].city : "",
+    country: user.places[0] ? user.places[0].country : "",
+    zip: user.places[0] ? user.places[0].zip : "",
     hasMultisport: user.benefits.find((benefit) => benefit.name == "Multisport"),
     hasActivePass: user.benefits.find((benefit) => benefit.name == "Active Passs"),
   };
@@ -69,215 +69,99 @@ export function UserProfileForm({ user, updateUserRequest }) {
           {({
             handleSubmit,
             handleChange,
-            handleBlur,
             values,
             touched,
-            isValid,
             errors,
           }) => (
             <Form noValidate onSubmit={handleSubmit}>
               <Form.Row>
-                <Form.Group
-                  as={Col}
-                  md="6"
-                  controlId="userProfileFirstnameValidation"
-                >
-                  <Form.Label>First name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="firstName"
-                    value={values.firstName}
-                    onChange={handleChange}
-                    isValid={touched.firstName && !errors.firstName}
-                    isInvalid={errors.firstName}
-                  />
-                  <Form.Control.Feedback tooltip />
-                  <Form.Control.Feedback type="invalid" tooltip>
-                    {errors.firstName}
-                  </Form.Control.Feedback>
-                </Form.Group>
-
-                <Form.Group
-                  as={Col}
-                  md="6"
-                  controlId="userProfileLastnameValidation"
-                >
-                  <Form.Label>Last name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="lastName"
-                    value={values.lastName}
-                    onChange={handleChange}
-                    isValid={touched.lastName && !errors.lastName}
-                    isInvalid={errors.lastName}
-                  />
-                  <Form.Control.Feedback tooltip />
-                  <Form.Control.Feedback type="invalid" tooltip>
-                    {errors.lastName}
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Form.Row>
-
-              <Form.Row>
-                <Form.Group as={Col} controlId="userProfileUsernameValidation">
-                  <Form.Label>Username</Form.Label>
-                  <Form.Control
-                    type="text"
-                    aria-describedby="inputGroupPrepend"
-                    name="username"
-                    value={values.username}
-                    onChange={handleChange}
-                    isValid={touched.username && !errors.username}
-                    isInvalid={errors.username}
-                  />
-                  <Form.Control.Feedback tooltip />
-                  <Form.Control.Feedback type="invalid" tooltip>
-                    {errors.username}
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Form.Row>
-
-              <Form.Row>
-                <Form.Group as={Col} controlId="userProfileEmailValidation">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    aria-describedby="inputGroupPrepend"
-                    name="email"
-                    value={values.email}
-                    onChange={handleChange}
-                    isValid={touched.email && !errors.email}
-                    isInvalid={errors.email}
-                  />
-                  <Form.Control.Feedback tooltip />
-                  <Form.Control.Feedback type="invalid" tooltip>
-                    {errors.email}
-                  </Form.Control.Feedback>
-                </Form.Group>
-
-                <Form.Group as={Col} controlId="userProfileMobileValidation">
-                  <Form.Label>Mobile</Form.Label>
-                  <Form.Control
-                    type="text"
-                    aria-describedby="inputGroupPrepend"
-                    name="phone"
-                    value={values.phone}
-                    onChange={handleChange}
-                    isValid={touched.phone && !errors.phone}
-                    isInvalid={errors.phone}
-                  />
-                  <Form.Control.Feedback tooltip />
-                  <Form.Control.Feedback type="invalid" tooltip>
-                    {errors.mobile}
-                  </Form.Control.Feedback>
-                </Form.Group>
-              </Form.Row>
-
-              <Form.Group controlId="userProfileAddressStreetValidation">
-                <Form.Label>Street</Form.Label>
-                <Form.Control
-                  type="text"
-                  aria-describedby="inputGroupPrepend"
-                  name="street"
-                  value={values.street}
-                  onChange={handleChange}
-                  isValid={touched.street && !errors.street}
-                  isInvalid={errors.street}
+                <FormikGroup
+                   name="firstName"
+                   label="Jméno"
+                   id="userProfileFirstnameValidation"
+                   md="6"
                 />
-                <Form.Control.Feedback tooltip />
-                <Form.Control.Feedback type="invalid" tooltip>
-                  {errors.street}
-                </Form.Control.Feedback>
-              </Form.Group>
+
+                <FormikGroup
+                   name="lastName"
+                   label="Příjmení"
+                   id="userProfileLastnameValidation"
+                   md="6"
+                />
+              </Form.Row>
 
               <Form.Row>
-                <Form.Group
-                  as={Col}
-                  md="6"
-                  controlId="userProfileAddressCityValidation"
-                >
-                  <Form.Label>City</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="city"
-                    value={values.city}
-                    onChange={handleChange}
-                    isValid={touched.city && !errors.city}
-                    isInvalid={errors.city}
-                  />
-                  <Form.Control.Feedback tooltip />
-                  <Form.Control.Feedback type="invalid" tooltip>
-                    {errors.city}
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group
-                  as={Col}
-                  md="3"
-                  controlId="userProfileAddressCountryValidation"
-                >
-                  <Form.Label>Country</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="country"
-                    value={values.country}
-                    onChange={handleChange}
-                    isValid={touched.country && !errors.country}
-                    isInvalid={errors.country}
-                  />
-                  <Form.Control.Feedback tooltip />
-                  <Form.Control.Feedback type="invalid" tooltip>
-                    {errors.country}
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group
-                  as={Col}
-                  md="3"
-                  controlId="userProfileAddressZipValidation"
-                >
-                  <Form.Label>Zip</Form.Label>
-                  <Form.Control
-                    type="integer"
-                    name="zip"
-                    value={values.zip}
-                    onChange={handleChange}
-                    isValid={touched.zip && !errors.zip}
-                    isInvalid={errors.zip}
-                  />
-                  <Form.Control.Feedback tooltip />
-                  <Form.Control.Feedback type="invalid" tooltip>
-                    {errors.zip}
-                  </Form.Control.Feedback>
-                </Form.Group>
+                <FormikGroup
+                   name="username"
+                   label="Uživatelské jméno"
+                   id="userProfileUsernameValidation"
+                />
+              </Form.Row>
+
+              <Form.Row>
+                <FormikGroup
+                   name="email"
+                   label="Email"
+                   id="userProfileEmailValidation"
+                   md="6"
+                />
+
+                <FormikGroup
+                   name="phone"
+                   label="Telefon"
+                   id="userProfileMobileValidation"
+                   md="6"
+                />
+              </Form.Row>
+
+              <Form.Row>
+                <FormikGroup
+                   name="street"
+                   label="Ulice a čp."
+                   id="userProfileAddressStreetValidation"
+                />
+              </Form.Row>
+
+              <Form.Row>
+                <FormikGroup
+                   name="city"
+                   label="Město"
+                   id="userProfileAddressCityValidation"
+                   md="6"
+                />
+                <FormikGroup
+                   name="country"
+                   label="Stát"
+                   id="userProfileAddressCityValidation"
+                   md="3"
+                />
+                <FormikGroup
+                   name="zip"
+                   label="PSČ"
+                   id="userProfileAddressZipValidation"
+                   type="integer"
+                   md="3"
+                />
               </Form.Row>
 
               <Form.Group>
-                <Form.Switch
+                <FormikSwitch
                   name="hasMultisport"
                   label="Multisport card"
                   id="userProfileHasMultisportValidation"
-                  onChange={handleChange}
-                  isInvalid={!!errors.hasMultisport}
-                  feedback={errors.hasMultisport}
-                  value={values.hasMultisport}
-                  checked={values.hasMultisport}
                 />
               </Form.Group>
 
               <Form.Group>
-                <Form.Switch
+                <FormikSwitch
                   name="hasActivePass"
                   label="Active Pass"
                   id="userProfileHasActivePassValidation"
-                  onChange={handleChange}
-                  isInvalid={!!errors.hasActivePass}
-                  feedback={errors.hasActivePass}
-                  value={values.hasActivePass}
-                  checked={values.hasActivePass}
                 />
               </Form.Group>
 
               <UserProfileActionButton variant="primary" type="submit">
-                Update profile
+                Aktualizovat profil
               </UserProfileActionButton>
             </Form>
           )}

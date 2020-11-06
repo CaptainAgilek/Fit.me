@@ -19,9 +19,6 @@ const UPLOAD_PHOTO_MUTATION = gql`
 export function EditableAvatarPicture({
   src,
   alt,
-  size = '3',
-  className,
-  onChange,
   user_id
 }) {
   const [uploadFileHandler] = useMutation(UPLOAD_PHOTO_MUTATION);
@@ -43,7 +40,7 @@ export function EditableAvatarPicture({
 
   return (
     <>
-      <AvatarPicture src={profileImageUrl} alt={alt} size={size} className={className + " botOffset"} />
+      <AvatarPicture src={profileImageUrl} alt={alt} className={"botOffset"} />
 
       <GenericPopUp
         triggerVariant="outline-primary"
