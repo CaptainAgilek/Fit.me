@@ -4,6 +4,8 @@ export const singleUpload = async (_, { file, user_id }, { dbConnection }) => {
   const { createReadStream, filename, mimetype, encoding } = await file;
 
   const fileStream = createReadStream();
+  function handler (err) { throw Error(err); };
+  fileStream.on('error', handler);
   await fileStream.pipe(fs.createWriteStream(`./public/photos/${filename}`));
 
   const publicUrl = process.env.BACKEND_URL + `photos/${filename}`;
