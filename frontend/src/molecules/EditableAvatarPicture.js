@@ -16,15 +16,11 @@ const UPLOAD_PHOTO_MUTATION = gql`
   }
 `;
 
-export function EditableAvatarPicture({
-  src,
-  alt,
-  user_id
-}) {
+export function EditableAvatarPicture({ src, alt, user_id }) {
   const [uploadFileHandler] = useMutation(UPLOAD_PHOTO_MUTATION);
 
   const [selectedFile, setSelectedFile] = useState(null);
-  const [profileImageUrl, setProfileImageUrl] = useState(src)
+  const [profileImageUrl, setProfileImageUrl] = useState(src);
 
   const inputLabel = selectedFile ? selectedFile.name : 'Custom file input';
 
@@ -40,7 +36,7 @@ export function EditableAvatarPicture({
 
   return (
     <>
-      <AvatarPicture src={profileImageUrl} alt={alt} className={"botOffset"} />
+      <AvatarPicture src={profileImageUrl} alt={alt} className={'botOffset'} />
 
       <GenericPopUp
         triggerVariant="outline-primary"
@@ -61,12 +57,11 @@ export function EditableAvatarPicture({
                 validity,
                 files: [file],
               },
-            }) =>  { if (validity.valid) {
-              console.log(file);
-              setSelectedFile(file);
-            }
-          }
-        }
+            }) => {
+              if (validity.valid) {
+                setSelectedFile(file);
+              }
+            }}
             custom
           />
         </Form>
