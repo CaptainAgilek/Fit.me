@@ -61,7 +61,12 @@ export function EditableAvatarPicture({
                 validity,
                 files: [file],
               },
-            }) => validity.valid && setSelectedFile(file)}
+            }) =>  { if (validity.valid) {
+              console.log(file);
+              setSelectedFile(file);
+            }
+          }
+        }
             custom
           />
         </Form>
