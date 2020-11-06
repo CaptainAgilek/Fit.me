@@ -2,7 +2,7 @@ import dotenv from 'dotenv-flow';
 import express from 'express';
 import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';
-import { typeDefs } from './typedefs';
+import { typeDefs } from './modules/typedefs';
 import { getConnection } from './libs/connection';
 
 import rootResolver from './modules/rootResolver';

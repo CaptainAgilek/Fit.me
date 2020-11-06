@@ -30,7 +30,6 @@ export const signin = async (
     throw Error('Uživatel není ověřený.');
   }
 
-  console.log(storedUser.user_id);
   const roles = await rolesForUser( _, { user_id: storedUser.user_id }, { dbConnection });
   storedUser.roles = roles;
 
