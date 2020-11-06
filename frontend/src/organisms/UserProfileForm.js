@@ -161,7 +161,7 @@ export function UserProfileForm({ user, updateUserRequest }) {
               </Form.Group>
 
               <UserProfileActionButton variant="primary" type="submit">
-                Update profile
+                Aktualizovat profil
               </UserProfileActionButton>
             </Form>
           )}
