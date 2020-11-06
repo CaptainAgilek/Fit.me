@@ -51,7 +51,6 @@ export function UserProfilePage() {
   const history = useHistory();
   const { username } = useParams();
 
-  console.log("user", user);
 
   const filter = { username: username };
 
@@ -94,8 +93,11 @@ export function UserProfilePage() {
   };
 
   const userReservations = [
-    { id: 1, className: 'class name mock', date: '25.10.2020' },
-    { id: 2, className: 'class name mock1', date: '26.10.2020' },
+    { id: 1, className: 'kung fu s Martinem', date: '20.10.2020' },
+    { id: 2, className: 'hokej s Lenkou', date: '24.10.2020' },
+    { id: 3, className: 'činky s Honzou', date: '26.10.2020' },
+    { id: 4, className: 'fotbal s Petrem', date: '27.10.2020' },
+    { id: 5, className: 'kong fu s druhym Martinem', date: '1.11.2020' },
   ];
 
   return (
