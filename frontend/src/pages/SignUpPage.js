@@ -1,9 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
 
 import { SignUpTemplate } from 'src/templates/SignUpTemplate';
-import { MailSendedPopUp } from '../atoms/MailSendedPopUp';
+import { Container, Modal, Row } from 'react-bootstrap';
 
 const SIGNUP_MUTATION = gql`
   mutation signUp(
@@ -28,19 +27,20 @@ const SIGNUP_MUTATION = gql`
 `;
 
 export function SignUpPage() {
-  const history = useHistory();
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+
   const [signupRequest, signupRequestState] = useMutation(SIGNUP_MUTATION, {
     onCompleted: ({ signup: { user, token } }) => {
-      history.replace('/');
+      setShow(true);
     },
     onError: (error) => {
       console.log(error);
     },
   });
 
-
-  let handleSignUpFormSubmit;
-  handleSignUpFormSubmit = useCallback(
+  const handleSignUpFormSubmit = useCallback(
     (variables) => {
       signupRequest({
         variables: {
@@ -51,20 +51,25 @@ export function SignUpPage() {
           lastname: variables.lastname,
           type: variables.type,
         },
-      }).then((result) => {
-
       });
     },
     [signupRequest],
   );
 
 
-  // if (signupRequestState.error === null) {
-  if (true) {
+  if (show) {
     return (
-      <MailSendedPopUp
-        init={true}
-      />
+      <Container>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Body>
+            <Row className="justify-content-md-center">
+              <p>Na Váš email jsme poslali potvrzení registrace. Pro přihlášení do aplikace je potřeba již poslední
+                krok, kterým je potvrzení správnosti vašeho emailového účtu tím, že kliknete na odkaz ve Vašem
+                emailu.</p>
+            </Row>
+          </Modal.Body>
+        </Modal>
+      </Container>
     );
   } else {
     return (

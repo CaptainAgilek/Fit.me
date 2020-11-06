@@ -9,11 +9,6 @@ import { route } from 'src/Routes';
 import { SignUpTemplate } from '../templates/SignUpTemplate';
 
 export function TopNavigation() {
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   return (
     <>
     <nav className="flex justify-between bb b--white-10 bg-black white">

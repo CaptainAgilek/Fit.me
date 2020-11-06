@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
-import { Form, Col, Button, Row, Badge } from 'react-bootstrap';
+import { Form, Col, Button, Row, Badge, Modal, Container } from 'react-bootstrap';
 
-import { route } from '../Routes';
 import { FormikGroup } from '../molecules';
 
 const initialValues = {
@@ -35,7 +34,13 @@ export function SignUpForm({
                              className,
                              onSubmit,
                              children,
+                             handleClose,
+                             handleShowSignIn,
                            }) {
+  const handleShow = () => {
+    handleClose();
+    handleShowSignIn();
+  };
 
   return (
     <Formik
@@ -122,7 +127,7 @@ export function SignUpForm({
           </Form.Row>
 
           <Button size="lg" block variant="dark" type="submit" disabled={isLoading}>Zaregistrovat se</Button>
-          <Button size="lg" block variant="danger" to={route.signIn()}>Přihlásit se</Button>
+          <Button size="lg" block variant="success" onClick={handleShow}>Přihlásit se</Button>
 
           {children}
         </Form>
