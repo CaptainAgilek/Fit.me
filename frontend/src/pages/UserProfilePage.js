@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { gql, useMutation, useQuery } from '@apollo/client';
 
 import { UserProfileTemplate } from 'src/templates/UserProfileTemplate';
@@ -47,6 +47,7 @@ const UPDATE_USER_PROFILE_MUTATION = gql`
 
 export function UserProfilePage() {
   const { user } = useAuth();
+  const history = useHistory();
   const { username } = useParams();
 
   console.log("user", user);
@@ -61,7 +62,7 @@ export function UserProfilePage() {
     DELETE_USER_PROFILE_MUTATION,
     {
       onCompleted: () => {
-        userFetcher.refetch();
+        history.replace('/');
       },
     },
   );
@@ -99,8 +100,7 @@ export function UserProfilePage() {
   return (
     <UserProfileTemplate
       state={state}
-      userFetcherError={userFetcher.error}
-      deleteUserError={deleteUserRequestState.error}
+      error={userFetcher.error || deleteUserRequestState.error}
       data={userFetcher.data}
       onReload={() => { userFetcher.refetch(); }}
       userReservations={userReservations}

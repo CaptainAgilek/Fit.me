@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-import { UserBenefitsEnum } from 'src/utils/const';
 import { Form, Col, Card } from 'react-bootstrap';
 
 import { UserProfileActionButton } from 'src/atoms/';
@@ -29,10 +28,10 @@ export function UserProfileForm({ user, updateUserRequest }) {
     username: user.username,
     email: user.email,
     phone: user.phone,
-    street: user.places[0] ? user.places[0].street : undefined,
-    city: user.places[0] ? user.places[0].city : undefined,
-    country: user.places[0] ? user.places[0].country : undefined,
-    zip: user.places[0] ? user.places[0].zip : undefined,
+    street: user.places[0] ? user.places[0].street : "",
+    city: user.places[0] ? user.places[0].city : "",
+    country: user.places[0] ? user.places[0].country : "",
+    zip: user.places[0] ? user.places[0].zip : "",
     hasMultisport: user.benefits.find((benefit) => benefit.name == "Multisport"),
     hasActivePass: user.benefits.find((benefit) => benefit.name == "Active Passs"),
   };
