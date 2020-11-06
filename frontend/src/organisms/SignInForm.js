@@ -11,8 +11,8 @@ const initialValues = {
 };
 
 const schema = yup.object().shape({
-  email: yup.string().email().required('Vyplňte email'),
-  password: yup.string().required('Vyplňte heslo'),
+  email: yup.string().required('Vyplňte email').matches(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i, 'Prosím zadajte email v správním tvaru'),
+  password: yup.string().required('Vyplňte heslo').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, 'Musí obsahovat 8 znaků, alespoň jeden velký a malý znak a číslo')
 });
 
 
@@ -45,14 +45,14 @@ export function SignInForm({
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <Field name="email" type="email"
-                   className={'form-control' + (errors.email || touched.email ? ' is-invalid' : '')} />
+                   className={'form-control' + (errors.email ? ' is-invalid' : '')} />
             <ErrorMessage name="email" component="div" className="invalid-feedback" />
           </div>
 
           <div className="form-group">
             <label htmlFor="password">Heslo</label>
             <Field name="password" type="password"
-                   className={'form-control' + (errors.password || touched.password ? ' is-invalid' : '')} />
+                   className={'form-control' + (errors.password ? ' is-invalid' : '')} />
             <ErrorMessage name="password" component="div" className="invalid-feedback" />
           </div>
 
