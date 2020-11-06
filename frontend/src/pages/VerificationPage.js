@@ -1,37 +1,29 @@
-import React, {useEffect} from 'react';
-import { gql, useMutation  } from '@apollo/client';
+import React, { useEffect } from 'react';
+import { gql, useMutation } from '@apollo/client';
+import { route } from 'src/Routes';
+import { Redirect } from "react-router-dom";
 
 const VERIFY_REGISTRATION_MUTATION = gql`
   mutation VerifyRegistration($token: String!) {
     verifyRegistration(token: $token)
   }
 `;
+
 export function VerificationPage(props) {
   var params = new URLSearchParams(props.location.search);
   const token = params.get('token');
 
-  const [tokenStateRequest, tokenState] = useMutation(VERIFY_REGISTRATION_MUTATION);
-  useEffect(() => { tokenStateRequest({ variables: { token } });}, [token]);
+  const [tokenStateRequest, tokenState] = useMutation(
+    VERIFY_REGISTRATION_MUTATION,
+  );
+  useEffect(() => {
+    tokenStateRequest({ variables: { token } });
+  }, [token]);
 
-  let message = 'Nevalidní token ' + token;
+  let message = getMessage(token, tokenState);
 
-  if (token) {
-    if (!tokenState.data && tokenState.loading) {
-      message = 'Loading...';
-    }
-
-    if (tokenState.error) {
-      message = tokenState.error.message;
-    }
-
-    if (tokenState.data) {
-      if (tokenState.data && tokenState.data.verifyRegistration) {
-        message =
-          'Gratulujeme, Vaše emailová adresa byla ověřena, můžete se přihlásit.';
-      } else {
-        message = 'Váš email se nepodařilo ověřit.';
-      }
-    }
+  if (tokenState.data && tokenState.data.verifyRegistration) {
+    return <Redirect to={route.signIn()} />;
   }
 
   return (
@@ -40,4 +32,32 @@ export function VerificationPage(props) {
       <p>{message}</p>
     </div>
   );
+}
+
+function getMessage(token, tokenState) {
+  if (!token) {
+    return 'Nebyl zadán token.';
+  }
+
+  if (token) {
+    if (!tokenState.data && tokenState.loading) {
+      return 'Loading...';
+    }
+
+    if (tokenState.error) {
+      return tokenState.error.message;
+    }
+
+    if (!tokenState.data) {
+      return 'Váš email se nepodařilo ověřit.';
+    }
+
+    if (tokenState.data.verifyRegistration) {
+      return 'Gratulujeme, Váš email je ověřený.';
+    } else {
+      return 'Váš email se nepodařilo ověřit.';
+    }
+  }
+
+  return 'Nevalidní token ' + token;
 }

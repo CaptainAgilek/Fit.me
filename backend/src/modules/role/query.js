@@ -15,3 +15,13 @@ export const role = async (_, { name }, { dbConnection }) => {
   }
   return role;
 };
+
+export const rolesForUser = async (_, { user_id }, { dbConnection }) => {
+  return await dbConnection.query(
+    `SELECT role_id, name FROM role
+      JOIN role_user USING (role_id)
+      JOIN user USING (user_id)
+      WHERE user_id = ?`,
+    [user_id],
+  );
+}
