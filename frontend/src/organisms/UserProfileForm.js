@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -33,8 +33,8 @@ export function UserProfileForm({ user, updateUserRequest }) {
     city: user.places[0] ? user.places[0].city : "",
     country: user.places[0] ? user.places[0].country : "",
     zip: user.places[0] ? user.places[0].zip : "",
-    hasMultisport: user.benefits.find((benefit) => benefit.name == "Multisport"),
-    hasActivePass: user.benefits.find((benefit) => benefit.name == "Active Passs"),
+    hasMultisport: user.benefits.find((benefit) => benefit.name === "Multisport"),
+    hasActivePass: user.benefits.find((benefit) => benefit.name === "Active Pass"),
   };
 
   return (

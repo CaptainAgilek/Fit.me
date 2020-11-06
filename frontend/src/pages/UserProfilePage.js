@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useParams, useHistory } from 'react-router-dom';
 import { gql, useMutation, useQuery } from '@apollo/client';
 
 import { UserProfileTemplate } from 'src/templates/UserProfileTemplate';
-import { UserBenefitsEnum } from 'src/utils/const';
 import { useAuth } from 'src/utils/auth';
 import { TopNavigation } from 'src/organisms/';
 

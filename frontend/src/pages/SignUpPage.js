@@ -3,6 +3,7 @@ import { gql, useMutation } from '@apollo/client';
 import { useHistory } from 'react-router-dom';
 
 import { SignUpTemplate } from 'src/templates/SignUpTemplate';
+import { MailSendedPopUp } from '../atoms/MailSendedPopUp';
 
 const SIGNUP_MUTATION = gql`
   mutation signUp(
@@ -38,7 +39,8 @@ export function SignUpPage() {
   });
 
 
-  const handleSignUpFormSubmit = useCallback(
+  let handleSignUpFormSubmit;
+  handleSignUpFormSubmit = useCallback(
     (variables) => {
       signupRequest({
         variables: {
@@ -47,18 +49,30 @@ export function SignUpPage() {
           password: variables.password,
           firstname: variables.firstname,
           lastname: variables.lastname,
-          type: variables.type
+          type: variables.type,
         },
+      }).then((result) => {
+
       });
     },
     [signupRequest],
   );
 
-  return (
-    <SignUpTemplate
-      isLoading={signupRequestState.loading}
-      error={signupRequestState.error}
-      onSubmit={handleSignUpFormSubmit}
-    />
-  );
+
+  // if (signupRequestState.error === null) {
+  if (true) {
+    return (
+      <MailSendedPopUp
+        init={true}
+      />
+    );
+  } else {
+    return (
+      <SignUpTemplate
+        isLoading={signupRequestState.loading}
+        error={signupRequestState.error}
+        onSubmit={handleSignUpFormSubmit}
+      />);
+  }
+
 }

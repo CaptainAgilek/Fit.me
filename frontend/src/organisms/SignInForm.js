@@ -4,6 +4,7 @@ import * as yup from 'yup';
 import { Form, Button, Row, Badge } from 'react-bootstrap';
 
 import { route } from '../Routes';
+import { FormikGroup } from '../molecules';
 
 const initialValues = {
   email: '',
@@ -42,19 +43,22 @@ export function SignInForm({
             </h3>
           </Row>
 
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <Field name="email" type="email"
-                   className={'form-control' + (errors.email ? ' is-invalid' : '')} />
-            <ErrorMessage name="email" component="div" className="invalid-feedback" />
-          </div>
+          <Form.Row>
+            <FormikGroup
+              name="email"
+              id="email"
+              label="Email"
+            />
+          </Form.Row>
 
-          <div className="form-group">
-            <label htmlFor="password">Heslo</label>
-            <Field name="password" type="password"
-                   className={'form-control' + (errors.password ? ' is-invalid' : '')} />
-            <ErrorMessage name="password" component="div" className="invalid-feedback" />
-          </div>
+          <Form.Row>
+            <FormikGroup
+              name="password"
+              id="password"
+              label="Heslo"
+              type="password"
+            />
+          </Form.Row>
 
           <Button size="lg" block variant="dark" type="submit" disabled={isLoading}>Přihlásit se</Button>
           <Button size="lg" block variant="danger" to={route.signIn()}>Zapomenuté heslo</Button>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 
@@ -6,17 +6,23 @@ import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 import { Link, NavLink, Button } from 'src/atoms/';
 
 import { route } from 'src/Routes';
+import { SignUpTemplate } from '../templates/SignUpTemplate';
 
 export function TopNavigation() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
+    <>
     <nav className="flex justify-between bb b--white-10 bg-black white">
       <Link
         to={route.home()}
         noUnderline
         className="b white flex items-center pv2 ph3"
       >
-      <FontAwesomeIcon icon={faDumbbell} className="mr2 f4" />
+        <FontAwesomeIcon icon={faDumbbell} className="mr2 f4" />
         Fit.me
       </Link>
       <div className="flex-grow flex items-center">
@@ -26,7 +32,7 @@ export function TopNavigation() {
         <NavLink to={route.signIn()} className="pa3">
           Sign In
         </NavLink>
-        <Button
+        <NavLink
           to={route.signUp()}
           as={Link}
           color="navbar"
@@ -35,8 +41,9 @@ export function TopNavigation() {
           noUnderline
         >
           Sign Up
-        </Button>
+        </NavLink>
       </div>
     </nav>
+    </>
   );
 }
