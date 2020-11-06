@@ -7,6 +7,7 @@ import {
   getRegistrationToken,
 } from './helper';
 import { assignRoleToUser } from '../role/mutation';
+import { rolesForUser } from '../role/query';
 import { user } from './query';
 import { ROLE_NAME } from '../role/enum';
 import { USER_TYPE } from './enum';
@@ -21,7 +22,6 @@ export const signin = async (
   { dbConnection },
 ) => {
   const storedUser = await user(email, dbConnection);
-
   if (!storedUser) {
     throw Error('Neexistující jméno.');
   }
@@ -29,6 +29,9 @@ export const signin = async (
   if (!storedUser.is_verified) {
     throw Error('Uživatel není ověřený.');
   }
+
+  const roles = await rolesForUser( _, { user_id: storedUser.user_id }, { dbConnection });
+  storedUser.roles = roles;
 
   if (await argon2.verify(storedUser.password, password)) {
     const token = createToken(storedUser);

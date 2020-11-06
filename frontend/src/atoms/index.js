@@ -6,3 +6,6 @@ export { Loading } from './Loading';
 export { ChangePasswordForm } from './ChangePasswordForm';
 export { RegistrationLink } from './RegistrationLink';
 export { FormikSwitch } from './FormikSwitch';
+export { Button } from './Button';
+export { Link } from './Link';
+export { NavLink } from './NavLink';

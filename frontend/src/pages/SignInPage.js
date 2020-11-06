@@ -16,6 +16,11 @@ const SIGNIN_MUTATION = gql`
     ) {
       user {
         user_id
+        email
+        is_verified
+        roles {
+          name
+        }
       }
       token
     }
