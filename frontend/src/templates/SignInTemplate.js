@@ -1,10 +1,12 @@
 import React from 'react';
 
-import { SignInForm } from 'src/organisms/';
+import { SignInForm, TopNavigation } from 'src/organisms/';
 import { Row, Col, Container } from 'react-bootstrap';
 
 export function SignInTemplate({ isLoading, error, onSubmit }) {
   return (
+    <>
+    <TopNavigation />
     <Container>
       <Row className="justify-content-md-center">
         <h1>Přihlášení</h1>
@@ -21,5 +23,6 @@ export function SignInTemplate({ isLoading, error, onSubmit }) {
         </Col>
       </Row>
     </Container>
+    </>
   );
 }
