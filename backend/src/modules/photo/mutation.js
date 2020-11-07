@@ -1,8 +1,11 @@
 import fs, { unlink } from 'fs';
 
-export const singleUpload = async (_, { file, user_id }, { dbConnection }) => {
+export const singleUpload = async (
+  _,
+  { file, user_id, photo_id },
+  { dbConnection },
+) => {
   const { createReadStream, filename, mimetype, encoding } = await file;
-
   const fileStream = createReadStream();
 
   const fileWritten = await new Promise((resolve, reject) => {
@@ -14,6 +17,7 @@ export const singleUpload = async (_, { file, user_id }, { dbConnection }) => {
     // and reject the promise.
     writeStream.on('error', (error) => {
       unlink(path, () => {
+        throw Error(error);
         reject(error);
       });
     });
@@ -26,17 +30,31 @@ export const singleUpload = async (_, { file, user_id }, { dbConnection }) => {
   });
 
   const publicUrl = process.env.BACKEND_URL + `photos/${filename}`;
+  await createOrUpdateProfilePhoto(file, user_id, photo_id, publicUrl, dbConnection);
+
+  return { filename, mimetype, encoding, url: publicUrl };
+};
+
+const createOrUpdateProfilePhoto = async (
+  file,
+  user_id,
+  photo_id,
+  url,
+  dbConnection,
+) => {
   const input = {
+    photo_id,
     user_id: user_id,
     description: null,
-    url: publicUrl,
+    url: url,
     gallery_name: null,
     is_profile_picture: true,
   };
-
-  await insertPhoto(_, { input }, { dbConnection });
-
-  return { filename, mimetype, encoding, url: publicUrl };
+  if (!photo_id) {
+    return await insertPhoto(null, { input }, { dbConnection });
+  } else {
+    return await updateProfilePhotoUrl(null, { input }, { dbConnection });
+  }
 };
 
 export const insertPhoto = async (_, { input }, { dbConnection }) => {
@@ -53,4 +71,14 @@ export const insertPhoto = async (_, { input }, { dbConnection }) => {
   );
 
   return insertPhoto.warningStatus == 0;
+};
+
+export const updateProfilePhotoUrl = async (_, { input }, { dbConnection }) => {
+  const dbResponse = await dbConnection.query(
+    `UPDATE photo SET url = ?
+     WHERE user_id = ? AND photo_id = ? AND is_profile_picture = true;`,
+    [input.url, input.user_id, input.photo_id],
+  );
+
+  return dbResponse.affectedRows === 1;
 };

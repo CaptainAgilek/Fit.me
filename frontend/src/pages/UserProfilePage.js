@@ -28,6 +28,7 @@ const USER_PROFILE_QUERY = gql`
         name
       }
       profile_photo {
+        photo_id
         url
       }
     }
@@ -56,7 +57,9 @@ export function UserProfilePage() {
   const filter = { username: username };
 
   const userFetcher = useQuery(USER_PROFILE_QUERY, {
-    variables: { filter },
+    variables: { filter },  onCompleted: (data) => {
+        console.log("refetched user " + JSON.stringify(data));
+      },
   });
 
   const [deleteUserRequest, deleteUserRequestState] = useMutation(
@@ -105,7 +108,7 @@ export function UserProfilePage() {
       state={state}
       error={userFetcher.error || deleteUserRequestState.error}
       data={userFetcher.data}
-      onReload={() => { userFetcher.refetch(); }}
+      onReload={userFetcher.refetch}
       userReservations={userReservations}
       deleteUserRequest={deleteUserRequest}
       updateUserRequest={updateUserRequest}
