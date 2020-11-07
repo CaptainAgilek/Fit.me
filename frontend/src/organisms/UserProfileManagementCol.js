@@ -9,6 +9,7 @@ export function UserProfileManagementCol({
   avatarSource,
   avatarAlt,
   user_id,
+  photo_id,
   deleteProfilePopUpParams,
   deleteUserRequest,
 }) {
@@ -19,6 +20,7 @@ export function UserProfileManagementCol({
             src={avatarSource}
             alt={avatarAlt}
             user_id={user_id}
+            photo_id={photo_id}
           />
       </Row>
 

@@ -6,8 +6,8 @@ import { Form } from 'react-bootstrap';
 import { AvatarPicture, GenericPopUp } from 'src/atoms/';
 
 const UPLOAD_PHOTO_MUTATION = gql`
-  mutation SingleUpload($file: Upload!, $user_id: Int!) {
-    singleUpload(file: $file, user_id: $user_id) {
+  mutation SingleUpload($file: Upload!, $user_id: Int!, $photo_id: Int) {
+    singleUpload(file: $file, user_id: $user_id, photo_id: $photo_id) {
       filename
       mimetype
       encoding
@@ -16,22 +16,24 @@ const UPLOAD_PHOTO_MUTATION = gql`
   }
 `;
 
-export function EditableAvatarPicture({ src, alt, user_id }) {
-  const [uploadFileHandler] = useMutation(UPLOAD_PHOTO_MUTATION);
+export function EditableAvatarPicture({ src, alt, user_id, photo_id }) {
+  const [profileImageUrl, setProfileImageUrl] = useState(src);
+  
+  const [uploadFileHandler] = useMutation(UPLOAD_PHOTO_MUTATION, {
+    onCompleted({ singleUpload }) {
+      setProfileImageUrl(singleUpload.url);
+    },
+  });
 
   const [selectedFile, setSelectedFile] = useState(null);
-  const [profileImageUrl, setProfileImageUrl] = useState(src);
 
   const inputLabel = selectedFile ? selectedFile.name : 'Custom file input';
 
   const handleFileUpload = async (selectedFile) => {
     if (!selectedFile) return;
-    const upload = await uploadFileHandler({
-      variables: { file: selectedFile, user_id: user_id },
+    await uploadFileHandler({
+      variables: { file: selectedFile, user_id: user_id, photo_id: photo_id },
     });
-    if (upload.data) {
-      setProfileImageUrl(upload.data.singleUpload.url);
-    }
   };
 
   return (
