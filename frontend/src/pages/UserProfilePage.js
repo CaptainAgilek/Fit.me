@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useParams, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { gql, useMutation, useQuery } from '@apollo/client';
 
 import { UserProfileTemplate } from 'src/templates/UserProfileTemplate';
@@ -50,10 +50,8 @@ const UPDATE_USER_PROFILE_MUTATION = gql`
 export function UserProfilePage() {
   const { user } = useAuth();
   const history = useHistory();
-  const { username } = useParams();
 
-
-  const filter = { username: username };
+  const filter = { id: user.user_id };
 
   const userFetcher = useQuery(USER_PROFILE_QUERY, {
     variables: { filter },  onCompleted: (data) => {
