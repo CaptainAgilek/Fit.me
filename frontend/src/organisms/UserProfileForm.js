@@ -27,7 +27,7 @@ export function UserProfileForm({ user, updateUserRequest }) {
     firstName: user.firstname,
     lastName: user.lastname,
     username: user.username,
-    email: user.email,
+    email: user.user.email,
     phone: user.phone,
     street: user.places[0] ? user.places[0].street : "",
     city: user.places[0] ? user.places[0].city : "",

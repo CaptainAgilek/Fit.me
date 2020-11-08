@@ -1,36 +1,34 @@
-import { insertPlace, updatePlace } from '../place/mutation';
+import { createOrUpdatePlace } from '../place/mutation';
+import { userById } from '../user/query';
+import { updateUserEmail } from '../user/mutation';
 
 export const updateSportsman = async (_, { input }, { dbConnection }) => {
   const dbResponse = await dbConnection.query(
-    `UPDATE sportsman SET firstname = ?, lastname = ?, username = ?, email = ?, phone = ?
+    `UPDATE sportsman SET firstname = ?, lastname = ?, username = ?, phone = ?
      WHERE user_id = ?;`,
     [
       input.firstname,
       input.lastname,
       input.username,
-      input.email ? input.email : null,
       input.phone ? input.phone : null,
       input.user_id,
     ],
   );
-  let placeResult = true;
 
-  if (input.place) {
-    placeResult = false;
-
-    if (input.place.place_id) {
-      placeResult = await updatePlace(
-        _,
-        { input: input.place },
-        { dbConnection },
-      );
-    } else {
-      placeResult = await insertPlace(
-        _,
-        { input: input.place },
-        { dbConnection },
-      );
-    }
+  const user = await userById(_, { user_id: input.user_id}, { dbConnection });
+  let userEmailResult = true;
+  if (user) {
+    userEmailResult = await updateUserEmail(
+      _,
+      { email: input.email, user_id: input.user_id },
+      { dbConnection },
+    );
   }
-  return dbResponse.affectedRows === 1 && placeResult;
+
+  let placeResult = true;
+  if (input.place) {
+    placeResult = await createOrUpdatePlace(_, { input }, { dbConnection });
+  }
+
+  return dbResponse.affectedRows === 1 && placeResult && userEmailResult;
 };

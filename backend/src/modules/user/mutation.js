@@ -118,3 +118,12 @@ export const deleteUser = async (_, { user_id }, { dbConnection }) => {
 
   return deleteResponse.warningStatus === 0;
 };
+
+export const updateUserEmail = async (_, { email, user_id }, { dbConnection }) => {
+  const dbResponse = await dbConnection.query(
+    `UPDATE user SET email = ? WHERE user_id = ?;`,
+    [email, user_id],
+  );
+
+  return dbResponse.affectedRows === 1;
+}

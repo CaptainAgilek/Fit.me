@@ -24,9 +24,22 @@ export const updatePlace = async (_, { input }, { dbConnection }) => {
       input.zip ? input.zip : null,
       input.country,
       input.user_id,
-      input.place_id
+      input.place_id,
     ],
   );
 
   return dbResponse.affectedRows === 1;
+};
+
+export const createOrUpdatePlace = async (_, { input }, { dbConnection }) => {
+  if (!input.place) {
+    return false;
+  }
+
+  if (input.place.place_id) {
+    return await updatePlace(_, { input: input.place }, { dbConnection });
+  } else {
+    return await insertPlace(_, { input: input.place }, { dbConnection });
+  }
+  return false;
 };

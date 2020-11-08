@@ -17,6 +17,9 @@ const USER_PROFILE_QUERY = gql`
       username
       email
       phone
+      user {
+        email
+      }
       places {
         place_id
         city
@@ -57,9 +60,7 @@ export function UserProfilePage() {
   const filter = { username: username };
 
   const userFetcher = useQuery(USER_PROFILE_QUERY, {
-    variables: { filter },  onCompleted: (data) => {
-        console.log("refetched user " + JSON.stringify(data));
-      },
+    variables: { filter }
   });
 
   const [deleteUserRequest, deleteUserRequestState] = useMutation(

@@ -15,3 +15,16 @@ export const user = async (email, dbConnection) => {
   }
   return user;
 };
+
+export const userById = async (_, { user_id }, { dbConnection} ) => {
+  const user = (
+    await dbConnection.query(`SELECT * FROM user WHERE user_id = ?`, [
+      user_id,
+    ])
+  )[0];
+
+  if (!user) {
+    return null;
+  }
+  return user;
+};
