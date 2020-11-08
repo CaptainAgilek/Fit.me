@@ -12,7 +12,6 @@ import {
 } from 'src/atoms/';
 import { EditableAvatarPicture, ErrorBanner } from 'src/molecules/';
 import { UserProfileForm, UserProfileManagementCol } from 'src/organisms/';
-import { DEFAULT_IMG_URL } from 'src/utils/const';
 
 export function UserProfileTemplate({
   state,
@@ -22,6 +21,7 @@ export function UserProfileTemplate({
   userReservations,
   deleteUserRequest,
   updateUserRequest,
+  changePasswordRequest,
 }) {
   return (
     <Container>
@@ -43,18 +43,7 @@ export function UserProfileTemplate({
         <Row>
           <Col sm="12" md="3">
             <UserProfileManagementCol
-              avatarSource={
-                data.sportsman.profile_photo
-                  ? data.sportsman.profile_photo.url
-                  : DEFAULT_IMG_URL
-              }
-              avatarAlt={data.sportsman.username}      
-              user_id={data.sportsman.user_id}
-              photo_id={
-                data.sportsman.profile_photo
-                  ? data.sportsman.profile_photo.photo_id
-                  : undefined
-              }
+              user={data.sportsman}
               deleteProfilePopUpParams={{
                 triggerVariant: 'outline-dark',
                 triggerText: 'Change Password',
@@ -65,6 +54,7 @@ export function UserProfileTemplate({
                 footerRightText: 'Change',
               }}
               deleteUserRequest={deleteUserRequest}
+              changePasswordRequest={changePasswordRequest}
             />
           </Col>
 

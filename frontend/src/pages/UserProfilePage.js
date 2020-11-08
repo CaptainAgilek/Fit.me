@@ -47,6 +47,12 @@ const UPDATE_USER_PROFILE_MUTATION = gql`
   }
 `;
 
+const CHANGE_PASSWORD_MUTATION = gql`
+  mutation changePassword($email: String!, $oldPassword: String!, $newPassword: String!, $newPasswordAgain: String!) {
+    changePassword(email: $email, oldPassword: $oldPassword, newPassword: $newPassword, newPasswordAgain: $newPasswordAgain)
+  }
+`;
+
 export function UserProfilePage() {
   const { user } = useAuth();
   const history = useHistory();
@@ -76,6 +82,8 @@ export function UserProfilePage() {
       },
     },
   );
+
+  const [changePasswordRequest, changePasswordRequestState] = useMutation(CHANGE_PASSWORD_MUTATION);
 
   const state = {
     showLoading:
@@ -112,6 +120,7 @@ export function UserProfilePage() {
       userReservations={userReservations}
       deleteUserRequest={deleteUserRequest}
       updateUserRequest={updateUserRequest}
+      changePasswordRequest={changePasswordRequest}
     />
     </>
   );
