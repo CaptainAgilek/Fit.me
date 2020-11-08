@@ -132,7 +132,7 @@ export function UserProfileForm({ user, updateUserRequest }) {
                 <FormikGroup
                    name="country"
                    label="Stát"
-                   id="userProfileAddressCityValidation"
+                   id="userProfileAddressCountryValidation"
                    md="3"
                 />
                 <FormikGroup

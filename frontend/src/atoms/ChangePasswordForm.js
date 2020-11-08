@@ -3,84 +3,91 @@ import React from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-import { Form, Col } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
 
 import { UserProfileActionButton } from 'src/atoms/';
+import { FormikGroup } from 'src/molecules/';
 
 const schema = yup.object({
-  password: yup
+  oldPassword: yup
     .string()
-    .required("Enter new password")
+    .required('Vložte současné heslo')
     .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+      'Musí obsahovat 8 znaků, alespoň jeden velký a malý znak a číslo'
     )
   ,
-  passwordConfirmation: yup
+  newPassword: yup
     .string()
-    .required("Enter new password again")
-    .oneOf([yup.ref('password'), null], 'Passwords must match')
+    .required('Vložte nové heslo')
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+      'Musí obsahovat 8 znaků, alespoň jeden velký a malý znak a číslo'
+    )
+  ,
+  newPasswordAgain: yup
+    .string()
+    .required('Vložte nové heslo znovu')
+    .oneOf([yup.ref('newPassword'), null], 'Hesla se musí shodovat')
 });
 
 const initialValues = {
-  password: "",
-  passwordConfirmation: "",
+  oldPassword: "",
+  newPassword: "",
+  newPasswordAgain: "",
 };
 
-export function ChangePasswordForm( {user} ) {
+export function ChangePasswordForm( {userEmail, onSubmit, handleClose } ) {
   return (
-      <Formik
-        validationSchema={schema}
-        onSubmit={console.log}
-        initialValues={initialValues}
-      >
-        {({
-          handleSubmit,
-          handleChange,
-          handleBlur,
-          values,
-          touched,
-          isValid,
-          errors,
-        }) => (
-          <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="formGroupPassword1">
-                <Form.Label>New password</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="password"
-                  placeholder="Enter new password"
-                  aria-describedby="inputGroupPrepend"
-                  value={values.password}
-                  onChange={handleChange}
-                  isValid={touched.password && !errors.password}
-                  isInvalid={errors.password}
-                />
-                <Form.Control.Feedback tooltip/>
-                <Form.Control.Feedback type="invalid" tooltip>
-                  {errors.password}
-                </Form.Control.Feedback>
-              </Form.Group>
+    <Formik
+      validationSchema={schema}
+      onSubmit={(values) => {
+        onSubmit({ variables: {
+          email: userEmail,
+          oldPassword: values.oldPassword,
+          newPassword: values.newPassword,
+          newPasswordAgain: values.newPasswordAgain
+        }});
+        handleClose();
+      }}
+      initialValues={initialValues}
+    >
+    {({
+      handleSubmit,
+      handleChange,
+      values,
+      touched,
+      errors,
+    }) => (
+      <Form onSubmit={handleSubmit}>
+        <Form.Row>
+          <FormikGroup
+            name="oldPassword"
+            label="Aktuální heslo"
+            id="oldPasswordValidation"
+            type="password"
+          />
 
-              <Form.Group controlId="formGroupPassword2">
-                <Form.Label>New password again</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="passwordConfirmation"
-                  placeholder="Enter new password again"
-                  aria-describedby="inputGroupPrepend"
-                  value={values.passwordConfirmation}
-                  onChange={handleChange}
-                  isValid={touched.passwordConfirmation && !errors.passwordConfirmation}
-                  isInvalid={errors.passwordConfirmation}
-                />
-                <Form.Control.Feedback tooltip/>
-                <Form.Control.Feedback type="invalid" tooltip>
-                  {errors.passwordConfirmation}
-                </Form.Control.Feedback>
-              </Form.Group>
-         </Form>
-        )}
-      </Formik>
+          <FormikGroup
+            name="newPassword"
+            label="Nové heslo"
+            id="newPasswordValidation"
+            type="password"
+          />
+
+          <FormikGroup
+            name="newPasswordAgain"
+            label="Nové heslo znovu"
+            id="newPasswordAgainValidation"
+            type="password"
+          />
+        </Form.Row>
+
+        <UserProfileActionButton variant="outline-success" type="submit">
+          Změnit heslo
+        </UserProfileActionButton>
+      </Form>
+    )}
+    </Formik>
   );
 }
