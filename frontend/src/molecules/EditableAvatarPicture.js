@@ -18,7 +18,7 @@ const UPLOAD_PHOTO_MUTATION = gql`
 
 export function EditableAvatarPicture({ src, alt, user_id, photo_id }) {
   const [profileImageUrl, setProfileImageUrl] = useState(src);
-  
+
   const [uploadFileHandler] = useMutation(UPLOAD_PHOTO_MUTATION, {
     onCompleted({ singleUpload }) {
       setProfileImageUrl(singleUpload.url);
@@ -42,12 +42,12 @@ export function EditableAvatarPicture({ src, alt, user_id, photo_id }) {
 
       <GenericPopUp
         triggerVariant="outline-primary"
-        triggerText="Change Avatar"
-        modalTitle="Upload new avatar"
+        triggerText="Změnit Avatar"
+        modalTitle="Nahrát nový obrázek"
         footerLeftVariant="outline-secondary"
-        footerLeftText="Cancel"
+        footerLeftText="Zpět"
         footerRightVariant="outline-primary"
-        footerRightText="Upload"
+        footerRightText="Nahrát"
         rightButtonOnClick={() => handleFileUpload(selectedFile)}
       >
         <Form>

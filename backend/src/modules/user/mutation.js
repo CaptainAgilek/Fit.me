@@ -127,3 +127,35 @@ export const updateUserEmail = async (_, { email, user_id }, { dbConnection }) =
 
   return dbResponse.affectedRows === 1;
 }
+
+export const changePassword = async (
+  _,
+  { email, oldPassword, newPassword, newPasswordAgain },
+  { dbConnection },
+) => {
+  if (newPassword !== newPasswordAgain) {
+    throw Error('Hesla se neshodují.');
+  }
+
+  const storedUser = await user(email, dbConnection);
+  if (!storedUser) {
+    throw Error('Neexistující jméno.');
+  }
+
+  if (!storedUser.is_verified) {
+    throw Error('Uživatel není ověřený.');
+  }
+
+  if (await !argon2.verify(storedUser.password, oldPassword)) {
+    throw Error('Nesprávné heslo.');
+  }
+
+  const newPasswordHash = await argon2.hash(newPassword);
+
+  const updatePasswordResponse = await dbConnection.query(
+    `UPDATE user SET password = ? WHERE user_id = ?;`,
+    [newPasswordHash, storedUser.user_id],
+  );
+
+  return updatePasswordResponse.affectedRows === 1;
+};

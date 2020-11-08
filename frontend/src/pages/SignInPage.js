@@ -4,6 +4,7 @@ import { useAuth } from 'src/utils/auth';
 import { useHistory } from 'react-router-dom';
 
 import { SignInTemplate } from 'src/templates/SignInTemplate';
+import { route } from 'src/Routes';
 
 const SIGNIN_MUTATION = gql`
   mutation signIn(
@@ -30,10 +31,12 @@ const SIGNIN_MUTATION = gql`
 export function SignInPage() {
   const auth = useAuth();
   const history = useHistory();
+  const userProfileLink = route.userProfile();
+
   const [signInRequest, signInRequestState] = useMutation(SIGNIN_MUTATION, {
     onCompleted: ({ signin: { user, token } }) => {
       auth.signin({ token, user });
-      history.replace('/');
+      history.replace(userProfileLink);
     },
     onError: (error) => {
       console.log(error);
