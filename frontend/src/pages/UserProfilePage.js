@@ -112,7 +112,6 @@ export function UserProfilePage() {
 
   return (
     <>
-    <Navigation/>
     <UserProfileTemplate
       state={state}
       error={userFetcher.error || deleteUserRequestState.error}

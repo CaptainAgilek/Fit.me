@@ -5,7 +5,15 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 
+import { useAuth } from 'src/utils/auth';
+import { useHistory } from 'react-router-dom';
+import { route } from 'src/Routes';
+
 export function Navigation() {
+  const {user, signout } = useAuth();
+  const history = useHistory();
+  
+  const profileLink = route.userProfile();
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
@@ -16,10 +24,27 @@ export function Navigation() {
        <Nav.Link href="/">Domov</Nav.Link>
        <Nav.Link href="/about">O aplikaci</Nav.Link>
      </Nav>
-     <Nav>
-        <Button variant="light" href="/auth/signin">Přihlášení</Button>
-        <Button variant="light" href="/auth/signup">Registrace</Button>
-    </Nav>
+     {user ? (
+       <Nav>
+         <Button variant="light" href={profileLink}>Profil</Button>
+         <Button
+          variant="light"
+          onClick={() => {
+            signout();
+            history.push(route.home());
+            window.location.reload();
+          }}
+        >
+          Odhlásit
+        </Button>
+       </Nav>
+      ) : (
+        <Nav>
+          <Button variant="light" href="/auth/signin">Přihlášení</Button>
+          <Button variant="light" href="/auth/signup">Registrace</Button>
+        </Nav>
+      )
+     }
       </Navbar.Collapse>
     </Navbar>
   );
