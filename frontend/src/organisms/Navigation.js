@@ -5,6 +5,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 
+import { NavLink } from 'src/atoms/';
+
 import { useAuth } from 'src/utils/auth';
 import { useHistory } from 'react-router-dom';
 import { route } from 'src/Routes';
@@ -12,7 +14,7 @@ import { route } from 'src/Routes';
 export function Navigation() {
   const {user, signout } = useAuth();
   const history = useHistory();
-  
+
   const profileLink = route.userProfile();
 
   return (
@@ -26,17 +28,22 @@ export function Navigation() {
      </Nav>
      {user ? (
        <Nav>
-         <Button variant="light" href={profileLink}>Profil</Button>
-         <Button
-          variant="light"
-          onClick={() => {
-            signout();
-            history.push(route.home());
-            window.location.reload();
-          }}
-        >
-          Odhlásit
+         <Button variant="light">
+           <NavLink exact to={profileLink}>
+            Profil
+          </NavLink>
         </Button>
+
+        {/*<Button variant="light">
+          <NavLink onClick={() => {
+              signout();
+              history.push(route.home());
+              window.location.reload();
+            }}
+          >
+            Odhlásit se
+          </NavLink>
+        </Button>*/}
        </Nav>
       ) : (
         <Nav>
