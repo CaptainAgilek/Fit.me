@@ -1,9 +1,9 @@
 import React from 'react';
-import { TopNavigation } from 'src/organisms/';
+import { Navigation } from 'src/organisms/';
 export function PageNotFound() {
   return (
     <>
-    <TopNavigation/>
+    <Navigation/>
     <div className="appWrapper">
       <h1>Error 404:</h1>
       <p>Page not found</p>

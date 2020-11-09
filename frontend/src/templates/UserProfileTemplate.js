@@ -11,7 +11,7 @@ import {
   RegistrationLink,
 } from 'src/atoms/';
 import { EditableAvatarPicture, ErrorBanner } from 'src/molecules/';
-import { UserProfileForm, UserProfileManagementCol } from 'src/organisms/';
+import { UserProfileForm, UserProfileManagementCol, Navigation } from 'src/organisms/';
 
 export function UserProfileTemplate({
   state,
@@ -24,6 +24,8 @@ export function UserProfileTemplate({
   changePasswordRequest,
 }) {
   return (
+    <>
+    <Navigation/>
     <Container>
       {state.showLoading && <Loading />}
 
@@ -75,5 +77,6 @@ export function UserProfileTemplate({
         </Row>
       )}
     </Container>
+    </>
   );
 }
