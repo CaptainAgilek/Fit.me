@@ -31,21 +31,48 @@ export const updateSportsman = async (_, { input }, { dbConnection }) => {
     placeResult = await createOrUpdatePlace(_, { input }, { dbConnection });
   }
 
-  if (input.benefits) {
-    await Promise.all(
-      input.benefits.map((benefit) =>
-        insertOrRemoveBenefit(
-          _,
-          {
-            user_id: input.user_id,
-            benefit_id: benefit.benefit_id,
-            hasBenefit: benefit.hasBenefit,
-          },
-          { dbConnection },
-        ),
-      ),
-    );
-  }
+  const benefitResult = await insertOrRemoveBenefitByBoolean(
+    input.user_id,
+    input.hasMultisport,
+    input.hasActivePass,
+    { dbConnection },
+  );
 
-  return dbResponse.affectedRows === 1 && placeResult && userEmailResult;
+  return (
+    dbResponse.affectedRows === 1 &&
+    placeResult &&
+    userEmailResult &&
+    benefitResult
+  );
+};
+
+const insertOrRemoveBenefitByBoolean = async (
+  user_id,
+  hasMultisport,
+  hasActivePass,
+  { dbConnection },
+) => {
+  let result = true;
+  result = await insertOrRemoveBenefit(
+    null,
+    {
+      user_id: user_id,
+      benefit_id: 1,
+      hasBenefit: hasMultisport,
+    },
+    { dbConnection },
+  );
+
+  result =
+    result &&
+    (await insertOrRemoveBenefit(
+      null,
+      {
+        user_id: user_id,
+        benefit_id: 2,
+        hasBenefit: hasActivePass,
+      },
+      { dbConnection },
+    ));
+  return result;
 };
