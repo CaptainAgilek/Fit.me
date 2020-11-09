@@ -33,7 +33,7 @@ export function UserProfileManagementCol({
       </Row>
 
       <Row className="justify-content-md-center botOffset" xs={1}>
-        <ChangePasswordPopUp userEmail={user.email} onSubmit={changePasswordRequest}/>
+        <ChangePasswordPopUp userEmail={user.user.email} onSubmit={changePasswordRequest}/>
       </Row>
 
       <Row className="justify-content-md-center botOffset" xs={1}>
