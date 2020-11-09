@@ -30,7 +30,14 @@ export const typeDefs = gql`
     email: String!
     phone: String
     place: CreateOrUpdatePlaceInput
+    benefits: [BenefitInput]
   }
+
+  input BenefitInput {
+    benefit_id: Int!
+    hasBenefit: Boolean!
+  }
+
 
   input UpdateProfilePhotoUrlInput {
       photo_id: Int
@@ -95,6 +102,7 @@ export const typeDefs = gql`
   }
 
   type Query {
+    benefitsForUser(user_id: Int!): [Benefit]!
     users: [User]!
     user(email: String!): User
     userById(user_id: String!): User
@@ -117,6 +125,7 @@ export const typeDefs = gql`
   }
 
   type Mutation {
+    insertOrRemoveBenefit(user_id: Int!, benefit_id: Int!, hasBenefit: Boolean!): Boolean!
     createOrUpdatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
     insertPlace(input: CreateOrUpdatePlaceInput!): Boolean!
     updatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
