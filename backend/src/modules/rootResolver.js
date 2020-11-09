@@ -1,9 +1,11 @@
 import { queries as RoleQueries } from './role';
 import { queries as UserQueries } from './user';
 import { queries as SportsmanQueries } from './sportsman';
+import { queries as BenefitQueries } from './benefit';
 import { mutations as UserMutations } from './user';
 import { mutations as RoleMutations } from './role';
 import { mutations as SportsmanMutations } from './sportsman';
+import { mutations as BenefitMutations } from './benefit';
 import { mutations as PhotoMutations } from './photo';
 import { mutations as PlaceMutations } from './place';
 
@@ -12,6 +14,7 @@ export default {
     ...RoleQueries,
     ...UserQueries,
     ...SportsmanQueries,
+    ...BenefitQueries,
     todo: async () => {
       return new Date().toISOString();
     },
@@ -21,6 +24,7 @@ export default {
     ...RoleMutations,
     ...UserMutations,
     ...SportsmanMutations,
+    ...BenefitMutations,
     ...PlaceMutations,
   },
   User: {
@@ -50,7 +54,7 @@ export default {
     async benefits(parent, _, { dbConnection }) {
       return await dbConnection.query(
         `SELECT benefit_id, name FROM benefit
-          JOIN benefit_sportsman USING (benefit_id)
+          JOIN benefit_user USING (benefit_id)
           JOIN sportsman USING (user_id)
           WHERE user_id = ?`,
         [parent.user_id],
