@@ -2,63 +2,61 @@ import React from 'react';
 
 import { Container, Row } from 'react-bootstrap';
 
-import { UserProfileActionButton, GenericPopUp, ChangePasswordForm } from 'src/atoms/';
-import { EditableAvatarPicture } from 'src/molecules/';
+import { UserProfileActionButton, GenericPopUp } from 'src/atoms/';
+import { EditableAvatarPicture, ChangePasswordPopUp } from 'src/molecules/';
+import { DEFAULT_IMG_URL } from 'src/utils/const';
 
 export function UserProfileManagementCol({
-  avatarSource,
-  avatarAlt,
-  user_id,
-  photo_id,
+  user,
   deleteProfilePopUpParams,
   deleteUserRequest,
+  changePasswordRequest,
 }) {
+  console.log("user", user);
   return (
     <Container>
       <Row className="justify-content-md-center botOffset" xs={1}>
           <EditableAvatarPicture
-            src={avatarSource}
-            alt={avatarAlt}
-            user_id={user_id}
-            photo_id={photo_id}
+            src={
+              user.profile_photo
+                ? user.profile_photo.url
+                : DEFAULT_IMG_URL
+            }
+            alt={user.username}
+            user_id={user.user_id}
+            photo_id={
+              user.profile_photo
+                ? user.profile_photo.photo_id
+                : undefined
+            }
           />
       </Row>
 
       <Row className="justify-content-md-center botOffset" xs={1}>
-        <GenericPopUp
-          triggerVariant={deleteProfilePopUpParams.triggerVariant}
-          triggerText={deleteProfilePopUpParams.triggerText}
-          modalTitle={deleteProfilePopUpParams.modalTitle}
-          footerLeftVariant={deleteProfilePopUpParams.footerLeftVariant}
-          footerLeftText={deleteProfilePopUpParams.footerLeftText}
-          footerRightVariant={deleteProfilePopUpParams.footerRightVariant}
-          footerRightText={deleteProfilePopUpParams.footerRightText}
-        >
-          <ChangePasswordForm/>
-        </GenericPopUp>
+        <ChangePasswordPopUp userEmail={user.email} onSubmit={changePasswordRequest}/>
       </Row>
 
       <Row className="justify-content-md-center botOffset" xs={1}>
-        <UserProfileActionButton variant="outline-primary">Export personal data</UserProfileActionButton>
+        <UserProfileActionButton variant="outline-primary">Exportovat osobní data</UserProfileActionButton>
         <div>
-          Everything we know about you will be exported in a machine-readable format.
+          Stáhne veškerá data, která o Vás máme
         </div>
       </Row>
 
       <Row className="justify-content-md-center" xs={1}>
         <GenericPopUp
           triggerVariant="outline-danger"
-          triggerText="Delete Account"
-          modalTitle="Delete Account"
+          triggerText="Smazat účet"
+          modalTitle="Smazat účet"
           footerLeftVariant="outline-secondary"
-          footerLeftText="Cancel"
+          footerLeftText="Zpět"
           footerRightVariant="danger"
-          footerRightText="Delete"
+          footerRightText="Smazat"
           rightButtonOnClick={ () => {
-            deleteUserRequest({ variables: { userId: user_id } });
+            deleteUserRequest({ variables: { userId: user.user_id } });
           }}
         >
-          Are you sure?
+          Opravdu si přejete účet smazat?
         </GenericPopUp>
       </Row>
     </Container>
