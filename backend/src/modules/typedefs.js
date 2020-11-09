@@ -30,14 +30,9 @@ export const typeDefs = gql`
     email: String!
     phone: String
     place: CreateOrUpdatePlaceInput
-    benefits: [BenefitInput]
+    hasMultisport: Boolean!
+    hasActivePass: Boolean!
   }
-
-  input BenefitInput {
-    benefit_id: Int!
-    hasBenefit: Boolean!
-  }
-
 
   input UpdateProfilePhotoUrlInput {
       photo_id: Int
