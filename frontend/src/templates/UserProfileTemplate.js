@@ -4,13 +4,10 @@ import { Container, Row, Col } from 'react-bootstrap';
 
 import {
   ReservationList,
-  UserProfileActionButton,
-  GenericPopUp,
   Loading,
-  ChangePasswordForm,
   RegistrationLink,
 } from 'src/atoms/';
-import { EditableAvatarPicture, ErrorBanner } from 'src/molecules/';
+import { ErrorBanner } from 'src/molecules/';
 import { UserProfileForm, UserProfileManagementCol, Navigation } from 'src/organisms/';
 
 export function UserProfileTemplate({

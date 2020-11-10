@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useHistory } from 'react-router-dom';
 import { gql, useMutation, useQuery } from '@apollo/client';
 
 import { UserProfileTemplate } from 'src/templates/UserProfileTemplate';
-import { UserBenefitsEnum } from 'src/utils/const';
 import { useAuth } from 'src/utils/auth';
-import { Navigation } from 'src/organisms/';
 
 const USER_PROFILE_QUERY = gql`
   query getSportsman($filter: SportsmanFilter!) {

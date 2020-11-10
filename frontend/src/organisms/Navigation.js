@@ -32,7 +32,10 @@ export function Navigation() {
             signout();
             history.push(route.home());
             window.location.reload();
-          }}>Odhlásit se</Nav.Link>
+          }}
+        >
+          Odhlásit se
+        </Nav.Link>
        </Nav>
       ) : (
         <Nav>
