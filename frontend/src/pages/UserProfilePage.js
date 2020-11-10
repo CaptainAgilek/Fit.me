@@ -110,16 +110,16 @@ export function UserProfilePage() {
 
   return (
     <>
-    <UserProfileTemplate
-      state={state}
-      error={userFetcher.error || deleteUserRequestState.error}
-      data={userFetcher.data}
-      onReload={userFetcher.refetch}
-      userReservations={userReservations}
-      deleteUserRequest={deleteUserRequest}
-      updateUserRequest={updateUserRequest}
-      changePasswordRequest={changePasswordRequest}
-    />
+      <UserProfileTemplate
+        state={state}
+        error={userFetcher.error || deleteUserRequestState.error}
+        data={userFetcher.data}
+        onReload={userFetcher.refetch}
+        userReservations={userReservations}
+        deleteUserRequest={deleteUserRequest}
+        updateUserRequest={updateUserRequest}
+        changePasswordRequest={changePasswordRequest}
+      />
     </>
   );
 }
