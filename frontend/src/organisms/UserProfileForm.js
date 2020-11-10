@@ -13,13 +13,13 @@ const schema = yup.object({
   lastName: yup.string().required(),
   username: yup.string().min(3).required(),
   email: yup.string().email().required(),
-  phone: yup.string(),
-  street: yup.string(),
-  city: yup.string(),
-  country: yup.string(),
-  zip: yup.number(),
-  hasMultisport: yup.boolean(),
-  hasActivePass: yup.boolean(),
+  phone: yup.string().nullable(),
+  street: yup.string().nullable(),
+  city: yup.string().nullable(),
+  country: yup.string().nullable(),
+  zip: yup.number().nullable(),
+  hasMultisport: yup.bool(),
+  hasActivePass: yup.bool(),
 });
 
 export function UserProfileForm({ user, updateUserRequest }) {
@@ -33,8 +33,8 @@ export function UserProfileForm({ user, updateUserRequest }) {
     city: user.places[0] ? user.places[0].city : "",
     country: user.places[0] ? user.places[0].country : "",
     zip: user.places[0] ? user.places[0].zip : "",
-    hasMultisport: user.benefits.find((benefit) => benefit.name == "Multisport"),
-    hasActivePass: user.benefits.find((benefit) => benefit.name == "Active Passs"),
+    hasMultisport: user.benefits.some(benefit => benefit.name === "Multisport"),
+    hasActivePass: user.benefits.some(benefit => benefit.name === "Active Pass"),
   };
 
   return (
@@ -58,6 +58,8 @@ export function UserProfileForm({ user, updateUserRequest }) {
                 zip: parseInt(values.zip),
                 country: values.country,
               },
+              hasMultisport: values.hasMultisport,
+              hasActivePass: values.hasActivePass
             };
 
             console.log('updating profile', profile);
@@ -149,6 +151,7 @@ export function UserProfileForm({ user, updateUserRequest }) {
                   name="hasMultisport"
                   label="Multisport card"
                   id="userProfileHasMultisportValidation"
+                  checked={values.hasMultisport}
                 />
               </Form.Group>
 
@@ -157,6 +160,7 @@ export function UserProfileForm({ user, updateUserRequest }) {
                   name="hasActivePass"
                   label="Active Pass"
                   id="userProfileHasActivePassValidation"
+                  checked={values.hasActivePass}
                 />
               </Form.Group>
 

@@ -72,7 +72,7 @@ function getStorageState(defaultState) {
   try {
     const { user, token } = JSON.parse(rawData);
 
-    if (token && user && user.username && user.user_id) {
+    if (token && user && user.user_id) {
       return { token, user };
     }
   } catch {}
