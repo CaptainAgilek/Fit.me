@@ -28,7 +28,7 @@ const SIGNIN_MUTATION = gql`
   }
 `;
 
-export function SignInPage() {
+export function SignInPage({onCloseMethod}) {
   const auth = useAuth();
   const history = useHistory();
   const userProfileLink = route.userProfile();
@@ -61,6 +61,7 @@ export function SignInPage() {
       isLoading={signInRequestState.loading}
       error={signInRequestState.error}
       onSubmit={handleSignInFormSubmit}
+      onClose={onCloseMethod}
     />
   );
 }

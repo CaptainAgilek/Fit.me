@@ -26,10 +26,13 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
-export function SignUpPage() {
+export function SignUpPage({ onCloseMethod }) {
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    onCloseMethod(false);
+  };
 
   const [signupRequest, signupRequestState] = useMutation(SIGNUP_MUTATION, {
     onCompleted: ({ signup: { user, token } }) => {
@@ -77,7 +80,7 @@ export function SignUpPage() {
         isLoading={signupRequestState.loading}
         error={signupRequestState.error}
         onSubmit={handleSignUpFormSubmit}
+        onClose={onCloseMethod}
       />);
   }
-
 }

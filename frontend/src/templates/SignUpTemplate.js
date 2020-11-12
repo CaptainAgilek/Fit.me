@@ -1,60 +1,31 @@
 import React, { useState } from 'react';
 
-import { SignUpForm, Navigation} from 'src/organisms/';
-import { Row, Col, Container } from 'react-bootstrap';
-import { SignUpForm, Navigation } from 'src/organisms/';
+import { SignUpForm } from 'src/organisms/';
 import { Row, Col, Container, Modal } from 'react-bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import Button from 'react-bootstrap/Button';
 import { SignInForm } from '../organisms';
 
-export function SignUpTemplate({ isLoading, error, onSubmit }) {
-  const [showSignUp, setSignUpVisible] = useState(false);
-
-  const handleCloseSignUp = () => setSignUpVisible(false);
+export function SignUpTemplate({ isLoading, error, onSubmit, onSubmitSignIn, onClose }) {
+  const [showSignUp, setSignUpVisible] = useState(true);
+  const handleCloseSignUp = () => {
+    setSignUpVisible(false);
+    onClose(false);
+  };
   const handleShowSignUp = () => setSignUpVisible(true);
 
   const [showSignIn, setSignInVisible] = useState(false);
-
-  const handleCloseSignIn = () => setSignInVisible(false);
-  const handleShowSignIn = () => setSignInVisible(true);
+  const handleCloseSignIn = () => {
+    setSignInVisible(false);
+    onClose(false);
+  };
+  const handleShowSignIn = () => {
+    setSignInVisible(true);
+    onClose(true);
+  };
 
   return (
     <>
-    <Navigation />
-    <Container>
-      <Row className="justify-content-md-center">
-        <h1>Registrace</h1>
-      </Row>
-      <Row>
-        <Col md={{ span: 6, offset: 3 }}>
-          <SignUpForm
-            isLoading={isLoading}
-            errorMessage={error && error.message}
-            onSubmit={onSubmit}
-            className="form-group"
-          >
-          </SignUpForm>
-        </Col>
-      </Row>
-    </Container>
-      <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="/">Fit.me</Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Link href="/">Domov</Nav.Link>
-          <Nav.Link href="#features">O aplikaci</Nav.Link>
-        </Nav>
-        <Nav>
-          <Button variant="dark" href="/auth/signin">Přihlášení</Button>
-          <Button variant="dark" onClick={handleShowSignUp}>
-            Registrace
-          </Button>
-        </Nav>
-      </Navbar>
-
       <Modal show={showSignUp} onHide={handleCloseSignUp}>
         <Modal.Body>
           <Container>
@@ -88,7 +59,7 @@ export function SignUpTemplate({ isLoading, error, onSubmit }) {
               <Col>
                 <SignInForm
                   isLoading={isLoading}
-                  onSubmit={onSubmit}
+                  onSubmit={onSubmitSignIn}
                   className="form-group"
                   handleClose={handleCloseSignIn}
                 >
