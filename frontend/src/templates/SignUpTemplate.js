@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { SignUpForm, Navigation} from 'src/organisms/';
+import { Row, Col, Container } from 'react-bootstrap';
 import { SignUpForm, Navigation } from 'src/organisms/';
 import { Row, Col, Container, Modal } from 'react-bootstrap';
 
@@ -22,6 +24,23 @@ export function SignUpTemplate({ isLoading, error, onSubmit }) {
 
   return (
     <>
+    <Navigation />
+    <Container>
+      <Row className="justify-content-md-center">
+        <h1>Registrace</h1>
+      </Row>
+      <Row>
+        <Col md={{ span: 6, offset: 3 }}>
+          <SignUpForm
+            isLoading={isLoading}
+            errorMessage={error && error.message}
+            onSubmit={onSubmit}
+            className="form-group"
+          >
+          </SignUpForm>
+        </Col>
+      </Row>
+    </Container>
       <Navbar bg="dark" variant="dark">
         <Navbar.Brand href="/">Fit.me</Navbar.Brand>
         <Nav className="mr-auto">

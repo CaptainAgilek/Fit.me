@@ -5,7 +5,7 @@ import { gql, useMutation, useQuery } from '@apollo/client';
 
 import { UserProfileTemplate } from 'src/templates/UserProfileTemplate';
 import { useAuth } from 'src/utils/auth';
-import { TopNavigation } from 'src/organisms/';
+import { Navigation } from 'src/organisms/';
 
 const USER_PROFILE_QUERY = gql`
   query getSportsman($filter: SportsmanFilter!) {
@@ -111,7 +111,7 @@ export function UserProfilePage() {
 
   return (
     <>
-    <TopNavigation/>
+    <Navigation/>
     <UserProfileTemplate
       state={state}
       error={userFetcher.error || deleteUserRequestState.error}
