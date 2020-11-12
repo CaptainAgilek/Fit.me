@@ -27,6 +27,10 @@ export function TopNavigation() {
         <NavLink to={route.signIn()} className="pa3">
           Sign In
         </NavLink>
+        <NavLink to={route.userProfile()} className="pa3">
+          Profile
+        </NavLink>
+        <Button
         <NavLink
           to={route.signUp()}
           as={Link}

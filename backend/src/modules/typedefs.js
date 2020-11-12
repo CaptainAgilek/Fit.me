@@ -27,9 +27,17 @@ export const typeDefs = gql`
     firstname: String!
     lastname: String!
     username: String!
-    email: String
+    email: String!
     phone: String
     place: CreateOrUpdatePlaceInput
+    hasMultisport: Boolean!
+    hasActivePass: Boolean!
+  }
+
+  input UpdateProfilePhotoUrlInput {
+      photo_id: Int
+      user_id: Int!
+      url: String!
   }
 
   input PhotoInput {
@@ -89,8 +97,10 @@ export const typeDefs = gql`
   }
 
   type Query {
+    benefitsForUser(user_id: Int!): [Benefit]!
     users: [User]!
     user(email: String!): User
+    userById(user_id: String!): User
     todo: String!
     rolesForUser(user_id: Int!): [Role]!
     roles: [Role]!
@@ -110,14 +120,19 @@ export const typeDefs = gql`
   }
 
   type Mutation {
+    insertOrRemoveBenefit(user_id: Int!, benefit_id: Int!, hasBenefit: Boolean!): Boolean!
+    createOrUpdatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
     insertPlace(input: CreateOrUpdatePlaceInput!): Boolean!
     updatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
+    updateProfilePhotoUrl(input: UpdateProfilePhotoUrlInput!): Boolean!
     insertPhoto(input: PhotoInput!): Boolean!
-    singleUpload(file: Upload!, user_id: Int!): UploadedFileResponse!
+    singleUpload(file: Upload!, user_id: Int!, photo_id: Int): UploadedFileResponse!
     updateSportsman(input: SportsmanInput!): Boolean!
+    updateUserEmail(email: String!, user_id: Int!): Boolean!
     deleteUser(user_id: Int!): Boolean!
     assignRoleToUser(name: String!, user_id: Int!): Boolean!
     verifyRegistration(token: String!): Boolean!
+    changePassword(email: String!, oldPassword: String!, newPassword: String! newPasswordAgain: String!): Boolean!
     signin(email: String!, password: String!): AuthInfo!
     signup(
       username: String!

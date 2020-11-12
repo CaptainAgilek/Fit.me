@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import { PrivateRoute } from 'src/utils/PrivateRoute';
+
 import { HomePage } from 'src/pages/HomePage';
 import { VerificationPage } from 'src/pages/VerificationPage';
 import { PageNotFound } from 'src/pages/PageNotFound';
@@ -15,7 +17,7 @@ export const route = {
   signIn: () => `/auth/signin`,
   signUp: () => `/auth/signup`,
 
-  userProfile: (username) => `/profile/${username}`,
+  userProfile: () => `/profile`,
 };
 
 export function Routes() {
@@ -25,7 +27,7 @@ export function Routes() {
       <Route path={route.signUp()} exact component={SignUpPage} />
       <Route path={route.signIn()} exact component={SignInPage} />
       <Route path={route.verification()} exact component={VerificationPage} />
-      <Route path={route.userProfile(':username')} exact component={UserProfilePage} />
+      <PrivateRoute path={route.userProfile()} exact component={UserProfilePage} />
       <Route path="*" component={PageNotFound} />
     </Switch>
   );
