@@ -11,11 +11,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { UserReservation } from 'src/atoms/';
 
 export function ReservationList({ reservations }) {
-  const [index, setIndex] = useState(0);
-
-  const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
-  };
+  const [filter, setFilter] = useState("Tento týden");
 
   return (
     <Container>
@@ -24,13 +20,13 @@ export function ReservationList({ reservations }) {
       </Row>
 
       <Row className="botOffset">
-        <DropdownButton variant="danger" id="dropdown-basic-button" title="Tento týden">
-          <Dropdown.Item href="#/action-1">Tetno měsíc</Dropdown.Item>
-          <Dropdown.Item href="#/action-2">Tento týden</Dropdown.Item>
+        <DropdownButton variant="danger" id="dropdown-basic-button" title={filter}>
+          <Dropdown.Item eventKey="Tento týden" onSelect={(filter) => {setFilter(filter)}}>Tento týden</Dropdown.Item>
+          <Dropdown.Item eventKey="Tento měsíc" onSelect={(filter) => {setFilter(filter)}}>Tento měsíc</Dropdown.Item>
         </DropdownButton>
       </Row>
 
-      <Row className="botOffset">
+      <Row className="botOffset userReservationsHistory">
         <ListGroup horizontal className="userReservationsHistory">
         {reservations.map((reservation) => (
           <ListGroup.Item>

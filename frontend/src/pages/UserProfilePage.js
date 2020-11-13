@@ -101,11 +101,12 @@ export function UserProfilePage() {
   };
 
   const userReservations = [
-    { id: 1, icon: "icon", name: 'HTC Praha', date: '20.10.2020', hour: "14:00 - 17:00", address: "Náhodná 88, Praha" },
-    { id: 2, icon: "icon", name: 'Sportcentrum Prosek', date: '24.10.2020', hour: "14:00 - 17:00", address: "Náhodná 89, Praha" },
-    { id: 3, icon: "icon", name: 'Sportcentrum Prosek', date: '29.10.2020', hour: "14:00 - 17:00", address: "Náhodná 89, Praha" },
-    { id: 4, icon: "icon", name: 'Sportcentrum Prosek', date: '2.11.2020', hour: "14:00 - 17:00", address: "Náhodná 89, Praha" },
-    { id: 5, icon: "icon", name: 'Sportcentrum Prosek', date: '12.11.2020', hour: "14:00 - 17:00", address: "Náhodná 89, Praha" },
+    { id: 1, icon: "hockey", name: 'HTC Praha', date: '20.10.2020', hour: "14:00 - 17:00", address: "Náhodná 88, Praha" },
+    { id: 2, icon: "fitness", name: 'Sportcentrum Prosek', date: '24.10.2020', hour: "14:00 - 17:00", address: "Náhodná 89, Praha" },
+    { id: 3, icon: "pilates", name: 'Sportcentrum Prosek', date: '29.10.2020', hour: "14:00 - 17:00", address: "Náhodná 89, Praha" },
+    { id: 4, icon: "fitness", name: 'Sportcentrum Prosek', date: '2.11.2020', hour: "14:00 - 17:00", address: "Náhodná 89, Praha" },
+    { id: 5, icon: "fitness", name: 'Sportcentrum Prosek', date: '12.11.2020', hour: "14:00 - 17:00", address: "Náhodná 89, Praha" },
+    { id: 6, icon: "hockey", name: 'HTC Praha', date: '13.11.2020', hour: "14:00 - 17:00", address: "Náhodná 88, Praha" },
   ];
 
   return (
