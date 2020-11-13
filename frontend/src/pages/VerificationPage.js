@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { route } from 'src/Routes';
 import { Redirect } from "react-router-dom";
-import { TopNavigation } from 'src/organisms/';
+import { Navigation } from 'src/organisms/';
 
 const VERIFY_REGISTRATION_MUTATION = gql`
   mutation VerifyRegistration($token: String!) {
@@ -29,7 +29,7 @@ export function VerificationPage(props) {
 
   return (
     <>
-    <TopNavigation/>
+    <Navigation/>
     <div className="appWrapper">
       <h1>Verification Page</h1>
       <p>{message}</p>

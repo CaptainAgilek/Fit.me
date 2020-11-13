@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-import { Form, Col, Card } from 'react-bootstrap';
+import { Form, Card } from 'react-bootstrap';
 
 import { UserProfileActionButton, FormikSwitch } from 'src/atoms/';
 import { FormikGroup } from 'src/molecules/';
@@ -13,11 +13,23 @@ const schema = yup.object({
   lastName: yup.string().required(),
   username: yup.string().min(3).required(),
   email: yup.string().email().required(),
-  phone: yup.string().nullable(),
+  phone: yup.string()
+    .nullable()
+    .matches(
+      /^[0-9]{9}$/,
+      'Musí obsahovat 9 čísel bez mezer'
+    )
+  ,
   street: yup.string().nullable(),
   city: yup.string().nullable(),
   country: yup.string().nullable(),
-  zip: yup.number().nullable(),
+  zip: yup.string()
+    .nullable()
+    .matches(
+      /^[0-9]{5}$/,
+      'Musí obsahovat 5 čísel bez mezer'
+    )
+  ,
   hasMultisport: yup.bool(),
   hasActivePass: yup.bool(),
 });

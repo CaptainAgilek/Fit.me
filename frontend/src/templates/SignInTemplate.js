@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { SignInForm, TopNavigation } from 'src/organisms/';
+import { SignInForm, Navigation } from 'src/organisms/';
 import { Row, Col, Container } from 'react-bootstrap';
 
 export function SignInTemplate({ isLoading, error, onSubmit }) {
   return (
     <>
-    <TopNavigation />
+    <Navigation />
     <Container>
       <Row className="justify-content-md-center">
         <h1>Přihlášení</h1>

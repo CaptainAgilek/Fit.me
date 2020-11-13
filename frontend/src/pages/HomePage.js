@@ -1,10 +1,10 @@
 import React from 'react';
-import { TopNavigation } from 'src/organisms/';
+import { Navigation } from 'src/organisms/';
 
 export function HomePage() {
   return (
     <>
-    <TopNavigation />
+    <Navigation />
     <div className="appWrapper">
       <h1>Home Page</h1>
       <p>TBD</p>
