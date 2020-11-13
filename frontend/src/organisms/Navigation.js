@@ -18,7 +18,7 @@ export function Navigation() {
   const signUpLink = route.signUp();
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+    <Navbar collapseOnSelect expand="lg" bg="light" variant="light" className="navbar">
       <Navbar.Brand as={Link} to={homeLink}>Fit.me</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">

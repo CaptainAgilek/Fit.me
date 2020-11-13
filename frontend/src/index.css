@@ -32,3 +32,11 @@ code {
 .userReservationsHistory {
   overflow-x: scroll;
 }
+
+.profileComponentsOffset {
+  margin-top: 3rem;
+}
+
+.navbar {
+  margin-bottom: 3rem;
+}

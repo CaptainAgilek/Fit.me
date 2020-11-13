@@ -67,7 +67,7 @@ export function UserProfileTemplate({
             </Col>
           </Row>
 
-          <Row className="justify-content-md-center">
+          <Row className="justify-content-md-center profileComponentsOffset">
             <Col sm="12" md="10">
               <ReservationList reservations={userReservations} />
             </Col>
