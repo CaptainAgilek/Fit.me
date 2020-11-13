@@ -28,3 +28,34 @@ code {
 .botOffset {
   margin-bottom: 0.8rem;
 }
+
+.profileComponentsOffset {
+  margin-top: 3rem;
+}
+
+.navbar {
+  margin-bottom: 3rem;
+}
+
+.userReservationsHistory {
+  overflow-x: scroll;
+  border-top: 0 none;
+}
+
+.userReservationIcon {
+  height: .8em;
+  width: .8em;
+  margin-right: 0.5rem;
+}
+
+.userReservationSportIcon {
+  max-height: 40%;
+  max-width: 40%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.userReservationCard {
+  width: 15rem;
+}
