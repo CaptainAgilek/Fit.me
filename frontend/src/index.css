@@ -28,3 +28,7 @@ code {
 .botOffset {
   margin-bottom: 0.8rem;
 }
+
+.userReservationsHistory {
+  overflow-x: scroll;
+}
