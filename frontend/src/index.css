@@ -39,7 +39,10 @@ code {
 
 .userReservationsHistory {
   overflow-x: scroll;
-  border-top: 0 none;
+}
+
+.userReservationsHistoryItem {
+  border: none !important;
 }
 
 .userReservationIcon {
@@ -49,8 +52,8 @@ code {
 }
 
 .userReservationSportIcon {
-  max-height: 40%;
-  max-width: 40%;
+  max-height: 30%;
+  max-width: 30%;
   display: block;
   margin-left: auto;
   margin-right: auto;

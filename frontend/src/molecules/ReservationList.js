@@ -21,19 +21,20 @@ export function ReservationList({ reservations }) {
 
       <Row className="botOffset">
         <DropdownButton variant="danger" id="dropdown-basic-button" title={filter}>
-          <Dropdown.Item eventKey="Tento týden" onSelect={(filter) => {setFilter(filter)}}>Tento týden</Dropdown.Item>
-          <Dropdown.Item eventKey="Tento měsíc" onSelect={(filter) => {setFilter(filter)}}>Tento měsíc</Dropdown.Item>
+          {filter !== "Tento týden" && (
+            <Dropdown.Item eventKey="Tento týden" onSelect={(filter) => {setFilter(filter)}}>Tento týden</Dropdown.Item>
+          )}
+          {filter !== "Tento měsíc" && (
+            <Dropdown.Item eventKey="Tento měsíc" onSelect={(filter) => {setFilter(filter)}}>Tento měsíc</Dropdown.Item>
+          )}
         </DropdownButton>
       </Row>
 
       <Row className="botOffset userReservationsHistory">
         <ListGroup horizontal className="userReservationsHistory">
         {reservations.map((reservation) => (
-          <ListGroup.Item>
-            <UserReservation
-              key={reservation.id}
-              reservation={reservation}
-            />
+          <ListGroup.Item key={reservation.id} className="userReservationsHistoryItem">
+            <UserReservation reservation={reservation} />
           </ListGroup.Item>
         ))}
         </ListGroup>

@@ -12,10 +12,34 @@ import calendar from 'src/assets/calendar-alt-regular.svg';
 import clock from 'src/assets/clock-regular.svg';
 import placeholder from 'src/assets/placeholder.png';
 
+function getSportIcon({ name }) {
+  switch (name) {
+    case 'fitness':
+      return fitness;
+      break;
+    case 'football':
+      return football;
+      break;
+    case 'hockey':
+      return hockey;
+      break;
+    case 'kravmaga':
+      return kravmaga;
+      break;
+    case 'pilates':
+      return pilates;
+      break;
+    default:
+      return fitness;
+  }
+}
+
 export function UserReservation({ reservation }){
+  const sportIcon = getSportIcon({ name: reservation.icon });
+
   return(
     <Card className="userReservationCard">
-      <Card.Img variant="top" src={fitness}  className="userReservationSportIcon"/>
+      <Card.Img variant="top" src={sportIcon}  className="userReservationSportIcon"/>
       <Card.Body>
         <Card.Title>{reservation.name}</Card.Title>
         <Card.Text>
