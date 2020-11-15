@@ -1,6 +1,6 @@
 export { AvatarPicture } from './AvatarPicture';
 export { UserProfileActionButton } from './UserProfileActionButton';
-export { GenericPopUp } from './GenericPopUp';
+export { GenericPopUp } from '../molecules/GenericPopUp';
 export { Loading } from './Loading';
 export { ChangePasswordForm } from './ChangePasswordForm';
 export { RegistrationLink } from './RegistrationLink';

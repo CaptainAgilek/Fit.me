@@ -1,5 +1,5 @@
 export { UserProfileForm } from './UserProfileForm';
-export { SignUpForm } from './SignUpForm';
-export { SignInForm } from './SignInForm';
+export { SignUpTemplate } from '../templates/SignUpTemplate';
+export { SignInTemplate } from '../templates/SignInTemplate';
 export { UserProfileManagementCol } from './UserProfileManagementCol';
 export { Navigation } from './Navigation';

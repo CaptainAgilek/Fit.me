@@ -1,8 +1,8 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
-import { useHistory } from 'react-router-dom';
 
-import { SignUpTemplate } from 'src/templates/SignUpTemplate';
+import { Container, Modal, Row } from 'react-bootstrap';
+import { SignUpTemplate } from '../organisms';
 
 const SIGNUP_MUTATION = gql`
   mutation signUp(
@@ -26,17 +26,22 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
-export function SignUpPage() {
-  const history = useHistory();
+export function SignUpPage({ onCloseMethod, showSignUp, setShowSignIn }) {
+  const [show, setShow] = useState(false);
+
+  const showSignIn = () => {
+    onCloseMethod(false);
+    setShowSignIn(true);
+  };
+
   const [signupRequest, signupRequestState] = useMutation(SIGNUP_MUTATION, {
-    onCompleted: ({ signup: { user, token } }) => {
-      history.replace('/');
+    onCompleted: () => {
+      setShow(true);
     },
     onError: (error) => {
       console.log(error);
     },
   });
-
 
   const handleSignUpFormSubmit = useCallback(
     (variables) => {
@@ -47,18 +52,41 @@ export function SignUpPage() {
           password: variables.password,
           firstname: variables.firstname,
           lastname: variables.lastname,
-          type: variables.type
+          type: variables.type,
         },
       });
     },
     [signupRequest],
   );
 
-  return (
-    <SignUpTemplate
-      isLoading={signupRequestState.loading}
-      error={signupRequestState.error}
-      onSubmit={handleSignUpFormSubmit}
-    />
-  );
+  if (show) {
+    return (
+      <Container>
+        <Modal show={show} onHide={onCloseMethod}>
+          <Modal.Body>
+            <Row className="justify-content-md-center">
+              <p>Na Váš email jsme poslali potvrzení registrace. Pro přihlášení do aplikace je potřeba již poslední
+                krok, kterým je potvrzení správnosti vašeho emailového účtu tím, že kliknete na odkaz ve Vašem
+                emailu.</p>
+            </Row>
+          </Modal.Body>
+        </Modal>
+      </Container>
+    );
+  } else {
+    return (
+      <Container>
+        <Modal show={showSignUp} onHide={onCloseMethod}>
+          <Modal.Body>
+            <SignUpTemplate
+              isLoading={signupRequestState.loading}
+              error={signupRequestState.error}
+              onSubmit={handleSignUpFormSubmit}
+              showSignIn={showSignIn}
+            />
+          </Modal.Body>
+        </Modal>
+      </Container>
+    );
+  }
 }
