@@ -26,13 +26,8 @@ import { ForgottenPasswordTemplate } from '../templates/ForgottenPasswordTemplat
 //   }
 // `;
 
-export function ForgottenPasswordPage({ onCloseMethod }) {
+export function ForgottenPasswordPage({ onCloseMethod, showForgotten }) {
   const [show, setShow] = useState(false);
-
-  const handleClose = () => {
-    setShow(false);
-    onCloseMethod(false);
-  };
 
   // const [signupRequest, signupRequestState] = useMutation(SIGNUP_MUTATION, {
   //   onCompleted: ({ signup: { user, token } }) => {
@@ -64,10 +59,10 @@ export function ForgottenPasswordPage({ onCloseMethod }) {
   if (show) {
     return (
       <Container>
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={onCloseMethod}>
           <Modal.Body>
             <Row className="justify-content-md-center">
-              <p>Na Váš email jsme poslali link na obnovu hesla.</p>
+              <p>Na Váš email jsme poslali odkaz na obnovu hesla.</p>
             </Row>
           </Modal.Body>
         </Modal>
@@ -75,11 +70,18 @@ export function ForgottenPasswordPage({ onCloseMethod }) {
     );
   } else {
     return (
-      <ForgottenPasswordTemplate
-        // isLoading={signupRequestState.loading}
-        // error={signupRequestState.error}
-        onSubmit={handleForgottenFormSubmit}
-        onClose={onCloseMethod}
-      />);
+      <Container>
+        <Modal show={showForgotten} onHide={onCloseMethod}>
+          <Modal.Body>
+            <ForgottenPasswordTemplate
+              // isLoading={signupRequestState.loading}
+              // error={signupRequestState.error}
+              onSubmit={handleForgottenFormSubmit}
+              onClose={onCloseMethod}
+            />
+          </Modal.Body>
+        </Modal>
+      </Container>
+    );
   }
 }

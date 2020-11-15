@@ -1,73 +1,88 @@
 import React, { useState } from 'react';
+import { Formik, Field, ErrorMessage } from 'formik';
+import * as yup from 'yup';
+import { Form, Button, Row, Badge } from 'react-bootstrap';
 
-import { SignInForm, Navigation } from 'src/organisms/';
-import { Row, Col, Container, Modal } from 'react-bootstrap';
-import { ForgottenPasswordForm } from '../organisms/ForgottenPasswordForm';
-import { SignUpForm } from './SignUpTemplate';
+import { FormikGroup } from '../molecules';
+import { Link } from '../atoms';
+import classNames from 'classnames';
 
-export function SignInTemplate({ isLoading, error, onSubmit, onSubmitForgotten, onClose }) {
+const initialValues = {
+  email: '',
+  password: '',
+};
 
-  const [showSignIn, setSignInVisible] = useState(true);
-  const handleCloseSignIn = () => {
-    setSignInVisible(false);
-    onClose(false);
-  };
-  const handleShowSignIn = () => setSignInVisible(true);
+const schema = yup.object().shape({
+  email: yup.string().required('Vyplňte email').matches(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i, 'Prosím zadajte email v správním tvaru'),
+  password: yup.string().required('Vyplňte heslo').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, 'Musí obsahovat 8 znaků, alespoň jeden velký a malý znak a číslo'),
+});
 
-  const [showForgotten, setShowForgotten] = useState(false);
-  const handleCloseForgotten = () => {
-    setSignInVisible(false);
-    onClose(false);
-  };
-  const handleShowForgotten = () => {
-    setShowForgotten(true);
-    onClose(true);
-  };
+
+export function SignInTemplate({
+                                 isLoading,
+                                 errorMessage,
+                                 className,
+                                 onSubmit,
+                                 children,
+                                 showSignUp,
+                                 showForgotten,
+                               }) {
 
   return (
     <>
-      <Modal show={showSignIn} onHide={handleCloseSignIn}>
-        <Modal.Body>
-          <Container>
-            <Row className="justify-content-md-center">
-              <h1>Přihlášení</h1>
-            </Row>
-            <Row>
-              <Col>
-                <SignInForm
-                  isLoading={isLoading}
-                  onSubmit={onSubmit}
-                  className="form-group"
-                  handleClose={handleCloseSignIn}
-                  handleShowForgotten={handleShowForgotten}
-                >
-                </SignInForm>
-              </Col>
-            </Row>
-          </Container>
-        </Modal.Body>
-      </Modal>
+      <Row className='justify-content-md-center'><h1>PŘIHLÁŠENÍ</h1></Row>
+      <Formik
+        onSubmit={onSubmit}
+        initialValues={initialValues}
+        validateOnBlur={false}
+        validationSchema={schema}
+      >
+        {({ errors, touched, handleSubmit }) => (
 
-      <Modal show={showForgotten} onHide={handleCloseForgotten}>
-        <Modal.Body>
-          <Container>
-            <Row className="justify-content-md-center">
-              <h1>Zapomenuté heslo</h1>
+          <Form onSubmit={handleSubmit}>
+            <Row className='justify-content-md-center'>
+              <h3>
+                <Badge variant="warning">
+                  {errorMessage}
+                </Badge>
+              </h3>
             </Row>
-            <Row>
-              <Col>
-                <ForgottenPasswordForm
-                  isLoading={isLoading}
-                  onSubmit={onSubmitForgotten}
-                  className="form-group"
-                  handleClose={handleCloseForgotten}
-                >
-                </ForgottenPasswordForm>
-              </Col>
-            </Row>
-          </Container>
-        </Modal.Body>
-      </Modal>
+
+            <Form.Row>
+              <FormikGroup
+                name="email"
+                id="email"
+                label="EMAIL"
+              />
+            </Form.Row>
+
+            <Form.Row>
+              <FormikGroup
+                name="password"
+                id="password"
+                label="HESLO"
+                type="password"
+              />
+            </Form.Row>
+
+            <Form.Row className='justify-content-md-center'>
+              <Button size="lg" block variant="success" type="submit" disabled={isLoading}>PŘIHLÁSIT</Button>
+            </Form.Row>
+            <Form.Row style={{ height: '50px' }} className={classNames(
+              'align-items-center',
+              'justify-content-md-center',
+            )}>
+              <Link onClick={showForgotten}>ZAPOMĚLI JSTE HESLO?</Link>
+            </Form.Row>
+            <Form.Row className='justify-content-md-center'>
+              <span>NEMÁTE JEŠTĚ ÚČET? <Link noUnderline={false} onClick={showSignUp}>ZAREGISTRUJTE SE</Link></span>
+            </Form.Row>
+            {children}
+          </Form>
+        )}
+      </Formik>
     </>
   );
+
+
 }

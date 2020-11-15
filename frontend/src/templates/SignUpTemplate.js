@@ -1,74 +1,108 @@
 import React, { useState } from 'react';
+import { Formik, Field, ErrorMessage } from 'formik';
+import * as yup from 'yup';
+import { Form, Col, Button, Row, Badge, Modal, Container } from 'react-bootstrap';
 
-import { SignUpForm } from 'src/organisms/';
-import { Row, Col, Container, Modal } from 'react-bootstrap';
+import { FormikGroup } from '../molecules';
+import { UserRegistration } from '../organisms/UserRegistration';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { SignInForm } from '../organisms';
+const initialValues = {
+  type: 'SPORTSMAN',
+  username: '',
+  firstname: '',
+  lastname: '',
+  email: '',
+  password: '',
+  passwordConfirmation: '',
+};
 
-export function SignUpTemplate({ isLoading, error, onSubmit, onSubmitSignIn, onClose }) {
-  const [showSignUp, setSignUpVisible] = useState(true);
-  const handleCloseSignUp = () => {
-    setSignUpVisible(false);
-    onClose(false);
-  };
-  const handleShowSignUp = () => setSignUpVisible(true);
+const schema = yup.object().shape({
+  username: yup.string().required('Vyplňte uživatelské jméno'),
+  firstname: yup.string().required('Vyplňte jméno'),
+  lastname: yup.string().required('Vyplňte příjmení'),
+  email: yup.string().required('Vyplňte email').matches(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i, 'Prosím zadejte email ve správném tvaru'),
+  password: yup.string().required('Vyplňte heslo').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, 'Musí obsahovat 8 znaků, alespoň jeden velký a malý znak a číslo'),
+  passwordConfirmation: yup
+    .string()
+    .required('Vyplňte heslo')
+    .oneOf([yup.ref('password'), null], 'Hesla se musí shodovat'),
+});
 
-  const [showSignIn, setSignInVisible] = useState(false);
-  const handleCloseSignIn = () => {
-    setSignInVisible(false);
-    onClose(false);
-  };
-  const handleShowSignIn = () => {
-    setSignInVisible(true);
-    onClose(true);
+
+export function SignUpTemplate({
+                             isLoading,
+                             errorMessage,
+                             className,
+                             onSubmit,
+                             children,
+                             showSignIn,
+                           }) {
+
+  let registrationForm = <div />;
+  if (initialValues.type !== 'ORGANIZATION') {
+    registrationForm = <UserRegistration />;
+  } else {
+    // todo
+    registrationForm = <div />;
+  }
+
+  const test = () => {
+    initialValues.type = 'TRAINER';
   };
 
   return (
     <>
-      <Modal show={showSignUp} onHide={handleCloseSignUp}>
-        <Modal.Body>
-          <Container>
-            <Row className="justify-content-md-center">
-              <h1>Registrace</h1>
-            </Row>
-            <Row>
-              <Col>
-                <SignUpForm
-                  isLoading={isLoading}
-                  errorMessage={error && error.message}
-                  onSubmit={onSubmit}
-                  className="form-group"
-                  handleClose={handleCloseSignUp}
-                  handleShowSignIn={handleShowSignIn}
-                >
-                </SignUpForm>
-              </Col>
-            </Row>
-          </Container>
-        </Modal.Body>
-      </Modal>
+      <Row className='justify-content-md-center'><h1>REGISTRACE</h1></Row>
+      <Formik
+        onSubmit={onSubmit}
+        initialValues={initialValues}
+        validateOnBlur={true}
+        validationSchema={schema}
+      >
+        {({ errors, touched, handleSubmit }) => (
 
-      <Modal show={showSignIn} onHide={handleCloseSignIn}>
-        <Modal.Body>
-          <Container>
-            <Row className="justify-content-md-center">
-              <h1>Přihlášení</h1>
+          <Form onSubmit={handleSubmit}>
+            <Row className='justify-content-md-center'>
+              <h3>
+                <Badge variant="warning">
+                  {errorMessage}
+                </Badge>
+              </h3>
             </Row>
-            <Row>
+            <Row className={'justify-content-md-center radio-group form-group'}>
               <Col>
-                <SignInForm
-                  isLoading={isLoading}
-                  onSubmit={onSubmitSignIn}
-                  className="form-group"
-                  handleClose={handleCloseSignIn}
-                >
-                </SignInForm>
+                <label>
+                  <Field type="radio" name="type" value="SPORTSMAN" />
+                  Sportovec
+                </label>
+              </Col>
+              <Col>
+                <label onChange={test}>
+                  <Field type="radio" name="type" value="TRAINER" />
+                  Trenér
+                </label>
+              </Col>
+              <Col>
+                <label>
+                  <Field type="radio" name="type" value="ORGANIZATION" />
+                  Organizace
+                </label>
               </Col>
             </Row>
-          </Container>
-        </Modal.Body>
-      </Modal>
+
+            <div>
+              {registrationForm}
+            </div>
+
+            <Button size="lg" block variant="success" type="submit" disabled={isLoading}>REGISTROVAT SE</Button>
+            <Button size="lg" block variant="outline-dark" onClick={showSignIn}>PŘIHLÁSIT SE</Button>
+
+            {children}
+          </Form>
+        )}
+      </Formik>
     </>
   );
+
+
 }

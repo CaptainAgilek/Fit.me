@@ -1,10 +1,12 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { useAuth } from 'src/utils/auth';
 import { useHistory } from 'react-router-dom';
 
 import { SignInTemplate } from 'src/templates/SignInTemplate';
 import { route } from 'src/Routes';
+import { Container, Modal } from 'react-bootstrap';
+import { SignUpPage } from './SignUpPage';
 
 const SIGNIN_MUTATION = gql`
   mutation signIn(
@@ -28,7 +30,18 @@ const SIGNIN_MUTATION = gql`
   }
 `;
 
-export function SignInPage({onCloseMethod}) {
+export function SignInPage({ onCloseMethod, showSignIn, setShowSignUp, setShowForgotten }) {
+
+  const showSignUp = () => {
+    onCloseMethod(false);
+    setShowSignUp(true);
+  };
+
+  const showForgotten = () => {
+    onCloseMethod(false);
+    setShowForgotten(true);
+  };
+
   const auth = useAuth();
   const history = useHistory();
   const userProfileLink = route.userProfile();
@@ -43,7 +56,6 @@ export function SignInPage({onCloseMethod}) {
     },
   });
 
-
   const handleSignInFormSubmit = useCallback(
     (variables) => {
       signInRequest({
@@ -57,11 +69,18 @@ export function SignInPage({onCloseMethod}) {
   );
 
   return (
-    <SignInTemplate
-      isLoading={signInRequestState.loading}
-      error={signInRequestState.error}
-      onSubmit={handleSignInFormSubmit}
-      onClose={onCloseMethod}
-    />
+    <Container>
+      <Modal show={showSignIn} onHide={onCloseMethod}>
+        <Modal.Body>
+          <SignInTemplate
+            isLoading={signInRequestState.loading}
+            error={signInRequestState.error}
+            onSubmit={handleSignInFormSubmit}
+            showSignUp={showSignUp}
+            showForgotten={showForgotten}
+          />
+        </Modal.Body>
+      </Modal>
+    </Container>
   );
 }

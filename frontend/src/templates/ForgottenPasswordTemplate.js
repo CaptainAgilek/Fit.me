@@ -1,39 +1,62 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Formik, Field, ErrorMessage } from 'formik';
+import * as yup from 'yup';
+import { Form, Button, Row, Badge } from 'react-bootstrap';
 
-import { Navigation } from 'src/organisms/';
-import { Row, Col, Container, Modal } from 'react-bootstrap';
-import { ForgottenPasswordForm } from '../organisms/ForgottenPasswordForm';
+import { route } from '../Routes';
+import { FormikGroup } from '../molecules';
+import { SignInPage } from '../pages/SignInPage';
+import Nav from 'react-bootstrap/Nav';
 
-export function ForgottenPasswordTemplate({ isLoading, error, onSubmit, onClose }) {
+const initialValues = {
+  email: '',
+};
 
-  const [showForgotten, setShowForgotten] = useState(true);
-  const handleCloseForgotten = () => {
-    setShowForgotten(false);
-    onClose(false);
-  };
+const schema = yup.object().shape({
+  email: yup.string().required('Vyplňte email').matches(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i, 'Prosím zadajte email v správním tvaru'),
+});
+
+
+export function ForgottenPasswordTemplate({
+                             isLoading,
+                             errorMessage,
+                             className,
+                             onSubmit,
+                             children,
+                           }) {
 
   return (
-    <>
-      <Modal show={showForgotten} onHide={handleCloseForgotten}>
-        <Modal.Body>
-          <Container>
-            <Row className="justify-content-md-center">
-              <h1>Zapomenuté heslo</h1>
-            </Row>
-            <Row>
-              <Col>
-                <ForgottenPasswordForm
-                  isLoading={isLoading}
-                  onSubmit={onSubmit}
-                  className="form-group"
-                  handleClose={handleCloseForgotten}
-                >
-                </ForgottenPasswordForm>
-              </Col>
-            </Row>
-          </Container>
-        </Modal.Body>
-      </Modal>
-    </>
+    <Formik
+      onSubmit={onSubmit}
+      initialValues={initialValues}
+      validateOnBlur={false}
+      validationSchema={schema}
+    >
+      {({ errors, touched, handleSubmit }) => (
+
+        <Form onSubmit={handleSubmit}>
+          <Row className='justify-content-md-center'>
+            <h3>
+              <Badge variant="warning">
+                {errorMessage}
+              </Badge>
+            </h3>
+          </Row>
+
+          <Form.Row>
+            <FormikGroup
+              name="email"
+              id="email"
+              label="EMAIL"
+            />
+          </Form.Row>
+
+          <Button size="lg" block variant="success" type="submit" disabled={isLoading}>Odeslat nové heslo</Button>
+          {children}
+        </Form>
+      )}
+    </Formik>
   );
+
+
 }

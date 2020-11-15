@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { gql, useMutation } from '@apollo/client';
 
-import { SignUpTemplate } from 'src/templates/SignUpTemplate';
 import { Container, Modal, Row } from 'react-bootstrap';
+import { SignUpTemplate } from '../organisms';
 
 const SIGNUP_MUTATION = gql`
   mutation signUp(
@@ -26,16 +26,16 @@ const SIGNUP_MUTATION = gql`
   }
 `;
 
-export function SignUpPage({ onCloseMethod }) {
+export function SignUpPage({ onCloseMethod, showSignUp, setShowSignIn }) {
   const [show, setShow] = useState(false);
 
-  const handleClose = () => {
-    setShow(false);
+  const showSignIn = () => {
     onCloseMethod(false);
+    setShowSignIn(true);
   };
 
   const [signupRequest, signupRequestState] = useMutation(SIGNUP_MUTATION, {
-    onCompleted: ({ signup: { user, token } }) => {
+    onCompleted: () => {
       setShow(true);
     },
     onError: (error) => {
@@ -59,11 +59,10 @@ export function SignUpPage({ onCloseMethod }) {
     [signupRequest],
   );
 
-
   if (show) {
     return (
       <Container>
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={onCloseMethod}>
           <Modal.Body>
             <Row className="justify-content-md-center">
               <p>Na Váš email jsme poslali potvrzení registrace. Pro přihlášení do aplikace je potřeba již poslední
@@ -76,11 +75,18 @@ export function SignUpPage({ onCloseMethod }) {
     );
   } else {
     return (
-      <SignUpTemplate
-        isLoading={signupRequestState.loading}
-        error={signupRequestState.error}
-        onSubmit={handleSignUpFormSubmit}
-        onClose={onCloseMethod}
-      />);
+      <Container>
+        <Modal show={showSignUp} onHide={onCloseMethod}>
+          <Modal.Body>
+            <SignUpTemplate
+              isLoading={signupRequestState.loading}
+              error={signupRequestState.error}
+              onSubmit={handleSignUpFormSubmit}
+              showSignIn={showSignIn}
+            />
+          </Modal.Body>
+        </Modal>
+      </Container>
+    );
   }
 }
