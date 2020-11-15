@@ -1,12 +1,13 @@
 import React from 'react';
 import { Navigation } from 'src/organisms/';
-export function PageNotFound() {
+
+export function HomePage() {
   return (
     <>
-    <Navigation/>
+    <Navigation />
     <div className="appWrapper">
-      <h1>Error 404:</h1>
-      <p>Page not found</p>
+      <h1>Home Page</h1>
+      <p>TBD</p>
     </div>
     </>
   );

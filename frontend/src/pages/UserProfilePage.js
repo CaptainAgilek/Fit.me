@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useHistory } from 'react-router-dom';
 import { gql, useMutation, useQuery } from '@apollo/client';
 
 import { UserProfileTemplate } from 'src/templates/UserProfileTemplate';
-import { UserBenefitsEnum } from 'src/utils/const';
 import { useAuth } from 'src/utils/auth';
-import { TopNavigation } from 'src/organisms/';
 
 const USER_PROFILE_QUERY = gql`
   query getSportsman($filter: SportsmanFilter!) {
@@ -103,26 +101,26 @@ export function UserProfilePage() {
   };
 
   const userReservations = [
-    { id: 1, className: 'kung fu s Martinem', date: '20.10.2020' },
-    { id: 2, className: 'hokej s Lenkou', date: '24.10.2020' },
-    { id: 3, className: 'činky s Honzou', date: '26.10.2020' },
-    { id: 4, className: 'fotbal s Petrem', date: '27.10.2020' },
-    { id: 5, className: 'kong fu s druhym Martinem', date: '1.11.2020' },
+    { id: 1, icon: "hockey", name: 'HTC Praha', date: '20.10.2020', hour: "14:00 - 17:00", address: "Náhodná 88, Praha" },
+    { id: 2, icon: 'fitness', name: 'Sportcentrum Prosek', date: '24.10.2020', hour: "14:00 - 17:00", address: "Náhodná 89, Praha" },
+    { id: 3, icon: "football", name: 'Sportcentrum Prosek', date: '29.10.2020', hour: "14:00 - 17:00", address: "Náhodná 89, Praha" },
+    { id: 4, icon: "fitness", name: 'Sportcentrum Prosek', date: '2.11.2020', hour: "14:00 - 17:00", address: "Náhodná 89, Praha" },
+    { id: 5, icon: "kravmaga", name: 'Sportcentrum Prosek', date: '12.11.2020', hour: "14:00 - 17:00", address: "Náhodná 89, Praha" },
+    { id: 6, icon: "hockey", name: 'HTC Praha', date: '13.11.2020', hour: "14:00 - 17:00", address: "Náhodná 88, Praha" },
   ];
 
   return (
     <>
-    <TopNavigation/>
-    <UserProfileTemplate
-      state={state}
-      error={userFetcher.error || deleteUserRequestState.error}
-      data={userFetcher.data}
-      onReload={userFetcher.refetch}
-      userReservations={userReservations}
-      deleteUserRequest={deleteUserRequest}
-      updateUserRequest={updateUserRequest}
-      changePasswordRequest={changePasswordRequest}
-    />
+      <UserProfileTemplate
+        state={state}
+        error={userFetcher.error || deleteUserRequestState.error}
+        data={userFetcher.data}
+        onReload={userFetcher.refetch}
+        userReservations={userReservations}
+        deleteUserRequest={deleteUserRequest}
+        updateUserRequest={updateUserRequest}
+        changePasswordRequest={changePasswordRequest}
+      />
     </>
   );
 }

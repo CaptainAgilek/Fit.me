@@ -142,4 +142,37 @@ code {
     padding: 10px;
     padding-top: 6px;
   }
+
+.profileComponentsOffset {
+  margin-top: 3rem;
+}
+
+.navbar {
+  margin-bottom: 3rem;
+}
+
+.userReservationsHistory {
+  overflow-x: scroll;
+}
+
+.userReservationsHistoryItem {
+  border: none !important;
+}
+
+.userReservationIcon {
+  height: .8em;
+  width: .8em;
+  margin-right: 0.5rem;
+}
+
+.userReservationSportIcon {
+  max-height: 30%;
+  max-width: 30%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.userReservationCard {
+  width: 15rem;
 }
