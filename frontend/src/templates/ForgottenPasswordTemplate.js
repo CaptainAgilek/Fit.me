@@ -1,12 +1,9 @@
 import React from 'react';
-import { Formik, Field, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Form, Button, Row, Badge } from 'react-bootstrap';
 
-import { route } from '../Routes';
 import { FormikGroup } from '../molecules';
-import { SignInPage } from '../pages/SignInPage';
-import Nav from 'react-bootstrap/Nav';
 
 const initialValues = {
   email: '',

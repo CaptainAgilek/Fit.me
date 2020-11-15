@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { gql, useMutation } from '@apollo/client';
 import { useAuth } from 'src/utils/auth';
 import { useHistory } from 'react-router-dom';
@@ -6,7 +6,6 @@ import { useHistory } from 'react-router-dom';
 import { SignInTemplate } from 'src/templates/SignInTemplate';
 import { route } from 'src/Routes';
 import { Container, Modal } from 'react-bootstrap';
-import { SignUpPage } from './SignUpPage';
 
 const SIGNIN_MUTATION = gql`
   mutation signIn(

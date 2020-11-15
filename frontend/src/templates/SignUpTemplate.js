@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
-import { Formik, Field, ErrorMessage } from 'formik';
+import React from 'react';
+import { Formik, Field } from 'formik';
 import * as yup from 'yup';
-import { Form, Col, Button, Row, Badge, Modal, Container } from 'react-bootstrap';
+import { Form, Col, Button, Row, Badge } from 'react-bootstrap';
 
-import { FormikGroup } from '../molecules';
 import { UserRegistration } from '../organisms/UserRegistration';
 
 const initialValues = {
@@ -30,13 +29,13 @@ const schema = yup.object().shape({
 
 
 export function SignUpTemplate({
-                             isLoading,
-                             errorMessage,
-                             className,
-                             onSubmit,
-                             children,
-                             showSignIn,
-                           }) {
+                                 isLoading,
+                                 errorMessage,
+                                 className,
+                                 onSubmit,
+                                 children,
+                                 showSignIn,
+                               }) {
 
   let registrationForm = <div />;
   if (initialValues.type !== 'ORGANIZATION') {

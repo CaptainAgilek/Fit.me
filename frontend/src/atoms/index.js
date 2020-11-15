@@ -1,5 +1,4 @@
 export { AvatarPicture } from './AvatarPicture';
-export { ReservationList } from './ReservationList';
 export { UserProfileActionButton } from './UserProfileActionButton';
 export { GenericPopUp } from '../molecules/GenericPopUp';
 export { Loading } from './Loading';
@@ -7,5 +6,8 @@ export { ChangePasswordForm } from './ChangePasswordForm';
 export { RegistrationLink } from './RegistrationLink';
 export { FormikSwitch } from './FormikSwitch';
 export { Button } from './Button';
-export { Link } from './Link';
-export { NavLink } from './NavLink';
+export { SlideBanner } from './SlideBanner';
+export { BasicSlide } from './BasicSlide';
+export { Slideshow } from './Slideshow';
+export { CategoryBox } from './CategoryBox';
+export { UserReservation } from './UserReservation';

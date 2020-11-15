@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { Formik, Field, ErrorMessage } from 'formik';
+import React from 'react';
+import { Formik } from 'formik';
 import * as yup from 'yup';
 import { Form, Button, Row, Badge } from 'react-bootstrap';
 
 import { FormikGroup } from '../molecules';
-import { Link } from '../atoms';
 import classNames from 'classnames';
 
 const initialValues = {
@@ -72,10 +71,10 @@ export function SignInTemplate({
               'align-items-center',
               'justify-content-md-center',
             )}>
-              <Link onClick={showForgotten}>ZAPOMĚLI JSTE HESLO?</Link>
+              <Button variant="link" onClick={showForgotten}>ZAPOMNĚLI JSTE HESLO?</Button>
             </Form.Row>
             <Form.Row className='justify-content-md-center'>
-              <span>NEMÁTE JEŠTĚ ÚČET? <Link noUnderline={false} onClick={showSignUp}>ZAREGISTRUJTE SE</Link></span>
+              <span>NEMÁTE JEŠTĚ ÚČET?<Button variant="link" onClick={showSignUp}>ZAREGISTRUJTE SE!</Button></span>
             </Form.Row>
             {children}
           </Form>

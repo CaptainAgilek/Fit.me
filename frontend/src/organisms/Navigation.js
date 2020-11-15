@@ -8,7 +8,17 @@ import { SignInPage } from '../pages/SignInPage';
 import { SignUpPage } from '../pages/SignUpPage';
 import { ForgottenPasswordPage } from '../pages/ForgottenPasswordPage';
 
+import { Link } from 'react-router-dom';
+import { useAuth } from 'src/utils/auth';
+import { useHistory } from 'react-router-dom';
+import { route } from 'src/Routes';
+
 export function Navigation() {
+  const { user, signout } = useAuth();
+  const history = useHistory();
+
+  const homeLink = route.home();
+  const profileLink = route.userProfile();
 
   const [showSignUp, setSignUpVisible] = useState(false);
   const [showSignIn, setSignInVisible] = useState(false);
@@ -17,24 +27,39 @@ export function Navigation() {
 
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
-        <Navbar.Brand href="/">Fit.me</Navbar.Brand>
+      <Navbar collapseOnSelect expand="lg" bg="light" variant="light" className="navbar">
+        <Navbar.Brand as={Link} to={homeLink}>Fit.me</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/">Domov</Nav.Link>
-            <Nav.Link href="/about">O aplikaci</Nav.Link>
+            <Nav.Link as={Link} to="/about">O aplikaci</Nav.Link>
           </Nav>
-          <Nav>
-            <Button variant="light" onClick={() => setSignInVisible(true)}>PŘIHLÁŠENÍ</Button>
-            {showSignIn ? <SignInPage onCloseMethod={setSignInVisible} showSignIn={showSignIn}
-                                      setShowSignUp={setSignUpVisible} setShowForgotten={setForgottenVisible} /> : null}
-            <Button variant="light" onClick={() => setSignUpVisible(true)}>REGISTRACE</Button>
-            {showSignUp ? <SignUpPage onCloseMethod={setSignUpVisible} showSignUp={showSignUp}
-                                      setShowSignIn={setSignInVisible} /> : null}
-            {showForgotten ?
-              <ForgottenPasswordPage onCloseMethod={setForgottenVisible} showForgotten={showForgotten} /> : null}
-          </Nav>
+          {user ? (
+            <Nav>
+              <Nav.Link as={Link} to={profileLink}>Profil</Nav.Link>
+              <Nav.Link onClick={() => {
+                signout();
+                history.push(route.home());
+                window.location.reload();
+              }}
+              >
+                Odhlásit se
+              </Nav.Link>
+            </Nav>
+          ) : (
+            <Nav>
+              <Button variant="light" onClick={() => setSignInVisible(true)}>PŘIHLÁŠENÍ</Button>
+              {showSignIn ? <SignInPage onCloseMethod={setSignInVisible} showSignIn={showSignIn}
+                                        setShowSignUp={setSignUpVisible}
+                                        setShowForgotten={setForgottenVisible} /> : null}
+              <Button variant="light" onClick={() => setSignUpVisible(true)}>REGISTRACE</Button>
+              {showSignUp ? <SignUpPage onCloseMethod={setSignUpVisible} showSignUp={showSignUp}
+                                        setShowSignIn={setSignInVisible} /> : null}
+              {showForgotten ?
+                <ForgottenPasswordPage onCloseMethod={setForgottenVisible} showForgotten={showForgotten} /> : null}
+            </Nav>
+          )
+          }
         </Navbar.Collapse>
       </Navbar>
     </>
