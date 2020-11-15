@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import { PrivateRoute } from 'src/utils/PrivateRoute';
 
-import { HomePage } from 'src/pages/HomePage';
+import { LandingPage } from 'src/pages/LandingPage';
 import { VerificationPage } from 'src/pages/VerificationPage';
 import { PageNotFound } from 'src/pages/PageNotFound';
 import { UserProfilePage } from 'src/pages/UserProfilePage';
@@ -12,6 +12,7 @@ import { SignInPage } from 'src/pages/SignInPage';
 
 export const route = {
   home: () => `/`,
+  about: () => `/about`,
   verification: () => "/verification/",
 
   signIn: () => `/auth/signin`,
@@ -23,7 +24,7 @@ export const route = {
 export function Routes() {
   return (
     <Switch>
-      <Route path={route.home()} exact component={HomePage} />
+      <Route path={route.home()} exact component={LandingPage} />
       <Route path={route.signUp()} exact component={SignUpPage} />
       <Route path={route.signIn()} exact component={SignInPage} />
       <Route path={route.verification()} exact component={VerificationPage} />

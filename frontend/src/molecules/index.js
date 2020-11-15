@@ -5,3 +5,7 @@ export { ChangePasswordPopUp } from './ChangePasswordPopUp';
 export { BasicSlideWithBanner} from './BasicSlideWithBanner';
 export { LandingSlideshow } from './LandingSlideshow';
 export { CategoryBoxGrid } from './CategoryBoxGrid';
+export { Footer } from './Footer';
+export { ReadMoreCol } from './ReadMoreCol';
+export { CategoryBoxCol } from './CategoryBoxCol';
+export { DelimiterRow } from './DelimiterRow';
