@@ -1,5 +1,5 @@
 import React from 'react';
-import { TopNavigation } from 'src/organisms/';
+import { Navigation } from 'src/organisms/';
 import {
   LandingSlideshow,
   CategoryBoxCol,
@@ -12,7 +12,7 @@ import { Row, Col, Container } from 'react-bootstrap';
 export function LandingPage() {
   return (
     <>
-      <TopNavigation />
+      <Navigation />
       <LandingSlideshow />
       <Container>
         <Row className="mt-5">
