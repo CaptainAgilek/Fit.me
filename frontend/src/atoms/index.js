@@ -6,4 +6,8 @@ export { ChangePasswordForm } from './ChangePasswordForm';
 export { RegistrationLink } from './RegistrationLink';
 export { FormikSwitch } from './FormikSwitch';
 export { Button } from './Button';
+export { SlideBanner } from './SlideBanner';
+export { BasicSlide } from './BasicSlide';
+export { Slideshow } from './Slideshow';
+export { CategoryBox } from './CategoryBox';
 export { UserReservation } from './UserReservation';

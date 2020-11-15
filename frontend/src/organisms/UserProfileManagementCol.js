@@ -15,7 +15,7 @@ export function UserProfileManagementCol({
   console.log("user", user);
   return (
     <Container>
-      <Row className="justify-content-md-center botOffset" xs={1}>
+      <Row className="justify-content-md-center profileComponentsOffset botOffset" xs={1}>
           <EditableAvatarPicture
             src={
               user.profile_photo
