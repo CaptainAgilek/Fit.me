@@ -6,7 +6,9 @@ import { SignUpTemplate } from '../organisms';
 
 const SIGNUP_MUTATION = gql`
   mutation signUp(
-    $username: String!
+    $username: String
+    $name: String
+    $address: String
     $email: String!
     $password: String!
     $firstname: String!
@@ -15,6 +17,8 @@ const SIGNUP_MUTATION = gql`
   ) {
     signup(
       username: $username
+      name: $name
+      address: $address
       email: $email
       password: $password
       firstname: $firstname
@@ -48,6 +52,8 @@ export function SignUpPage({ onCloseMethod, showSignUp, setShowSignIn }) {
       signupRequest({
         variables: {
           username: variables.username,
+          name: variables.name,
+          address: variables.address,
           email: variables.email,
           password: variables.password,
           firstname: variables.firstname,

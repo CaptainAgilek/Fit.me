@@ -135,7 +135,9 @@ export const typeDefs = gql`
     changePassword(email: String!, oldPassword: String!, newPassword: String! newPasswordAgain: String!): Boolean!
     signin(email: String!, password: String!): AuthInfo!
     signup(
-      username: String!
+      username: String
+      name: String
+      address: String
       email: String!
       password: String!
       firstname: String

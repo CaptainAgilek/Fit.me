@@ -24,7 +24,7 @@ export function VerificationPage(props) {
   let message = getMessage(token, tokenState);
 
   if (tokenState.data && tokenState.data.verifyRegistration) {
-    return <Redirect to={route.signIn()} />;
+    return <Redirect to={route.home()} />;
   }
 
   return (

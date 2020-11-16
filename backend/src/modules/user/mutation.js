@@ -30,7 +30,7 @@ export const signin = async (
     throw Error('Uživatel není ověřený.');
   }
 
-  const roles = await rolesForUser( _, { user_id: storedUser.user_id }, { dbConnection });
+  const roles = await rolesForUser(_, { user_id: storedUser.user_id }, { dbConnection });
   storedUser.roles = roles;
 
   if (await argon2.verify(storedUser.password, password)) {
@@ -43,7 +43,7 @@ export const signin = async (
 
 export const signup = async (
   _,
-  { email, password, firstname, lastname, username, type },
+  { email, password, name, address, firstname, lastname, username, type },
   { dbConnection },
 ) => {
   await checkAlreadyTakenEmail(email, dbConnection);
@@ -80,10 +80,34 @@ export const signup = async (
 
       break;
     case USER_TYPE.ORGANIZATION:
-      //TODO
+      const insertOrganizationResponse = await dbConnection.query(
+        `INSERT INTO organization (user_id, name, address)
+        VALUES (?, ?, ?);`,
+        [insertUserResponse.insertId, name, address],
+      );
+      await assignRoleToUser(
+        _,
+        {
+          name: ROLE_NAME.ROLE_ORGANIZATION,
+          user_id: insertUserResponse.insertId,
+        },
+        { dbConnection },
+      );
       break;
     case USER_TYPE.TRAINER:
-      //TODO
+      const insertTrainerResponse = await dbConnection.query(
+        `INSERT INTO trainer (user_id, firstname, lastname, username)
+        VALUES (?, ?, ?, ?);`,
+        [insertUserResponse.insertId, firstname, lastname, username],
+      );
+      await assignRoleToUser(
+        _,
+        {
+          name: ROLE_NAME.ROLE_TRAINER,
+          user_id: insertUserResponse.insertId,
+        },
+        { dbConnection },
+      );
       break;
     default:
       throw Error('Invalid user type');
@@ -126,7 +150,7 @@ export const updateUserEmail = async (_, { email, user_id }, { dbConnection }) =
   );
 
   return dbResponse.affectedRows === 1;
-}
+};
 
 export const changePassword = async (
   _,
