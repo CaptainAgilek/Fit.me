@@ -178,6 +178,7 @@ code {
 }
 
 .headerImg {
+  position: relative;
   /* The image used */
   background-image: url('/images/organization_header.jpg');
   /* Full height */
@@ -186,4 +187,21 @@ code {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.organization-menu {
+  position: absolute;
+  bottom: 0;
+  margin-bottom: -37.5px;
+  width: 100%;
+}
+
+.organization-menu-button {
+  text-align: center;
+  flex-basis: 15%;
+  height: 75px;
+  min-width: 100px;
+  border-radius: 5px;
+  margin: 1px;
+  background-color: #FFBA37;
 }
