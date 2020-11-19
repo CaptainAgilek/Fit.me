@@ -10,7 +10,7 @@ export function OrganizationProfileTemplate() {
       <div className="headerImg">
         <OrganizationMenu />
       </div>
-      <Container>todo</Container>
+      <Container className="mt-5">todo</Container>
       <Footer />
     </>
   );
