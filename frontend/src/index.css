@@ -74,7 +74,7 @@ code {
 
 @media (max-width: 767px) {
   .read-more-container {
-    padding:3px;
+    padding: 3px;
     background-color: rgba(255, 255, 255, 0.5);
     max-width: 60vw;
     margin: auto;
@@ -89,7 +89,7 @@ code {
   background-color: white;
   color: black;
   padding: 5px 9px;
-  font-size:21px;
+  font-size: 21px;
   cursor: pointer;
 }
 
@@ -126,7 +126,7 @@ code {
 .footer {
   margin-top: 60px;
   height: 210px;
-  background-color: #EBEBEB;
+  background-color: #ebebeb;
 }
 
 .social-icon {
@@ -138,7 +138,7 @@ code {
 
 @media (max-width: 767px) {
   .social-icon {
-    min-height:32.5px;
+    min-height: 32.5px;
     padding: 10px;
     padding-top: 6px;
   }
@@ -160,8 +160,8 @@ code {
 }
 
 .userReservationIcon {
-  height: .8em;
-  width: .8em;
+  height: 0.8em;
+  width: 0.8em;
   margin-right: 0.5rem;
 }
 
@@ -175,4 +175,15 @@ code {
 
 .userReservationCard {
   width: 15rem;
+}
+
+.headerImg {
+  /* The image used */
+  background-image: url('/images/organization_header.jpg');
+  /* Full height */
+  height: 500px;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

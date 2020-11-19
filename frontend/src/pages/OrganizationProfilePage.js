@@ -1,16 +1,11 @@
 import React from 'react';
-import { Navigation } from 'src/organisms/';
-import { Footer } from 'src/molecules/';
-import { Container } from 'react-bootstrap';
+import { OrganizationProfileTemplate } from 'src/templates/OrganizationProfileTemplate';
+
 
 export function OrganizationProfilePage() {
   return (
     <>
-      <Navigation />
-      <div className="headerImg">
-      </div>
-      <Container></Container>
-      <Footer />
+      <OrganizationProfileTemplate />
     </>
   );
 }
