@@ -48,6 +48,16 @@ export const typeDefs = gql`
     is_profile_picture: Boolean!
   }
 
+  type Action {
+    action_id: Int!
+    place_id: Int!
+    date: String!
+    time: String!
+    price: Float!
+    trainer_id: Int
+    max_capacity: Int!
+  }
+
   type Photo {
     photo_id: Int!
     user_id: Int!
@@ -97,6 +107,7 @@ export const typeDefs = gql`
   }
 
   type Query {
+    actionsForPlace(place_id: Int!): [Action]!
     benefitsForUser(user_id: Int!): [Benefit]!
     users: [User]!
     user(email: String!): User

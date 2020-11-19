@@ -11,3 +11,4 @@ export { BasicSlide } from './BasicSlide';
 export { Slideshow } from './Slideshow';
 export { CategoryBox } from './CategoryBox';
 export { UserReservation } from './UserReservation';
+export { CustomDatePicker } from './CustomDatePicker';
