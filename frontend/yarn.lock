@@ -1508,14 +1508,11 @@
     "@svgr/plugin-jsx" "^4.3.3"
     "@svgr/plugin-svgo" "^4.3.1"
     loader-utils "^1.2.3"
-<<<<<<< HEAD
 
 "@tweenjs/tween.js@^18.1.2":
   version "18.6.4"
   resolved "https://registry.yarnpkg.com/@tweenjs/tween.js/-/tween.js-18.6.4.tgz#40a3d0a93647124872dec8e0fd1bd5926695b6ca"
   integrity sha512-lB9lMjuqjtuJrx7/kOkqQBtllspPIN+96OvTCeJ2j5FEzinoAXTdAMFnDAQT1KVPRlnYfBrqxtqP66vDM40xxQ==
-=======
->>>>>>> 7137fb4fda6a4b2123f95ddaa48aeb655b3a7771
 
 "@types/babel__core@^7.1.0":
   version "7.1.10"
@@ -8848,7 +8845,6 @@ react-scripts@^3.4.4:
     workbox-webpack-plugin "4.3.1"
   optionalDependencies:
     fsevents "2.1.2"
-<<<<<<< HEAD
 
 react-slideshow-image@^3.3.1:
   version "3.3.1"
@@ -8857,8 +8853,6 @@ react-slideshow-image@^3.3.1:
   dependencies:
     "@tweenjs/tween.js" "^18.1.2"
     resize-observer-polyfill "^1.5.1"
-=======
->>>>>>> 7137fb4fda6a4b2123f95ddaa48aeb655b3a7771
 
 react-transition-group@^4.4.1:
   version "4.4.1"
@@ -9142,14 +9136,11 @@ requires-port@^1.0.0:
   resolved "https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
 
-<<<<<<< HEAD
 resize-observer-polyfill@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
   integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
 
-=======
->>>>>>> 7137fb4fda6a4b2123f95ddaa48aeb655b3a7771
 resolve-cwd@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/resolve-cwd/-/resolve-cwd-2.0.0.tgz"
