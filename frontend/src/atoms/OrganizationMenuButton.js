@@ -5,8 +5,8 @@ export function OrganizationMenuButton({ img, children }) {
     <div className="organization-menu-button" >
       <div className="organization-menu-button-img">
         <img className="img-fluid" src={img} />
+          <div className="organization-menu-button-text">{children}</div>
       </div>
-      <div className="organization-menu-button-text">{children}</div>
     </div>
   );
 }

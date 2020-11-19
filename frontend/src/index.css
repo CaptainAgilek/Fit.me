@@ -206,7 +206,10 @@ code {
   background-color: #FFBA37;
 }
 
-.organization-menu-img {
-  width: 50%;
-  padding: 10px;
+.organization-menu-button-img {
+  width: 10%;
+  height: 10%;
+  justify-content: center;
+  margin-right: auto;
+  margin-left: auto;
 }
