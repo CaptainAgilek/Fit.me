@@ -34,10 +34,11 @@ export const typeDefs = gql`
     hasActivePass: Boolean!
   }
 
-  input UpdateProfilePhotoUrlInput {
+  input UpdatePhotoUrlInput {
       photo_id: Int
       user_id: Int!
       url: String!
+      is_profile_picture: Boolean!
   }
 
   input PhotoInput {
@@ -135,9 +136,11 @@ export const typeDefs = gql`
     createOrUpdatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
     insertPlace(input: CreateOrUpdatePlaceInput!): Boolean!
     updatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
-    updateProfilePhotoUrl(input: UpdateProfilePhotoUrlInput!): Boolean!
+    updateProfilePhotoUrl(input: UpdatePhotoUrlInput!): Boolean!
+    updatePhotoUrl(input: UpdatePhotoUrlInput!): Boolean!
     insertPhoto(input: PhotoInput!): Boolean!
-    singleUpload(file: Upload!, user_id: Int!, photo_id: Int): UploadedFileResponse!
+    singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, is_profile_picture: Boolean!): UploadedFileResponse!
+    singleUpload(file: Upload!, user_id: Int!, photo_id: Int, is_profile_picture: Boolean!): UploadedFileResponse!
     updateSportsman(input: SportsmanInput!): Boolean!
     updateUserEmail(email: String!, user_id: Int!): Boolean!
     deleteUser(user_id: Int!): Boolean!
