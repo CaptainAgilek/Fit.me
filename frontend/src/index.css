@@ -201,15 +201,30 @@ code {
   flex-basis: 15%;
   height: 75px;
   min-width: 100px;
-  border-radius: 5px;
-  margin: 1px;
-  background-color: #FFBA37;
+  background-color: #e8aa3c;
+  font-family: 'Open Sans';
 }
 
+.organization-menu-button:hover {
+  background-color: #c69234;
+}
+
+.organization-menu-button + .organization-menu-button::after {
+  content: '';
+  border-left: 1px solid #ba8f43;
+  height: 90%;
+  display: block;
+  margin-top: -59px;
+}
+
+@media (max-width: 767px) {
+  .organization-menu-button-text {
+    font-size: 13px ;
+    margin-top: 5px;
+  }
+}
 .organization-menu-button-img {
-  width: 10%;
-  height: 10%;
-  justify-content: center;
-  margin-right: auto;
-  margin-left: auto;
+  width: 18.5px;
+  height: 18.5px;
+  margin-top: 20px;
 }
