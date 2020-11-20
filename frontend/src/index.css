@@ -189,11 +189,32 @@ code {
   background-size: cover;
 }
 
+@media (max-width: 767px) {
+  .headerImg {
+    height: 400px;
+  }
+}
+
+.organization-profile-top-margin {
+  margin-top: 3rem;
+}
+
+@media (max-width: 767px) {
+  .organization-profile-top-margin {
+    margin-top: 5rem;
+  }
+}
 .organization-menu {
   position: absolute;
   bottom: 0;
   margin-bottom: -37.5px;
   width: 100%;
+}
+
+@media (max-width: 767px) {
+  .organization-menu {
+    margin-bottom: -75px;
+  }
 }
 
 .organization-menu-button {
@@ -205,6 +226,11 @@ code {
   font-family: 'Open Sans';
 }
 
+@media (max-width: 767px) {
+  .organization-menu-button {
+    flex-basis: 33.3%;
+  }
+}
 .organization-menu-button:hover {
   background-color: #c69234;
 }
@@ -219,7 +245,7 @@ code {
 
 @media (max-width: 767px) {
   .organization-menu-button-text {
-    font-size: 13px ;
+    font-size: 13px;
     margin-top: 5px;
   }
 }
