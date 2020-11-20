@@ -11,7 +11,7 @@ export function OrganizationProfileTemplate() {
       <div className="headerImg">
         <OrganizationMenu />
       </div>
-      <Container className="mt-5">
+      <Container className="organization-profile-top-margin">
         <Col>
           <h1>Kalendář akcí</h1>
           <Row>
