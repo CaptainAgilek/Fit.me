@@ -5,7 +5,7 @@ import { Footer, OrganizationMenu } from 'src/molecules/';
 import { Col, Row, Container, ListGroup } from 'react-bootstrap';
 
 import { Button, Tab, Image, Form } from 'react-bootstrap';
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
 import { FormikGroup } from '../molecules';
 
 export function OrganizationProfileTemplate() {
@@ -26,21 +26,19 @@ export function OrganizationProfileTemplate() {
         </Col>
       </Container>
 
-      <Container>
-        <Row>
+      <Container className="organization-profile-section-container">
+        <Row className="organization-profile-heading">
           <Col>
             <h1>Trenéři</h1>
           </Col>
         </Row>
-
-        {/* add img to form as well so we dont have to split form and it keeps the layout */}
 
         <Tab.Container defaultActiveKey="#link1">
           <Row>
             <Col sm={4}>
               <ListGroup
                 defaultActiveKey="#"
-                className="organization-profile-trainer-select"
+                className="organization-profile-section-contents"
               >
                 <ListGroup.Item
                   action
@@ -137,7 +135,7 @@ export function OrganizationProfileTemplate() {
                                 ULOŽIT
                               </Button>
                               <Button
-                                className="organization-primary-button"
+                                className="organization-secondary-button"
                                 variant="outline-success"
                                 size="sm"
                                 type="submit"
@@ -158,6 +156,119 @@ export function OrganizationProfileTemplate() {
         </Tab.Container>
       </Container>
 
+      <Container className="organization-profile-section-container">
+        <Row className="organization-profile-heading">
+          <Col>
+            <h1>Galerie</h1>
+          </Col>
+        </Row>
+        <Container className="organization-profile-section-contents">
+          <Row>
+            <Col xl={3} lg={4} md={6} sm={12}>
+              <Container className="organization-profile-gallery-card">
+                <Row className="organization-profile-gallery-card-header">
+                  <Col xs={9}>
+                    <h5>PHOTO001.JPG</h5>
+                  </Col>
+                  <Col xs={3}>
+                    <Image
+                      className="organization-icon-color"
+                      src="/images/icons/trash-alt-solid.svg"
+                    ></Image>
+                  </Col>
+                </Row>
+                <Row>
+                  <Image src="/images/icons/calendar.png" fluid></Image>
+                </Row>
+              </Container>
+            </Col>
+          </Row>
+        </Container>
+        <Col fluid>
+          <hr></hr>
+          <Row className="d-flex align-items-center">
+            <Col lg={10}>Počet položek: 1</Col>
+            <Col lg={2}>
+              <Button
+                className="organization-primary-button"
+                variant="success"
+                size="lg"
+                type="submit"
+              >
+                PŘIDAT
+              </Button>
+            </Col>
+          </Row>
+
+          <hr></hr>
+        </Col>
+      </Container>
+
+      <Container className="organization-profile-section-container">
+        <Row className="organization-profile-heading">
+          <Col>
+            <h1>Hodnocení</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={4}>
+            <h4>Počet hvězdiček</h4>
+            <hr></hr>
+          </Col>
+        </Row>
+        <Container fluid>
+          <Row>
+            <Col sm={12} md={6}>
+              <Container className="organization-profile-rating-container">
+                <Row>
+                  <Col xs={3}>
+                    <Image
+                      src="/images/icons/calendar.png"
+                      fluid
+                      rounded
+                    ></Image>
+                  </Col>
+                  <Col>
+                    <Row className="d-flex flex-row-reverse">5/5</Row>
+                    <Row>
+                      <h5>Enci</h5>
+                    </Row>
+                    <Row className="font-italic">
+                      “Já byla spokojna. Fitko s dobrými službami. Určite záleží
+                      od trenéra. Mým byl Tobias Reuter - skvelý přístup i
+                      odbornost. Určite odporúčam.”
+                    </Row>
+                  </Col>
+                </Row>
+              </Container>
+            </Col>
+            <Col sm={12} md={6}>
+              <Container className="organization-profile-rating-container">
+                <Row>
+                  <Col xs={3}>
+                    <Image
+                      src="/images/icons/calendar.png"
+                      fluid
+                      rounded
+                    ></Image>
+                  </Col>
+                  <Col>
+                    <Row className="d-flex flex-row-reverse">5/5</Row>
+                    <Row>
+                      <h5>Enci</h5>
+                    </Row>
+                    <Row className="font-italic">
+                      “Já byla spokojna. Fitko s dobrými službami. Určite záleží
+                      od trenéra. Mým byl Tobias Reuter - skvelý přístup i
+                      odbornost. Určite odporúčam.”
+                    </Row>
+                  </Col>
+                </Row>
+              </Container>
+            </Col>
+          </Row>
+        </Container>
+      </Container>
       <Footer />
     </>
   );

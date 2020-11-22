@@ -256,14 +256,30 @@ code {
 }
 
 .organization-primary-button {
-  background-color: #e8aa3c;
+  background-color: #e8aa3c !important;
+  border: none !important;
   color: #ffffff;
+  font-weight: 600 !important;
   /*padding: 100px;*/
   margin-right: 10px;
   margin-top: 10px;
 }
 
-.organization-profile-trainer-select {
+.organization-secondary-button {
+  background-color: #ffffff !important;
+  border-color: #e8aa3c !important;
+  color: #000000 !important;
+  font-weight: bolder !important;
+  /*padding: 100px;*/
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.organization-profile-section-container {
+  margin-bottom: 5rem;
+}
+
+.organization-profile-section-contents {
   overflow-y: scroll;
   height: 42vh;
 }
@@ -284,4 +300,35 @@ code {
   transform: scale(0.8);
   filter: invert(93%) sepia(0%) saturate(27%) hue-rotate(247deg) brightness(87%)
     contrast(87%);
+}
+
+.organization-profile-gallery-card {
+  width: 18rem;
+}
+
+.organization-profile-gallery-card-header {
+  margin-bottom: 1rem;
+}
+
+.organization-profile-heading {
+  margin-bottom: 2.5rem;
+}
+
+.organization-icon-color {
+  filter: invert(91%) sepia(9%) saturate(6567%) hue-rotate(328deg)
+    brightness(101%) contrast(103%);
+}
+
+.organization-profile-star {
+  transform: scale(0.1);
+}
+
+.organization-profile-rating-container {
+  box-shadow: 0 0.8px 0.2px rgba(0, 0, 0, 0.015),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 2.5px 1px rgba(0, 0, 0, 0.03),
+    0 2.3px 7.9px rgba(0, 0, 0, 0.048), 0 4.8px 3.4px rgba(0, 0, 0, 0.042),
+    0 1px 2px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
