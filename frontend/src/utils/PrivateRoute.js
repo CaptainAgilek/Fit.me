@@ -6,7 +6,7 @@ import { route } from 'src/Routes';
 
 export function PrivateRoute({ component: Component, ...rest }) {
   const { user } = useAuth();
-  const signInLink = route.signIn();
+  const homeLink = route.home();
 
   return (
     <Route
@@ -15,7 +15,7 @@ export function PrivateRoute({ component: Component, ...rest }) {
         user ? (
           <Component {...props} />
         ) : (
-          <Redirect to={signInLink} />
+          <Redirect to={homeLink} />
         )
       }
     />
