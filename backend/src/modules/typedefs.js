@@ -151,7 +151,10 @@ export const typeDefs = gql`
     signup(
       username: String
       name: String
-      address: String
+      street: String
+      city: String
+      zipCode: String
+      country: String
       email: String!
       password: String!
       firstname: String

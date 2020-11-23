@@ -16,9 +16,30 @@ export function OrganizationRegistration() {
 
       <Form.Row>
         <FormikGroup
-          name="address"
-          id="address"
-          label="FAKTURAČNÍ ADRESA"
+          name="street"
+          id="street"
+          label="ULICE"
+        />
+      </Form.Row>
+      <Form.Row>
+        <FormikGroup
+          name="city"
+          id="city"
+          label="MĚSTO"
+        />
+      </Form.Row>
+      <Form.Row>
+        <FormikGroup
+          name="zipCode"
+          id="zipCode"
+          label="PSČ"
+        />
+      </Form.Row>
+      <Form.Row>
+        <FormikGroup
+          name="country"
+          id="country"
+          label="ZEMĚ"
         />
       </Form.Row>
       <Form.Row>

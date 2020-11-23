@@ -31,7 +31,10 @@ const userSchema = yup.object().shape({
 
 const organizationSchema = yup.object().shape({
   name: yup.string().required('Vyplňte název organizace'),
-  address: yup.string().required('Vyplňte adresu organizace'),
+  street: yup.string().required('Vyplňte ulici organizace'),
+  city: yup.string().required('Vyplňte město organizace'),
+  country: yup.string().required('Vyplňte zemi organizace'),
+  zipCode: yup.number().integer('PSČ musí být číslo').required('Vyplňte PSČ organizace').typeError('PSČ musí být číslo').test('len', 'PSČ musí mít přesně 5 znaků', val => val.toString().length === 5),
   email: yup.string().required('Vyplňte email').matches(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i, 'Prosím zadejte email ve správném tvaru'),
   password: yup.string().required('Vyplňte heslo').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, 'Musí obsahovat 8 znaků, alespoň jeden velký a malý znak a číslo'),
   passwordConfirmation: yup

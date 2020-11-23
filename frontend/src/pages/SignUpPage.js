@@ -8,17 +8,23 @@ const SIGNUP_MUTATION = gql`
   mutation signUp(
     $username: String
     $name: String
-    $address: String
+    $street: String
+    $city: String
+    $zipCode: String
+    $country: String
     $email: String!
     $password: String!
-    $firstname: String!
-    $lastname: String!
+    $firstname: String
+    $lastname: String
     $type: UserType!
   ) {
     signup(
       username: $username
       name: $name
-      address: $address
+      street: $street
+      city: $city
+      zipCode: $zipCode
+      country: $country
       email: $email
       password: $password
       firstname: $firstname
@@ -53,7 +59,10 @@ export function SignUpPage({ onCloseMethod, showSignUp, setShowSignIn }) {
         variables: {
           username: variables.username,
           name: variables.name,
-          address: variables.address,
+          street: variables.street,
+          city: variables.city,
+          zipCode: variables.zipCode,
+          country: variables.country,
           email: variables.email,
           password: variables.password,
           firstname: variables.firstname,

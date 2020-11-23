@@ -11,6 +11,7 @@ import { rolesForUser } from '../role/query';
 import { user } from './query';
 import { ROLE_NAME } from '../role/enum';
 import { USER_TYPE } from './enum';
+import { insertPlace } from '../place/mutation';
 
 export const verifyRegistration = async (_, { token }, { dbConnection }) => {
   return await verifyRegistrationToken(token, dbConnection);
@@ -43,7 +44,7 @@ export const signin = async (
 
 export const signup = async (
   _,
-  { email, password, name, address, firstname, lastname, username, type },
+  { email, password, name, street, city, zipCode, country, firstname, lastname, username, type },
   { dbConnection },
 ) => {
   await checkAlreadyTakenEmail(email, dbConnection);
@@ -81,15 +82,29 @@ export const signup = async (
       break;
     case USER_TYPE.ORGANIZATION:
       const insertOrganizationResponse = await dbConnection.query(
-        `INSERT INTO organization (user_id, name, address)
+        `INSERT INTO organization (user_id, name, username)
         VALUES (?, ?, ?);`,
-        [insertUserResponse.insertId, name, address],
+        [insertUserResponse.insertId, name, ''],
       );
       await assignRoleToUser(
         _,
         {
           name: ROLE_NAME.ROLE_ORGANIZATION,
           user_id: insertUserResponse.insertId,
+        },
+        { dbConnection },
+      );
+      let input = {
+        user_id: insertUserResponse.insertId,
+        street: street,
+        city: city,
+        zip: zipCode,
+        country: country,
+      };
+      await insertPlace(
+        _,
+        {
+          input: input,
         },
         { dbConnection },
       );
