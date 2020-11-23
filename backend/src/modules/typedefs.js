@@ -152,7 +152,7 @@ export const typeDefs = gql`
     insertPhoto(input: PhotoInput!): Boolean!
     singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, is_profile_picture: Boolean!): UploadedFileResponse!
     singleUpload(file: Upload!, user_id: Int!, photo_id: Int, is_profile_picture: Boolean!): UploadedFileResponse!
-    singleUploadOrganizationGalleryPhoto( file: Upload!, photo_id: Int, user_id: Int!, description: String, is_profile_picture: Boolean! ): UploadedFileResponse!
+    singleUploadOrganizationGalleryPhoto(file: Upload!, photo_id: Int, user_id: Int!, description: String, is_profile_picture: Boolean!): UploadedFileResponse!
     updateSportsman(input: SportsmanInput!): Boolean!
     updateUserEmail(email: String!, user_id: Int!): Boolean!
     deleteUser(user_id: Int!): Boolean!

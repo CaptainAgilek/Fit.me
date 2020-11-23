@@ -1,14 +1,45 @@
 import React from 'react';
 import { Navigation } from 'src/organisms/';
 import { CustomDatePicker } from 'src/atoms/';
-import { Footer, OrganizationMenu } from 'src/molecules/';
+import {
+  Footer,
+  OrganizationMenu,
+  GalleryUploadPhotoButton,
+} from 'src/molecules/';
 import { Col, Row, Container, ListGroup } from 'react-bootstrap';
 
 import { Button, Tab, Image, Form } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { FormikGroup } from '../molecules';
+import { gql, useMutation, useQuery } from '@apollo/client';
+
+const GALLERY_QUERY = gql`
+  query getGalleryPhotos($id: Int!) {
+    organization(id: $id) {
+      name
+      user_id
+      user {
+        email
+      }
+      photo_gallery {
+        url
+        photo_id
+        gallery_name
+        is_profile_picture
+      }
+    }
+  }
+`;
 
 export function OrganizationProfileTemplate() {
+  const id = 104;
+  const galleryFetcher = useQuery(GALLERY_QUERY, { variables: { id } });
+  const data = galleryFetcher.data;
+
+  console.log('entering');
+  console.log(data);
+  console.log(galleryFetcher);
+
   return (
     <>
       <Navigation />
@@ -162,14 +193,43 @@ export function OrganizationProfileTemplate() {
             <h1>Galerie</h1>
           </Col>
         </Row>
-        <Container className="organization-profile-section-contents">
+        <Container className="organization-profile-section-contents" fluid>
           <Row>
+            {/*data &&
+                    data.organization.photo_gallery &&
+                    data.organization.photo_gallery.map((x) => (
+                      <Image src={x.url} fluid></Image>
+                    ))*/}
+            {data &&
+              data.organization.photo_gallery &&
+              data.organization.photo_gallery.map((x) => (
+                <Col xl={3} lg={4} md={6} sm={12}>
+                  <Container className="organization-profile-gallery-card">
+                    <Row className="organization-profile-gallery-card-header">
+                      <Col xs={9}>
+                        <h5>PHOTO001.JPG</h5>
+                      </Col>
+
+                      <Col xs={3}>
+                        <Image
+                          className="organization-icon-color"
+                          src="/images/icons/trash-alt-solid.svg"
+                        ></Image>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Image src={x.url} fluid></Image>
+                    </Row>
+                  </Container>
+                </Col>
+              ))}
             <Col xl={3} lg={4} md={6} sm={12}>
               <Container className="organization-profile-gallery-card">
                 <Row className="organization-profile-gallery-card-header">
                   <Col xs={9}>
                     <h5>PHOTO001.JPG</h5>
                   </Col>
+
                   <Col xs={3}>
                     <Image
                       className="organization-icon-color"
@@ -189,14 +249,18 @@ export function OrganizationProfileTemplate() {
           <Row className="d-flex align-items-center">
             <Col lg={10}>Počet položek: 1</Col>
             <Col lg={2}>
-              <Button
+              {/*<Button
                 className="organization-primary-button"
                 variant="success"
                 size="lg"
                 type="submit"
               >
                 PŘIDAT
-              </Button>
+              </Button>*/}
+              <GalleryUploadPhotoButton
+                user_id={id}
+                photo_id={undefined}
+              ></GalleryUploadPhotoButton>
             </Col>
           </Row>
 
