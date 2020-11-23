@@ -107,6 +107,16 @@ export const typeDefs = gql`
     profile_photo: Photo
   }
 
+  type Organization{
+    user_id: Int!
+    name: String!
+    address: String
+    username: String
+    user: User!
+    profile_photo: Photo
+    photo_gallery: [Photo]
+  }
+
   type Query {
     actionsForPlace(place_id: Int!): [Action]!
     benefitsForUser(user_id: Int!): [Benefit]!
@@ -119,6 +129,7 @@ export const typeDefs = gql`
     role(name: String!): Role!
     sportsmen: [Sportsman]!
     sportsman(filter: SportsmanFilter!): Sportsman
+    organization(id: Int!): Organization
   }
 
   type AuthInfo {
@@ -141,6 +152,7 @@ export const typeDefs = gql`
     insertPhoto(input: PhotoInput!): Boolean!
     singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, is_profile_picture: Boolean!): UploadedFileResponse!
     singleUpload(file: Upload!, user_id: Int!, photo_id: Int, is_profile_picture: Boolean!): UploadedFileResponse!
+    singleUploadOrganizationGalleryPhoto( file: Upload!, photo_id: Int, user_id: Int!, description: String, is_profile_picture: Boolean! ): UploadedFileResponse!
     updateSportsman(input: SportsmanInput!): Boolean!
     updateUserEmail(email: String!, user_id: Int!): Boolean!
     deleteUser(user_id: Int!): Boolean!

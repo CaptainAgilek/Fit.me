@@ -50,6 +50,24 @@ export const singleUpload = async (
   return { filename, mimetype, encoding, url: publicUrl };
 };
 
+//comma?
+export const singleUploadOrganizationGalleryPhoto = async(
+  _, 
+  { file, photo_id, user_id, description, is_profile_picture }, 
+  { dbConnection }) => {
+  const { createReadStream, filename, mimetype, encoding } = await file;
+  const fileStream = createReadStream();
+
+  const relativePath = `photos/organizations/${filename}`;
+  const path = `./public/` + relativePath;
+
+  const fileWritten = await writeFileOnDisk(fileStream, path);
+  const publicUrl = process.env.BACKEND_URL + relativePath;
+  const gallery_name = "DEFAULT";
+
+  return await insertPhoto(null, { photo_id, user_id, description, publicUrl, gallery_name, is_profile_picture }, { dbConnection });
+};
+
 const createOrUpdatePhoto = async (
   file,
   user_id,
