@@ -10,3 +10,4 @@ export { Footer } from './Footer';
 export { ReadMoreCol } from './ReadMoreCol';
 export { CategoryBoxCol } from './CategoryBoxCol';
 export { DelimiterRow } from './DelimiterRow';
+export { OrganizationMenu } from './OrganizationMenu';

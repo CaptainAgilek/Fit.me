@@ -1,45 +1,61 @@
 import fs, { unlink } from 'fs';
+import { writeFileOnDisk } from './util';
 
-export const singleUpload = async (
+export const singleUploadOrganizationPhoto = async (
   _,
-  { file, user_id, photo_id },
+  { file, user_id, photo_id, is_profile_picture },
   { dbConnection },
 ) => {
   const { createReadStream, filename, mimetype, encoding } = await file;
   const fileStream = createReadStream();
 
-  const fileWritten = await new Promise((resolve, reject) => {
-    // Create a stream to which the upload will be written.
-    const writeStream = fs.createWriteStream(`./public/photos/${filename}`);
-    // When the upload is fully written, resolve the promise.
-    writeStream.on('finish', resolve);
-    // If there's an error writing the file, remove the partially written file
-    // and reject the promise.
-    writeStream.on('error', (error) => {
-      unlink(path, () => {
-        throw Error(error);
-        reject(error);
-      });
-    });
-    // In Node.js <= v13, errors are not automatically propagated between piped
-    // streams. If there is an error receiving the upload, destroy the write
-    // stream with the corresponding error.
-    fileStream.on('error', (error) => writeStream.destroy(error));
-    // Pipe the upload into the write stream.
-    fileStream.pipe(writeStream);
-  });
+  const relativePath = `photos/organizations/${filename}`;
+  const path = `./public/` + relativePath;
 
-  const publicUrl = process.env.BACKEND_URL + `photos/${filename}`;
-  await createOrUpdateProfilePhoto(file, user_id, photo_id, publicUrl, dbConnection);
+  const fileWritten = await writeFileOnDisk(fileStream, path);
+  const publicUrl = process.env.BACKEND_URL + relativePath;
+  await createOrUpdatePhoto(
+    file,
+    user_id,
+    photo_id,
+    publicUrl,
+    is_profile_picture,
+    dbConnection,
+  );
 
   return { filename, mimetype, encoding, url: publicUrl };
 };
 
-const createOrUpdateProfilePhoto = async (
+export const singleUpload = async (
+  _,
+  { file, user_id, photo_id, is_profile_picture },
+  { dbConnection },
+) => {
+  const { createReadStream, filename, mimetype, encoding } = await file;
+  const fileStream = createReadStream();
+  const relativePath = `photos/${filename}`;
+  const path = `./public/` + relativePath;
+
+  const fileWritten = await writeFileOnDisk(fileStream, path);
+  const publicUrl = process.env.BACKEND_URL + relativePath;
+  await createOrUpdatePhoto(
+    file,
+    user_id,
+    photo_id,
+    publicUrl,
+    is_profile_picture,
+    dbConnection,
+  );
+
+  return { filename, mimetype, encoding, url: publicUrl };
+};
+
+const createOrUpdatePhoto = async (
   file,
   user_id,
   photo_id,
   url,
+  is_profile_picture,
   dbConnection,
 ) => {
   const input = {
@@ -48,12 +64,12 @@ const createOrUpdateProfilePhoto = async (
     description: null,
     url: url,
     gallery_name: null,
-    is_profile_picture: true,
+    is_profile_picture: is_profile_picture,
   };
   if (!photo_id) {
     return await insertPhoto(null, { input }, { dbConnection });
   } else {
-    return await updateProfilePhotoUrl(null, { input }, { dbConnection });
+    return await updatePhotoUrl(null, { input }, { dbConnection });
   }
 };
 
@@ -73,10 +89,10 @@ export const insertPhoto = async (_, { input }, { dbConnection }) => {
   return insertPhoto.warningStatus == 0;
 };
 
-export const updateProfilePhotoUrl = async (_, { input }, { dbConnection }) => {
+export const updatePhotoUrl = async (_, { input }, { dbConnection }) => {
   const dbResponse = await dbConnection.query(
     `UPDATE photo SET url = ?
-     WHERE user_id = ? AND photo_id = ? AND is_profile_picture = true;`,
+     WHERE user_id = ? AND photo_id = ?`,
     [input.url, input.user_id, input.photo_id],
   );
 

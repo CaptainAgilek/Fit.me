@@ -2,6 +2,7 @@ import { queries as RoleQueries } from './role';
 import { queries as UserQueries } from './user';
 import { queries as SportsmanQueries } from './sportsman';
 import { queries as BenefitQueries } from './benefit';
+import { queries as ActionQueries } from './action';
 import { mutations as UserMutations } from './user';
 import { mutations as RoleMutations } from './role';
 import { mutations as SportsmanMutations } from './sportsman';
@@ -15,6 +16,7 @@ export default {
     ...UserQueries,
     ...SportsmanQueries,
     ...BenefitQueries,
+    ...ActionQueries,
     todo: async () => {
       return new Date().toISOString();
     },
