@@ -332,3 +332,7 @@ code {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+
+.organization-icon-clickable {
+  cursor: pointer;
+}

@@ -12,3 +12,4 @@ export { CategoryBoxCol } from './CategoryBoxCol';
 export { DelimiterRow } from './DelimiterRow';
 export { OrganizationMenu } from './OrganizationMenu';
 export { GalleryUploadPhotoButton } from './GalleryUploadPhotoButton';
+export { GalleryPhotoRemoveButton } from './GalleryPhotoRemoveButton';

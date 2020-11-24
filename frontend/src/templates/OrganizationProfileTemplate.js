@@ -1,6 +1,6 @@
 import React from 'react';
-import { Navigation } from 'src/organisms/';
-import { CustomDatePicker } from 'src/atoms/';
+import { Navigation, OrganizationProfileGallery } from 'src/organisms/';
+import { CustomDatePicker, GalleryPhotoTitle } from 'src/atoms/';
 import {
   Footer,
   OrganizationMenu,
@@ -39,10 +39,12 @@ const GALLERY_REMOVE_PHOTO_MUTATION = gql`
   }
 `;
 
-export function OrganizationProfileTemplate() {
-  const id = 104;
+export function OrganizationProfileTemplate({ user }) {
+  const id = user.user_id;
   const galleryFetcher = useQuery(GALLERY_QUERY, { variables: { id } });
   const data = galleryFetcher.data;
+  const photoGallery =
+    data === undefined ? undefined : data.organization.photo_gallery;
 
   const [removeGalleryPhotoHandler] = useMutation(
     GALLERY_REMOVE_PHOTO_MUTATION,
@@ -200,83 +202,12 @@ export function OrganizationProfileTemplate() {
         </Tab.Container>
       </Container>
 
-      <Container className="organization-profile-section-container">
-        <Row className="organization-profile-heading">
-          <Col>
-            <h1>Galerie</h1>
-          </Col>
-        </Row>
-        <Container className="organization-profile-section-contents" fluid>
-          <Row>
-            {data &&
-              data.organization.photo_gallery &&
-              data.organization.photo_gallery.map((x) => (
-                <Col xl={3} lg={4} md={6} sm={12}>
-                  <Container className="organization-profile-gallery-card">
-                    <Row className="organization-profile-gallery-card-header">
-                      <Col xs={9}>
-                        <h6>
-                          {x.url
-                            .split('#')
-                            .shift()
-                            .split('?')
-                            .shift()
-                            .split('/')
-                            .pop()}
-                        </h6>
-                      </Col>
-                      <Col xs={3}>
-                        <Image
-                          className="organization-icon-color"
-                          src="/images/icons/trash-alt-solid.svg"
-                          onClick={() => {
-                            removeGalleryPhotoHandler({
-                              variables: {
-                                input: {
-                                  photo_id: x.photo_id,
-                                  user_id: id,
-                                  gallery_name: null,
-                                },
-                              },
-                            });
-                          }}
-                        ></Image>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Image src={x.url} fluid></Image>
-                    </Row>
-                  </Container>
-                </Col>
-              ))}
-          </Row>
-        </Container>
-        <Col fluid>
-          <hr></hr>
-          <Row className="d-flex align-items-center">
-            <Col lg={10}>
-              Počet položek: {data && data.organization.photo_gallery.length}
-            </Col>
-            <Col lg={2}>
-              {/*<Button
-                className="organization-primary-button"
-                variant="success"
-                size="lg"
-                type="submit"
-              >
-                PŘIDAT
-              </Button>*/}
-              <GalleryUploadPhotoButton
-                user_id={id}
-                photo_id={undefined}
-                refetchGallery={galleryFetcher.refetch}
-              ></GalleryUploadPhotoButton>
-            </Col>
-          </Row>
-
-          <hr></hr>
-        </Col>
-      </Container>
+      <OrganizationProfileGallery
+        user={user}
+        photoGallery={photoGallery}
+        galleryFetcher={galleryFetcher}
+        removeGalleryPhotoHandler={removeGalleryPhotoHandler}
+      />
 
       <Container className="organization-profile-section-container">
         <Row className="organization-profile-heading">

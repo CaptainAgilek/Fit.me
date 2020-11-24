@@ -13,3 +13,6 @@ export { CategoryBox } from './CategoryBox';
 export { UserReservation } from './UserReservation';
 export { OrganizationMenuButton } from './OrganizationMenuButton';
 export { CustomDatePicker } from './CustomDatePicker';
+export { GalleryCounter } from './GalleryCounter';
+export { GalleryPhotoTitle } from './GalleryPhotoTitle';
+export { OrganizationProfileSectionHeading } from './OrganizationProfileSectionHeading';

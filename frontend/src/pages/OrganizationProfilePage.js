@@ -3,9 +3,11 @@ import { OrganizationProfileTemplate } from 'src/templates/OrganizationProfileTe
 import { gql, useMutation, useQuery } from '@apollo/client';
 
 export function OrganizationProfilePage() {
+  const user = { user_id: 104 }; //todo
+
   return (
     <>
-      <OrganizationProfileTemplate />
+      <OrganizationProfileTemplate user={user} />
     </>
   );
 }
