@@ -2,11 +2,15 @@ import React from 'react';
 
 import { Formik, Field } from 'formik';
 import { Form, Button, Row, Badge } from 'react-bootstrap';
-import { CustomDatePickerField } from 'src/atoms/';
-import { CustomTimePickerField } from 'src/atoms/';
+import {
+  CustomDatePickerField,
+  CustomTimePickerField,
+  FormikSelectField,
+} from 'src/atoms/';
 
-export function ActionCard({ img, action, editable }) {
+export function ActionCard({ img, action, trainers, editable }) {
   let time = new Date();
+  const options = trainers.map((trainer) => ({key: trainer.user_id, value: trainer.firstname + " " + trainer.lastname}));
 
   if (action) {
     const [hours, minutes, seconds] = action.time.split(':');
@@ -21,7 +25,7 @@ export function ActionCard({ img, action, editable }) {
         name: action.name || 'Název akce',
         date: parseInt(action.date) || new Date(),
         time: time || new Date(),
-        trainer: action.trainer_id || '',
+        trainer: options.filter((option) => option.key === action.trainer_id).value || '',
         price: action.price || '',
         capacity: action.max_capacity || '',
         // name: action.name || '',
@@ -84,7 +88,12 @@ export function ActionCard({ img, action, editable }) {
                     src="/images/icons/personal.svg"
                   />
                   {editable && (
-                    <Field name="trainer" id="trainer" className="borderNone" />
+                    <FormikSelectField
+                      name="trainer"
+                      id="trainer"
+                      options={options}
+                      className="borderNone"
+                    />
                   )}
                   {!editable && action.trainer_id}
                 </div>
@@ -94,7 +103,12 @@ export function ActionCard({ img, action, editable }) {
                     src="/images/icons/money.svg"
                   />
                   {editable && (
-                    <Field name="price" id="price" label="Cena" className="borderNone" />
+                    <Field
+                      name="price"
+                      id="price"
+                      label="Cena"
+                      className="borderNone"
+                    />
                   )}
                   {!editable && action.price}
                 </div>

@@ -5,6 +5,10 @@ import { Footer, OrganizationMenu, ActionCard } from 'src/molecules/';
 import { Col, Row, Container } from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
 export function OrganizationProfileTemplate({ actionsState, organizationState }) {
+  if (organizationState.data) {
+      console.log(organizationState.data.organization.trainers);
+  }
+
   return (
     <>
       <Navigation />
@@ -19,13 +23,14 @@ export function OrganizationProfileTemplate({ actionsState, organizationState })
           </Row>
           <Row>
             <ListGroup horizontal className="horizontalScroll">
-              {actionsState.data &&
+              {organizationState.data  && actionsState.data &&
                 actionsState.data.actionsForPlace.map((action) => (
                   <ListGroup.Item key={action.action_id} className="borderNone" style={{paddingLeft:"0.1rem"}}>
                     <ActionCard
                       key={action.action_id}
                       img="/images/slide_1.jpg"
                       action={action}
+                      trainers={organizationState.data.organization.trainers}
                       editable={true}
                     />
                   </ListGroup.Item>

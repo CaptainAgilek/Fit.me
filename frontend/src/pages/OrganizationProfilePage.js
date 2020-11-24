@@ -20,6 +20,7 @@ const ORGANIZATION_QUERY = gql`
   query organization($user_id: Int!) {
     organization(user_id: $user_id) {
       trainers {
+        user_id
         firstname
         lastname
       }
