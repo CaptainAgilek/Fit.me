@@ -1,6 +1,8 @@
-export const actionsForPlace = async(_, { place_id }, { dbConnection }) => {
-  return await dbConnection.query(
+export const actionsForPlace = async (_, { place_id }, { dbConnection }) => {
+  const result = await dbConnection.query(
     `SELECT * FROM action
       WHERE place_id = ?`,
-    [place_id]);
-}
+    [place_id],
+  );
+  return result;
+};

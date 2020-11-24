@@ -1,6 +1,7 @@
 import { queries as RoleQueries } from './role';
 import { queries as UserQueries } from './user';
 import { queries as SportsmanQueries } from './sportsman';
+import { queries as OrganizationQueries } from './organization';
 import { queries as BenefitQueries } from './benefit';
 import { queries as ActionQueries } from './action';
 import { mutations as UserMutations } from './user';
@@ -15,6 +16,7 @@ export default {
     ...RoleQueries,
     ...UserQueries,
     ...SportsmanQueries,
+    ...OrganizationQueries,
     ...BenefitQueries,
     ...ActionQueries,
     todo: async () => {
@@ -31,7 +33,11 @@ export default {
   },
   User: {
     async roles(parent, _, { dbConnection }) {
-      return await RoleQueries.rolesForUser(_, { user_id: parent.user_id}, { dbConnection });
+      return await RoleQueries.rolesForUser(
+        _,
+        { user_id: parent.user_id },
+        { dbConnection },
+      );
     },
   },
   Sportsman: {
@@ -71,6 +77,17 @@ export default {
           [parent.user_id],
         )
       )[0];
-    }
+    },
+  },
+  Organization: {
+    async trainers(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT user_id, firstname, lastname
+         FROM trainer
+        JOIN organization_trainer ON (organization_trainer.organization_id = ?)
+        GROUP BY(user_id)`,
+        [parent.user_id],
+      );
+    },
   },
 };

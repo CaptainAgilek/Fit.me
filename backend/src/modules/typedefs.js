@@ -107,6 +107,19 @@ export const typeDefs = gql`
     profile_photo: Photo
   }
 
+  type Trainer {
+    user_id: Int!
+    firstname: String!
+    lastname: String!
+  }
+
+  type Organization {
+    user_id: Int!
+    name: String!
+    username: String
+    trainers: [Trainer]!
+  }
+
   type Query {
     actionsForPlace(place_id: Int!): [Action]!
     benefitsForUser(user_id: Int!): [Benefit]!
@@ -119,6 +132,7 @@ export const typeDefs = gql`
     role(name: String!): Role!
     sportsmen: [Sportsman]!
     sportsman(filter: SportsmanFilter!): Sportsman
+    organization(user_id: Int!): Organization
   }
 
   type AuthInfo {
