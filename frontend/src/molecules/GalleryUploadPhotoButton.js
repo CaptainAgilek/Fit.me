@@ -28,8 +28,16 @@ const UPLOAD_PHOTO_MUTATION = gql`
   }
 `;
 
-export function GalleryUploadPhotoButton({ user_id, photo_id }) {
-  const [uploadFileHandler] = useMutation(UPLOAD_PHOTO_MUTATION);
+export function GalleryUploadPhotoButton({
+  user_id,
+  photo_id,
+  refetchGallery,
+}) {
+  const [uploadFileHandler] = useMutation(UPLOAD_PHOTO_MUTATION, {
+    onCompleted({ upload }) {
+      refetchGallery();
+    },
+  });
 
   const [selectedFile, setSelectedFile] = useState(null);
 

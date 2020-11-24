@@ -195,11 +195,6 @@ export function OrganizationProfileTemplate() {
         </Row>
         <Container className="organization-profile-section-contents" fluid>
           <Row>
-            {/*data &&
-                    data.organization.photo_gallery &&
-                    data.organization.photo_gallery.map((x) => (
-                      <Image src={x.url} fluid></Image>
-                    ))*/}
             {data &&
               data.organization.photo_gallery &&
               data.organization.photo_gallery.map((x) => (
@@ -207,9 +202,16 @@ export function OrganizationProfileTemplate() {
                   <Container className="organization-profile-gallery-card">
                     <Row className="organization-profile-gallery-card-header">
                       <Col xs={9}>
-                        <h5>PHOTO001.JPG</h5>
+                        <h6>
+                          {x.url
+                            .split('#')
+                            .shift()
+                            .split('?')
+                            .shift()
+                            .split('/')
+                            .pop()}
+                        </h6>
                       </Col>
-
                       <Col xs={3}>
                         <Image
                           className="organization-icon-color"
@@ -223,25 +225,6 @@ export function OrganizationProfileTemplate() {
                   </Container>
                 </Col>
               ))}
-            <Col xl={3} lg={4} md={6} sm={12}>
-              <Container className="organization-profile-gallery-card">
-                <Row className="organization-profile-gallery-card-header">
-                  <Col xs={9}>
-                    <h5>PHOTO001.JPG</h5>
-                  </Col>
-
-                  <Col xs={3}>
-                    <Image
-                      className="organization-icon-color"
-                      src="/images/icons/trash-alt-solid.svg"
-                    ></Image>
-                  </Col>
-                </Row>
-                <Row>
-                  <Image src="/images/icons/calendar.png" fluid></Image>
-                </Row>
-              </Container>
-            </Col>
           </Row>
         </Container>
         <Col fluid>
@@ -260,6 +243,7 @@ export function OrganizationProfileTemplate() {
               <GalleryUploadPhotoButton
                 user_id={id}
                 photo_id={undefined}
+                refetchGallery={galleryFetcher.refetch}
               ></GalleryUploadPhotoButton>
             </Col>
           </Row>
