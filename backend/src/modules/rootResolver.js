@@ -99,7 +99,7 @@ export default {
       return await dbConnection.query(
         `SELECT photo_id, user_id, description, url, gallery_name, is_profile_picture FROM photo
         JOIN user USING (user_id)
-        WHERE user_id = ? AND is_profile_picture=false`,
+        WHERE user_id = ? AND is_profile_picture=false AND gallery_name="DEFAULT"`,
         [parent.user_id],
       );
     }

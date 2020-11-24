@@ -49,6 +49,12 @@ export const typeDefs = gql`
     is_profile_picture: Boolean!
   }
 
+  input UpdatePhotoGalleryNameInput{
+    user_id: Int!
+    photo_id: Int!
+    gallery_name: String
+  }
+
   type Action {
     action_id: Int!
     place_id: Int!
@@ -149,6 +155,7 @@ export const typeDefs = gql`
     updatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
     updateProfilePhotoUrl(input: UpdatePhotoUrlInput!): Boolean!
     updatePhotoUrl(input: UpdatePhotoUrlInput!): Boolean!
+    updateOrganizationGalleryPhoto(input: UpdatePhotoGalleryNameInput!): Boolean!
     insertPhoto(input: PhotoInput!): Boolean!
     singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, is_profile_picture: Boolean!): UploadedFileResponse!
     singleUpload(file: Upload!, user_id: Int!, photo_id: Int, is_profile_picture: Boolean!): UploadedFileResponse!

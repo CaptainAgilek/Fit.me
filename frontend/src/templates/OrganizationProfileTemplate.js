@@ -31,14 +31,27 @@ const GALLERY_QUERY = gql`
   }
 `;
 
+const GALLERY_REMOVE_PHOTO_MUTATION = gql`
+  mutation updateOrganizationGalleryPhoto(
+    $input: UpdatePhotoGalleryNameInput!
+  ) {
+    updateOrganizationGalleryPhoto(input: $input)
+  }
+`;
+
 export function OrganizationProfileTemplate() {
   const id = 104;
   const galleryFetcher = useQuery(GALLERY_QUERY, { variables: { id } });
   const data = galleryFetcher.data;
 
-  console.log('entering');
-  console.log(data);
-  console.log(galleryFetcher);
+  const [removeGalleryPhotoHandler] = useMutation(
+    GALLERY_REMOVE_PHOTO_MUTATION,
+    {
+      onCompleted: () => {
+        galleryFetcher.refetch();
+      },
+    },
+  );
 
   return (
     <>
@@ -216,6 +229,17 @@ export function OrganizationProfileTemplate() {
                         <Image
                           className="organization-icon-color"
                           src="/images/icons/trash-alt-solid.svg"
+                          onClick={() => {
+                            removeGalleryPhotoHandler({
+                              variables: {
+                                input: {
+                                  photo_id: x.photo_id,
+                                  user_id: id,
+                                  gallery_name: null,
+                                },
+                              },
+                            });
+                          }}
                         ></Image>
                       </Col>
                     </Row>
@@ -230,7 +254,9 @@ export function OrganizationProfileTemplate() {
         <Col fluid>
           <hr></hr>
           <Row className="d-flex align-items-center">
-            <Col lg={10}>Počet položek: 1</Col>
+            <Col lg={10}>
+              Počet položek: {data && data.organization.photo_gallery.length}
+            </Col>
             <Col lg={2}>
               {/*<Button
                 className="organization-primary-button"

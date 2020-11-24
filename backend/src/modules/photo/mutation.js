@@ -71,6 +71,16 @@ export const singleUploadOrganizationGalleryPhoto = async (
   return { filename, mimetype, encoding, url: publicUrl };
 };
 
+export const updateOrganizationGalleryPhoto = async (_, { input }, { dbConnection }) => {
+  const dbResponse = await dbConnection.query(
+    `UPDATE photo SET gallery_name = ?
+     WHERE user_id = ? AND photo_id = ?`,
+    [input.gallery_name, input.user_id, input.photo_id],
+  );
+
+  return dbResponse.affectedRows === 1;
+};
+
 const createOrUpdatePhoto = async (
   file,
   user_id,
