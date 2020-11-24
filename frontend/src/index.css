@@ -151,11 +151,11 @@ code {
 .navbar {
 }
 
-.userReservationsHistory {
+.horizontalScroll {
   overflow-x: scroll;
 }
 
-.userReservationsHistoryItem {
+.borderNone {
   border: none !important;
 }
 
@@ -177,6 +177,9 @@ code {
   width: 15rem;
 }
 
+.list-group-item:last-child {
+  padding-right: 0.1rem;
+}
 .headerImg {
   position: relative;
   /* The image used */
@@ -249,8 +252,34 @@ code {
     margin-top: 5px;
   }
 }
+
 .organization-menu-button-img {
   width: 18.5px;
   height: 18.5px;
   margin-top: 20px;
+}
+
+.action-small-icon {
+  width: 18.5px;
+  height: 18.5px;
+  margin-right: 0.8rem;
+  margin-bottom: 0.3rem;
+}
+
+div::-webkit-scrollbar-thumb:horizontal {
+  background: #cec9c9;
+  border-radius: 7px;
+}
+
+div::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Left */
+div::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  background: url('/images/icons/left_arrow_green.png') 0px 0px no-repeat;
+}
+/* Right */
+div::-webkit-scrollbar-button:single-button:horizontal:increment {
+  background: url('/images/icons/right_arrow_green.png') 0px 0px no-repeat;
 }

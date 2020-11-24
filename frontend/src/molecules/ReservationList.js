@@ -30,10 +30,10 @@ export function ReservationList({ reservations }) {
         </DropdownButton>
       </Row>
 
-      <Row className="botOffset userReservationsHistory">
-        <ListGroup horizontal className="userReservationsHistory">
+      <Row className="botOffset">
+        <ListGroup horizontal className="horizontalScroll">
         {reservations.map((reservation) => (
-          <ListGroup.Item key={reservation.id} className="userReservationsHistoryItem">
+          <ListGroup.Item key={reservation.id} className="borderNone">
             <UserReservation reservation={reservation} />
           </ListGroup.Item>
         ))}
