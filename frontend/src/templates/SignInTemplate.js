@@ -1,10 +1,13 @@
 import React from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { Form, Button, Row, Badge } from 'react-bootstrap';
+import { Form, Button, Row } from 'react-bootstrap';
 
-import { FormikGroup } from '../molecules';
+import { ErrorBanner, FormikGroup } from '../molecules';
 import classNames from 'classnames';
+import Col from 'react-bootstrap/Col';
+import Alert from 'react-bootstrap/Alert';
+import { UserProfileActionButton } from '../molecules/ErrorBanner';
 
 const initialValues = {
   email: '',
@@ -19,14 +22,12 @@ const schema = yup.object().shape({
 
 export function SignInTemplate({
                                  isLoading,
-                                 errorMessage,
-                                 className,
+                                 error,
                                  onSubmit,
                                  children,
                                  showSignUp,
                                  showForgotten,
                                }) {
-
   return (
     <>
       <Row className='justify-content-md-center'><h1>PŘIHLÁŠENÍ</h1></Row>
@@ -39,14 +40,19 @@ export function SignInTemplate({
         {({ errors, touched, handleSubmit }) => (
 
           <Form onSubmit={handleSubmit}>
-            <Row className='justify-content-md-center'>
-              <h3>
-                <Badge variant="warning">
-                  {errorMessage}
-                </Badge>
-              </h3>
-            </Row>
-
+            {error && (
+              <Row className="justify-content-md-center">
+                <Alert variant="danger">
+                  <Col className="justify-content-md-center">
+                    <p>
+                      {error.message}
+                    </p>
+                    <div className="d-flex justify-content-end">
+                    </div>
+                  </Col>
+                </Alert>
+              </Row>
+            )}
             <Form.Row>
               <FormikGroup
                 name="email"
