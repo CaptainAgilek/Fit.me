@@ -10,7 +10,7 @@ import {
   OrganizationMenu,
   GalleryUploadPhotoButton,
 } from 'src/molecules/';
-import { Col, Row, Container, ListGroup } from 'react-bootstrap';
+import { Col, Row, Container, ListGroup, InputGroup } from 'react-bootstrap';
 
 import { Button, Tab, Image, Form } from 'react-bootstrap';
 import { Formik } from 'formik';
@@ -121,6 +121,7 @@ export function OrganizationProfileTemplate({ user }) {
               <option value="Tobias Reuter"></option>
             </datalist>
           </Col>
+
           <Col xs={2}>
             <Button
               size="sm"
@@ -169,85 +170,81 @@ export function OrganizationProfileTemplate({ user }) {
               <Tab.Content>
                 <Tab.Pane eventKey="#link1">
                   <Container>
-                    <Formik
-                      initialValues={{
-                        facebook: '',
-                        instagram: '',
-                        description: '',
-                        name: '',
-                      }}
-                    >
-                      <Form>
+                    <Row>
+                      <Col xs={12} sm={12} md={4} lg={3} xl={3}>
                         <Row>
-                          <Col xs={12} sm={6} md={6} lg={5} xl={4}>
-                            <Row>
-                              <Image
-                                src="/images/icons/calendar.png"
-                                fluid
-                              ></Image>
-                            </Row>
-                            <Row>
-                              <Form.Row className="d-flex align-items-center">
-                                <Col sm={2} xs={2}>
-                                  <Image
-                                    src="/images/icons/facebook-f-brands.svg"
-                                    fluid
-                                    className="organization-profile-icon-svg"
-                                  ></Image>
-                                </Col>
-                                <Col xs={8} sm={10} md={10} lg={10} xl={10}>
-                                  <FormikGroup name="facebook" id="facebook" />
-                                </Col>
-                              </Form.Row>
-                              <Form.Row className="d-flex align-items-center">
-                                <Col sm={2} xs={2}>
-                                  <Image
-                                    src="/images/icons/instagram-square-brands.svg"
-                                    fluid
-                                    className="organization-profile-icon-svg"
-                                  ></Image>
-                                </Col>
-                                <Col xs={8} sm={10} md={10} lg={10} xl={10}>
-                                  <FormikGroup
-                                    name="instagram"
-                                    id="instagram"
-                                  />
-                                </Col>
-                              </Form.Row>
-                            </Row>
-                          </Col>
-                          <Col>
-                            <Form.Row>
-                              <FormikGroup
-                                name="name"
-                                id="name"
-                                label="JMÉNO"
-                              />
-                            </Form.Row>
-                            <Form.Row>
-                              <Form.Group
-                                name="description"
-                                id="description"
-                                as={Col}
-                              >
-                                <Form.Label>POPIS</Form.Label>
-                                <Form.Control as="textarea"></Form.Control>
-                              </Form.Group>
-                            </Form.Row>
-                            <Form.Row className="d-flex flex-row-reverse">
-                              <Button
-                                className="organization-primary-button"
-                                variant="success"
-                                size="sm"
-                                type="submit"
-                              >
-                                ULOŽIT
-                              </Button>
-                            </Form.Row>
-                          </Col>
+                          <Image src="/images/icons/calendar.png" fluid></Image>
                         </Row>
-                      </Form>
-                    </Formik>
+                      </Col>
+
+                      <Col xl={9} lg={9} md={8} sm={12}>
+                        <Row className="d-flex justify-content-center">
+                          <h3>Sofia Taty</h3>
+                        </Row>
+
+                        <Form>
+                          <Form.Row>
+                            <Form.Group
+                              name="description"
+                              id="description"
+                              as={Col}
+                            >
+                              <Form.Label>POPIS</Form.Label>
+                              <Form.Control
+                                as="textarea"
+                                style={{
+                                  height: '100%',
+                                }}
+                              ></Form.Control>
+                            </Form.Group>
+                          </Form.Row>
+                          <Form.Row className="d-flex flex-row-reverse">
+                            <Button
+                              className="organization-primary-button"
+                              variant="success"
+                              size="md"
+                              type="submit"
+                              style={{ marginTop: '1.5rem' }}
+                            >
+                              ULOŽIT
+                            </Button>
+                          </Form.Row>
+                        </Form>
+                      </Col>
+
+                      <Col md={2} sm={3} xs={3} lg={1}>
+                        <Image
+                          src="/images/icons/facebook-f-brands.svg"
+                          className="organization-profile-icon-svg"
+                        ></Image>
+                      </Col>
+                      <Col
+                        xs={9}
+                        md={10}
+                        sm={9}
+                        lg={11}
+                        className="d-flex align-items-center"
+                      >
+                        facebook
+                      </Col>
+
+                      <Col md={2} sm={3} xs={3} lg={1}>
+                        <Image
+                          src="/images/icons/instagram-square-brands.svg"
+                          fluid
+                          className="organization-profile-icon-svg"
+                        ></Image>
+                      </Col>
+                      <Col
+                        xs={9}
+                        md={10}
+                        sm={9}
+                        lg={11}
+                        className="d-flex align-items-center"
+                      >
+                        instagram
+                      </Col>
+                    </Row>
                   </Container>
                 </Tab.Pane>
                 <Tab.Pane eventKey="#link2">testdesc2</Tab.Pane>
