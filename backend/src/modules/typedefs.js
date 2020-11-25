@@ -121,6 +121,15 @@ export const typeDefs = gql`
     user: User!
     profile_photo: Photo
     photo_gallery: [Photo]
+    ratings: [Rating]
+  }
+
+  type Rating {
+    id: Int!
+    sportsman: Sportsman!
+    organization: Organization!
+    text: String
+    stars: Int
   }
 
   type Query {

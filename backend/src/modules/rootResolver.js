@@ -11,6 +11,7 @@ import { mutations as BenefitMutations } from './benefit';
 import { mutations as PhotoMutations } from './photo';
 import { mutations as PlaceMutations } from './place';
 import { mutations as OrganizationMutations } from './organization';
+import { sportsman } from './sportsman/query';
 
 
 export default {
@@ -102,6 +103,32 @@ export default {
         WHERE user_id = ? AND is_profile_picture=false AND gallery_name="DEFAULT"`,
         [parent.user_id],
       );
+    },
+    async ratings(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT id, sportsman.user_id, text, stars FROM rating 
+         join sportsman on sportsman.user_id = rating.user_id 
+        where rating.organization_id = ?`,
+        [parent.user_id],
+      );
+    }
+  },
+  Rating: {
+    async sportsman(parent, _, { dbConnection }) {
+      return (await dbConnection.query(
+        `SELECT rating.user_id, firstname, lastname, username, phone FROM rating
+        JOIN sportsman on sportsman.user_id = rating.user_id
+        WHERE sportsman.user_id = ?`, 
+        [parent.user_id],
+      ))[0];
+    },
+    async organization(parent, _, { dbConnection }) {
+      return (await dbConnection.query(
+        `SELECT rating.user_id, name, username FROM rating
+        JOIN organization on organization.user_id = rating.organization_id
+        WHERE organization.user_id = ?`,
+        [parent.organization_id],
+      ))[0];
     }
   }
 };

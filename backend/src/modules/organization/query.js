@@ -14,3 +14,17 @@ export const organization = async (_, { id }, { dbConnection }) => {
   
     return null;
   }
+
+/*export const ratings = async (_, { id }, { dbConnection }) => {
+  if (id){
+    const ratings = ( await dbConnection.query(`SELECT * from rating WHERE organization_id = :`, [id,] ));
+
+    if (!ratings) {
+      return null;
+    }
+
+    return ratings;
+  }
+
+  return null;
+}*/

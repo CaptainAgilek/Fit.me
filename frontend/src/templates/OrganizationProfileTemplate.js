@@ -1,6 +1,10 @@
 import React from 'react';
 import { Navigation, OrganizationProfileGallery } from 'src/organisms/';
-import { CustomDatePicker, GalleryPhotoTitle } from 'src/atoms/';
+import {
+  CustomDatePicker,
+  GalleryPhotoTitle,
+  OrganizationProfileSectionHeading,
+} from 'src/atoms/';
 import {
   Footer,
   OrganizationMenu,
@@ -39,6 +43,25 @@ const GALLERY_REMOVE_PHOTO_MUTATION = gql`
   }
 `;
 
+const RATINGS_QUERY = gql`
+  query getOrganizationRatings($id: Int!) {
+    organization(id: $id) {
+      ratings {
+        id
+        sportsman {
+          firstname
+          lastname
+          profile_photo {
+            url
+          }
+        }
+        text
+        stars
+      }
+    }
+  }
+`;
+
 export function OrganizationProfileTemplate({ user }) {
   const id = user.user_id;
   const galleryFetcher = useQuery(GALLERY_QUERY, { variables: { id } });
@@ -54,6 +77,16 @@ export function OrganizationProfileTemplate({ user }) {
       },
     },
   );
+
+  /* RATINGS TEST */
+  const ratingsFetcher = useQuery(RATINGS_QUERY, { variables: { id } });
+  const ratingsData = ratingsFetcher.data;
+  const ratings =
+    ratingsData === undefined ? undefined : ratingsData.organization.ratings;
+
+  //console.log(ratingsFetcher);
+  console.log(ratingsData);
+  console.log(ratings);
 
   return (
     <>
@@ -210,11 +243,9 @@ export function OrganizationProfileTemplate({ user }) {
       />
 
       <Container className="organization-profile-section-container">
-        <Row className="organization-profile-heading">
-          <Col>
-            <h1>Hodnocení</h1>
-          </Col>
-        </Row>
+        <OrganizationProfileSectionHeading>
+          Hodnocení
+        </OrganizationProfileSectionHeading>
         <Row>
           <Col xs={4}>
             <h4>Počet hvězdiček</h4>
