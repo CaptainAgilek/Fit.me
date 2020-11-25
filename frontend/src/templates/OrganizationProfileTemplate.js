@@ -106,9 +106,29 @@ export function OrganizationProfileTemplate({ user }) {
       </Container>
 
       <Container className="organization-profile-section-container">
-        <Row className="organization-profile-heading">
-          <Col>
-            <h1>Trenéři</h1>
+        <OrganizationProfileSectionHeading>
+          Trenéři
+        </OrganizationProfileSectionHeading>
+        <Row className="d-flex align-items-center">
+          <Col xs={2}>
+            <input
+              class="custom-select custom-select-sm"
+              list="encodings"
+              id="encodingsInput"
+            />
+            <datalist id="encodings">
+              <option value="Sofia Taty"></option>
+              <option value="Tobias Reuter"></option>
+            </datalist>
+          </Col>
+          <Col xs={2}>
+            <Button
+              size="sm"
+              style={{ marginBottom: '.8em' }}
+              className="organization-secondary-button"
+            >
+              PŘIDAT TRENÉRA
+            </Button>
           </Col>
         </Row>
 
@@ -124,14 +144,24 @@ export function OrganizationProfileTemplate({ user }) {
                   href="#link1"
                   className="organization-profile-trainer-tab"
                 >
-                  Sofia Taty
+                  <Row className="d-flex align-items-center">
+                    <Col>Sofia Taty</Col>
+                    <Col xl={2} md={3} sm={5} xs={2}>
+                      <Image src="/images/icons/trash-alt-solid.svg"></Image>
+                    </Col>
+                  </Row>
                 </ListGroup.Item>
                 <ListGroup.Item
                   action
                   href="#link2"
                   className="organization-profile-trainer-tab"
                 >
-                  Tobias Reuter
+                  <Row className="d-flex align-items-center">
+                    <Col>Tobias Reuter</Col>
+                    <Col xl={2} md={3} sm={5} xs={2}>
+                      <Image src="/images/icons/trash-alt-solid.svg"></Image>
+                    </Col>
+                  </Row>
                 </ListGroup.Item>
               </ListGroup>
             </Col>
@@ -212,14 +242,6 @@ export function OrganizationProfileTemplate({ user }) {
                                 type="submit"
                               >
                                 ULOŽIT
-                              </Button>
-                              <Button
-                                className="organization-secondary-button"
-                                variant="outline-success"
-                                size="sm"
-                                type="submit"
-                              >
-                                NOVÝ TRENÉR
                               </Button>
                             </Form.Row>
                           </Col>
