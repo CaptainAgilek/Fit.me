@@ -152,6 +152,10 @@ export const typeDefs = gql`
     user_id: Int!
     firstname: String!
     lastname: String!
+    facebook: String
+    instagram: String
+    description: String
+    profile_photo: Photo
   }
 
 

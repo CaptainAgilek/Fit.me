@@ -18,6 +18,7 @@ import { FormikGroup } from '../molecules';
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { rganizationMenu, ActionCard } from 'src/molecules/';
 
+//TODO: contents of this query are already in the page for this template, remove later
 const GALLERY_QUERY = gql`
   query getGalleryPhotos($id: Int!) {
     organization(user_id: $id) {
@@ -44,6 +45,7 @@ const GALLERY_REMOVE_PHOTO_MUTATION = gql`
   }
 `;
 
+//TODO: contents of this query are already in the page for this template, remove later
 const RATINGS_QUERY = gql`
   query getOrganizationRatings($id: Int!) {
     organization(user_id: $id) {
@@ -92,8 +94,8 @@ export function OrganizationProfileTemplate({
   //console.log(ratingsFetcher);
   //console.log(ratingsData);
   //console.log(ratings);
-
   console.log(organizationState.data);
+  //console.log(organizationState.data.trainers);
 
   return (
     <>
@@ -135,145 +137,138 @@ export function OrganizationProfileTemplate({
           Trenéři
         </OrganizationProfileSectionHeading>
         <Row className="d-flex align-items-center">
-          <Col xs={2}>
-            <input
-              className="custom-select custom-select-sm"
-              list="encodings"
-              id="encodingsInput"
-            />
-            <datalist id="encodings">
-              <option value="Sofia Taty"></option>
-              <option value="Tobias Reuter"></option>
-            </datalist>
-          </Col>
-
-          <Col xs={2}>
+          <Col xs={3}>
             <Button
               size="sm"
               style={{ marginBottom: '.8em' }}
               className="organization-secondary-button"
             >
-              PŘIDAT TRENÉRA
+              PŘIDAT TRENÉRA (MODAL)
             </Button>
           </Col>
         </Row>
 
-        <Tab.Container defaultActiveKey="#link1">
+        <Tab.Container defaultActiveKey="#">
           <Row>
             <Col sm={4}>
               <ListGroup
                 defaultActiveKey="#"
                 className="organization-profile-section-contents"
               >
-                <ListGroup.Item
-                  action
-                  href="#link1"
-                  className="organization-profile-trainer-tab"
-                >
-                  <Row className="d-flex align-items-center">
-                    <Col>Sofia Taty</Col>
-                    <Col xl={2} md={3} sm={5} xs={2}>
-                      <Image src="/images/icons/trash-alt-solid.svg"></Image>
-                    </Col>
-                  </Row>
-                </ListGroup.Item>
-                <ListGroup.Item
-                  action
-                  href="#link2"
-                  className="organization-profile-trainer-tab"
-                >
-                  <Row className="d-flex align-items-center">
-                    <Col>Tobias Reuter</Col>
-                    <Col xl={2} md={3} sm={5} xs={2}>
-                      <Image src="/images/icons/trash-alt-solid.svg"></Image>
-                    </Col>
-                  </Row>
-                </ListGroup.Item>
+                {organizationState.data &&
+                  organizationState.data.organization.trainers.map(
+                    (trainer) => (
+                      <ListGroup.Item
+                        action
+                        href={'#' + trainer.user_id}
+                        className="organization-profile-trainer-tab"
+                      >
+                        <Row className="d-flex align-items-center">
+                          <Col xs={10}>{trainer.firstname}</Col>
+                          <Col xl={2} md={3} sm={5} xs={2}>
+                            <Image src="/images/icons/trash-alt-solid.svg"></Image>
+                          </Col>
+                        </Row>
+                      </ListGroup.Item>
+                    ),
+                  )}
               </ListGroup>
             </Col>
             <Col sm={8}>
-              <Tab.Content>
-                <Tab.Pane eventKey="#link1">
-                  <Container>
-                    <Row>
-                      <Col xs={12} sm={12} md={4} lg={3} xl={3}>
+              {organizationState.data &&
+                organizationState.data.organization.trainers.map((trainer) => (
+                  <Tab.Content>
+                    <Tab.Pane eventKey={'#' + trainer.user_id}>
+                      <Container>
                         <Row>
-                          <Image src="/images/icons/calendar.png" fluid></Image>
+                          <Col xs={12} sm={12} md={4} lg={3} xl={3}>
+                            <Row>
+                              <Image
+                                src={
+                                  trainer.profile_photo &&
+                                  trainer.profile_photo.url
+                                }
+                                fluid
+                              ></Image>
+                            </Row>
+                          </Col>
+
+                          <Col xl={9} lg={9} md={8} sm={12}>
+                            <Row className="d-flex justify-content-center">
+                              <h3>
+                                {trainer.firstname + ' ' + trainer.lastname}
+                              </h3>
+                            </Row>
+
+                            <Form>
+                              <Form.Row>
+                                <Form.Group
+                                  name="description"
+                                  id="description"
+                                  as={Col}
+                                >
+                                  <Form.Label>POPIS</Form.Label>
+                                  <Form.Control
+                                    as="textarea"
+                                    style={{
+                                      height: '100%',
+                                    }}
+                                  >
+                                    {trainer.description}
+                                  </Form.Control>
+                                </Form.Group>
+                              </Form.Row>
+                              <Form.Row className="d-flex flex-row-reverse">
+                                <Button
+                                  className="organization-primary-button"
+                                  variant="success"
+                                  size="md"
+                                  type="submit"
+                                  style={{ marginTop: '1.5rem' }}
+                                >
+                                  ULOŽIT
+                                </Button>
+                              </Form.Row>
+                            </Form>
+                          </Col>
+
+                          <Col md={2} sm={3} xs={3} lg={1}>
+                            <Image
+                              src="/images/icons/facebook-f-brands.svg"
+                              className="organization-profile-icon-svg"
+                            ></Image>
+                          </Col>
+                          <Col
+                            xs={9}
+                            md={10}
+                            sm={9}
+                            lg={11}
+                            className="d-flex align-items-center"
+                          >
+                            {trainer.facebook}
+                          </Col>
+
+                          <Col md={2} sm={3} xs={3} lg={1}>
+                            <Image
+                              src="/images/icons/instagram-square-brands.svg"
+                              fluid
+                              className="organization-profile-icon-svg"
+                            ></Image>
+                          </Col>
+                          <Col
+                            xs={9}
+                            md={10}
+                            sm={9}
+                            lg={11}
+                            className="d-flex align-items-center"
+                          >
+                            {trainer.instagram}
+                          </Col>
                         </Row>
-                      </Col>
-
-                      <Col xl={9} lg={9} md={8} sm={12}>
-                        <Row className="d-flex justify-content-center">
-                          <h3>Sofia Taty</h3>
-                        </Row>
-
-                        <Form>
-                          <Form.Row>
-                            <Form.Group
-                              name="description"
-                              id="description"
-                              as={Col}
-                            >
-                              <Form.Label>POPIS</Form.Label>
-                              <Form.Control
-                                as="textarea"
-                                style={{
-                                  height: '100%',
-                                }}
-                              ></Form.Control>
-                            </Form.Group>
-                          </Form.Row>
-                          <Form.Row className="d-flex flex-row-reverse">
-                            <Button
-                              className="organization-primary-button"
-                              variant="success"
-                              size="md"
-                              type="submit"
-                              style={{ marginTop: '1.5rem' }}
-                            >
-                              ULOŽIT
-                            </Button>
-                          </Form.Row>
-                        </Form>
-                      </Col>
-
-                      <Col md={2} sm={3} xs={3} lg={1}>
-                        <Image
-                          src="/images/icons/facebook-f-brands.svg"
-                          className="organization-profile-icon-svg"
-                        ></Image>
-                      </Col>
-                      <Col
-                        xs={9}
-                        md={10}
-                        sm={9}
-                        lg={11}
-                        className="d-flex align-items-center"
-                      >
-                        facebook
-                      </Col>
-
-                      <Col md={2} sm={3} xs={3} lg={1}>
-                        <Image
-                          src="/images/icons/instagram-square-brands.svg"
-                          fluid
-                          className="organization-profile-icon-svg"
-                        ></Image>
-                      </Col>
-                      <Col
-                        xs={9}
-                        md={10}
-                        sm={9}
-                        lg={11}
-                        className="d-flex align-items-center"
-                      >
-                        instagram
-                      </Col>
-                    </Row>
-                  </Container>
-                </Tab.Pane>
-                <Tab.Pane eventKey="#link2">testdesc2</Tab.Pane>
-              </Tab.Content>
+                      </Container>
+                    </Tab.Pane>
+                  </Tab.Content>
+                ))}
             </Col>
           </Row>
         </Tab.Container>

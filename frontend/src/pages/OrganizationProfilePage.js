@@ -31,6 +31,34 @@ const ORGANIZATION_QUERY = gql`
         user_id
         firstname
         lastname
+        facebook
+        instagram
+        description
+        profile_photo {
+          url
+        }
+      }
+      ratings {
+        id
+        sportsman {
+          firstname
+          lastname
+          profile_photo {
+            url
+          }
+        }
+        text
+        stars
+      }
+      name
+      user {
+        email
+      }
+      photo_gallery {
+        url
+        photo_id
+        gallery_name
+        is_profile_picture
       }
     }
   }

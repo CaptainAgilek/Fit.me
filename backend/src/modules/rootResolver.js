@@ -133,10 +133,10 @@ export default {
     },
     async trainers(parent, _, { dbConnection }) {
       return await dbConnection.query(
-        `SELECT user_id, firstname, lastname
-         FROM trainer
-        JOIN organization_trainer ON (organization_trainer.organization_id = ?)
-        GROUP BY(user_id)`,
+        `select user_id, firstname, lastname, facebook, instagram, description 
+        from trainer 
+        join organization_trainer on organization_trainer.trainer_id = trainer.user_id 
+        where organization_trainer.organization_id = ?`,
         [parent.user_id],
       );
     }
@@ -157,6 +157,17 @@ export default {
         WHERE organization.user_id = ?`,
         [parent.organization_id],
       ))[0];
+    }
+  },
+  Trainer: {
+    async profile_photo(parent, _, { dbConnection }) {
+      return (await dbConnection.query(
+          `SELECT photo_id, user_id, description, url, gallery_name, is_profile_picture FROM photo
+          JOIN user USING (user_id)
+          WHERE user_id = ? AND is_profile_picture=true`,
+          [parent.user_id],
+        )
+      )[0];
     }
   }
 };
