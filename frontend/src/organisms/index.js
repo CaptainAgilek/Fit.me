@@ -3,3 +3,4 @@ export { SignUpTemplate } from '../templates/SignUpTemplate';
 export { SignInTemplate } from '../templates/SignInTemplate';
 export { UserProfileManagementCol } from './UserProfileManagementCol';
 export { Navigation } from './Navigation';
+export { OrganizationProfileGallery } from './OrganizationProfileGallery';

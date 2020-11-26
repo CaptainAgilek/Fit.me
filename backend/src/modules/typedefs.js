@@ -49,6 +49,12 @@ export const typeDefs = gql`
     is_profile_picture: Boolean!
   }
 
+  input UpdatePhotoGalleryNameInput{
+    user_id: Int!
+    photo_id: Int!
+    gallery_name: String
+  }
+
   type Action {
     action_id: Int!
     place_id: Int!
@@ -107,6 +113,7 @@ export const typeDefs = gql`
     profile_photo: Photo
   }
 
+<<<<<<< HEAD
   type Trainer {
     user_id: Int!
     firstname: String!
@@ -118,6 +125,25 @@ export const typeDefs = gql`
     name: String!
     username: String
     trainers: [Trainer]!
+=======
+  type Organization{
+    user_id: Int!
+    name: String!
+    address: String
+    username: String
+    user: User!
+    profile_photo: Photo
+    photo_gallery: [Photo]
+    ratings: [Rating]
+  }
+
+  type Rating {
+    id: Int!
+    sportsman: Sportsman!
+    organization: Organization!
+    text: String
+    stars: Int
+>>>>>>> 0fa5319a9dc434b3294794db2cc8c6467b626c66
   }
 
   type Query {
@@ -132,7 +158,11 @@ export const typeDefs = gql`
     role(name: String!): Role!
     sportsmen: [Sportsman]!
     sportsman(filter: SportsmanFilter!): Sportsman
+<<<<<<< HEAD
     organization(user_id: Int!): Organization
+=======
+    organization(id: Int!): Organization
+>>>>>>> 0fa5319a9dc434b3294794db2cc8c6467b626c66
   }
 
   type AuthInfo {
@@ -152,9 +182,11 @@ export const typeDefs = gql`
     updatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
     updateProfilePhotoUrl(input: UpdatePhotoUrlInput!): Boolean!
     updatePhotoUrl(input: UpdatePhotoUrlInput!): Boolean!
+    updateOrganizationGalleryPhoto(input: UpdatePhotoGalleryNameInput!): Boolean!
     insertPhoto(input: PhotoInput!): Boolean!
     singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, is_profile_picture: Boolean!): UploadedFileResponse!
     singleUpload(file: Upload!, user_id: Int!, photo_id: Int, is_profile_picture: Boolean!): UploadedFileResponse!
+    singleUploadOrganizationGalleryPhoto(file: Upload!, photo_id: Int, user_id: Int!, description: String, is_profile_picture: Boolean!): UploadedFileResponse!
     updateSportsman(input: SportsmanInput!): Boolean!
     updateUserEmail(email: String!, user_id: Int!): Boolean!
     deleteUser(user_id: Int!): Boolean!
