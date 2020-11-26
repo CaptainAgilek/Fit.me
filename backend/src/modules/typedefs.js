@@ -13,8 +13,20 @@ export const typeDefs = gql`
     url: String!
   }
 
+  input CreateOrUpdateActionInput {
+    action_id: Int
+    place_id: Int!
+    date: String!
+    time: String!
+    price: Float!
+    trainer_id: Int!
+    max_capacity: Int!
+    photo_id: Int
+    name: String!
+  }
+
   input CreateOrUpdatePlaceInput {
-    place_id: Int,
+    place_id: Int!
     user_id: Int!
     city: String!
     street: String
@@ -63,6 +75,9 @@ export const typeDefs = gql`
     price: Float!
     trainer_id: Int
     max_capacity: Int!
+    name: String!
+    photo_id: Int!
+    photo: Photo
   }
 
   type Photo {
@@ -113,6 +128,7 @@ export const typeDefs = gql`
     profile_photo: Photo
   }
 
+
   type Organization{
     user_id: Int!
     name: String!
@@ -122,6 +138,7 @@ export const typeDefs = gql`
     profile_photo: Photo
     photo_gallery: [Photo]
     ratings: [Rating]
+    trainers: [Trainer]!
   }
 
   type Rating {
@@ -129,8 +146,16 @@ export const typeDefs = gql`
     sportsman: Sportsman!
     organization: Organization!
     text: String
-    stars: Int
+    stars: Int}
+
+  type Trainer {
+    user_id: Int!
+    firstname: String!
+    lastname: String!
   }
+
+
+  
 
   type Query {
     actionsForPlace(place_id: Int!): [Action]!
@@ -144,7 +169,7 @@ export const typeDefs = gql`
     role(name: String!): Role!
     sportsmen: [Sportsman]!
     sportsman(filter: SportsmanFilter!): Sportsman
-    organization(id: Int!): Organization
+    organization(user_id: Int!): Organization
   }
 
   type AuthInfo {
@@ -159,6 +184,9 @@ export const typeDefs = gql`
 
   type Mutation {
     insertOrRemoveBenefit(user_id: Int!, benefit_id: Int!, hasBenefit: Boolean!): Boolean!
+    createOrUpdateAction(input: CreateOrUpdateActionInput!): Boolean!
+    insertAction(input: CreateOrUpdateActionInput!): Boolean!
+    updateAction(input: CreateOrUpdateActionInput!): Boolean!
     createOrUpdatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
     insertPlace(input: CreateOrUpdatePlaceInput!): Boolean!
     updatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
@@ -177,7 +205,12 @@ export const typeDefs = gql`
     changePassword(email: String!, oldPassword: String!, newPassword: String! newPasswordAgain: String!): Boolean!
     signin(email: String!, password: String!): AuthInfo!
     signup(
-      username: String!
+      username: String
+      name: String
+      street: String
+      city: String
+      zipCode: String
+      country: String
       email: String!
       password: String!
       firstname: String

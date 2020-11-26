@@ -16,6 +16,11 @@ import { Button, Tab, Image, Form } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { FormikGroup } from '../molecules';
 import { gql, useMutation, useQuery } from '@apollo/client';
+import { Navigation } from 'src/organisms/';
+import { CustomDatePicker } from 'src/atoms/';
+import { Footer, OrganizationMenu, ActionCard } from 'src/molecules/';
+import { Col, Row, Container } from 'react-bootstrap';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 const GALLERY_QUERY = gql`
   query getGalleryPhotos($id: Int!) {
@@ -88,19 +93,36 @@ export function OrganizationProfileTemplate({ user }) {
   console.log(ratingsData);
   console.log(ratings);
 
+export function OrganizationProfileTemplate({ actionsState, organizationState, user }) {
+>>>>>>> origin/master
   return (
     <>
       <Navigation />
       <div className="headerImg">
         <OrganizationMenu />
       </div>
-      <Container className="organization-profile-top-margin">
+            <Container className="organization-profile-top-margin">
         <Col>
           <h1>Kalendář akcí</h1>
           <Row>
-            <CustomDatePicker />
-            až
-            <CustomDatePicker />
+
+          </Row>
+          <Row>
+            <ListGroup horizontal className="horizontalScroll">
+              {organizationState.data  && actionsState.data &&
+                actionsState.data.actionsForPlace.map((action) => (
+                  <ListGroup.Item key={action.action_id} className="borderNone" style={{paddingLeft:"0.1rem"}}>
+                    <ActionCard
+                      key={action.action_id}
+                      img={action.photo.url || "/images/add_img.png"}
+                      action={action}
+                      trainers={organizationState.data.organization.trainers}
+                      user_id={organizationState.data.organization.user_id}
+                      editable={true}
+                    />
+                  </ListGroup.Item>
+                ))}
+            </ListGroup>
           </Row>
         </Col>
       </Container>

@@ -5,12 +5,12 @@ import { route } from 'src/Routes';
 import { Row } from 'react-bootstrap';
 
 export function RegistrationLink() {
-  const linkToRegistration = route.signUp();
+  const homeLink = route.home();
 
   return (
     <Row className="justify-content-md-center" sm="4">
       <p>Unknown User</p>
-      <a href={linkToRegistration}>Registration</a>
+      <a href={homeLink}>Registration</a>
     </Row>
   );
 }
