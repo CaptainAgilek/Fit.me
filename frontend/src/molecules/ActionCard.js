@@ -1,132 +1,80 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
-import { Formik, Field } from 'formik';
-import { Form, Button, Row, Badge } from 'react-bootstrap';
-import { CustomDatePickerField } from 'src/atoms/';
-import { CustomTimePickerField } from 'src/atoms/';
+import { gql, useMutation } from '@apollo/client';
+import { ActionCardForm } from 'src/organisms/';
 
-export function ActionCard({ img, action, editable }) {
+const ACTION_MUTATION = gql`
+  mutation createOrUpdateAction($input: CreateOrUpdateActionInput!) {
+    createOrUpdateAction(input: $input)
+  }
+`;
+
+export function ActionCard({ img, action, trainers, user_id, editable }) {
+  const [actionRequest, actionRequestState] = useMutation(ACTION_MUTATION, {
+    onCompleted: () => {},
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const handleActionSubmit = useCallback(
+    (values) => {
+      const [hours, minutes, seconds] = values.time.toTimeString().split(':');
+
+      const deepCopyVariables = {
+        time: hours + ':' + minutes,
+        date: new String(values.date),
+        price: parseFloat(values.price),
+        name: values.name,
+        action_id: action ? action.action_id : null,
+        photo_id: action.photo_id,
+        place_id: action.place_id,
+        trainer_id: parseInt(values.trainer, 10),
+        max_capacity: parseInt(values.max_capacity, 10),
+      };
+      if (!action.photo_id) {
+        delete deepCopyVariables.photo_id;
+      }
+      actionRequest({ variables: { input: deepCopyVariables } });
+    },
+    [actionRequest],
+  );
+
   let time = new Date();
+
+  const options = trainers.map((trainer) => ({
+    value: `${trainer.user_id}`,
+    label: trainer.firstname + ' ' + trainer.lastname,
+  }));
 
   if (action) {
     const [hours, minutes, seconds] = action.time.split(':');
     time.setHours(hours);
     time.setMinutes(minutes);
+    time.setSeconds(seconds);
   }
+  console.log(action);
+  const initialValues = {
+    name: action.name || 'Název akce',
+    date: parseInt(action.date) || new Date(),
+    time: time || new Date(),
+    trainer:
+      options.find((option) => option.value === `${action.trainer_id}`).value ||
+      '',
+    price: action.price || '',
+    max_capacity: action.max_capacity || '',
+  };
 
   return (
-    <Formik
-      //onSubmit={onSubmit}
-      initialValues={{
-        name: action.name || 'Název akce',
-        date: parseInt(action.date) || new Date(),
-        time: time || new Date(),
-        trainer: action.trainer_id || '',
-        price: action.price || '',
-        capacity: action.max_capacity || '',
-        // name: action.name || '',
-        // date: parseInt(action.date) || new Date(),
-        // time: time || new Date(),
-        // trainer: action.trainer_id || '',
-        // price: action.price || '',
-        // capacity: action.max_capacity || '',
-      }}
-      validateOnBlur={false}
-    >
-      {({ errors, touched, handleSubmit, setFieldValue }) => (
-        <Form onSubmit={handleSubmit}>
-          <div className="card" style={{ width: '18rem' }}>
-            <img className="card-img-top" src={img} />
-            <div
-              className="text-center"
-              style={{ backgroundColor: '#dedede', height: '50px' }}
-            >
-              {editable && (
-                <Field
-                  name="name"
-                  id="name"
-                  className=" h5 card-title text-center mt-2 borderNone"
-                  style={{ backgroundColor: '#dedede' }}
-                />
-              )}
-              {!editable && <h5 className="card-title">Název akce</h5>}
-            </div>
-            <div className="card-body">
-              <div className="card-text">
-                <Row className="justify-content-md-center">
-                  <h3>
-                    <Badge variant="warning"></Badge>
-                  </h3>
-                </Row>
-                <div>
-                  <img
-                    className="action-small-icon"
-                    src="/images/icons/calendar.png"
-                  />
-                  {editable && (
-                    <CustomDatePickerField name="date" borderless={true} />
-                  )}
-                  {!editable && action.date}
-                </div>
-                <div>
-                  <img
-                    className="action-small-icon"
-                    src="/images/icons/clock-regular.svg"
-                  />
-                  {editable && (
-                    <CustomTimePickerField name="time" borderless={true} />
-                  )}
-                  {!editable && action.time}
-                </div>
-                <div>
-                  <img
-                    className="action-small-icon"
-                    src="/images/icons/personal.svg"
-                  />
-                  {editable && (
-                    <Field name="trainer" id="trainer" className="borderNone" />
-                  )}
-                  {!editable && action.trainer_id}
-                </div>
-                <div>
-                  <img
-                    className="action-small-icon"
-                    src="/images/icons/money.svg"
-                  />
-                  {editable && (
-                    <Field name="price" id="price" label="Cena" className="borderNone" />
-                  )}
-                  {!editable && action.price}
-                </div>
-                <div>
-                  <img
-                    className="action-small-icon"
-                    src="/images/icons/users-solid.svg"
-                  />
-                  {editable && (
-                    <Field
-                      name="capacity"
-                      id="capacity"
-                      className="borderNone"
-                    />
-                  )}
-                  {!editable && action.max_capacity}
-                </div>
-
-                <Button
-                  className="mt-1"
-                  size="lg"
-                  block
-                  variant="success"
-                  type="submit"
-                >
-                  ULOŽIT
-                </Button>
-              </div>
-            </div>
-          </div>
-        </Form>
-      )}
-    </Formik>
+    <ActionCardForm
+      initialValues={initialValues}
+      img={img}
+      action={action}
+      options={options}
+      editable={editable}
+      handleSubmit={handleActionSubmit}
+      user_id={user_id}
+      photo_id={action.photo_id || null}
+    />
   );
 }

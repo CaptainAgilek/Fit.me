@@ -180,6 +180,7 @@ code {
 .list-group-item:last-child {
   padding-right: 0.1rem;
 }
+
 .headerImg {
   position: relative;
   /* The image used */
@@ -257,6 +258,11 @@ code {
   width: 18.5px;
   height: 18.5px;
   margin-top: 20px;
+}
+
+.card-img-top {
+  object-fit: cover;
+  height: 30vh;
 }
 
 .action-small-icon {

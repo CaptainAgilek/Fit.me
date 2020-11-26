@@ -19,13 +19,15 @@ export function OrganizationProfileTemplate({ actionsState, organizationState })
           </Row>
           <Row>
             <ListGroup horizontal className="horizontalScroll">
-              {actionsState.data &&
+              {organizationState.data  && actionsState.data &&
                 actionsState.data.actionsForPlace.map((action) => (
                   <ListGroup.Item key={action.action_id} className="borderNone" style={{paddingLeft:"0.1rem"}}>
                     <ActionCard
                       key={action.action_id}
-                      img="/images/slide_1.jpg"
+                      img={action.photo.url || "/images/add_img.png"}
                       action={action}
+                      trainers={organizationState.data.organization.trainers}
+                      user_id={organizationState.data.organization.user_id}
                       editable={true}
                     />
                   </ListGroup.Item>

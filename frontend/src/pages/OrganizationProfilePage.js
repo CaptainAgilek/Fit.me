@@ -12,6 +12,11 @@ const ACTIONS_QUERY = gql`
       price
       trainer_id
       max_capacity
+      name
+      photo_id
+      photo {
+        url
+      }
     }
   }
 `;
@@ -19,7 +24,9 @@ const ACTIONS_QUERY = gql`
 const ORGANIZATION_QUERY = gql`
   query organization($user_id: Int!) {
     organization(user_id: $user_id) {
+      user_id
       trainers {
+        user_id
         firstname
         lastname
       }
