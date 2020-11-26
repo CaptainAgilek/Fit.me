@@ -16,15 +16,11 @@ import { Button, Tab, Image, Form } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { FormikGroup } from '../molecules';
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { Navigation } from 'src/organisms/';
-import { CustomDatePicker } from 'src/atoms/';
-import { Footer, OrganizationMenu, ActionCard } from 'src/molecules/';
-import { Col, Row, Container } from 'react-bootstrap';
-import ListGroup from 'react-bootstrap/ListGroup';
+import { rganizationMenu, ActionCard } from 'src/molecules/';
 
 const GALLERY_QUERY = gql`
   query getGalleryPhotos($id: Int!) {
-    organization(id: $id) {
+    organization(user_id: $id) {
       name
       user_id
       user {
@@ -50,7 +46,7 @@ const GALLERY_REMOVE_PHOTO_MUTATION = gql`
 
 const RATINGS_QUERY = gql`
   query getOrganizationRatings($id: Int!) {
-    organization(id: $id) {
+    organization(user_id: $id) {
       ratings {
         id
         sportsman {
@@ -67,7 +63,11 @@ const RATINGS_QUERY = gql`
   }
 `;
 
-export function OrganizationProfileTemplate({ user }) {
+export function OrganizationProfileTemplate({
+  actionsState,
+  organizationState,
+  user,
+}) {
   const id = user.user_id;
   const galleryFetcher = useQuery(GALLERY_QUERY, { variables: { id } });
   const data = galleryFetcher.data;
@@ -90,31 +90,34 @@ export function OrganizationProfileTemplate({ user }) {
     ratingsData === undefined ? undefined : ratingsData.organization.ratings;
 
   //console.log(ratingsFetcher);
-  console.log(ratingsData);
-  console.log(ratings);
+  //console.log(ratingsData);
+  //console.log(ratings);
 
-export function OrganizationProfileTemplate({ actionsState, organizationState, user }) {
->>>>>>> origin/master
+  console.log(organizationState.data);
+
   return (
     <>
       <Navigation />
       <div className="headerImg">
         <OrganizationMenu />
       </div>
-            <Container className="organization-profile-top-margin">
+      <Container className="organization-profile-top-margin">
         <Col>
           <h1>Kalendář akcí</h1>
-          <Row>
-
-          </Row>
+          <Row></Row>
           <Row>
             <ListGroup horizontal className="horizontalScroll">
-              {organizationState.data  && actionsState.data &&
+              {organizationState.data &&
+                actionsState.data &&
                 actionsState.data.actionsForPlace.map((action) => (
-                  <ListGroup.Item key={action.action_id} className="borderNone" style={{paddingLeft:"0.1rem"}}>
+                  <ListGroup.Item
+                    key={action.action_id}
+                    className="borderNone"
+                    style={{ paddingLeft: '0.1rem' }}
+                  >
                     <ActionCard
                       key={action.action_id}
-                      img={action.photo.url || "/images/add_img.png"}
+                      img={action.photo.url || '/images/add_img.png'}
                       action={action}
                       trainers={organizationState.data.organization.trainers}
                       user_id={organizationState.data.organization.user_id}
@@ -134,7 +137,7 @@ export function OrganizationProfileTemplate({ actionsState, organizationState, u
         <Row className="d-flex align-items-center">
           <Col xs={2}>
             <input
-              class="custom-select custom-select-sm"
+              className="custom-select custom-select-sm"
               list="encodings"
               id="encodingsInput"
             />

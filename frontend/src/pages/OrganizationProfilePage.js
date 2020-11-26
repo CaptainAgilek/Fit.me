@@ -2,6 +2,7 @@ import React from 'react';
 import { OrganizationProfileTemplate } from 'src/templates/OrganizationProfileTemplate';
 
 import { gql, useQuery } from '@apollo/client';
+import { useAuth } from 'src/utils/auth';
 
 const ACTIONS_QUERY = gql`
   query actionsForPlace($place_id: Int!) {
@@ -45,10 +46,15 @@ export function OrganizationProfilePage() {
     variables: { user_id: user_id },
   });
 
+  const { user } = useAuth();
+
   return (
     <>
-      <OrganizationProfileTemplate actionsState={actionsState} organizationState={organizationState}/>
-
+      <OrganizationProfileTemplate
+        actionsState={actionsState}
+        organizationState={organizationState}
+        user={user}
+      />
     </>
   );
 }

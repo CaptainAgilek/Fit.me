@@ -12,13 +12,9 @@ export { Slideshow } from './Slideshow';
 export { CategoryBox } from './CategoryBox';
 export { UserReservation } from './UserReservation';
 export { OrganizationMenuButton } from './OrganizationMenuButton';
-
-export { CustomDatePicker } from './CustomDatePicker';
 export { GalleryCounter } from './GalleryCounter';
 export { GalleryPhotoTitle } from './GalleryPhotoTitle';
 export { OrganizationProfileSectionHeading } from './OrganizationProfileSectionHeading';
-
 export { CustomDatePickerField } from './CustomDatePickerField';
 export { CustomTimePickerField } from './CustomTimePickerField';
 export { FormikSelectField } from './FormikSelectField';
-

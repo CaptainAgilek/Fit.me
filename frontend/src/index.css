@@ -268,7 +268,6 @@ code {
   margin-top: 20px;
 }
 
-
 .organization-primary-button {
   background-color: #e8aa3c !important;
   border: none !important;
@@ -349,6 +348,7 @@ code {
 
 .organization-icon-clickable {
   cursor: pointer;
+}
 
 .card-img-top {
   object-fit: cover;

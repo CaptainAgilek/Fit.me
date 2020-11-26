@@ -4,7 +4,6 @@ import { queries as SportsmanQueries } from './sportsman';
 import { queries as OrganizationQueries } from './organization';
 import { queries as BenefitQueries } from './benefit';
 import { queries as ActionQueries } from './action';
-import { queries as OrganizationQueries } from './organization';
 import { mutations as UserMutations } from './user';
 import { mutations as RoleMutations } from './role';
 import { mutations as SportsmanMutations } from './sportsman';
@@ -87,17 +86,6 @@ export default {
       )[0];
     },
   },
-  Organization: {
-    async trainers(parent, _, { dbConnection }) {
-      return await dbConnection.query(
-        `SELECT user_id, firstname, lastname
-         FROM trainer
-        JOIN organization_trainer ON (organization_trainer.organization_id = ?)
-        GROUP BY(user_id)`,
-        [parent.user_id],
-      );
-    },
-  },
   Action: {
     async photo(parent, _, { dbConnection }) {
       return (
@@ -140,6 +128,15 @@ export default {
         `SELECT id, sportsman.user_id, text, stars FROM rating 
          join sportsman on sportsman.user_id = rating.user_id 
         where rating.organization_id = ?`,
+        [parent.user_id],
+      );
+    },
+    async trainers(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT user_id, firstname, lastname
+         FROM trainer
+        JOIN organization_trainer ON (organization_trainer.organization_id = ?)
+        GROUP BY(user_id)`,
         [parent.user_id],
       );
     }

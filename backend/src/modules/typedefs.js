@@ -138,7 +138,7 @@ export const typeDefs = gql`
     profile_photo: Photo
     photo_gallery: [Photo]
     ratings: [Rating]
-    trainers: [Trainer]!
+    trainers: [Trainer]
   }
 
   type Rating {

@@ -45,7 +45,7 @@ export function OrganizationProfileGallery({
             ))}
         </Row>
       </Container>
-      <Col fluid>
+      <Col>
         <hr />
         <Row className="d-flex align-items-center">
           <GalleryCounter>{photoGallery && photoGallery.length}</GalleryCounter>
