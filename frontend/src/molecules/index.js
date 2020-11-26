@@ -1,4 +1,6 @@
 export { EditableAvatarPicture } from './EditableAvatarPicture';
+export { EditableActionPicture } from './EditableActionPicture';
+export { PopUpModal } from './PopUpModal';
 export { ErrorBanner } from './ErrorBanner';
 export { FormikGroup } from './FormikGroup';
 export { ChangePasswordPopUp } from './ChangePasswordPopUp';

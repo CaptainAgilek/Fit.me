@@ -10,6 +10,7 @@ import { mutations as SportsmanMutations } from './sportsman';
 import { mutations as BenefitMutations } from './benefit';
 import { mutations as PhotoMutations } from './photo';
 import { mutations as PlaceMutations } from './place';
+import { mutations as ActionMutations } from './action';
 
 export default {
   Query: {
@@ -30,6 +31,7 @@ export default {
     ...SportsmanMutations,
     ...BenefitMutations,
     ...PlaceMutations,
+    ...ActionMutations,
   },
   User: {
     async roles(parent, _, { dbConnection }) {
@@ -88,6 +90,18 @@ export default {
         GROUP BY(user_id)`,
         [parent.user_id],
       );
+    },
+  },
+  Action: {
+    async photo(parent, _, { dbConnection }) {
+      return (
+        await dbConnection.query(
+          `SELECT photo_id, user_id, description, url, gallery_name, is_profile_picture FROM photo
+          JOIN user USING (user_id)
+          WHERE photo_id= ?`,
+          [parent.photo_id],
+        )
+      )[0];
     },
   },
 };
