@@ -58,7 +58,6 @@ const ORGANIZATION_QUERY = gql`
         url
         photo_id
         gallery_name
-        is_profile_picture
       }
     }
   }

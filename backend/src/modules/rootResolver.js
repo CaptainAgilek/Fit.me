@@ -78,9 +78,9 @@ export default {
     async profile_photo(parent, _, { dbConnection }) {
       return (
         await dbConnection.query(
-          `SELECT photo_id, user_id, description, url, gallery_name, is_profile_picture FROM photo
+          `SELECT photo_id, user_id, description, url, gallery_name, photo_type_íd FROM photo
           JOIN user USING (user_id)
-          WHERE user_id = ? AND is_profile_picture=true`,
+          WHERE user_id = ? AND photo_type_id=0`,
           [parent.user_id],
         )
       )[0];
@@ -90,7 +90,7 @@ export default {
     async photo(parent, _, { dbConnection }) {
       return (
         await dbConnection.query(
-          `SELECT photo_id, user_id, description, url, gallery_name, is_profile_picture FROM photo
+          `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
           JOIN user USING (user_id)
           WHERE photo_id= ?`,
           [parent.photo_id],
@@ -108,18 +108,18 @@ export default {
     },
     async profile_photo(parent, _, { dbConnection }) {
       return (await dbConnection.query(
-          `SELECT photo_id, user_id, description, url, gallery_name, is_profile_picture FROM photo
+          `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
           JOIN user USING (user_id)
-          WHERE user_id = ? AND is_profile_picture=true`,
+          WHERE user_id = ? AND photo_type_id=0`,
           [parent.user_id],
         )
       )[0];
     },
     async photo_gallery(parent, _, { dbConnection }) {
       return await dbConnection.query(
-        `SELECT photo_id, user_id, description, url, gallery_name, is_profile_picture FROM photo
+        `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
         JOIN user USING (user_id)
-        WHERE user_id = ? AND is_profile_picture=false AND gallery_name="DEFAULT"`,
+        WHERE user_id = ? AND gallery_name="DEFAULT"`,
         [parent.user_id],
       );
     },
@@ -162,9 +162,9 @@ export default {
   Trainer: {
     async profile_photo(parent, _, { dbConnection }) {
       return (await dbConnection.query(
-          `SELECT photo_id, user_id, description, url, gallery_name, is_profile_picture FROM photo
+          `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
           JOIN user USING (user_id)
-          WHERE user_id = ? AND is_profile_picture=true`,
+          WHERE user_id = ? AND photo_type_id=0`,
           [parent.user_id],
         )
       )[0];

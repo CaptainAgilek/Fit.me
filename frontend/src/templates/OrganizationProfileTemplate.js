@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Navigation, OrganizationProfileGallery } from 'src/organisms/';
 import {
   CustomDatePicker,
@@ -31,7 +31,6 @@ const GALLERY_QUERY = gql`
         url
         photo_id
         gallery_name
-        is_profile_picture
       }
     }
   }
@@ -65,6 +64,20 @@ const RATINGS_QUERY = gql`
   }
 `;
 
+const UPDATE_OPRGANIZATION_TRAINER_DESCRIPTION = gql`
+  mutation updateOrganizationTrainerDescription(
+    $description: String
+    $organization_id: Int!
+    $trainer_id: Int!
+  ) {
+    updateOrganizationTrainerDescription(
+      description: $description
+      organization_id: $organization_id
+      trainer_id: $trainer_id
+    )
+  }
+`;
+
 export function OrganizationProfileTemplate({
   actionsState,
   organizationState,
@@ -85,11 +98,38 @@ export function OrganizationProfileTemplate({
     },
   );
 
+  const [modifyTrainerDescription] = useMutation(
+    UPDATE_OPRGANIZATION_TRAINER_DESCRIPTION,
+    {
+      onCompleted: () => {
+        organizationState.refetch();
+      },
+    },
+  );
+
   /* RATINGS TEST */
   const ratingsFetcher = useQuery(RATINGS_QUERY, { variables: { id } });
   const ratingsData = ratingsFetcher.data;
   const ratings =
     ratingsData === undefined ? undefined : ratingsData.organization.ratings;
+
+  /* UPDATE TRAINER DESC */
+  const handleTrainerDescriptionSubmit = (variables) => {
+    modifyTrainerDescription({
+      variables: {
+        description: trainerDescription,
+        organization_id: id,
+        trainer_id: selectedTrainerId,
+      },
+    });
+  };
+
+  const handleTrainerSelection = (trainer) => {
+    setSelectedTrainerId(trainer.user_id);
+    setTrainerDescription(trainer.description);
+  };
+  const [selectedTrainerId, setSelectedTrainerId] = useState(null);
+  const [trainerDescription, setTrainerDescription] = useState(null);
 
   //console.log(ratingsFetcher);
   //console.log(ratingsData);
@@ -148,19 +188,22 @@ export function OrganizationProfileTemplate({
           </Col>
         </Row>
 
-        <Tab.Container defaultActiveKey="#">
+        <Tab.Container
+          defaultActiveKey={
+            organizationState.data &&
+            '#' + organizationState.data.organization.trainers[0].user_id
+          }
+        >
           <Row>
             <Col sm={4}>
-              <ListGroup
-                defaultActiveKey="#"
-                className="organization-profile-section-contents"
-              >
+              <ListGroup className="organization-profile-section-contents">
                 {organizationState.data &&
                   organizationState.data.organization.trainers.map(
                     (trainer) => (
                       <ListGroup.Item
                         action
                         href={'#' + trainer.user_id}
+                        onClick={() => handleTrainerSelection(trainer)}
                         className="organization-profile-trainer-tab"
                       >
                         <Row className="d-flex align-items-center">
@@ -201,12 +244,15 @@ export function OrganizationProfileTemplate({
                               </h3>
                             </Row>
 
-                            <Form onSubmit={undefined /*TODO*/}>
+                            <Form onSubmit={handleTrainerDescriptionSubmit}>
                               <Form.Row>
                                 <Form.Group
                                   name="description"
-                                  id="description"
+                                  controlId="description"
                                   as={Col}
+                                  onChange={(e) =>
+                                    setTrainerDescription(e.target.value)
+                                  }
                                 >
                                   <Form.Label>POPIS</Form.Label>
                                   <Form.Control

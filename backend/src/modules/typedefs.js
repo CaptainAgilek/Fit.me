@@ -86,7 +86,7 @@ export const typeDefs = gql`
     description: String
     url: String!
     gallery_name: String
-    is_profile_picture: Boolean!
+    photo_type_id: Boolean!
   }
 
   type Benefit {
@@ -197,10 +197,11 @@ export const typeDefs = gql`
     updateProfilePhotoUrl(input: UpdatePhotoUrlInput!): Boolean!
     updatePhotoUrl(input: UpdatePhotoUrlInput!): Boolean!
     updateOrganizationGalleryPhoto(input: UpdatePhotoGalleryNameInput!): Boolean!
+    updateOrganizationTrainerDescription(description: String, organization_id: Int!, trainer_id: Int!): Boolean!
     insertPhoto(input: PhotoInput!): Boolean!
-    singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, is_profile_picture: Boolean!): UploadedFileResponse!
-    singleUpload(file: Upload!, user_id: Int!, photo_id: Int, is_profile_picture: Boolean!): UploadedFileResponse!
-    singleUploadOrganizationGalleryPhoto(file: Upload!, photo_id: Int, user_id: Int!, description: String, is_profile_picture: Boolean!): UploadedFileResponse!
+    singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, photo_type_id: Boolean!): UploadedFileResponse!
+    singleUpload(file: Upload!, user_id: Int!, photo_id: Int, photo_type_id: Boolean!): UploadedFileResponse!
+    singleUploadOrganizationGalleryPhoto(file: Upload!, photo_id: Int, user_id: Int!, description: String, photo_type_id: Boolean!): UploadedFileResponse!
     updateSportsman(input: SportsmanInput!): Boolean!
     updateUserEmail(email: String!, user_id: Int!): Boolean!
     deleteUser(user_id: Int!): Boolean!
