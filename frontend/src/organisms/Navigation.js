@@ -18,7 +18,6 @@ export function Navigation() {
   const history = useHistory();
 
   const homeLink = route.home();
-  const profileLink = route.userProfile();
 
   const [showSignUp, setSignUpVisible] = useState(false);
   const [showSignIn, setSignInVisible] = useState(false);
@@ -36,7 +35,12 @@ export function Navigation() {
           </Nav>
           {user ? (
             <Nav>
-              <Nav.Link as={Link} to={profileLink}>Profil</Nav.Link>
+              <Nav.Link
+                as={Link}
+                to={user.roles.some(role => role.name === "ROLE_SPORTSMAN") ? route.userProfile() : route.organizationProfile()}
+              >
+                Profil
+              </Nav.Link>
               <Nav.Link onClick={() => {
                 signout();
                 history.push(route.home());

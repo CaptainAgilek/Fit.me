@@ -43,12 +43,12 @@ export function SignInPage({ onCloseMethod, showSignIn, setShowSignUp, setShowFo
 
   const auth = useAuth();
   const history = useHistory();
-  const userProfileLink = route.userProfile();
+  const homePageLink = route.home();
 
   const [signInRequest, signInRequestState] = useMutation(SIGNIN_MUTATION, {
     onCompleted: ({ signin: { user, token } }) => {
       auth.signin({ token, user });
-      history.replace(userProfileLink);
+      history.replace(homePageLink);
     },
     onError: (error) => {
       console.log(error);
