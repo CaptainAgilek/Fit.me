@@ -131,7 +131,7 @@ export const typeDefs = gql`
 
   type Organization{
     user_id: Int!
-    name: String!
+    organization_name: String!
     address: String
     username: String
     user: User!

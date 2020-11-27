@@ -50,7 +50,7 @@ const ORGANIZATION_QUERY = gql`
         text
         stars
       }
-      name
+      organization_name
       user {
         email
       }

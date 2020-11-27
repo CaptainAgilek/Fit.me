@@ -22,7 +22,7 @@ import { rganizationMenu, ActionCard } from 'src/molecules/';
 const GALLERY_QUERY = gql`
   query getGalleryPhotos($id: Int!) {
     organization(user_id: $id) {
-      name
+      organization_name
       user_id
       user {
         email
@@ -189,6 +189,7 @@ export function OrganizationProfileTemplate({
                                   trainer.profile_photo.url
                                 }
                                 fluid
+                                rounded
                               ></Image>
                             </Row>
                           </Col>
@@ -200,7 +201,7 @@ export function OrganizationProfileTemplate({
                               </h3>
                             </Row>
 
-                            <Form>
+                            <Form onSubmit={undefined /*TODO*/}>
                               <Form.Row>
                                 <Form.Group
                                   name="description"
