@@ -78,7 +78,7 @@ export default {
     async profile_photo(parent, _, { dbConnection }) {
       return (
         await dbConnection.query(
-          `SELECT photo_id, user_id, description, url, gallery_name, photo_type_íd FROM photo
+          `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
           JOIN user USING (user_id)
           WHERE user_id = ? AND photo_type_id=0`,
           [parent.user_id],

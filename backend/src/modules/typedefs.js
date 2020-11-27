@@ -198,6 +198,7 @@ export const typeDefs = gql`
     updatePhotoUrl(input: UpdatePhotoUrlInput!): Boolean!
     updateOrganizationGalleryPhoto(input: UpdatePhotoGalleryNameInput!): Boolean!
     updateOrganizationTrainerDescription(description: String, organization_id: Int!, trainer_id: Int!): Boolean!
+    removeOrganizationTrainer(organization_id: Int!, trainer_id: Int!): Boolean!
     insertPhoto(input: PhotoInput!): Boolean!
     singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, photo_type_id: Boolean!): UploadedFileResponse!
     singleUpload(file: Upload!, user_id: Int!, photo_id: Int, photo_type_id: Boolean!): UploadedFileResponse!

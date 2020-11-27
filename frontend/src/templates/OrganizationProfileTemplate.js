@@ -78,6 +78,18 @@ const UPDATE_OPRGANIZATION_TRAINER_DESCRIPTION = gql`
   }
 `;
 
+const REMOVE_ORGANIZATION_TRAINER = gql`
+  mutation removeOrganizationTrainer(
+    $organization_id: Int!
+    $trainer_id: Int!
+  ) {
+    removeOrganizationTrainer(
+      organization_id: $organization_id
+      trainer_id: $trainer_id
+    )
+  }
+`;
+
 export function OrganizationProfileTemplate({
   actionsState,
   organizationState,
@@ -107,6 +119,12 @@ export function OrganizationProfileTemplate({
     },
   );
 
+  const [removeTrainer] = useMutation(REMOVE_ORGANIZATION_TRAINER, {
+    onCompleted: () => {
+      organizationState.refetch();
+    },
+  });
+
   /* RATINGS TEST */
   const ratingsFetcher = useQuery(RATINGS_QUERY, { variables: { id } });
   const ratingsData = ratingsFetcher.data;
@@ -124,6 +142,15 @@ export function OrganizationProfileTemplate({
     });
   };
 
+  const handleRemoveTrainer = (variables) => {
+    removeTrainer({
+      variables: {
+        organization_id: id,
+        trainer_id: selectedTrainerId,
+      },
+    });
+  };
+
   const handleTrainerSelection = (trainer) => {
     setSelectedTrainerId(trainer.user_id);
     setTrainerDescription(trainer.description);
@@ -135,7 +162,7 @@ export function OrganizationProfileTemplate({
   //console.log(ratingsData);
   //console.log(ratings);
   console.log(organizationState.data);
-  //console.log(organizationState.data.trainers);
+  //console.log(organizationState);
 
   return (
     <>
@@ -188,12 +215,7 @@ export function OrganizationProfileTemplate({
           </Col>
         </Row>
 
-        <Tab.Container
-          defaultActiveKey={
-            organizationState.data &&
-            '#' + organizationState.data.organization.trainers[0].user_id
-          }
-        >
+        <Tab.Container defaultActiveKey="#">
           <Row>
             <Col sm={4}>
               <ListGroup className="organization-profile-section-contents">
@@ -209,7 +231,10 @@ export function OrganizationProfileTemplate({
                         <Row className="d-flex align-items-center">
                           <Col xs={10}>{trainer.firstname}</Col>
                           <Col xl={2} md={3} sm={5} xs={2}>
-                            <Image src="/images/icons/trash-alt-solid.svg"></Image>
+                            <Image
+                              src="/images/icons/trash-alt-solid.svg"
+                              onClick={handleRemoveTrainer}
+                            ></Image>
                           </Col>
                         </Row>
                       </ListGroup.Item>
