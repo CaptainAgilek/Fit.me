@@ -6,8 +6,8 @@ import { Form } from 'react-bootstrap';
 import { AvatarPicture, GenericPopUp } from 'src/atoms/';
 
 const UPLOAD_PHOTO_MUTATION = gql`
-  mutation SingleUpload($file: Upload!, $user_id: Int!, $photo_id: Int, $is_profile_picture: Boolean!) {
-    singleUpload(file: $file, user_id: $user_id, photo_id: $photo_id, is_profile_picture: $is_profile_picture) {
+  mutation SingleUpload($file: Upload!, $user_id: Int!, $photo_id: Int, $type: PhotoType!) {
+    singleUpload(file: $file, user_id: $user_id, photo_id: $photo_id, type: $type) {
       filename
       mimetype
       encoding
@@ -32,7 +32,7 @@ export function EditableAvatarPicture({ src, alt, user_id, photo_id }) {
   const handleFileUpload = async (selectedFile) => {
     if (!selectedFile) return;
     await uploadFileHandler({
-      variables: { file: selectedFile, user_id: user_id, photo_id: photo_id, is_profile_picture: true },
+      variables: { file: selectedFile, user_id: user_id, photo_id: photo_id, type: 'PROFILE_PICTURE' },
     });
   };
 
