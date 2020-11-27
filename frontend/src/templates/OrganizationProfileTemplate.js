@@ -12,7 +12,9 @@ export function OrganizationProfileTemplate({
   organizationData,
   loading,
   error,
-  onReload
+  onReload,
+  updateOrganizationRequest,
+  changePasswordRequest,
 }) {
   return (
     <>
@@ -64,6 +66,7 @@ export function OrganizationProfileTemplate({
                 <Col sm="12" md="3">
                   <OrganizationProfileManagementCol
                     organization={organizationData.organization}
+                    changePasswordRequest={changePasswordRequest}
                   />
                 </Col>
 
@@ -72,6 +75,7 @@ export function OrganizationProfileTemplate({
                     <h1>{organizationData.organization.organization_name}</h1>
                     <OrganizationProfileForm
                       organization={organizationData.organization}
+                      updateOrganizationRequest={updateOrganizationRequest}
                     />
                   </Container>
                 </Col>

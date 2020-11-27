@@ -8,6 +8,7 @@ import { DEFAULT_IMG_URL } from 'src/utils/const';
 
 export function OrganizationProfileManagementCol({
   organization,
+  changePasswordRequest,
 }) {
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -64,7 +65,7 @@ export function OrganizationProfileManagementCol({
       </Row>
 
       <Row className="justify-content-md-center botOffset" xs={1}>
-        <ChangePasswordPopUp userEmail={organization.user.email} />
+        <ChangePasswordPopUp userEmail={organization.user.email} onSubmit={changePasswordRequest} />
       </Row>
     </Container>
   );

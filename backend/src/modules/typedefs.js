@@ -141,6 +141,17 @@ export const typeDefs = gql`
     banner_photo: Photo
   }
 
+  input OrganizationInput {
+    user_id: Int!
+    organization_name: String!
+    username: String!
+    email: String!
+    phone: String
+    place: CreateOrUpdatePlaceInput
+    acceptingMultisport: Boolean!
+    acceptingActivePass: Boolean!
+  }
+
   type Query {
     actionsForPlace(place_id: Int!): [Action]!
     benefitsForUser(user_id: Int!): [Benefit]!
@@ -180,6 +191,7 @@ export const typeDefs = gql`
     singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, is_profile_picture: Boolean!): UploadedFileResponse!
     singleUpload(file: Upload!, user_id: Int!, photo_id: Int, is_profile_picture: Boolean!): UploadedFileResponse!
     updateSportsman(input: SportsmanInput!): Boolean!
+    updateOrganization(input: OrganizationInput!): Boolean!
     updateUserEmail(email: String!, user_id: Int!): Boolean!
     deleteUser(user_id: Int!): Boolean!
     assignRoleToUser(name: String!, user_id: Int!): Boolean!

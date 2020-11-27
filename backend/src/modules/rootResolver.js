@@ -11,6 +11,7 @@ import { mutations as BenefitMutations } from './benefit';
 import { mutations as PhotoMutations } from './photo';
 import { mutations as PlaceMutations } from './place';
 import { mutations as ActionMutations } from './action';
+import { mutations as OrganizationMutations } from './organization';
 
 export default {
   Query: {
@@ -32,6 +33,7 @@ export default {
     ...BenefitMutations,
     ...PlaceMutations,
     ...ActionMutations,
+    ...OrganizationMutations,
   },
   User: {
     async roles(parent, _, { dbConnection }) {

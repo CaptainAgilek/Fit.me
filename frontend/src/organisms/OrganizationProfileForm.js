@@ -33,7 +33,7 @@ const schema = yup.object({
   acceptActivePass: yup.bool(),
 });
 
-export function OrganizationProfileForm({ organization }) {
+export function OrganizationProfileForm({ organization, updateOrganizationRequest }) {
 
   console.log("org", organization);
   const initialValues = {
@@ -55,26 +55,26 @@ export function OrganizationProfileForm({ organization }) {
         <Formik
           validationSchema={schema}
           onSubmit={(values) => {
-            /*const profile = {
-              user_id: user.user_id,
-              name: values.name,
+            const profile = {
+              user_id: organization.user_id,
+              organization_name: values.name,
               username: values.username,
               email: values.email,
               phone: values.phone ? values.phone : null,
               place: {
-                place_id: user.places[0] ? user.places[0].place_id : null,
-                user_id: user.user_id,
+                place_id: organization.places[0] ? organization.places[0].place_id : null,
+                user_id: organization.user_id,
                 city: values.city,
                 street: values.street,
                 zip: parseInt(values.zip),
                 country: values.country,
               },
-              acceptMultisport: values.hasMultisport,
-              acceptActivePass: values.hasActivePass
-            };*/
+              acceptingMultisport: values.acceptMultisport,
+              acceptingActivePass: values.acceptActivePass
+            };
 
             console.log('updating profile', values);
-            //updateUserRequest({ variables: { input: profile } });
+            updateOrganizationRequest({ variables: { input: profile } });
           }}
           initialValues={initialValues}
           enableReinitialize
