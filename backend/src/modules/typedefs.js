@@ -130,9 +130,15 @@ export const typeDefs = gql`
 
   type Organization {
     user_id: Int!
-    name: String!
+    organization_name: String!
     username: String
+    phone: String
     trainers: [Trainer]!
+    user: User!
+    places: [Place]!
+    acceptedBenefits: [Benefit]!
+    profile_photo: Photo
+    banner_photo: Photo
   }
 
   type Query {

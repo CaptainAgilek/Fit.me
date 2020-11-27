@@ -91,6 +91,43 @@ export default {
         [parent.user_id],
       );
     },
+    async user(parent, _, { dbConnection }) {
+      return (
+        await dbConnection.query(
+          `SELECT user_id, user.email, verification_token, is_verified FROM user
+          JOIN organization USING (user_id)
+          WHERE user_id = ?`,
+          [parent.user_id],
+        )
+      )[0];
+    },
+    async places(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT place_id, user_id, city, street, zip, country FROM place
+          JOIN user USING (user_id)
+          WHERE user_id = ?`,
+        [parent.user_id],
+      );
+    },
+    async acceptedBenefits(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT benefit_id, name FROM benefit
+          JOIN benefit_user USING (benefit_id)
+          JOIN organization USING (user_id)
+          WHERE user_id = ?`,
+        [parent.user_id],
+      );
+    },
+    async profile_photo(parent, _, { dbConnection }) {
+      return (
+        await dbConnection.query(
+          `SELECT photo_id, user_id, description, url, gallery_name, is_profile_picture FROM photo
+          JOIN organization USING (user_id)
+          WHERE user_id = ? AND is_profile_picture=true`,
+          [parent.user_id],
+        )
+      )[0];
+    },
   },
   Action: {
     async photo(parent, _, { dbConnection }) {
