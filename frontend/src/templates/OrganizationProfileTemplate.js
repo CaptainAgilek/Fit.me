@@ -9,6 +9,7 @@ import {
   Footer,
   OrganizationMenu,
   GalleryUploadPhotoButton,
+  TrainersPopUp,
 } from 'src/molecules/';
 import { Col, Row, Container, ListGroup, InputGroup } from 'react-bootstrap';
 
@@ -205,13 +206,14 @@ export function OrganizationProfileTemplate({
         </OrganizationProfileSectionHeading>
         <Row className="d-flex align-items-center">
           <Col xs={3}>
-            <Button
+            <TrainersPopUp
               size="sm"
-              style={{ marginBottom: '.8em' }}
+              btnStyle={{ marginBottom: '.8rem' }}
               className="organization-secondary-button"
+              organizationId={id}
             >
               PŘIDAT TRENÉRA (MODAL)
-            </Button>
+            </TrainersPopUp>
           </Col>
         </Row>
 

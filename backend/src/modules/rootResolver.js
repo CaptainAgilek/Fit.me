@@ -4,6 +4,7 @@ import { queries as SportsmanQueries } from './sportsman';
 import { queries as OrganizationQueries } from './organization';
 import { queries as BenefitQueries } from './benefit';
 import { queries as ActionQueries } from './action';
+import { queries as TrainerQueries } from './trainer';
 import { mutations as UserMutations } from './user';
 import { mutations as RoleMutations } from './role';
 import { mutations as SportsmanMutations } from './sportsman';

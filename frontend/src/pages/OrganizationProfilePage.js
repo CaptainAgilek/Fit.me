@@ -65,7 +65,7 @@ const ORGANIZATION_QUERY = gql`
 
 export function OrganizationProfilePage() {
   const place_id = 1;
-  const user_id = 1;
+  const user_id = 104;
   const actionsState = useQuery(ACTIONS_QUERY, {
     variables: { place_id: place_id },
   });

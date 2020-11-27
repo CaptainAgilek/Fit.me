@@ -15,3 +15,10 @@ export const removeOrganizationTrainer = async (_, { organization_id, trainer_id
 
     return removeResponse.affectedRows === 1;
 };
+
+export const addOrganizationTrainer = async (_, { organization_id, trainer_id }, { dbConnection }) => {
+    const addResponse = await dbConnection.query(`INSERT INTO organization_trainer(organization_id, trainer_id) 
+                                                  VALUES (?, ?)`, [organization_id, trainer_id]);
+
+    return addResponse.affectedRows === 1;
+};

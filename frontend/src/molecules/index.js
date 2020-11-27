@@ -19,3 +19,4 @@ export { GalleryPhotoRemoveButton } from './GalleryPhotoRemoveButton';
 
 export { ActionCard } from './ActionCard';
 
+export { TrainersPopUp } from './TrainersPopUp';
