@@ -113,19 +113,6 @@ export const typeDefs = gql`
     profile_photo: Photo
   }
 
-<<<<<<< HEAD
-  type Trainer {
-    user_id: Int!
-    firstname: String!
-    lastname: String!
-  }
-
-  type Organization {
-    user_id: Int!
-    name: String!
-    username: String
-    trainers: [Trainer]!
-=======
   type Organization{
     user_id: Int!
     name: String!
@@ -143,7 +130,6 @@ export const typeDefs = gql`
     organization: Organization!
     text: String
     stars: Int
->>>>>>> 0fa5319a9dc434b3294794db2cc8c6467b626c66
   }
 
   type Query {
@@ -158,11 +144,7 @@ export const typeDefs = gql`
     role(name: String!): Role!
     sportsmen: [Sportsman]!
     sportsman(filter: SportsmanFilter!): Sportsman
-<<<<<<< HEAD
-    organization(user_id: Int!): Organization
-=======
     organization(id: Int!): Organization
->>>>>>> 0fa5319a9dc434b3294794db2cc8c6467b626c66
   }
 
   type AuthInfo {

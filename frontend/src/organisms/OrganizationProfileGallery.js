@@ -20,9 +20,6 @@ export function OrganizationProfileGallery({
 }) {
   return (
     <Container className="organization-profile-section-container">
-      <OrganizationProfileSectionHeading>
-        Galerie
-      </OrganizationProfileSectionHeading>
       <Container className="organization-profile-section-contents" fluid>
         <Row>
           {photoGallery &&

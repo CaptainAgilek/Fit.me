@@ -259,7 +259,6 @@ code {
   margin-top: 20px;
 }
 
-<<<<<<< HEAD
 .action-small-icon {
   width: 18.5px;
   height: 18.5px;
@@ -283,7 +282,8 @@ div::-webkit-scrollbar-button:single-button:horizontal:decrement {
 /* Right */
 div::-webkit-scrollbar-button:single-button:horizontal:increment {
   background: url('/images/icons/right_arrow_green.png') 0px 0px no-repeat;
-=======
+}
+
 .organization-primary-button {
   background-color: #e8aa3c !important;
   border: none !important;
@@ -364,5 +364,36 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
 
 .organization-icon-clickable {
   cursor: pointer;
->>>>>>> 0fa5319a9dc434b3294794db2cc8c6467b626c66
+}
+
+.testimonialProfilePicture {
+  float: left;
+  margin: 5px;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}
+
+.href {
+  text-decoration: none;
+  color: black;
+  flex-basis: 15%;
+  height: 75px;
+  min-width: 100px;
+}
+
+.href:hover {
+  text-decoration: none;
+  color: black;
 }

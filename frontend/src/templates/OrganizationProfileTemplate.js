@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Navigation, OrganizationProfileGallery } from 'src/organisms/';
 import {
   CustomDatePicker,
@@ -9,6 +9,8 @@ import {
   Footer,
   OrganizationMenu,
   GalleryUploadPhotoButton,
+  ActionCard,
+  TestimonialBoxCol
 } from 'src/molecules/';
 import { Col, Row, Container, ListGroup, InputGroup } from 'react-bootstrap';
 
@@ -16,11 +18,6 @@ import { Button, Tab, Image, Form } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { FormikGroup } from '../molecules';
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { Navigation } from 'src/organisms/';
-import { CustomDatePicker } from 'src/atoms/';
-import { Footer, OrganizationMenu, ActionCard } from 'src/molecules/';
-import { Col, Row, Container } from 'react-bootstrap';
-import ListGroup from 'react-bootstrap/ListGroup';
 
 const GALLERY_QUERY = gql`
   query getGalleryPhotos($id: Int!) {
@@ -67,7 +64,7 @@ const RATINGS_QUERY = gql`
   }
 `;
 
-export function OrganizationProfileTemplate({ user }) {
+export function OrganizationProfileTemplate({ user, actionsState, organizationState }) {
   const id = user.user_id;
   const galleryFetcher = useQuery(GALLERY_QUERY, { variables: { id } });
   const data = galleryFetcher.data;
@@ -100,33 +97,27 @@ export function OrganizationProfileTemplate({ user }) {
         <OrganizationMenu />
       </div>
       <Container className="organization-profile-top-margin">
-        <Col>
-          <h1>Kalendář akcí</h1>
-          <Row>
+      <h1 id="kalendar">Kalendář akcí</h1>
+      <Row>
+        <ListGroup horizontal className="horizontalScroll">
+          {actionsState.data &&
+            actionsState.data.actionsForPlace.map((action) => (
+              <ListGroup.Item key={action.action_id} className="borderNone" style={{paddingLeft:"0.1rem"}}>
+                <ActionCard
+                  key={action.action_id}
+                  img="/images/slide_1.jpg"
+                  action={action}
+                  editable={true}
+                />
+              </ListGroup.Item>
+            ))}
+        </ListGroup>
+      </Row>
 
-          </Row>
-          <Row>
-            <ListGroup horizontal className="horizontalScroll">
-              {actionsState.data &&
-                actionsState.data.actionsForPlace.map((action) => (
-                  <ListGroup.Item key={action.action_id} className="borderNone" style={{paddingLeft:"0.1rem"}}>
-                    <ActionCard
-                      key={action.action_id}
-                      img="/images/slide_1.jpg"
-                      action={action}
-                      editable={true}
-                    />
-                  </ListGroup.Item>
-                ))}
-            </ListGroup>
-          </Row>
-        </Col>
       </Container>
 
       <Container className="organization-profile-section-container">
-        <OrganizationProfileSectionHeading>
-          Trenéři
-        </OrganizationProfileSectionHeading>
+        <h1 id="treneri">Trenéři</h1>
         <Row className="d-flex align-items-center">
           <Col xs={2}>
             <input
@@ -272,73 +263,21 @@ export function OrganizationProfileTemplate({ user }) {
         </Tab.Container>
       </Container>
 
-      <OrganizationProfileGallery
-        user={user}
-        photoGallery={photoGallery}
-        galleryFetcher={galleryFetcher}
-        removeGalleryPhotoHandler={removeGalleryPhotoHandler}
-      />
+      <Container className="organization-profile-section-container">
+        <h1 id="galerie">Galerie</h1>
+        <OrganizationProfileGallery
+          user={user}
+          photoGallery={photoGallery}
+          galleryFetcher={galleryFetcher}
+          removeGalleryPhotoHandler={removeGalleryPhotoHandler}
+        />
+      </Container>
 
       <Container className="organization-profile-section-container">
-        <OrganizationProfileSectionHeading>
-          Hodnocení
-        </OrganizationProfileSectionHeading>
-        <Row>
-          <Col xs={4}>
-            <h4>Počet hvězdiček</h4>
-            <hr></hr>
-          </Col>
-        </Row>
+      <h1 id="hodnoceni">Hodnocení</h1>
         <Container fluid>
           <Row>
-            <Col sm={12} md={6}>
-              <Container className="organization-profile-rating-container">
-                <Row>
-                  <Col xs={3}>
-                    <Image
-                      src="/images/icons/calendar.png"
-                      fluid
-                      rounded
-                    ></Image>
-                  </Col>
-                  <Col>
-                    <Row className="d-flex flex-row-reverse">5/5</Row>
-                    <Row>
-                      <h5>Enci</h5>
-                    </Row>
-                    <Row className="font-italic">
-                      “Já byla spokojna. Fitko s dobrými službami. Určite záleží
-                      od trenéra. Mým byl Tobias Reuter - skvelý přístup i
-                      odbornost. Určite odporúčam.”
-                    </Row>
-                  </Col>
-                </Row>
-              </Container>
-            </Col>
-            <Col sm={12} md={6}>
-              <Container className="organization-profile-rating-container">
-                <Row>
-                  <Col xs={3}>
-                    <Image
-                      src="/images/icons/calendar.png"
-                      fluid
-                      rounded
-                    ></Image>
-                  </Col>
-                  <Col>
-                    <Row className="d-flex flex-row-reverse">5/5</Row>
-                    <Row>
-                      <h5>Enci</h5>
-                    </Row>
-                    <Row className="font-italic">
-                      “Já byla spokojna. Fitko s dobrými službami. Určite záleží
-                      od trenéra. Mým byl Tobias Reuter - skvelý přístup i
-                      odbornost. Určite odporúčam.”
-                    </Row>
-                  </Col>
-                </Row>
-              </Container>
-            </Col>
+            <TestimonialBoxCol/>
           </Row>
         </Container>
       </Container>

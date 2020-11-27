@@ -1,7 +1,7 @@
 import React from 'react';
 import { OrganizationProfileTemplate } from 'src/templates/OrganizationProfileTemplate';
-<<<<<<< HEAD
-import { gql, useQuery } from '@apollo/client';
+import { gql, useMutation, useQuery } from '@apollo/client';
+import { useAuth } from 'src/utils/auth';
 
 const ACTIONS_QUERY = gql`
   query actionsForPlace($place_id: Int!) {
@@ -38,20 +38,10 @@ export function OrganizationProfilePage() {
     variables: { user_id: user_id },
   });
 
-  return (
-    <>
-      <OrganizationProfileTemplate actionsState={actionsState} organizationState={organizationState}/>
-=======
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { useAuth } from 'src/utils/auth';
-
-export function OrganizationProfilePage() {
-  //const user = { user_id: 104 }; //todo
   const { user } = useAuth();
   return (
     <>
-      <OrganizationProfileTemplate user={user} />
->>>>>>> 0fa5319a9dc434b3294794db2cc8c6467b626c66
+      <OrganizationProfileTemplate actionsState={actionsState} organizationState={organizationState} user={user}></OrganizationProfileTemplate>
     </>
   );
 }

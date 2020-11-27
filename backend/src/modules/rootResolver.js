@@ -4,7 +4,6 @@ import { queries as SportsmanQueries } from './sportsman';
 import { queries as OrganizationQueries } from './organization';
 import { queries as BenefitQueries } from './benefit';
 import { queries as ActionQueries } from './action';
-import { queries as OrganizationQueries } from './organization';
 import { mutations as UserMutations } from './user';
 import { mutations as RoleMutations } from './role';
 import { mutations as SportsmanMutations } from './sportsman';
@@ -98,10 +97,10 @@ export default {
   },
   Organization: {
     async user(parent, _, { dbConnection }) {
-      return (await dbConnection.query( 
+      return (await dbConnection.query(
         `SELECT user_id, user.email, verification_token, is_verified FROM user
         JOIN organization USING (user_id)
-        WHERE user_id = ?`, 
+        WHERE user_id = ?`,
         [parent.user_id]))[0];
     },
     async profile_photo(parent, _, { dbConnection }) {
@@ -123,8 +122,8 @@ export default {
     },
     async ratings(parent, _, { dbConnection }) {
       return await dbConnection.query(
-        `SELECT id, sportsman.user_id, text, stars FROM rating 
-         join sportsman on sportsman.user_id = rating.user_id 
+        `SELECT id, sportsman.user_id, text, stars FROM rating
+         join sportsman on sportsman.user_id = rating.user_id
         where rating.organization_id = ?`,
         [parent.user_id],
       );
@@ -135,7 +134,7 @@ export default {
       return (await dbConnection.query(
         `SELECT rating.user_id, firstname, lastname, username, phone FROM rating
         JOIN sportsman on sportsman.user_id = rating.user_id
-        WHERE sportsman.user_id = ?`, 
+        WHERE sportsman.user_id = ?`,
         [parent.user_id],
       ))[0];
     },
