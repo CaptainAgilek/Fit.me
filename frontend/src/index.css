@@ -375,6 +375,11 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
   object-fit: cover;
 }
 
+.ratings {
+  float: right;
+  margin: 5px;
+}
+
 html {
 	scroll-behavior: smooth;
 }

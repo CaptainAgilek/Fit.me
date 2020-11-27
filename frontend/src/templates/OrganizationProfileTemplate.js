@@ -274,13 +274,10 @@ export function OrganizationProfileTemplate({ user, actionsState, organizationSt
       </Container>
 
       <Container className="organization-profile-section-container">
-      <h1 id="hodnoceni">Hodnocení</h1>
-        <Container fluid>
-          <Row>
-            <TestimonialBoxCol/>
-          </Row>
-        </Container>
+        <h1 id="hodnoceni">Hodnocení</h1>
+        <TestimonialBoxCol/>
       </Container>
+
       <Footer />
     </>
   );

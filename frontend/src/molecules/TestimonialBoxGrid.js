@@ -37,10 +37,12 @@ export function TestimonialBoxGrid() {
 
   return (
     <div className="d-flex justify-content-center align-items-start flex-wrap">
-      <TestimonialBox img="/images/hedgegog.jpg" name={"Enci"}>
-        {ratings}
+      <TestimonialBox img="/images/hedgegog.jpg" name={"Enci"} rating={"5/5"}>
+        “Já byla spokojna. Fitko s dobrými službami. Určite záleží
+        od trenéra. Mým byl Tobias Reuter - skvelý přístup i
+        odbornost. Určite odporúčam.”
       </TestimonialBox>
-      <TestimonialBox img="/images/cat.jpg" name={"Enci"}>
+      <TestimonialBox img="/images/cat.jpg" name={"Enci"} rating={"5/5"}>
         “Já byla spokojna. Fitko s dobrými službami. Určite záleží
         od trenéra. Mým byl Tobias Reuter - skvelý přístup i
         odbornost. Určite odporúčam.”
