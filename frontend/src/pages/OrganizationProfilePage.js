@@ -2,6 +2,7 @@ import React from 'react';
 import { OrganizationProfileTemplate } from 'src/templates/OrganizationProfileTemplate';
 
 import { gql, useQuery } from '@apollo/client';
+
 import { useAuth } from 'src/utils/auth';
 
 const ACTIONS_QUERY = gql`
@@ -82,6 +83,7 @@ export function OrganizationProfilePage() {
         organizationState={organizationState}
         user={user}
       />
+
     </>
   );
 }

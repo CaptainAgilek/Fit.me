@@ -1,4 +1,3 @@
-
 export const organization = async (_, { user_id }, { dbConnection }) => {
     const organization = (
       await dbConnection.query(`SELECT * FROM organization WHERE user_id = ?`, [

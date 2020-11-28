@@ -268,6 +268,31 @@ code {
   margin-top: 20px;
 }
 
+.action-small-icon {
+  width: 18.5px;
+  height: 18.5px;
+  margin-right: 0.8rem;
+  margin-bottom: 0.3rem;
+}
+
+div::-webkit-scrollbar-thumb:horizontal {
+  background: #cec9c9;
+  border-radius: 7px;
+}
+
+div::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Left */
+div::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  background: url('/images/icons/left_arrow_green.png') 0px 0px no-repeat;
+}
+/* Right */
+div::-webkit-scrollbar-button:single-button:horizontal:increment {
+  background: url('/images/icons/right_arrow_green.png') 0px 0px no-repeat;
+}
+
 .organization-primary-button {
   background-color: #e8aa3c !important;
   border: none !important;
@@ -350,6 +375,7 @@ code {
   cursor: pointer;
 }
 
+
 .card-img-top {
   object-fit: cover;
   height: 30vh;
@@ -378,4 +404,40 @@ div::-webkit-scrollbar-button:single-button:horizontal:decrement {
 /* Right */
 div::-webkit-scrollbar-button:single-button:horizontal:increment {
   background: url('/images/icons/right_arrow_green.png') 0px 0px no-repeat;
+
+.testimonialProfilePicture {
+  float: left;
+  margin: 5px;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}
+
+.ratings {
+  float: right;
+  margin: 5px;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}
+
+.href {
+  text-decoration: none;
+  color: black;
+  flex-basis: 15%;
+  height: 75px;
+  min-width: 100px;
+}
+
+.href:hover {
+  text-decoration: none;
+  color: black;
 }

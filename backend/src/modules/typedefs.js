@@ -128,7 +128,6 @@ export const typeDefs = gql`
     profile_photo: Photo
   }
 
-
   type Organization{
     user_id: Int!
     organization_name: String!
@@ -157,6 +156,7 @@ export const typeDefs = gql`
     instagram: String
     description: String
     profile_photo: Photo
+
   }
   
 
@@ -174,6 +174,7 @@ export const typeDefs = gql`
     sportsman(filter: SportsmanFilter!): Sportsman
     organization(user_id: Int!): Organization
     trainersNotEmployed(user_id: Int!): [Trainer]
+
   }
 
   type AuthInfo {
