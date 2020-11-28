@@ -43,7 +43,7 @@ export const singleUpload = async (
   const fileWritten = await writeFileOnDisk(fileStream, path);
   const publicUrl = process.env.BACKEND_URL + relativePath;
 
-  await createOrUpdatePhoto(
+  const insertId = await createOrUpdatePhoto(
     file,
     user_id,
     photo_id,
@@ -52,7 +52,7 @@ export const singleUpload = async (
     dbConnection,
   );
 
-  return { filename, mimetype, encoding, url: publicUrl };
+  return { filename, mimetype, encoding, url: publicUrl, insertId };
 };
 
 const createOrUpdatePhoto = async (
@@ -93,7 +93,7 @@ export const insertPhoto = async (_, { input }, { dbConnection }) => {
     ],
   );
 
-  return insertPhoto.warningStatus == 0;
+  return insertPhoto.insertId;
 };
 
 export const updatePhotoUrl = async (_, { input }, { dbConnection }) => {
@@ -103,5 +103,5 @@ export const updatePhotoUrl = async (_, { input }, { dbConnection }) => {
     [input.url, input.user_id, input.photo_id],
   );
 
-  return dbResponse.affectedRows === 1;
+  return dbResponse.insertId;
 };

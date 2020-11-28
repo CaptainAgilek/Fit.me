@@ -6,7 +6,7 @@ import { useAuth } from 'src/utils/auth';
 import { OrganizationProfileTemplate } from 'src/templates/OrganizationProfileTemplate';
 
 const ACTIONS_QUERY = gql`
-  query actionsForPlace($place_id: Int!) {
+  query actionsForPlace($place_id: Int) {
     actionsForPlace(place_id: $place_id) {
       action_id
       place_id
@@ -18,6 +18,7 @@ const ACTIONS_QUERY = gql`
       name
       photo_id
       photo {
+        photo_id
         url
       }
     }
@@ -77,10 +78,13 @@ export function OrganizationProfilePage() {
 
   const profileFetcher = useQuery(ORGANIZATION_PROFILE_QUERY, {
     variables: { user_id: user.user_id },
+    onCompleted: () => {
+     actionsState.refetch( {place_id: (profileFetcher.data && profileFetcher.data.organization.places[0].place_id)});
+    },
   });
 
   const actionsState = useQuery(ACTIONS_QUERY, {
-    variables: { place_id: profileFetcher.data &&  profileFetcher.data.organization.places[0].place_id },
+    variables: { place_id: (profileFetcher.data && profileFetcher.data.organization.places[0].place_id) || null },
   });
 
   const [updateOrganizationRequest, updateOrganizationRequestState] = useMutation(

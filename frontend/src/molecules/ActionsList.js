@@ -31,7 +31,6 @@ export function ActionsList({
       max_capacity: 10,
     };
     actionsList = [defaultAction, ...actions];
-    console.log('actions ', actionsList);
   }
   return (
     <ListGroup horizontal className="horizontalScroll">

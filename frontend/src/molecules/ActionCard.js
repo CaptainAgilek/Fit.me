@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 
 import { gql, useMutation } from '@apollo/client';
 import { ActionCardForm } from 'src/organisms/';
@@ -13,13 +13,13 @@ export function ActionCard({ img, action, trainers, user_id, editable, actionsSt
 
   const [actionRequest, actionRequestState] = useMutation(ACTION_MUTATION, {
     onCompleted: () => {
-      console.log("refetched  actions");
       actionsState.refetch();
     },
     onError: (error) => {
       console.log(error);
     },
   });
+  const [photoId, setPhotoId] = useState(action.photo_id || null);
 
   const handleActionSubmit = useCallback(
     (values) => {
@@ -31,17 +31,14 @@ export function ActionCard({ img, action, trainers, user_id, editable, actionsSt
         price: parseFloat(values.price),
         name: values.name,
         action_id: action ? action.action_id : null,
-        photo_id: action.photo_id || null,
+        photo_id: photoId,
         place_id: action.place_id,
         trainer_id: parseInt(values.trainer, 10),
         max_capacity: parseInt(values.max_capacity, 10),
       };
-      if (!action.photo_id) {
-        delete deepCopyVariables.photo_id;
-      }
       actionRequest({ variables: { input: deepCopyVariables } });
     },
-    [actionRequest],
+    [actionRequest, photoId],
   );
 
   let time = new Date();
@@ -77,7 +74,8 @@ export function ActionCard({ img, action, trainers, user_id, editable, actionsSt
       editable={editable}
       handleSubmit={handleActionSubmit}
       user_id={user_id}
-      photo_id={action.photo_id || null}
+      photo_id={photoId}
+      setPhotoId={setPhotoId}
     />
   );
 }

@@ -25,7 +25,6 @@ export function DateFilter({ dataToFilter, setFilteredData }) {
           new Date(parseInt(item.date, 10)) >= dateFrom &&
           new Date(parseInt(item.date, 10)) <= dateTo,
       );
-      console.log('filtered ', filteredData);
       setFilteredData(filteredData);
       setAlreadyFiltered(true);
     }
@@ -41,20 +40,12 @@ export function DateFilter({ dataToFilter, setFilteredData }) {
           selected={dateFrom}
           onChange={(val) => {
             setDateFrom(val);
-            //todo filter
-            //todo filter
-            console.log('to filter ', dataToFilter);
-            console.log('from ', val);
-            console.log(
-              'comparign with action date  ',
-              new Date(parseInt(dataToFilter[0].date, 10)),
-            );
+
             const filteredData = dataToFilter.filter(
               (item) =>
                 new Date(parseInt(item.date, 10)) >= val &&
                 new Date(parseInt(item.date, 10)) <= dateTo,
             );
-            console.log('filtered ', filteredData);
             setFilteredData(filteredData);
           }}
         />
@@ -65,14 +56,12 @@ export function DateFilter({ dataToFilter, setFilteredData }) {
           selected={dateTo}
           onChange={(val) => {
             setDateTo(val);
-            //todo filter
+
             const filteredData = dataToFilter.filter(
               (item) =>
                 new Date(parseInt(item.date, 10)) >= dateFrom &&
                 new Date(parseInt(item.date, 10)) <= val,
             );
-            console.log('filtered ', filteredData);
-
             setFilteredData(filteredData);
           }}
         />

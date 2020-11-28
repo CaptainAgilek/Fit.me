@@ -137,12 +137,13 @@ export default {
   },
   Action: {
     async photo(parent, _, { dbConnection }) {
+      const photo_type_id = await getTypeIdByName(`ACTION`, dbConnection);
       return (
         await dbConnection.query(
           `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
-          JOIN user USING (user_id)
-          WHERE photo_id= ?`,
-          [parent.photo_id],
+          JOIN action USING (photo_id)
+          WHERE photo_id = ? AND photo_type_id= ?`,
+          [parent.photo_id, photo_type_id],
         )
       )[0];
     },
