@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+ import React, { useCallback } from 'react';
 
 import { gql, useMutation } from '@apollo/client';
 import { ActionCardForm } from 'src/organisms/';
@@ -53,9 +53,9 @@ export function ActionCard({ img, action, trainers, user_id, editable }) {
     time.setMinutes(minutes);
     time.setSeconds(seconds);
   }
-  console.log(action);
+  console.log("in action card ", action);
   const initialValues = {
-    name: action.name || 'Název akce',
+    name: action.name,
     date: parseInt(action.date) || new Date(),
     time: time || new Date(),
     trainer:

@@ -10,12 +10,29 @@ export function ActionsList({ organizationState, actionsState, editable }) {
   ) {
     return <Loading />;
   }
+  if (!actionsState.data || !organizationState.data) return <div />;
 
+  let actions = actionsState.data.actionsForPlace;
+
+  if (editable) {
+    const defaultAction = {
+      time: '10' + ':' + '00' + ':' + '00',
+      date: new Date(),
+      price: 200,
+      name: 'Název akce',
+      action_id: null,
+      photo_id: null,
+      trainer_id: organizationState.data.organization.trainers[0].user_id || 0,
+      max_capacity: 10,
+    };
+    actions = [defaultAction, ...actionsState.data.actionsForPlace];
+    console.log('actions ', actions);
+  }
   return (
     <ListGroup horizontal className="horizontalScroll">
       {organizationState.data &&
         actionsState.data &&
-        actionsState.data.actionsForPlace.map((action) => (
+        actions.map((action) => (
           <ListGroup.Item
             key={action.action_id}
             className="borderNone"
@@ -23,7 +40,7 @@ export function ActionsList({ organizationState, actionsState, editable }) {
           >
             <ActionCard
               key={action.action_id}
-              img={action.photo.url || '/images/add_img.png'}
+              img={(action.photo && action.photo.url) || '/images/add_img.png'}
               action={action}
               trainers={organizationState.data.organization.trainers}
               user_id={organizationState.data.organization.user_id}
