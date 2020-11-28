@@ -6,6 +6,12 @@ export const typeDefs = gql`
     TRAINER
   }
 
+  enum PhotoType {
+    PROFILE_PICTURE
+    BANNER
+    OTHER
+  }
+
   type UploadedFileResponse {
     filename: String!
     mimetype: String!
@@ -50,7 +56,7 @@ export const typeDefs = gql`
       photo_id: Int
       user_id: Int!
       url: String!
-      is_profile_picture: Boolean!
+      type: PhotoType!
   }
 
   input PhotoInput {
@@ -58,7 +64,7 @@ export const typeDefs = gql`
     description: String
     url: String!
     gallery_name: String
-    is_profile_picture: Boolean!
+    type: PhotoType!
   }
 
   type Action {
@@ -80,7 +86,7 @@ export const typeDefs = gql`
     description: String
     url: String!
     gallery_name: String
-    is_profile_picture: Boolean!
+    type: PhotoType!
   }
 
   type Benefit {
@@ -188,8 +194,8 @@ export const typeDefs = gql`
     updateProfilePhotoUrl(input: UpdatePhotoUrlInput!): Boolean!
     updatePhotoUrl(input: UpdatePhotoUrlInput!): Boolean!
     insertPhoto(input: PhotoInput!): Boolean!
-    singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, is_profile_picture: Boolean!): UploadedFileResponse!
-    singleUpload(file: Upload!, user_id: Int!, photo_id: Int, is_profile_picture: Boolean!): UploadedFileResponse!
+    singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, type: PhotoType!): UploadedFileResponse!
+    singleUpload(file: Upload!, user_id: Int!, photo_id: Int, type: PhotoType!): UploadedFileResponse!
     updateSportsman(input: SportsmanInput!): Boolean!
     updateOrganization(input: OrganizationInput!): Boolean!
     updateUserEmail(email: String!, user_id: Int!): Boolean!

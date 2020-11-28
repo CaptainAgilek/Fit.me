@@ -12,6 +12,8 @@ import { mutations as PhotoMutations } from './photo';
 import { mutations as PlaceMutations } from './place';
 import { mutations as ActionMutations } from './action';
 import { mutations as OrganizationMutations } from './organization';
+import { getTypeIdByName } from './photo/helper';
+
 
 export default {
   Query: {
@@ -73,12 +75,13 @@ export default {
       );
     },
     async profile_photo(parent, _, { dbConnection }) {
+      const photo_type_id = await getTypeIdByName(`PROFILE_PICTURE`, dbConnection);
       return (
         await dbConnection.query(
-          `SELECT photo_id, user_id, description, url, gallery_name, is_profile_picture FROM photo
+          `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
           JOIN user USING (user_id)
-          WHERE user_id = ? AND is_profile_picture=true`,
-          [parent.user_id],
+          WHERE user_id = ? AND photo_type_id = ?`,
+          [parent.user_id, photo_type_id],
         )
       )[0];
     },
@@ -121,12 +124,13 @@ export default {
       );
     },
     async profile_photo(parent, _, { dbConnection }) {
+      const photo_type_id = await getTypeIdByName(`PROFILE_PICTURE`, dbConnection);
       return (
         await dbConnection.query(
-          `SELECT photo_id, user_id, description, url, gallery_name, is_profile_picture FROM photo
+          `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
           JOIN organization USING (user_id)
-          WHERE user_id = ? AND is_profile_picture=true`,
-          [parent.user_id],
+          WHERE user_id = ? AND photo_type_id = ?`,
+          [parent.user_id, photo_type_id],
         )
       )[0];
     },
@@ -135,7 +139,7 @@ export default {
     async photo(parent, _, { dbConnection }) {
       return (
         await dbConnection.query(
-          `SELECT photo_id, user_id, description, url, gallery_name, is_profile_picture FROM photo
+          `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
           JOIN user USING (user_id)
           WHERE photo_id= ?`,
           [parent.photo_id],
