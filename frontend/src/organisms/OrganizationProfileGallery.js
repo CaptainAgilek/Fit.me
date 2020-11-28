@@ -32,6 +32,13 @@ export function OrganizationProfileGallery({
                       user={user}
                       photo={x}
                       removeGalleryPhotoHandler={removeGalleryPhotoHandler}
+                      photoName={x.url
+                        .split('#')
+                        .shift()
+                        .split('?')
+                        .shift()
+                        .split('/')
+                        .pop()}
                     />
                   </Row>
                   <Row>

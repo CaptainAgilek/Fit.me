@@ -22,3 +22,4 @@ export { ActionCard } from './ActionCard';
 export { TrainersPopUp } from './TrainersPopUp';
 export { TestimonialBoxCol } from './TestimonialBoxCol';
 export { TestimonialBoxGrid } from './TestimonialBoxGrid';
+export { RemovePopUp } from './RemovePopUp';

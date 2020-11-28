@@ -59,7 +59,10 @@ export function TrainersPopUp({
     organizationState.refetch();
     trainersFetcher.refetch();
   };
-  const handleShow = () => setShow(true);
+  const handleShow = () => {
+    setShow(true);
+    trainersFetcher.refetch();
+  };
   const handleAddTrainers = () => {
     for (const val in formContent) {
       if (formContent[val]) {
@@ -76,7 +79,7 @@ export function TrainersPopUp({
 
   const [formContent, setFormContent] = useState();
 
-  console.log(formContent);
+  //console.log(formContent);
 
   return (
     <>

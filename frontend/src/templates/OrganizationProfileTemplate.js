@@ -13,6 +13,7 @@ import {
   TrainersPopUp,
   ActionCard,
   TestimonialBoxCol,
+  RemovePopUp,
 } from 'src/molecules/';
 import { Col, Row, Container, ListGroup, InputGroup } from 'react-bootstrap';
 
@@ -109,30 +110,30 @@ export function OrganizationProfileTemplate({
   });
 
   /* UPDATE TRAINER DESC */
-  const handleTrainerDescriptionSubmit = (variables) => {
+  const handleTrainerDescriptionSubmit = (trainer) => {
     modifyTrainerDescription({
       variables: {
         description: trainerDescription,
         organization_id: id,
-        trainer_id: selectedTrainerId,
+        trainer_id: trainer.user_id,
       },
     });
   };
 
-  const handleRemoveTrainer = (variables) => {
+  const handleRemoveTrainer = (trainer) => {
     removeTrainer({
       variables: {
         organization_id: id,
-        trainer_id: selectedTrainerId,
+        trainer_id: trainer.user_id,
       },
     });
   };
 
   const handleTrainerSelection = (trainer) => {
-    setSelectedTrainerId(trainer.user_id);
+    //setSelectedTrainerId(trainer.user_id);
     setTrainerDescription(trainer.description);
   };
-  const [selectedTrainerId, setSelectedTrainerId] = useState(null);
+
   const [trainerDescription, setTrainerDescription] = useState(null);
 
   //console.log(ratingsFetcher);
@@ -208,10 +209,12 @@ export function OrganizationProfileTemplate({
                         <Row className="d-flex align-items-center">
                           <Col xs={10}>{trainer.firstname}</Col>
                           <Col xl={2} md={3} sm={5} xs={2}>
-                            <Image
-                              src="/images/icons/trash-alt-solid.svg"
-                              onClick={handleRemoveTrainer}
-                            ></Image>
+                            <RemovePopUp
+                              onConfirm={() => handleRemoveTrainer(trainer)}
+                              target={
+                                trainer.firstname + ' ' + trainer.lastname
+                              }
+                            ></RemovePopUp>
                           </Col>
                         </Row>
                       </ListGroup.Item>
@@ -246,7 +249,11 @@ export function OrganizationProfileTemplate({
                               </h3>
                             </Row>
 
-                            <Form onSubmit={handleTrainerDescriptionSubmit}>
+                            <Form
+                              onSubmit={() =>
+                                handleTrainerDescriptionSubmit(trainer)
+                              }
+                            >
                               <Form.Row>
                                 <Form.Group
                                   name="description"

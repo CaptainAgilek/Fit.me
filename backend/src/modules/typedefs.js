@@ -50,7 +50,7 @@ export const typeDefs = gql`
       photo_id: Int
       user_id: Int!
       url: String!
-      photo_type_id: Boolean!
+      photo_type_id: Int!
   }
 
   input PhotoInput {
@@ -58,7 +58,7 @@ export const typeDefs = gql`
     description: String
     url: String!
     gallery_name: String
-    photo_type_id: Boolean!
+    photo_type_id: Int!
   }
 
   input UpdatePhotoGalleryNameInput{
@@ -86,7 +86,7 @@ export const typeDefs = gql`
     description: String
     url: String!
     gallery_name: String
-    photo_type_id: Boolean!
+    photo_type_id: Int!
   }
 
   type Benefit {
@@ -202,9 +202,9 @@ export const typeDefs = gql`
     removeOrganizationTrainer(organization_id: Int!, trainer_id: Int!): Boolean!
     addOrganizationTrainer(organization_id: Int!, trainer_id: Int!): Boolean!
     insertPhoto(input: PhotoInput!): Boolean!
-    singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, photo_type_id: Boolean!): UploadedFileResponse!
-    singleUpload(file: Upload!, user_id: Int!, photo_id: Int, photo_type_id: Boolean!): UploadedFileResponse!
-    singleUploadOrganizationGalleryPhoto(file: Upload!, photo_id: Int, user_id: Int!, description: String, photo_type_id: Boolean!): UploadedFileResponse!
+    singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, photo_type_id: Int!): UploadedFileResponse!
+    singleUpload(file: Upload!, user_id: Int!, photo_id: Int, photo_type_id: Int!): UploadedFileResponse!
+    singleUploadOrganizationGalleryPhoto(file: Upload!, photo_id: Int, user_id: Int!, description: String, photo_type_id: Int!): UploadedFileResponse!
     updateSportsman(input: SportsmanInput!): Boolean!
     updateUserEmail(email: String!, user_id: Int!): Boolean!
     deleteUser(user_id: Int!): Boolean!

@@ -11,7 +11,7 @@ const UPLOAD_PHOTO_MUTATION = gql`
     $photo_id: Int
     $user_id: Int!
     $description: String
-    $photo_type_id: Boolean!
+    $photo_type_id: Int!
   ) {
     singleUploadOrganizationGalleryPhoto(
       file: $file
