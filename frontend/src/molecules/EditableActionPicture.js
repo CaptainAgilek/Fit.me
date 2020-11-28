@@ -7,8 +7,18 @@ import { AvatarPicture } from 'src/atoms/';
 import { PopUpModal } from 'src/molecules/';
 
 const UPLOAD_PHOTO_MUTATION = gql`
-  mutation SingleUpload($file: Upload!, $user_id: Int!, $photo_id: Int, $is_profile_picture: Boolean!) {
-    singleUpload(file: $file, user_id: $user_id, photo_id: $photo_id, is_profile_picture: $is_profile_picture) {
+  mutation SingleUpload(
+    $file: Upload!
+    $user_id: Int!
+    $photo_id: Int
+    $photo_type_id: Boolean!
+  ) {
+    singleUpload(
+      file: $file
+      user_id: $user_id
+      photo_id: $photo_id
+      photo_type_id: $photo_type_id
+    ) {
       filename
       mimetype
       encoding
@@ -40,23 +50,28 @@ export function EditableActionPicture({ src, user_id, photo_id }) {
   const handleFileUpload = async (selectedFile) => {
     if (!selectedFile) return;
     await uploadFileHandler({
-      variables: { file: selectedFile, user_id: user_id, photo_id: photo_id, is_profile_picture: false },
+      variables: {
+        file: selectedFile,
+        user_id: user_id,
+        photo_id: photo_id,
+        photo_type_id: 0,
+      },
     });
   };
 
   return (
     <>
-      <img className="card-img-top" src={actionImageUrl} onClick={handleShow}/>
+      <img className="card-img-top" src={actionImageUrl} onClick={handleShow} />
 
       <PopUpModal
         show={show}
         handleClose={handleClose}
         modalTitle="Nahrát nový obrázek"
-          footerLeftVariant="outline-secondary"
+        footerLeftVariant="outline-secondary"
         footerLeftText="Zpět"
         footerRightVariant="outline-primary"
         footerRightText="Nahrát"
-            rightButtonOnClick={() => handleFileUpload(selectedFile)}
+        rightButtonOnClick={() => handleFileUpload(selectedFile)}
       >
         <Form>
           <Form.File

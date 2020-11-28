@@ -19,9 +19,4 @@ export { OrganizationProfileSectionHeading } from './OrganizationProfileSectionH
 export { CustomDatePickerField } from './CustomDatePickerField';
 export { CustomTimePickerField } from './CustomTimePickerField';
 export { FormikSelectField } from './FormikSelectField';
-export { CustomDatePickerField } from './CustomDatePickerField';
-export { CustomTimePickerField } from './CustomTimePickerField';
-export { GalleryCounter } from './GalleryCounter';
-export { GalleryPhotoTitle } from './GalleryPhotoTitle';
-export { OrganizationProfileSectionHeading } from './OrganizationProfileSectionHeading';
 export { TestimonialBox } from './TestimonialBox';

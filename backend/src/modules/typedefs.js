@@ -50,7 +50,7 @@ export const typeDefs = gql`
       photo_id: Int
       user_id: Int!
       url: String!
-      is_profile_picture: Boolean!
+      photo_type_id: Boolean!
   }
 
   input PhotoInput {
@@ -58,7 +58,7 @@ export const typeDefs = gql`
     description: String
     url: String!
     gallery_name: String
-    is_profile_picture: Boolean!
+    photo_type_id: Boolean!
   }
 
   input UpdatePhotoGalleryNameInput{

@@ -375,7 +375,6 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
   cursor: pointer;
 }
 
-
 .card-img-top {
   object-fit: cover;
   height: 30vh;
@@ -404,6 +403,7 @@ div::-webkit-scrollbar-button:single-button:horizontal:decrement {
 /* Right */
 div::-webkit-scrollbar-button:single-button:horizontal:increment {
   background: url('/images/icons/right_arrow_green.png') 0px 0px no-repeat;
+}
 
 .testimonialProfilePicture {
   float: left;
@@ -420,13 +420,13 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
 }
 
 html {
-	scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
-	html {
-		scroll-behavior: auto;
-	}
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 .href {

@@ -3,7 +3,7 @@ import { writeFileOnDisk } from './util';
 
 export const singleUploadOrganizationPhoto = async (
   _,
-  { file, user_id, photo_id, is_profile_picture },
+  { file, user_id, photo_id, photo_type_id },
   { dbConnection },
 ) => {
   const { createReadStream, filename, mimetype, encoding } = await file;
@@ -19,7 +19,7 @@ export const singleUploadOrganizationPhoto = async (
     user_id,
     photo_id,
     publicUrl,
-    is_profile_picture,
+    photo_type_id,
     dbConnection,
   );
 
@@ -28,7 +28,7 @@ export const singleUploadOrganizationPhoto = async (
 
 export const singleUpload = async (
   _,
-  { file, user_id, photo_id, is_profile_picture },
+  { file, user_id, photo_id, photo_type_id },
   { dbConnection },
 ) => {
   const { createReadStream, filename, mimetype, encoding } = await file;
@@ -43,7 +43,7 @@ export const singleUpload = async (
     user_id,
     photo_id,
     publicUrl,
-    is_profile_picture,
+    photo_type_id,
     dbConnection,
   );
 
@@ -52,7 +52,7 @@ export const singleUpload = async (
 
 export const singleUploadOrganizationGalleryPhoto = async (
   _, 
-  { file, photo_id, user_id, description, is_profile_picture }, 
+  { file, photo_id, user_id, description, photo_type_id }, 
   { dbConnection }, ) => {
   const { createReadStream, filename, mimetype, encoding } = await file;
   const fileStream = createReadStream();
@@ -64,7 +64,7 @@ export const singleUploadOrganizationGalleryPhoto = async (
   const publicUrl = process.env.BACKEND_URL + relativePath;
   const gallery_name = "DEFAULT";
 
-  const input = { photo_id, user_id: user_id, description: description, url: publicUrl, gallery_name: gallery_name, is_profile_picture: is_profile_picture };
+  const input = { photo_id, user_id: user_id, description: description, url: publicUrl, gallery_name: gallery_name, photo_type_id: photo_type_id };
 
   await insertPhoto(null, { input }, { dbConnection });
 
@@ -86,7 +86,7 @@ const createOrUpdatePhoto = async (
   user_id,
   photo_id,
   url,
-  is_profile_picture,
+  photo_type_id,
   dbConnection,
 ) => {
   const input = {
@@ -95,7 +95,7 @@ const createOrUpdatePhoto = async (
     description: null,
     url: url,
     gallery_name: null,
-    is_profile_picture: is_profile_picture,
+    photo_type_id: photo_type_id,
   };
   if (!photo_id) {
     return await insertPhoto(null, { input }, { dbConnection });
@@ -106,14 +106,14 @@ const createOrUpdatePhoto = async (
 
 export const insertPhoto = async (_, { input }, { dbConnection }) => {
   const insertPhoto = await dbConnection.query(
-    `INSERT INTO photo (photo_id, user_id, description, url, gallery_name, is_profile_picture)
+    `INSERT INTO photo (photo_id, user_id, description, url, gallery_name, photo_type_id)
     VALUES (NULL, ?, ?, ?, ?, ?);`,
     [
       input.user_id,
       input.description,
       input.url,
       input.gallery_name,
-      input.is_profile_picture,
+      input.photo_type_id,
     ],
   );
 

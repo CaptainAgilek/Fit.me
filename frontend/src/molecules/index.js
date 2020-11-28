@@ -20,10 +20,5 @@ export { GalleryPhotoRemoveButton } from './GalleryPhotoRemoveButton';
 export { ActionCard } from './ActionCard';
 
 export { TrainersPopUp } from './TrainersPopUp';
-
-export { ActionCard } from './ActionCard';
-export { GalleryUploadPhotoButton } from './GalleryUploadPhotoButton';
-export { GalleryPhotoRemoveButton } from './GalleryPhotoRemoveButton';
 export { TestimonialBoxCol } from './TestimonialBoxCol';
 export { TestimonialBoxGrid } from './TestimonialBoxGrid';
-

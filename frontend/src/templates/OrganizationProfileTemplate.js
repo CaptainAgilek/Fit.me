@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 
 import { Navigation, OrganizationProfileGallery } from 'src/organisms/';
@@ -11,12 +10,9 @@ import {
   Footer,
   OrganizationMenu,
   GalleryUploadPhotoButton,
-
   TrainersPopUp,
-
   ActionCard,
-  TestimonialBoxCol
-
+  TestimonialBoxCol,
 } from 'src/molecules/';
 import { Col, Row, Container, ListGroup, InputGroup } from 'react-bootstrap';
 
@@ -24,7 +20,6 @@ import { Button, Tab, Image, Form } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { FormikGroup } from '../molecules';
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { rganizationMenu, ActionCard } from 'src/molecules/';
 
 //TODO: contents of this query are already in the page for this template, remove later
 const GALLERY_QUERY = gql`
@@ -72,7 +67,6 @@ const RATINGS_QUERY = gql`
   }
 `;
 
-
 const UPDATE_OPRGANIZATION_TRAINER_DESCRIPTION = gql`
   mutation updateOrganizationTrainerDescription(
     $description: String
@@ -104,8 +98,6 @@ export function OrganizationProfileTemplate({
   organizationState,
   user,
 }) {
-
-
   const id = user.user_id;
   const galleryFetcher = useQuery(GALLERY_QUERY, { variables: { id } });
   const data = galleryFetcher.data;
@@ -141,6 +133,9 @@ export function OrganizationProfileTemplate({
   const ratingsData = ratingsFetcher.data;
   const ratings =
     ratingsData === undefined ? undefined : ratingsData.organization.ratings;
+
+  console.log('ratings default');
+  console.log(ratings);
 
   /* UPDATE TRAINER DESC */
   const handleTrainerDescriptionSubmit = (variables) => {
@@ -182,7 +177,6 @@ export function OrganizationProfileTemplate({
         <OrganizationMenu />
       </div>
       <Container className="organization-profile-top-margin">
-
         <Col>
           <h1>Kalendář akcí</h1>
           <Row></Row>
@@ -209,7 +203,6 @@ export function OrganizationProfileTemplate({
             </ListGroup>
           </Row>
         </Col>
-
       </Container>
 
       <Container className="organization-profile-section-container">
@@ -370,7 +363,7 @@ export function OrganizationProfileTemplate({
 
       <Container className="organization-profile-section-container">
         <h1 id="hodnoceni">Hodnocení</h1>
-        <TestimonialBoxCol/>
+        <TestimonialBoxCol />
       </Container>
 
       <Footer />
