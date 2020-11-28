@@ -20,3 +20,4 @@ export { CustomDatePickerField } from './CustomDatePickerField';
 export { CustomTimePickerField } from './CustomTimePickerField';
 export { FormikSelectField } from './FormikSelectField';
 export { TestimonialBox } from './TestimonialBox';
+export { TrainersSocialColumn } from './TrainersSocialColumn';

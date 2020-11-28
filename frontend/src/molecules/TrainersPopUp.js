@@ -79,7 +79,7 @@ export function TrainersPopUp({
 
   const [formContent, setFormContent] = useState();
 
-  //console.log(formContent);
+  console.log('trainerpopup orgid:' + organizationId);
 
   return (
     <>
