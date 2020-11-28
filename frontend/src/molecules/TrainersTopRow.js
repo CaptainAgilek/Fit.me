@@ -16,7 +16,7 @@ export function TrainersTopRow({ organizationState }) {
           }
           organizationState={organizationState}
         >
-          PŘIDAT TRENÉRA (MODAL)
+          PŘIDAT TRENÉRA
         </TrainersPopUp>
       </Col>
     </Row>

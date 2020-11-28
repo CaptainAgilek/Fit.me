@@ -8,16 +8,31 @@ import {
   GalleryPhotoTitle,
   GalleryCounter,
 } from 'src/atoms/';
-import { Col, Row, Container } from 'react-bootstrap';
+import { Col, Row, Container, Image } from 'react-bootstrap';
+import { gql, useMutation } from '@apollo/client';
 
-import { Image } from 'react-bootstrap';
+const GALLERY_REMOVE_PHOTO_MUTATION = gql`
+  mutation updateOrganizationGalleryPhoto(
+    $input: UpdatePhotoGalleryNameInput!
+  ) {
+    updateOrganizationGalleryPhoto(input: $input)
+  }
+`;
 
 export function OrganizationProfileGallery({
   user,
   photoGallery,
   galleryFetcher,
-  removeGalleryPhotoHandler,
 }) {
+  const [removeGalleryPhotoHandler] = useMutation(
+    GALLERY_REMOVE_PHOTO_MUTATION,
+    {
+      onCompleted: () => {
+        galleryFetcher.refetch();
+      },
+    },
+  );
+
   return (
     <Container className="organization-profile-section-container">
       <Container className="organization-profile-section-contents" fluid>
