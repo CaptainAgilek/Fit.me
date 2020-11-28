@@ -47,26 +47,6 @@ const GALLERY_REMOVE_PHOTO_MUTATION = gql`
   }
 `;
 
-//TODO: contents of this query are already in the page for this template, remove later
-const RATINGS_QUERY = gql`
-  query getOrganizationRatings($id: Int!) {
-    organization(user_id: $id) {
-      ratings {
-        id
-        sportsman {
-          firstname
-          lastname
-          profile_photo {
-            url
-          }
-        }
-        text
-        stars
-      }
-    }
-  }
-`;
-
 const UPDATE_OPRGANIZATION_TRAINER_DESCRIPTION = gql`
   mutation updateOrganizationTrainerDescription(
     $description: String
@@ -127,15 +107,6 @@ export function OrganizationProfileTemplate({
       organizationState.refetch();
     },
   });
-
-  /* RATINGS TEST */
-  const ratingsFetcher = useQuery(RATINGS_QUERY, { variables: { id } });
-  const ratingsData = ratingsFetcher.data;
-  const ratings =
-    ratingsData === undefined ? undefined : ratingsData.organization.ratings;
-
-  console.log('ratings default');
-  console.log(ratings);
 
   /* UPDATE TRAINER DESC */
   const handleTrainerDescriptionSubmit = (variables) => {
@@ -214,6 +185,7 @@ export function OrganizationProfileTemplate({
               btnStyle={{ marginBottom: '.8rem' }}
               className="organization-secondary-button"
               organizationId={id}
+              organizationState={organizationState}
             >
               PŘIDAT TRENÉRA (MODAL)
             </TrainersPopUp>

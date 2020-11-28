@@ -1,7 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
-import { Container, Button, Modal } from 'react-bootstrap';
-import { gql, useQuery } from '@apollo/client';
+import {
+  Container,
+  Button,
+  Modal,
+  ListGroup,
+  Col,
+  Row,
+  Image,
+  Form,
+} from 'react-bootstrap';
+import { gql, useQuery, useMutation } from '@apollo/client';
+import { propTypes } from 'react-bootstrap/esm/Image';
 
 export function TrainersPopUp({
   btnSize,
@@ -9,6 +19,7 @@ export function TrainersPopUp({
   children,
   btnStyle,
   organizationId,
+  organizationState,
 }) {
   const TRAINERS_QUERY = gql`
     query trainersNotEmployed($user_id: Int!) {
@@ -24,14 +35,48 @@ export function TrainersPopUp({
     }
   `;
 
+  const ADD_TRAINER_MUTATION = gql`
+    mutation addOrganizationTrainer($organization_id: Int!, $trainer_id: Int!) {
+      addOrganizationTrainer(
+        organization_id: $organization_id
+        trainer_id: $trainer_id
+      )
+    }
+  `;
+
   const trainersFetcher = useQuery(TRAINERS_QUERY, {
     variables: { user_id: organizationId },
   });
 
+  const [addTrainer] = useMutation(ADD_TRAINER_MUTATION);
+
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    console.log(formContent);
+    setFormContent(null);
+    organizationState.refetch();
+    trainersFetcher.refetch();
+  };
   const handleShow = () => setShow(true);
+  const handleAddTrainers = () => {
+    for (const val in formContent) {
+      if (formContent[val]) {
+        addTrainer({
+          variables: {
+            organization_id: organizationId,
+            trainer_id: parseInt(val),
+          },
+        });
+      }
+    }
+    handleClose();
+  };
+
+  const [formContent, setFormContent] = useState();
+
+  console.log(formContent);
 
   return (
     <>
@@ -50,14 +95,45 @@ export function TrainersPopUp({
         </Modal.Header>
         <Modal.Body>
           <Container>
-            {
-              /* 
+            <ListGroup>
+              {
+                /* 
                 MUTATION FOR ADDING TRAINER
                 QUERY FOR LISTING ALL TRAINERS
                */
-              trainersFetcher.data &&
-                trainersFetcher.data.trainersNotEmployed.map((x) => x.firstname)
-            }
+                trainersFetcher.data &&
+                  trainersFetcher.data.trainersNotEmployed.map((x) => (
+                    <ListGroup.Item className="ignore-last-child-styling">
+                      <Form>
+                        <Form.Group>
+                          <Row className="d-flex align-items-center">
+                            <Col xs={2}>
+                              <Image
+                                src={x.profile_photo && x.profile_photo.url}
+                                fluid
+                              ></Image>
+                            </Col>
+                            <Col xs={8}>{x.firstname + ' ' + x.lastname}</Col>
+                            <Col xs={2}>
+                              <Form.Control
+                                type="checkbox"
+                                name={x.user_id}
+                                checked={formContent && formContent[x.user_id]}
+                                onChange={(e) =>
+                                  setFormContent({
+                                    ...formContent,
+                                    [e.target.name]: e.target.checked,
+                                  })
+                                }
+                              ></Form.Control>
+                            </Col>
+                          </Row>
+                        </Form.Group>
+                      </Form>
+                    </ListGroup.Item>
+                  ))
+              }
+            </ListGroup>
           </Container>
         </Modal.Body>
         <Modal.Footer>
@@ -71,7 +147,7 @@ export function TrainersPopUp({
           <Button
             variant="primary"
             className="organization-primary-button"
-            onClick={handleClose}
+            onClick={handleAddTrainers}
           >
             PŘIDAT TRENÉRA
           </Button>

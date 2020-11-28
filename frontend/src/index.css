@@ -185,7 +185,7 @@ code {
   width: 15rem;
 }
 
-.list-group-item:not(.organization-profile-trainer-tab):last-child {
+.list-group-item:not(.organization-profile-trainer-tab):not(.ignore-last-child-styling):last-child {
   padding-right: 0.1rem;
 }
 
