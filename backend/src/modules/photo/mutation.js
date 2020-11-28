@@ -1,9 +1,10 @@
 import fs, { unlink } from 'fs';
 import { writeFileOnDisk } from './util';
+import { getTypeIdByName } from './helper';
 
 export const singleUploadOrganizationPhoto = async (
   _,
-  { file, user_id, photo_id, is_profile_picture },
+  { file, user_id, photo_id, type },
   { dbConnection },
 ) => {
   const { createReadStream, filename, mimetype, encoding } = await file;
@@ -14,12 +15,15 @@ export const singleUploadOrganizationPhoto = async (
 
   const fileWritten = await writeFileOnDisk(fileStream, path);
   const publicUrl = process.env.BACKEND_URL + relativePath;
+
+  const photo_type_id = await getTypeIdByName(type, dbConnection);
+
   await createOrUpdatePhoto(
     file,
     user_id,
     photo_id,
     publicUrl,
-    is_profile_picture,
+    photo_type_id,
     dbConnection,
   );
 
@@ -28,7 +32,7 @@ export const singleUploadOrganizationPhoto = async (
 
 export const singleUpload = async (
   _,
-  { file, user_id, photo_id, is_profile_picture },
+  { file, user_id, photo_id, type },
   { dbConnection },
 ) => {
   const { createReadStream, filename, mimetype, encoding } = await file;
@@ -38,12 +42,13 @@ export const singleUpload = async (
 
   const fileWritten = await writeFileOnDisk(fileStream, path);
   const publicUrl = process.env.BACKEND_URL + relativePath;
+
   await createOrUpdatePhoto(
     file,
     user_id,
     photo_id,
     publicUrl,
-    is_profile_picture,
+    type,
     dbConnection,
   );
 
@@ -55,16 +60,18 @@ const createOrUpdatePhoto = async (
   user_id,
   photo_id,
   url,
-  is_profile_picture,
+  type,
   dbConnection,
 ) => {
+  const photo_type_id = await getTypeIdByName(type, dbConnection);
+
   const input = {
     photo_id,
     user_id: user_id,
     description: null,
     url: url,
     gallery_name: null,
-    is_profile_picture: is_profile_picture,
+    photo_type_id: photo_type_id,
   };
   if (!photo_id) {
     return await insertPhoto(null, { input }, { dbConnection });
@@ -75,14 +82,14 @@ const createOrUpdatePhoto = async (
 
 export const insertPhoto = async (_, { input }, { dbConnection }) => {
   const insertPhoto = await dbConnection.query(
-    `INSERT INTO photo (photo_id, user_id, description, url, gallery_name, is_profile_picture)
+    `INSERT INTO photo (photo_id, user_id, description, url, gallery_name, photo_type_id)
     VALUES (NULL, ?, ?, ?, ?, ?);`,
     [
       input.user_id,
       input.description,
       input.url,
       input.gallery_name,
-      input.is_profile_picture,
+      input.photo_type_id,
     ],
   );
 

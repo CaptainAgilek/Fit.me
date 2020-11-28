@@ -1,4 +1,4 @@
- import React, { useCallback } from 'react';
+import React, { useCallback } from 'react';
 
 import { gql, useMutation } from '@apollo/client';
 import { ActionCardForm } from 'src/organisms/';
@@ -9,9 +9,13 @@ const ACTION_MUTATION = gql`
   }
 `;
 
-export function ActionCard({ img, action, trainers, user_id, editable }) {
+export function ActionCard({ img, action, trainers, user_id, editable, actionsState }) {
+
   const [actionRequest, actionRequestState] = useMutation(ACTION_MUTATION, {
-    onCompleted: () => {},
+    onCompleted: () => {
+      console.log("refetched  actions");
+      actionsState.refetch();
+    },
     onError: (error) => {
       console.log(error);
     },
@@ -23,11 +27,11 @@ export function ActionCard({ img, action, trainers, user_id, editable }) {
 
       const deepCopyVariables = {
         time: hours + ':' + minutes,
-        date: new String(values.date),
+        date: new String(new Date(values.date).getTime()),
         price: parseFloat(values.price),
         name: values.name,
         action_id: action ? action.action_id : null,
-        photo_id: action.photo_id,
+        photo_id: action.photo_id || null,
         place_id: action.place_id,
         trainer_id: parseInt(values.trainer, 10),
         max_capacity: parseInt(values.max_capacity, 10),
@@ -53,14 +57,13 @@ export function ActionCard({ img, action, trainers, user_id, editable }) {
     time.setMinutes(minutes);
     time.setSeconds(seconds);
   }
-  console.log("in action card ", action);
   const initialValues = {
     name: action.name,
-    date: parseInt(action.date) || new Date(),
+    date: parseInt(action.date),
     time: time || new Date(),
     trainer:
-      options.find((option) => option.value === `${action.trainer_id}`).value ||
-      '',
+      (options.length > 0 && options.find((option) => option.value === `${action.trainer_id}`).value) ||
+      '0',
     price: action.price || '',
     max_capacity: action.max_capacity || '',
   };
