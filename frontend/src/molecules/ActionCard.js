@@ -36,7 +36,10 @@ export function ActionCard({ img, action, trainers, user_id, editable, actionsSt
         trainer_id: parseInt(values.trainer, 10),
         max_capacity: parseInt(values.max_capacity, 10),
       };
-      actionRequest({ variables: { input: deepCopyVariables } });
+      console.log("update ", deepCopyVariables);
+      actionRequest({ variables: { input: deepCopyVariables },   onCompleted: () => {
+          actionsState.refetch();
+        } });
     },
     [actionRequest, photoId],
   );
