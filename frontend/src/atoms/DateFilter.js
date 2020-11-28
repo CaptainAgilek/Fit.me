@@ -33,38 +33,42 @@ export function DateFilter({ dataToFilter, setFilteredData }) {
   return (
     <Col>
       <Row>
-        Od
-        <DatePicker
-          className="mx-2"
-          dateFormat="dd/MM/yyyy"
-          selected={dateFrom}
-          onChange={(val) => {
-            setDateFrom(val);
+        <div className="ml-1 mt-1">
+          Od
+          <DatePicker
+            className="mx-2"
+            dateFormat="dd/MM/yyyy"
+            selected={dateFrom}
+            onChange={(val) => {
+              setDateFrom(val);
 
-            const filteredData = dataToFilter.filter(
-              (item) =>
-                new Date(parseInt(item.date, 10)) >= val &&
-                new Date(parseInt(item.date, 10)) <= dateTo,
-            );
-            setFilteredData(filteredData);
-          }}
-        />
-        Do
-        <DatePicker
-          className="mx-2"
-          dateFormat="dd/MM/yyyy"
-          selected={dateTo}
-          onChange={(val) => {
-            setDateTo(val);
+              const filteredData = dataToFilter.filter(
+                (item) =>
+                  new Date(parseInt(item.date, 10)) >= val &&
+                  new Date(parseInt(item.date, 10)) <= dateTo,
+              );
+              setFilteredData(filteredData);
+            }}
+          />
+        </div>
+        <div className="ml-1 mt-1">
+          Do
+          <DatePicker
+            className="mx-2"
+            dateFormat="dd/MM/yyyy"
+            selected={dateTo}
+            onChange={(val) => {
+              setDateTo(val);
 
-            const filteredData = dataToFilter.filter(
-              (item) =>
-                new Date(parseInt(item.date, 10)) >= dateFrom &&
-                new Date(parseInt(item.date, 10)) <= val,
-            );
-            setFilteredData(filteredData);
-          }}
-        />
+              const filteredData = dataToFilter.filter(
+                (item) =>
+                  new Date(parseInt(item.date, 10)) >= dateFrom &&
+                  new Date(parseInt(item.date, 10)) <= val,
+              );
+              setFilteredData(filteredData);
+            }}
+          />
+        </div>
       </Row>
     </Col>
   );

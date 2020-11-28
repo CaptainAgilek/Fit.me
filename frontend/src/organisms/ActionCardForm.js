@@ -17,7 +17,7 @@ export function ActionCardForm({
   handleSubmit,
   user_id,
   photo_id,
-  setPhotoId
+  setPhotoId,
 }) {
   return (
     <Formik
@@ -28,7 +28,12 @@ export function ActionCardForm({
       {({ errors, touched, handleSubmit, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
           <div className="card" style={{ width: '18rem' }}>
-            <EditableActionPicture src={img} user_id={user_id} action={action} setPhotoId={setPhotoId}/>
+            <EditableActionPicture
+              src={img}
+              user_id={user_id}
+              action={action}
+              setPhotoId={setPhotoId}
+            />
             <div
               className="text-center"
               style={{ backgroundColor: '#dedede', height: '50px' }}
@@ -84,7 +89,11 @@ export function ActionCardForm({
                     />
                   )}
                   {options.length === 0 && <>V organizaci není trenér</>}
-                  {options.length > 0 && !editable && options.find((option) => option.value === `${action.trainer_id}`).label}
+                  {options.length > 0 &&
+                    !editable &&
+                    options.find(
+                      (option) => option.value === `${action.trainer_id}`,
+                    ).label}
                 </div>
                 <div>
                   <img
@@ -116,15 +125,18 @@ export function ActionCardForm({
                   {!editable && action.max_capacity}
                 </div>
 
-                <Button
-                  className="mt-1"
-                  size="lg"
-                  block
-                  variant="success"
-                  type="submit"
-                >
-                  ULOŽIT
-                </Button>
+                {editable && (
+                  <Button
+                    className="mt-1"
+                    size="lg"
+                    block
+                    variant="success"
+                    type="submit"
+                    disabled={options.length === 0}
+                  >
+                    ULOŽIT
+                  </Button>
+                )}
               </div>
             </div>
           </div>
