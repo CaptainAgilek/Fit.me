@@ -59,7 +59,7 @@ export function ActionCard({ img, action, trainers, user_id, editable }) {
     date: parseInt(action.date) || new Date(),
     time: time || new Date(),
     trainer:
-      options.find((option) => option.value === `${action.trainer_id}`).value ||
+      //options.find((option) => option.value === `${action.trainer_id}`).value ||
       '',
     price: action.price || '',
     max_capacity: action.max_capacity || '',

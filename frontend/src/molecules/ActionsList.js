@@ -3,9 +3,14 @@ import { Loading } from 'src/atoms/';
 import { ActionCard } from 'src/molecules/';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-export function ActionsList({ organizationState, actionsState, editable }) {
+export function ActionsList({
+  organizationData,
+  organizationLoading,
+  actionsState,
+  editable
+}) {
   if (
-    (organizationState.loading && !organizationState.data) ||
+    (organizationLoading && !organizationData) ||
     (actionsState.loading && !actionsState.data)
   ) {
     return <Loading />;
@@ -30,7 +35,7 @@ export function ActionsList({ organizationState, actionsState, editable }) {
   }
   return (
     <ListGroup horizontal className="horizontalScroll">
-      {organizationState.data &&
+      {organizationData &&
         actionsState.data &&
         actions.map((action) => (
           <ListGroup.Item
@@ -42,8 +47,8 @@ export function ActionsList({ organizationState, actionsState, editable }) {
               key={action.action_id}
               img={(action.photo && action.photo.url) || '/images/add_img.png'}
               action={action}
-              trainers={organizationState.data.organization.trainers}
-              user_id={organizationState.data.organization.user_id}
+              trainers={organizationData.organization.trainers}
+              user_id={organizationData.organization.user_id}
               editable={true}
             />
           </ListGroup.Item>
