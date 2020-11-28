@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Col, Row, Container } from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-import { CustomDatePicker, Loading } from 'src/atoms/';
-import { Footer, OrganizationMenu, ActionsList, ErrorBanner } from 'src/molecules/';
-import { Navigation, OrganizationProfileManagementCol, OrganizationProfileForm } from 'src/organisms/';
+import { CustomDatePicker, Loading, DateFilter } from 'src/atoms/';
+import {
+  Footer,
+  OrganizationMenu,
+  ActionsList,
+  ErrorBanner,
+} from 'src/molecules/';
+import {
+  Navigation,
+  OrganizationProfileManagementCol,
+  OrganizationProfileForm,
+} from 'src/organisms/';
 
 export function OrganizationProfileTemplate({
   actionsState,
@@ -16,6 +25,8 @@ export function OrganizationProfileTemplate({
   updateOrganizationRequest,
   changePasswordRequest,
 }) {
+      const [actions, setActions] = useState((actionsState.data && actionsState.data.actionsForPlace) || []);
+      useEffect( () => {console.log("effect ", actions)},[actions]);
   return (
     <>
       <Navigation />
@@ -32,7 +43,7 @@ export function OrganizationProfileTemplate({
         />
       )}
 
-      {organizationData && actionsState.data &&
+      {organizationData && actionsState.data && (
         <>
           <div className="headerImg">
             <OrganizationMenu />
@@ -41,11 +52,14 @@ export function OrganizationProfileTemplate({
           <Container className="organization-profile-top-margin">
             <Col>
               <h1>Kalendář akcí</h1>
-              <Row></Row>
+              <Row>
+                <DateFilter dataToFilter={actionsState.data.actionsForPlace} setFilteredData={setActions}/>
+              </Row>
               <Row>
                 <ActionsList
                   organizationData={organizationData}
                   organizationLoading={loading}
+                  actions={actions}
                   actionsState={actionsState}
                   editable={true}
                 />
@@ -58,7 +72,6 @@ export function OrganizationProfileTemplate({
                     changePasswordRequest={changePasswordRequest}
                   />
                 </Col>
-
                 <Col sm="12" md="7">
                   <Container>
                     <h1>{organizationData.organization.organization_name}</h1>
@@ -72,7 +85,7 @@ export function OrganizationProfileTemplate({
             </Col>
           </Container>
         </>
-      }
+      )}
       <Footer />
     </>
   );

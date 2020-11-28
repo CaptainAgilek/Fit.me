@@ -15,3 +15,4 @@ export { OrganizationMenuButton } from './OrganizationMenuButton';
 export { CustomDatePickerField } from './CustomDatePickerField';
 export { CustomTimePickerField } from './CustomTimePickerField';
 export { FormikSelectField } from './FormikSelectField';
+export { DateFilter } from './DateFilter';

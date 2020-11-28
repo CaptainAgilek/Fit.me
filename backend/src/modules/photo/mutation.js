@@ -42,18 +42,17 @@ export const singleUpload = async (
 
   const fileWritten = await writeFileOnDisk(fileStream, path);
   const publicUrl = process.env.BACKEND_URL + relativePath;
-  const photo_type_id = await getTypeIdByName(type, dbConnection);
 
-  await createOrUpdatePhoto(
+  const insertId = await createOrUpdatePhoto(
     file,
     user_id,
     photo_id,
     publicUrl,
-    photo_type_id,
+    type,
     dbConnection,
   );
 
-  return { filename, mimetype, encoding, url: publicUrl };
+  return { filename, mimetype, encoding, url: publicUrl, insertId };
 };
 
 const createOrUpdatePhoto = async (
@@ -82,7 +81,6 @@ const createOrUpdatePhoto = async (
 };
 
 export const insertPhoto = async (_, { input }, { dbConnection }) => {
-  const photo_type_id = await getTypeIdByName(type, dbConnection);
   const insertPhoto = await dbConnection.query(
     `INSERT INTO photo (photo_id, user_id, description, url, gallery_name, photo_type_id)
     VALUES (NULL, ?, ?, ?, ?, ?);`,
@@ -91,11 +89,11 @@ export const insertPhoto = async (_, { input }, { dbConnection }) => {
       input.description,
       input.url,
       input.gallery_name,
-      photo_type_id,
+      input.photo_type_id,
     ],
   );
 
-  return insertPhoto.warningStatus == 0;
+  return insertPhoto.insertId;
 };
 
 export const updatePhotoUrl = async (_, { input }, { dbConnection }) => {
@@ -105,5 +103,5 @@ export const updatePhotoUrl = async (_, { input }, { dbConnection }) => {
     [input.url, input.user_id, input.photo_id],
   );
 
-  return dbResponse.affectedRows === 1;
+  return dbResponse.insertId;
 };

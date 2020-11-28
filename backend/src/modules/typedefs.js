@@ -10,6 +10,7 @@ export const typeDefs = gql`
     PROFILE_PICTURE
     BANNER
     OTHER
+    ACTION
   }
 
   type UploadedFileResponse {
@@ -17,6 +18,7 @@ export const typeDefs = gql`
     mimetype: String!
     encoding: String!
     url: String!
+    insertId: Int!
   }
 
   input CreateOrUpdateActionInput {
@@ -159,7 +161,7 @@ export const typeDefs = gql`
   }
 
   type Query {
-    actionsForPlace(place_id: Int!): [Action]!
+    actionsForPlace(place_id: Int): [Action]!
     benefitsForUser(user_id: Int!): [Benefit]!
     users: [User]!
     user(email: String!): User

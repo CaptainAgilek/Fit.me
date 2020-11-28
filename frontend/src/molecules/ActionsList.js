@@ -6,6 +6,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 export function ActionsList({
   organizationData,
   organizationLoading,
+  actions,
   actionsState,
   editable
 }) {
@@ -15,29 +16,27 @@ export function ActionsList({
   ) {
     return <Loading />;
   }
-  if (!actionsState.data || !organizationState.data) return <div />;
-
-  let actions = actionsState.data.actionsForPlace;
-
+  if (!actionsState.data || !organizationData) return <div />;
+  let actionsList = actions;
   if (editable) {
     const defaultAction = {
       time: '10' + ':' + '00' + ':' + '00',
-      date: new Date(),
+      date: `${new Date().getTime()}`,
       price: 200,
       name: 'Název akce',
       action_id: null,
+      place_id: organizationData.organization.places[0].place_id,
       photo_id: null,
-      trainer_id: organizationState.data.organization.trainers[0].user_id || 0,
+      trainer_id: (organizationData.organization.trainers.length>0  && organizationData.organization.trainers[0].user_id) || 0,
       max_capacity: 10,
     };
-    actions = [defaultAction, ...actionsState.data.actionsForPlace];
-    console.log('actions ', actions);
+    actionsList = [defaultAction, ...actions];
   }
   return (
     <ListGroup horizontal className="horizontalScroll">
       {organizationData &&
         actionsState.data &&
-        actions.map((action) => (
+        actionsList.map((action) => (
           <ListGroup.Item
             key={action.action_id}
             className="borderNone"
@@ -50,6 +49,7 @@ export function ActionsList({
               trainers={organizationData.organization.trainers}
               user_id={organizationData.organization.user_id}
               editable={true}
+              actionsState={actionsState}
             />
           </ListGroup.Item>
         ))}

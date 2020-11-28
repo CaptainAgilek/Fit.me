@@ -17,6 +17,7 @@ export function ActionCardForm({
   handleSubmit,
   user_id,
   photo_id,
+  setPhotoId
 }) {
   return (
     <Formik
@@ -27,7 +28,7 @@ export function ActionCardForm({
       {({ errors, touched, handleSubmit, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
           <div className="card" style={{ width: '18rem' }}>
-            <EditableActionPicture src={img} user_id={user_id} photo_id={photo_id}/>
+            <EditableActionPicture src={img} user_id={user_id} action={action} setPhotoId={setPhotoId}/>
             <div
               className="text-center"
               style={{ backgroundColor: '#dedede', height: '50px' }}
@@ -74,7 +75,7 @@ export function ActionCardForm({
                     className="action-small-icon"
                     src="/images/icons/personal.svg"
                   />
-                  {editable && (
+                  {options.length > 0 && editable && (
                     <FormikSelectField
                       name="trainer"
                       id="trainer"
@@ -82,7 +83,8 @@ export function ActionCardForm({
                       className="borderNone"
                     />
                   )}
-                  {!editable && action.trainer_id}
+                  {options.length === 0 && <>V organizaci není trenér</>}
+                  {options.length > 0 && !editable && options.find((option) => option.value === `${action.trainer_id}`).label}
                 </div>
                 <div>
                   <img
