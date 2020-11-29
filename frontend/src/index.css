@@ -272,6 +272,10 @@ code {
   margin-bottom: 0.3rem;
 }
 
+.navbar-item-right-offset {
+  margin-right: 1.5rem;
+}
+
 div::-webkit-scrollbar-thumb:horizontal {
   background: #cec9c9;
   border-radius: 7px;

@@ -58,7 +58,7 @@ export function OrganizationProfileManagementCol({
 
       <Row className="justify-content-md-center botOffset" xs={1}>
         <GenericPopUp
-          triggerVariant="outline-primary"
+          triggerVariant="outline-dark"
           triggerText="Změnit Banner"
           modalTitle="Nahrát nový banner"
           footerLeftVariant="outline-secondary"

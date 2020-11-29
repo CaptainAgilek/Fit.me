@@ -3,9 +3,11 @@ import React from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-import { Form, Card } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
 
-import { UserProfileActionButton, FormikSwitch } from 'src/atoms/';
+import { FormikSwitch, UserProfileActionButton } from 'src/atoms/';
 import { FormikGroup } from 'src/molecules/';
 
 const schema = yup.object({
@@ -147,27 +149,30 @@ export function OrganizationProfileForm({ organization, updateOrganizationReques
                 />
               </Form.Row>
 
-              <Form.Group>
-                <FormikSwitch
-                  name="acceptMultisport"
-                  label="Multisport card"
-                  id="orgProfileAcceptMultisportValidation"
-                  checked={values.acceptMultisport}
-                />
-              </Form.Group>
+              <Form.Row>
+                <Form.Group as={Col} md="6" sm="6">
+                  <FormikSwitch
+                    name="acceptMultisport"
+                    label="Multisport card"
+                    id="orgProfileAcceptMultisportValidation"
+                    checked={values.acceptMultisport}
+                  />
 
-              <Form.Group>
-                <FormikSwitch
-                  name="acceptActivePass"
-                  label="Active Pass"
-                  id="orgProfileAcceptActivePassValidation"
-                  checked={values.acceptActivePass}
-                />
-              </Form.Group>
+                  <FormikSwitch
+                    name="acceptActivePass"
+                    label="Active Pass"
+                    id="orgProfileAcceptActivePassValidation"
+                    checked={values.acceptActivePass}
+                    variant="warning"
+                  />
+                </Form.Group>
 
-              <UserProfileActionButton variant="primary" type="submit">
-                Uložit
-              </UserProfileActionButton>
+                <Form.Group as={Col} md={{ span: 2, offset: 4 }} sm={{ span: 2, offset: 3 }}>
+                    <UserProfileActionButton variant="warning" type="submit" size="lg">
+                      Uložit
+                    </UserProfileActionButton>
+                </Form.Group>
+              </Form.Row>
             </Form>
           )}
         </Formik>
