@@ -22,10 +22,12 @@ export function ActionCard({
   user_id,
   editable,
   actionsState,
+  setActionSuccess
 }) {
   const [actionRequest, actionRequestState] = useMutation(ACTION_MUTATION, {
     onCompleted: () => {
       actionsState.refetch();
+      setActionSuccess("Akce byla uložena.");
     },
     onError: (error) => {
       console.log(error);
@@ -35,6 +37,7 @@ export function ActionCard({
   const [deleteActionRequest, deleteActionRequestState] = useMutation(DELETE_ACTION_MUTATION, {
     onCompleted: () => {
       actionsState.refetch();
+      setActionSuccess("Akce byla smazána.");
     },
     onError: (error) => {
       console.log(error);

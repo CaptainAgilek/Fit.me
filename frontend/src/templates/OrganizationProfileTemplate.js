@@ -3,7 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { Col, Row, Container } from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
 
-import { CustomDatePicker, Loading, DateFilter } from 'src/atoms/';
+import {
+  CustomDatePicker,
+  Loading,
+  DateFilter,
+  SuccessAlert,
+} from 'src/atoms/';
 import {
   Footer,
   OrganizationMenu,
@@ -24,16 +29,22 @@ export function OrganizationProfileTemplate({
   updateOrganizationRequest,
   changePasswordRequest,
 }) {
-  const [actions, setActions] = useState((actionsState.data && actionsState.data.actionsForPlace) || []);
-  useEffect( () => {console.log("effect ", actions)},[actions]);
+  const [actions, setActions] = useState(
+    (actionsState.data && actionsState.data.actionsForPlace) || [],
+  );
+  const [actionSuccess, setActionSuccess] = useState(false);
+  useEffect(() => {
+    console.log('effect ', actions);
+  }, [actions]);
   return (
     <>
       <Navigation />
 
       {loading && <Loading />}
-
-      {error && (<ErrorBanner message={error.message} />)}
-
+      {error && <ErrorBanner message={error.message} />}
+      <div id="alerts" className="fixed-top mt-1">
+        {<SuccessAlert headingText={actionSuccess} setActionSuccess={setActionSuccess}/>}
+      </div>
       {organizationData && actionsState.data && (
         <>
           <div className="headerImg">
@@ -44,7 +55,10 @@ export function OrganizationProfileTemplate({
             <Col>
               <h1>Kalendář akcí</h1>
               <Row>
-                <DateFilter dataToFilter={actionsState.data.actionsForPlace} setFilteredData={setActions}/>
+                <DateFilter
+                  dataToFilter={actionsState.data.actionsForPlace}
+                  setFilteredData={setActions}
+                />
               </Row>
               <Row>
                 <ActionsList
@@ -53,6 +67,7 @@ export function OrganizationProfileTemplate({
                   actions={actions}
                   actionsState={actionsState}
                   editable={true}
+                  setActionSuccess={setActionSuccess}
                 />
               </Row>
 

@@ -8,7 +8,8 @@ export function ActionsList({
   organizationLoading,
   actions,
   actionsState,
-  editable
+  editable,
+  setActionSuccess,
 }) {
   if (
     (organizationLoading && !organizationData) ||
@@ -50,6 +51,7 @@ export function ActionsList({
               user_id={organizationData.organization.user_id}
               editable={true}
               actionsState={actionsState}
+              setActionSuccess={setActionSuccess}
             />
           </ListGroup.Item>
         ))}
