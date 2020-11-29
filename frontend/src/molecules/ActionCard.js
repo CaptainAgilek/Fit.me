@@ -73,22 +73,22 @@ export function ActionCard({
     value: `${trainer.user_id}`,
     label: trainer.firstname + ' ' + trainer.lastname,
   }));
-
+  console.log(options);
   if (action) {
     const [hours, minutes, seconds] = action.time.split(':');
     time.setHours(hours);
     time.setMinutes(minutes);
     time.setSeconds(seconds);
   }
+  console.log("ac", action);
   const initialValues = {
     name: action.name,
     date: parseInt(action.date),
     time: time || new Date(),
     trainer:
-      (options.length > 0 &&
-        options.find((option) => option.value === `${action.trainer_id}`)
-          .value) ||
-      '0',
+      (options.length > 0 && action.trainer_id &&
+        options.find((option) => option.value === `${action.trainer_id}`) && options.find((option) => option.value === `${action.trainer_id}`).value) ||
+    `${action.trainer_id}`,
     price: action.price || '',
     max_capacity: action.max_capacity || '',
   };
