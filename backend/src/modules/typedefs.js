@@ -78,7 +78,7 @@ export const typeDefs = gql`
     trainer_id: Int
     max_capacity: Int!
     name: String!
-    photo_id: Int!
+    photo_id: Int
     photo: Photo
   }
 

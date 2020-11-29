@@ -1,5 +1,4 @@
 export const insertAction = async (_, { input }, { dbConnection }) => {
-  console.log(input);
   const dbResponse = await dbConnection.query(
     `INSERT INTO action (action_id, place_id, date, time, price, trainer_id, max_capacity, name, photo_id)
   VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?);`,
@@ -20,7 +19,7 @@ export const insertAction = async (_, { input }, { dbConnection }) => {
 
 export const updateAction = async (_, { input }, { dbConnection }) => {
   const dbResponse = await dbConnection.query(
-    `UPDATE action SET place_id = ?, date = ?, time = ?, price = ?, trainer_id = ?, max_capacity = ?, name = ?
+    `UPDATE action SET place_id = ?, date = ?, time = ?, price = ?, trainer_id = ?, max_capacity = ?, name = ?, photo_id = ?
      WHERE action_id = ?;`,
     [
       input.place_id,
@@ -30,10 +29,10 @@ export const updateAction = async (_, { input }, { dbConnection }) => {
       input.trainer_id,
       input.max_capacity,
       input.name,
+      input.photo_id,
       input.action_id,
     ],
   );
-
   return dbResponse.affectedRows === 1;
 };
 
