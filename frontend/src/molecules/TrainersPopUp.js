@@ -54,14 +54,14 @@ export function TrainersPopUp({
 
   const handleClose = () => {
     setShow(false);
-    console.log(formContent);
+    //console.log(formContent);
     setFormContent(null);
     organizationState.refetch();
-    trainersFetcher.refetch();
+    organizationId && trainersFetcher.refetch();
   };
   const handleShow = () => {
     setShow(true);
-    trainersFetcher.refetch();
+    organizationId && trainersFetcher.refetch();
   };
   const handleAddTrainers = () => {
     for (const val in formContent) {
