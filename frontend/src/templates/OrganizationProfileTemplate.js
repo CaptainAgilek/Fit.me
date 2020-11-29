@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+
 import { Col, Row, Container } from 'react-bootstrap';
 import ListGroup from 'react-bootstrap/ListGroup';
 
@@ -21,27 +22,18 @@ export function OrganizationProfileTemplate({
   organizationData,
   loading,
   error,
-  onReload,
   updateOrganizationRequest,
   changePasswordRequest,
 }) {
-      const [actions, setActions] = useState((actionsState.data && actionsState.data.actionsForPlace) || []);
-      useEffect( () => {console.log("effect ", actions)},[actions]);
+  const [actions, setActions] = useState((actionsState.data && actionsState.data.actionsForPlace) || []);
+  useEffect( () => {console.log("effect ", actions)},[actions]);
   return (
     <>
       <Navigation />
 
       {loading && <Loading />}
 
-      {error && (
-        <ErrorBanner
-          title="Something went wrong!"
-          message={error.message}
-          onClick={() => {
-            onReload();
-          }}
-        />
-      )}
+      {error && (<ErrorBanner message={error.message} />)}
 
       {organizationData && actionsState.data && (
         <>

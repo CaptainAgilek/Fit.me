@@ -104,8 +104,7 @@ export function OrganizationProfilePage() {
         actionsState={actionsState}
         organizationData={profileFetcher.data}
         loading={profileFetcher.loading}
-        error={profileFetcher.error}
-        onReload={profileFetcher.refetch}
+        error={profileFetcher.error || updateOrganizationRequestState.error || changePasswordRequestState.error}
         updateOrganizationRequest={updateOrganizationRequest}
         changePasswordRequest={changePasswordRequest}
       />

@@ -12,7 +12,6 @@ export function UserProfileTemplate({
                                       state,
                                       error,
                                       data,
-                                      onReload,
                                       userReservations,
                                       deleteUserRequest,
                                       updateUserRequest,
@@ -24,15 +23,7 @@ export function UserProfileTemplate({
       <Container>
         {state.showLoading && <Loading />}
 
-        {error && (
-          <ErrorBanner
-            title="Something went wrong!"
-            message={error.message}
-            onClick={() => {
-              onReload();
-            }}
-          />
-        )}
+        {error && (<ErrorBanner message={error.message} />)}
 
         {/*todo instead of Registration link redirect to organization page*/}
         {/*{state.showUknownUser && <RegistrationLink />} */}

@@ -113,7 +113,7 @@ export function UserProfilePage() {
     <>
       <UserProfileTemplate
         state={state}
-        error={userFetcher.error || deleteUserRequestState.error}
+        error={userFetcher.error || deleteUserRequestState.error || updateUserRequestState.error}
         data={userFetcher.data}
         onReload={userFetcher.refetch}
         userReservations={userReservations}
