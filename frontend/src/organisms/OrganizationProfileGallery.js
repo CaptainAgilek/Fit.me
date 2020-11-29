@@ -69,7 +69,7 @@ export function OrganizationProfileGallery({
         <Row className="d-flex align-items-center">
           <GalleryCounter>{photoGallery && photoGallery.length}</GalleryCounter>
           <Col lg={2}>
-            <GalleryUploadPhotoButton
+            <GalleryUploadPhotoButton 
               user_id={user.user_id}
               photo_id={undefined}
               refetchGallery={galleryFetcher.refetch}

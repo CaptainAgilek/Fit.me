@@ -320,16 +320,34 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
 .organization-profile-section-contents {
   overflow-y: scroll;
   height: 42vh;
+  border-style: solid;
+  border-width: thin;
+  border-color: #D3D3D3;
+  border-radius: 5px;
 }
 
 .organization-profile-trainer-tab.list-group-item.list-group-item-action {
   color: #000000;
-  border: none;
-  box-shadow: 4px 2px 2px grey;
+  border: solid;
+  border-width: thin;
+  border-color: #D3D3D3;
+  border-radius: 5px;
+  position: relative;
+  margin-left: 15px;
+  margin-top: 5px;
+  width: 95%;
 }
 
 .organization-profile-trainer-tab.list-group-item.list-group-item-action.active {
   background-color: #e8aa3c;
+  border: solid;
+  border-width: thin;
+  border-color: #D3D3D3;
+  border-radius: 5px;
+  position: relative;
+  margin-left: 15px;
+  margin-top: 5px;
+  width: 95%;
 }
 
 .organization-profile-icon-svg {
@@ -342,6 +360,9 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
 
 .organization-profile-gallery-card {
   width: 18rem;
+  position: relative;
+  margin-left: 15px;
+  margin-top: 10px;
 }
 
 .organization-profile-gallery-card-header {
@@ -369,6 +390,7 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
   border-radius: 4px;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  min-width: 100vh;
 }
 
 .organization-icon-clickable {
