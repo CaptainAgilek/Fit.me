@@ -9,8 +9,14 @@ const ACTION_MUTATION = gql`
   }
 `;
 
-export function ActionCard({ img, action, trainers, user_id, editable, actionsState }) {
-
+export function ActionCard({
+  img,
+  action,
+  trainers,
+  user_id,
+  editable,
+  actionsState,
+}) {
   const [actionRequest, actionRequestState] = useMutation(ACTION_MUTATION, {
     onCompleted: () => {
       actionsState.refetch();
@@ -36,10 +42,8 @@ export function ActionCard({ img, action, trainers, user_id, editable, actionsSt
         trainer_id: parseInt(values.trainer, 10),
         max_capacity: parseInt(values.max_capacity, 10),
       };
-      console.log("update ", deepCopyVariables);
-      actionRequest({ variables: { input: deepCopyVariables },   onCompleted: () => {
-          actionsState.refetch();
-        } });
+
+      actionRequest({ variables: { input: deepCopyVariables } });
     },
     [actionRequest, photoId],
   );
@@ -62,7 +66,9 @@ export function ActionCard({ img, action, trainers, user_id, editable, actionsSt
     date: parseInt(action.date),
     time: time || new Date(),
     trainer:
-      (options.length > 0 && options.find((option) => option.value === `${action.trainer_id}`).value) ||
+      (options.length > 0 &&
+        options.find((option) => option.value === `${action.trainer_id}`)
+          .value) ||
       '0',
     price: action.price || '',
     max_capacity: action.max_capacity || '',
