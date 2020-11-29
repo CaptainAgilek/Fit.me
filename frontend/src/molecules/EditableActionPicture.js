@@ -49,7 +49,7 @@ export function EditableActionPicture({ src, user_id, action, setPhotoId }) {
 
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const inputLabel = selectedFile ? selectedFile.name : 'Custom file input';
+  const inputLabel = selectedFile ? selectedFile.name : 'Vyberte soubor';
 
   const handleFileUpload = async (selectedFile) => {
     if (!selectedFile) return;
