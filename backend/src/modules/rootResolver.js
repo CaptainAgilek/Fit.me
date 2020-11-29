@@ -101,6 +101,7 @@ export default {
     },
     async profile_photo(parent, _, { dbConnection }) {
       const photo_type_id = await getTypeIdByName(`PROFILE_PICTURE`, dbConnection);
+
       return (
         await dbConnection.query(
           `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
@@ -111,6 +112,7 @@ export default {
       )[0];
     },
     async photo_gallery(parent, _, { dbConnection }) {
+
       return await dbConnection.query(
         `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
         JOIN user USING (user_id)
@@ -128,9 +130,9 @@ export default {
     },
     async trainers(parent, _, { dbConnection }) {
       return await dbConnection.query(
-        `select user_id, firstname, lastname, facebook, instagram, description 
-        from trainer 
-        join organization_trainer on organization_trainer.trainer_id = trainer.user_id 
+        `select user_id, firstname, lastname, facebook, instagram, description
+        from trainer
+        join organization_trainer on organization_trainer.trainer_id = trainer.user_id
         where organization_trainer.organization_id = ?`,
         [parent.user_id],
       );

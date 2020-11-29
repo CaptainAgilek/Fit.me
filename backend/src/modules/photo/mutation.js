@@ -56,9 +56,10 @@ export const singleUpload = async (
 };
 
 export const singleUploadOrganizationGalleryPhoto = async (
-  _, 
-  { file, photo_id, user_id, description, type }, 
-  { dbConnection }, ) => {
+  _,
+  { file, photo_id, user_id, description, type },
+  { dbConnection },
+) => {
   const { createReadStream, filename, mimetype, encoding } = await file;
   const fileStream = createReadStream();
 
@@ -67,17 +68,28 @@ export const singleUploadOrganizationGalleryPhoto = async (
 
   const fileWritten = await writeFileOnDisk(fileStream, path);
   const publicUrl = process.env.BACKEND_URL + relativePath;
-  const gallery_name = "DEFAULT";
+  const gallery_name = 'DEFAULT';
 
   const photo_type_id = await getTypeIdByName(type, dbConnection);
-  const input = { photo_id, user_id: user_id, description: description, url: publicUrl, gallery_name: gallery_name, type: photo_type_id };
-  
+  const input = {
+    photo_id,
+    user_id: user_id,
+    description: description,
+    url: publicUrl,
+    gallery_name: gallery_name,
+    type: photo_type_id,
+  };
+
   await insertPhoto(null, { input }, { dbConnection });
 
   return { filename, mimetype, encoding, url: publicUrl };
 };
 
-export const updateOrganizationGalleryPhoto = async (_, { input }, { dbConnection }) => {
+export const updateOrganizationGalleryPhoto = async (
+  _,
+  { input },
+  { dbConnection },
+) => {
   const dbResponse = await dbConnection.query(
     `UPDATE photo SET gallery_name = ?
      WHERE user_id = ? AND photo_id = ?`,
@@ -121,7 +133,7 @@ export const insertPhoto = async (_, { input }, { dbConnection }) => {
       input.description,
       input.url,
       input.gallery_name,
-      input.type,
+      input.photo_type_id
     ],
   );
 
