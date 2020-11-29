@@ -9,6 +9,12 @@ const ACTION_MUTATION = gql`
   }
 `;
 
+const DELETE_ACTION_MUTATION = gql`
+  mutation deleteAction($action_id: Int!) {
+    deleteAction(action_id: $action_id)
+  }
+`;
+
 export function ActionCard({
   img,
   action,
@@ -25,6 +31,16 @@ export function ActionCard({
       console.log(error);
     },
   });
+
+  const [deleteActionRequest, deleteActionRequestState] = useMutation(DELETE_ACTION_MUTATION, {
+    onCompleted: () => {
+      actionsState.refetch();
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
   const [photoId, setPhotoId] = useState(action.photo_id || null);
 
   const handleActionSubmit = useCallback(
@@ -85,6 +101,7 @@ export function ActionCard({
       user_id={user_id}
       photo_id={photoId}
       setPhotoId={setPhotoId}
+      deleteActionRequest={deleteActionRequest}
     />
   );
 }

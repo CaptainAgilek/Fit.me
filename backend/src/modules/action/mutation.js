@@ -1,3 +1,10 @@
+export const deleteAction = async(_, { action_id }, { dbConnection }) => {
+  const deleteResponse = await dbConnection.query(
+    `DELETE FROM action WHERE action_id = ?`,
+    [action_id],
+  );
+  return deleteResponse.affectedRows === 1;
+}
 export const insertAction = async (_, { input }, { dbConnection }) => {
   const dbResponse = await dbConnection.query(
     `INSERT INTO action (action_id, place_id, date, time, price, trainer_id, max_capacity, name, photo_id)

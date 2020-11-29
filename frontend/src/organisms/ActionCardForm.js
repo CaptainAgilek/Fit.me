@@ -18,6 +18,7 @@ export function ActionCardForm({
   user_id,
   photo_id,
   setPhotoId,
+  deleteActionRequest,
 }) {
   return (
     <Formik
@@ -28,7 +29,16 @@ export function ActionCardForm({
       {({ errors, touched, handleSubmit, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
           <div className="card">
-            <div className="card-delete-icon"></div>
+            {action.action_id && (
+              <div
+                className="card-delete-icon"
+                onClick={() =>
+                  deleteActionRequest({
+                    variables: { action_id: action.action_id },
+                  })
+                }
+              ></div>
+            )}
             <EditableActionPicture
               src={img}
               user_id={user_id}
