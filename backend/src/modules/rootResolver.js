@@ -16,6 +16,9 @@ import { mutations as PlaceMutations } from './place';
 import { mutations as OrganizationMutations } from './organization';
 import { sportsman } from './sportsman/query';
 import { mutations as ActionMutations } from './action';
+import { mutations as OrganizationMutations } from './organization';
+import { getTypeIdByName } from './photo/helper';
+
 
 export default {
   Query: {
@@ -39,7 +42,6 @@ export default {
     ...PlaceMutations,
     ...OrganizationMutations,
     ...ActionMutations,
-
   },
   User: {
     async roles(parent, _, { dbConnection }) {
@@ -79,24 +81,13 @@ export default {
       );
     },
     async profile_photo(parent, _, { dbConnection }) {
+      const photo_type_id = await getTypeIdByName(`PROFILE_PICTURE`, dbConnection);
       return (
         await dbConnection.query(
           `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
           JOIN user USING (user_id)
-          WHERE user_id = ? AND photo_type_id=0`,
-          [parent.user_id],
-        )
-      )[0];
-    },
-  },
-  Action: {
-    async photo(parent, _, { dbConnection }) {
-      return (
-        await dbConnection.query(
-          `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
-          JOIN user USING (user_id)
-          WHERE photo_id= ?`,
-          [parent.photo_id],
+          WHERE user_id = ? AND photo_type_id = ?`,
+          [parent.user_id, photo_type_id],
         )
       )[0];
     },
@@ -110,11 +101,13 @@ export default {
         [parent.user_id]))[0];
     },
     async profile_photo(parent, _, { dbConnection }) {
-      return (await dbConnection.query(
+      const photo_type_id = await getTypeIdByName(`PROFILE_PICTURE`, dbConnection);
+      return (
+        await dbConnection.query(
           `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
-          JOIN user USING (user_id)
-          WHERE user_id = ? AND photo_type_id=0`,
-          [parent.user_id],
+          JOIN organization USING (user_id)
+          WHERE user_id = ? AND photo_type_id = ?`,
+          [parent.user_id, photo_type_id],
         )
       )[0];
     },
@@ -143,6 +136,36 @@ export default {
         [parent.user_id],
       );
     }
+    async places(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT place_id, user_id, city, street, zip, country FROM place
+          JOIN user USING (user_id)
+          WHERE user_id = ?`,
+        [parent.user_id],
+      );
+    },
+    async acceptedBenefits(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT benefit_id, name FROM benefit
+          JOIN benefit_user USING (benefit_id)
+          JOIN organization USING (user_id)
+          WHERE user_id = ?`,
+        [parent.user_id],
+      );
+    },
+  },
+  Action: {
+    async photo(parent, _, { dbConnection }) {
+      const photo_type_id = await getTypeIdByName(`ACTION`, dbConnection);
+      return (
+        await dbConnection.query(
+          `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
+          JOIN action USING (photo_id)
+          WHERE photo_id = ? AND photo_type_id= ?`,
+          [parent.photo_id, photo_type_id],
+        )
+      )[0];
+    },
   },
   Rating: {
     async sportsman(parent, _, { dbConnection }) {

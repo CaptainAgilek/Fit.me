@@ -56,7 +56,7 @@ export function EditableAvatarPicture({ src, alt, user_id, photo_id }) {
       <AvatarPicture src={profileImageUrl} alt={alt} className={'botOffset'} />
 
       <GenericPopUp
-        triggerVariant="outline-primary"
+        triggerVariant="outline-dark"
         triggerText="Změnit Avatar"
         modalTitle="Nahrát nový obrázek"
         footerLeftVariant="outline-secondary"

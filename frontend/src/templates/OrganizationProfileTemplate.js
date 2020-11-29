@@ -1,31 +1,49 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import { Col, Row, Container } from 'react-bootstrap';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 import {
-  Navigation,
-  OrganizationProfileGallery,
-  OrganizationProfileTrainers,
-} from 'src/organisms/';
+  CustomDatePicker,
+  Loading,
+  DateFilter,
+  SuccessAlert,
+} from 'src/atoms/';
 import {
   Footer,
   OrganizationMenu,
-  GalleryUploadPhotoButton,
-  TrainersPopUp,
-  ActionCard,
-  TestimonialBoxCol,
-  RemovePopUp,
+  ActionsList,
+  ErrorBanner,
 } from 'src/molecules/';
-import { Col, Row, Container, ListGroup, InputGroup } from 'react-bootstrap';
+import {
+  Navigation,
+  OrganizationProfileManagementCol,
+  OrganizationProfileForm,
+} from 'src/organisms/';
 
 export function OrganizationProfileTemplate({
   actionsState,
-  organizationState,
-  user,
+  organizationData,
+  loading,
+  error,
+  updateOrganizationRequest,
+  changePasswordRequest,
 }) {
+  const [actions, setActions] = useState(
+    (actionsState.data && actionsState.data.actionsForPlace) || [],
+  );
+  const [actionSuccess, setActionSuccess] = useState(false);
+  useEffect(() => {
+    console.log('effect ', actions);
+  }, [actions]);
   return (
     <>
       <Navigation />
-      <div className="headerImg">
-        <OrganizationMenu />
+
+      {loading && <Loading />}
+      {error && <ErrorBanner message={error.message} />}
+      <div id="alerts" className="fixed-top mt-1">
+        {<SuccessAlert headingText={actionSuccess} setActionSuccess={setActionSuccess}/>}
       </div>
       <Container className="organization-profile-top-margin">
         <Col>
@@ -80,6 +98,53 @@ export function OrganizationProfileTemplate({
         <TestimonialBoxCol />
       </Container>
 
+      {organizationData && actionsState.data && (
+        <>
+          <div className="headerImg">
+            <OrganizationMenu />
+          </div>
+
+          <Container className="organization-profile-top-margin">
+            <Col>
+              <h1>Kalendář akcí</h1>
+              <Row>
+                <DateFilter
+                  dataToFilter={actionsState.data.actionsForPlace}
+                  setFilteredData={setActions}
+                />
+              </Row>
+              <Row>
+                <ActionsList
+                  organizationData={organizationData}
+                  organizationLoading={loading}
+                  actions={actions}
+                  actionsState={actionsState}
+                  editable={true}
+                  setActionSuccess={setActionSuccess}
+                />
+              </Row>
+
+              <Row className="justify-content-md-center">
+                <Col sm="12" md="3">
+                  <OrganizationProfileManagementCol
+                    organization={organizationData.organization}
+                    changePasswordRequest={changePasswordRequest}
+                  />
+                </Col>
+                <Col sm="12" md="7">
+                  <Container>
+                    <h1>{organizationData.organization.organization_name}</h1>
+                    <OrganizationProfileForm
+                      organization={organizationData.organization}
+                      updateOrganizationRequest={updateOrganizationRequest}
+                    />
+                  </Container>
+                </Col>
+              </Row>
+            </Col>
+          </Container>
+        </>
+      )}
       <Footer />
     </>
   );

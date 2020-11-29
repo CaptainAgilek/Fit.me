@@ -82,9 +82,9 @@ export const signup = async (
       break;
     case USER_TYPE.ORGANIZATION:
       const insertOrganizationResponse = await dbConnection.query(
-        `INSERT INTO organization (user_id, name, username)
-        VALUES (?, ?, ?);`,
-        [insertUserResponse.insertId, name, ''],
+        `INSERT INTO organization (user_id, organization_name, username, phone)
+        VALUES (?, ?, ?, ?);`,
+        [insertUserResponse.insertId, name, name, ''],
       );
       await assignRoleToUser(
         _,

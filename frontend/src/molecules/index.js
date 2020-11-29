@@ -26,3 +26,5 @@ export { RemovePopUp } from './RemovePopUp';
 export { TrainersTopRow } from './TrainersTopRow';
 export { TrainersColumn } from './TrainersColumn';
 export { TrainersContentBody } from './TrainersContentBody';
+
+export { ActionsList } from './ActionsList';

@@ -11,23 +11,24 @@ const UPLOAD_PHOTO_MUTATION = gql`
     $file: Upload!
     $user_id: Int!
     $photo_id: Int
-    $photo_type_id: Boolean!
+    $type: PhotoType!
   ) {
     singleUpload(
       file: $file
       user_id: $user_id
       photo_id: $photo_id
-      photo_type_id: $photo_type_id
+      type: $type
     ) {
       filename
       mimetype
       encoding
       url
+      insertId
     }
   }
 `;
 
-export function EditableActionPicture({ src, user_id, photo_id }) {
+export function EditableActionPicture({ src, user_id, action, setPhotoId }) {
   //Modal
   const [show, setShow] = useState(false);
 
@@ -40,12 +41,15 @@ export function EditableActionPicture({ src, user_id, photo_id }) {
   const [uploadFileHandler] = useMutation(UPLOAD_PHOTO_MUTATION, {
     onCompleted({ singleUpload }) {
       setActionImageUrl(singleUpload.url);
+      console.log(singleUpload);
+      setPhotoId(singleUpload.insertId);
+      console.log(action);
     },
   });
 
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const inputLabel = selectedFile ? selectedFile.name : 'Custom file input';
+  const inputLabel = selectedFile ? selectedFile.name : 'Vyberte soubor';
 
   const handleFileUpload = async (selectedFile) => {
     if (!selectedFile) return;
@@ -53,8 +57,8 @@ export function EditableActionPicture({ src, user_id, photo_id }) {
       variables: {
         file: selectedFile,
         user_id: user_id,
-        photo_id: photo_id,
-        photo_type_id: 0,
+        photo_id: action.photo_id,
+        type: 'ACTION',
       },
     });
   };

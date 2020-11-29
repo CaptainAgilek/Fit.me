@@ -189,6 +189,16 @@ code {
   padding-right: 0.1rem;
 }
 
+.card {
+  width: 18rem;
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  .card {
+    width: 17rem;
+  }
+}
 .headerImg {
   position: relative;
   /* The image used */
@@ -402,11 +412,27 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
   height: 30vh;
 }
 
+.card-delete-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 26px;
+  height: 26px;
+  margin-right: 0.1rem;
+  margin-top: 0.1rem;
+  background-image: url('/images/icons/trash-alt-solid.svg');
+  background-repeat: no-repeat;
+}
+
 .action-small-icon {
   width: 18.5px;
   height: 18.5px;
   margin-right: 0.8rem;
   margin-bottom: 0.3rem;
+}
+
+.navbar-item-right-offset {
+  margin-right: 1.5rem;
 }
 
 div::-webkit-scrollbar-thumb:horizontal {

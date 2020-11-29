@@ -6,5 +6,7 @@ export { Navigation } from './Navigation';
 
 export { OrganizationProfileGallery } from './OrganizationProfileGallery';
 
-export { ActionCardForm } from './ActionCardForm';
+export { ActionCardForm } from './ActionCardForm'
 export { OrganizationProfileTrainers } from './OrganizationProfileTrainers';
+export { OrganizationProfileForm } from './OrganizationProfileForm';
+export { OrganizationProfileManagementCol } from './OrganizationProfileManagementCol';

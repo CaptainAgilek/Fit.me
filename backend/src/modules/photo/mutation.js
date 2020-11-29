@@ -1,9 +1,10 @@
 import fs, { unlink } from 'fs';
 import { writeFileOnDisk } from './util';
+import { getTypeIdByName } from './helper';
 
 export const singleUploadOrganizationPhoto = async (
   _,
-  { file, user_id, photo_id, photo_type_id },
+  { file, user_id, photo_id, type },
   { dbConnection },
 ) => {
   const { createReadStream, filename, mimetype, encoding } = await file;
@@ -14,6 +15,9 @@ export const singleUploadOrganizationPhoto = async (
 
   const fileWritten = await writeFileOnDisk(fileStream, path);
   const publicUrl = process.env.BACKEND_URL + relativePath;
+
+  const photo_type_id = await getTypeIdByName(type, dbConnection);
+
   await createOrUpdatePhoto(
     file,
     user_id,
@@ -28,7 +32,7 @@ export const singleUploadOrganizationPhoto = async (
 
 export const singleUpload = async (
   _,
-  { file, user_id, photo_id, photo_type_id },
+  { file, user_id, photo_id, type },
   { dbConnection },
 ) => {
   const { createReadStream, filename, mimetype, encoding } = await file;
@@ -38,16 +42,17 @@ export const singleUpload = async (
 
   const fileWritten = await writeFileOnDisk(fileStream, path);
   const publicUrl = process.env.BACKEND_URL + relativePath;
-  await createOrUpdatePhoto(
+
+  const insertId = await createOrUpdatePhoto(
     file,
     user_id,
     photo_id,
     publicUrl,
-    photo_type_id,
+    type,
     dbConnection,
   );
 
-  return { filename, mimetype, encoding, url: publicUrl };
+  return { filename, mimetype, encoding, url: publicUrl, insertId };
 };
 
 export const singleUploadOrganizationGalleryPhoto = async (
@@ -86,9 +91,11 @@ const createOrUpdatePhoto = async (
   user_id,
   photo_id,
   url,
-  photo_type_id,
+  type,
   dbConnection,
 ) => {
+  const photo_type_id = await getTypeIdByName(type, dbConnection);
+
   const input = {
     photo_id,
     user_id: user_id,
@@ -117,7 +124,7 @@ export const insertPhoto = async (_, { input }, { dbConnection }) => {
     ],
   );
 
-  return insertPhoto.warningStatus == 0;
+  return insertPhoto.insertId;
 };
 
 export const updatePhotoUrl = async (_, { input }, { dbConnection }) => {
@@ -127,5 +134,5 @@ export const updatePhotoUrl = async (_, { input }, { dbConnection }) => {
     [input.url, input.user_id, input.photo_id],
   );
 
-  return dbResponse.affectedRows === 1;
+  return dbResponse.insertId;
 };

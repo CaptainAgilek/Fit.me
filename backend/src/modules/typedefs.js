@@ -6,11 +6,19 @@ export const typeDefs = gql`
     TRAINER
   }
 
+  enum PhotoType {
+    PROFILE_PICTURE
+    BANNER
+    OTHER
+    ACTION
+  }
+
   type UploadedFileResponse {
     filename: String!
     mimetype: String!
     encoding: String!
     url: String!
+    insertId: Int!
   }
 
   input CreateOrUpdateActionInput {
@@ -50,7 +58,7 @@ export const typeDefs = gql`
       photo_id: Int
       user_id: Int!
       url: String!
-      photo_type_id: Int!
+      type: PhotoType!
   }
 
   input PhotoInput {
@@ -58,13 +66,14 @@ export const typeDefs = gql`
     description: String
     url: String!
     gallery_name: String
-    photo_type_id: Int!
+    type: PhotoType!
   }
 
   input UpdatePhotoGalleryNameInput{
     user_id: Int!
     photo_id: Int!
     gallery_name: String
+
   }
 
   type Action {
@@ -76,7 +85,7 @@ export const typeDefs = gql`
     trainer_id: Int
     max_capacity: Int!
     name: String!
-    photo_id: Int!
+    photo_id: Int
     photo: Photo
   }
 
@@ -86,7 +95,7 @@ export const typeDefs = gql`
     description: String
     url: String!
     gallery_name: String
-    photo_type_id: Int!
+    type: PhotoType!
   }
 
   type Benefit {
@@ -131,13 +140,16 @@ export const typeDefs = gql`
   type Organization{
     user_id: Int!
     organization_name: String!
-    address: String
     username: String
+    phone: String
+    trainers: [Trainer]!
     user: User!
+    places: [Place]!
+    acceptedBenefits: [Benefit]!
     profile_photo: Photo
+    banner_photo: Photo
     photo_gallery: [Photo]
     ratings: [Rating]
-    trainers: [Trainer]
   }
 
   type Rating {
@@ -156,12 +168,22 @@ export const typeDefs = gql`
     instagram: String
     description: String
     profile_photo: Photo
+  }
 
+  input OrganizationInput {
+    user_id: Int!
+    organization_name: String!
+    username: String!
+    email: String!
+    phone: String
+    place: CreateOrUpdatePlaceInput
+    acceptingMultisport: Boolean!
+    acceptingActivePass: Boolean!
   }
   
 
   type Query {
-    actionsForPlace(place_id: Int!): [Action]!
+    actionsForPlace(place_id: Int): [Action]!
     benefitsForUser(user_id: Int!): [Benefit]!
     users: [User]!
     user(email: String!): User
@@ -189,6 +211,7 @@ export const typeDefs = gql`
 
   type Mutation {
     insertOrRemoveBenefit(user_id: Int!, benefit_id: Int!, hasBenefit: Boolean!): Boolean!
+    deleteAction(action_id: Int!): Boolean!
     createOrUpdateAction(input: CreateOrUpdateActionInput!): Boolean!
     insertAction(input: CreateOrUpdateActionInput!): Boolean!
     updateAction(input: CreateOrUpdateActionInput!): Boolean!
@@ -202,10 +225,12 @@ export const typeDefs = gql`
     removeOrganizationTrainer(organization_id: Int!, trainer_id: Int!): Boolean!
     addOrganizationTrainer(organization_id: Int!, trainer_id: Int!): Boolean!
     insertPhoto(input: PhotoInput!): Boolean!
-    singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, photo_type_id: Int!): UploadedFileResponse!
-    singleUpload(file: Upload!, user_id: Int!, photo_id: Int, photo_type_id: Int!): UploadedFileResponse!
-    singleUploadOrganizationGalleryPhoto(file: Upload!, photo_id: Int, user_id: Int!, description: String, photo_type_id: Int!): UploadedFileResponse!
+    singleUploadOrganizationGalleryPhoto(file: Upload!, photo_id: Int, user_id: Int!, description: String, type: PhotoType!): UploadedFileResponse!
+    singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, type: PhotoType!): UploadedFileResponse!
+    singleUpload(file: Upload!, user_id: Int!, photo_id: Int, type: PhotoType!): UploadedFileResponse!
+
     updateSportsman(input: SportsmanInput!): Boolean!
+    updateOrganization(input: OrganizationInput!): Boolean!
     updateUserEmail(email: String!, user_id: Int!): Boolean!
     deleteUser(user_id: Int!): Boolean!
     assignRoleToUser(name: String!, user_id: Int!): Boolean!

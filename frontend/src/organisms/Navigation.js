@@ -18,7 +18,6 @@ export function Navigation() {
   const history = useHistory();
 
   const homeLink = route.home();
-  const profileLink = route.userProfile();
 
   const [showSignUp, setSignUpVisible] = useState(false);
   const [showSignIn, setSignInVisible] = useState(false);
@@ -27,8 +26,15 @@ export function Navigation() {
 
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="light" variant="light" className="navbar">
-        <Navbar.Brand as={Link} to={homeLink}>Fit.me</Navbar.Brand>
+      <Navbar collapseOnSelect expand="lg" className="navbar">
+        <Navbar.Brand as={Link} to={homeLink}>
+          <img
+            width="65%"
+            height="auto"
+            alt="Fit.Me logo"
+            src="/images/fitmeLogo.png"
+          />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
@@ -36,23 +42,38 @@ export function Navigation() {
           </Nav>
           {user ? (
             <Nav>
-              <Nav.Link as={Link} to={profileLink}>Profil</Nav.Link>
-              <Nav.Link onClick={() => {
-                signout();
-                history.push(route.home());
-                window.location.reload();
-              }}
+
+              <Nav.Link
+                as={Link}
+                to={user.roles.some(role => role.name === "ROLE_SPORTSMAN") ? route.userProfile() : route.organizationProfile()}
+                className="navbar-item-right-offset"
+              >
+                Profil
+              </Nav.Link>
+              <Button
+                variant="outline-warning"
+                onClick={() => {
+                  signout();
+                  history.push(route.home());
+                  window.location.reload();
+                }}
               >
                 Odhlásit se
-              </Nav.Link>
+              </Button>
             </Nav>
           ) : (
             <Nav>
-              <Button variant="light" onClick={() => setSignInVisible(true)}>PŘIHLÁŠENÍ</Button>
+              <Button
+                variant="outline-success"
+                onClick={() => setSignInVisible(true)}
+                className="navbar-item-right-offset"
+              >
+                PŘIHLÁŠENÍ
+              </Button>
               {showSignIn ? <SignInPage onCloseMethod={setSignInVisible} showSignIn={showSignIn}
                                         setShowSignUp={setSignUpVisible}
                                         setShowForgotten={setForgottenVisible} /> : null}
-              <Button variant="light" onClick={() => setSignUpVisible(true)}>REGISTRACE</Button>
+              <Button variant="success" onClick={() => setSignUpVisible(true)}>REGISTRACE</Button>
               {showSignUp ? <SignUpPage onCloseMethod={setSignUpVisible} showSignUp={showSignUp}
                                         setShowSignIn={setSignInVisible} /> : null}
               {showForgotten ?

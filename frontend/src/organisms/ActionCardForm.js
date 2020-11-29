@@ -17,6 +17,8 @@ export function ActionCardForm({
   handleSubmit,
   user_id,
   photo_id,
+  setPhotoId,
+  deleteActionRequest,
 }) {
   return (
     <Formik
@@ -26,12 +28,24 @@ export function ActionCardForm({
     >
       {({ errors, touched, handleSubmit, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
-          <div className="card" style={{ width: '18rem' }}>
-            <EditableActionPicture src={img} user_id={user_id} photo_id={photo_id}/>
-            <div
-              className="text-center"
-              style={{ backgroundColor: '#dedede', height: '50px' }}
-            >
+          <div className="card">
+            {action.action_id && (
+              <div
+                className="card-delete-icon"
+                onClick={() =>
+                  deleteActionRequest({
+                    variables: { action_id: action.action_id },
+                  })
+                }
+              ></div>
+            )}
+            <EditableActionPicture
+              src={img}
+              user_id={user_id}
+              action={action}
+              setPhotoId={setPhotoId}
+            />
+            <div className="text-center" style={{ backgroundColor: '#dedede' }}>
               {editable && (
                 <Field
                   name="name"
@@ -74,7 +88,7 @@ export function ActionCardForm({
                     className="action-small-icon"
                     src="/images/icons/personal.svg"
                   />
-                  {editable && (
+                  {options.length > 0 && editable && (
                     <FormikSelectField
                       name="trainer"
                       id="trainer"
@@ -82,7 +96,12 @@ export function ActionCardForm({
                       className="borderNone"
                     />
                   )}
-                  {!editable && action.trainer_id}
+                  {options.length === 0 && <>V organizaci není trenér</>}
+                  {options.length > 0 &&
+                    !editable &&
+                    options.find(
+                      (option) => option.value === `${action.trainer_id}`,
+                    ).label}
                 </div>
                 <div>
                   <img
@@ -114,15 +133,18 @@ export function ActionCardForm({
                   {!editable && action.max_capacity}
                 </div>
 
-                <Button
-                  className="mt-1"
-                  size="lg"
-                  block
-                  variant="success"
-                  type="submit"
-                >
-                  ULOŽIT
-                </Button>
+                {editable && (
+                  <Button
+                    className="mt-1"
+                    size="lg"
+                    block
+                    variant="success"
+                    type="submit"
+                    disabled={options.length === 0}
+                  >
+                    ULOŽIT
+                  </Button>
+                )}
               </div>
             </div>
           </div>

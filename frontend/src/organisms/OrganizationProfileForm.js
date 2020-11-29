@@ -7,13 +7,12 @@ import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 
-import { UserProfileActionButton, FormikSwitch } from 'src/atoms/';
+import { FormikSwitch, UserProfileActionButton } from 'src/atoms/';
 import { FormikGroup } from 'src/molecules/';
 
 const schema = yup.object({
-  firstName: yup.string().required(),
-  lastName: yup.string().required(),
-  username: yup.string().min(3).required(),
+  name: yup.string().required(),
+  username: yup.string().nullable(),
   email: yup.string().email().required(),
   phone: yup.string()
     .nullable()
@@ -32,23 +31,24 @@ const schema = yup.object({
       'Musí obsahovat 5 čísel bez mezer'
     )
   ,
-  hasMultisport: yup.bool(),
-  hasActivePass: yup.bool(),
+  acceptMultisport: yup.bool(),
+  acceptActivePass: yup.bool(),
 });
 
-export function UserProfileForm({ user, updateUserRequest }) {
+export function OrganizationProfileForm({ organization, updateOrganizationRequest }) {
+
+  console.log("org", organization);
   const initialValues = {
-    firstName: user.firstname,
-    lastName: user.lastname,
-    username: user.username,
-    email: user.user.email,
-    phone: user.phone,
-    street: user.places[0] ? user.places[0].street : "",
-    city: user.places[0] ? user.places[0].city : "",
-    country: user.places[0] ? user.places[0].country : "",
-    zip: user.places[0] ? user.places[0].zip : "",
-    hasMultisport: user.benefits.some(benefit => benefit.name === "Multisport"),
-    hasActivePass: user.benefits.some(benefit => benefit.name === "Active Pass"),
+    name: organization.organization_name,
+    username: organization.username,
+    email: organization.user.email,
+    phone: organization.phone || "",
+    street: organization.places[0] ? organization.places[0].street : "",
+    city: organization.places[0] ? organization.places[0].city : "",
+    country: organization.places[0] ? organization.places[0].country : "",
+    zip: organization.places[0] ? organization.places[0].zip : "",
+    acceptMultisport: organization.acceptedBenefits.some(benefit => benefit.name === "Multisport"),
+    acceptActivePass: organization.acceptedBenefits.some(benefit => benefit.name === "Active Pass"),
   };
 
   return (
@@ -58,26 +58,25 @@ export function UserProfileForm({ user, updateUserRequest }) {
           validationSchema={schema}
           onSubmit={(values) => {
             const profile = {
-              user_id: user.user_id,
-              firstname: values.firstName,
-              lastname: values.lastName,
+              user_id: organization.user_id,
+              organization_name: values.name,
               username: values.username,
               email: values.email,
               phone: values.phone ? values.phone : null,
               place: {
-                place_id: user.places[0] ? user.places[0].place_id : null,
-                user_id: user.user_id,
+                place_id: organization.places[0] ? organization.places[0].place_id : null,
+                user_id: organization.user_id,
                 city: values.city,
                 street: values.street,
                 zip: parseInt(values.zip),
                 country: values.country,
               },
-              hasMultisport: values.hasMultisport,
-              hasActivePass: values.hasActivePass
+              acceptingMultisport: values.acceptMultisport,
+              acceptingActivePass: values.acceptActivePass
             };
 
-            console.log('updating profile', profile);
-            updateUserRequest({ variables: { input: profile } });
+            console.log('updating profile', values);
+            updateOrganizationRequest({ variables: { input: profile } });
           }}
           initialValues={initialValues}
           enableReinitialize
@@ -92,25 +91,15 @@ export function UserProfileForm({ user, updateUserRequest }) {
             <Form noValidate onSubmit={handleSubmit}>
               <Form.Row>
                 <FormikGroup
-                   name="firstName"
-                   label="Jméno"
-                   id="userProfileFirstnameValidation"
-                   md="6"
+                   name="name"
+                   label="Jméno Sportoviště"
+                   id="orgProfileNameValidation"
                 />
 
-                <FormikGroup
-                   name="lastName"
-                   label="Příjmení"
-                   id="userProfileLastnameValidation"
-                   md="6"
-                />
-              </Form.Row>
-
-              <Form.Row>
                 <FormikGroup
                    name="username"
                    label="Uživatelské jméno"
-                   id="userProfileUsernameValidation"
+                   id="orgProfileUsernameValidation"
                 />
               </Form.Row>
 
@@ -118,14 +107,14 @@ export function UserProfileForm({ user, updateUserRequest }) {
                 <FormikGroup
                    name="email"
                    label="Email"
-                   id="userProfileEmailValidation"
+                   id="orgProfileEmailValidation"
                    md="6"
                 />
 
                 <FormikGroup
                    name="phone"
                    label="Telefon"
-                   id="userProfileMobileValidation"
+                   id="orgProfileMobileValidation"
                    md="6"
                 />
               </Form.Row>
@@ -134,7 +123,7 @@ export function UserProfileForm({ user, updateUserRequest }) {
                 <FormikGroup
                    name="street"
                    label="Ulice a čp."
-                   id="userProfileAddressStreetValidation"
+                   id="orgProfileAddressStreetValidation"
                 />
               </Form.Row>
 
@@ -142,19 +131,19 @@ export function UserProfileForm({ user, updateUserRequest }) {
                 <FormikGroup
                    name="city"
                    label="Město"
-                   id="userProfileAddressCityValidation"
+                   id="orgProfileAddressCityValidation"
                    md="6"
                 />
                 <FormikGroup
                    name="country"
                    label="Stát"
-                   id="userProfileAddressCountryValidation"
+                   id="orgProfileAddressCountryValidation"
                    md="3"
                 />
                 <FormikGroup
                    name="zip"
                    label="PSČ"
-                   id="userProfileAddressZipValidation"
+                   id="orgProfileAddressZipValidation"
                    type="integer"
                    md="3"
                 />
@@ -163,17 +152,18 @@ export function UserProfileForm({ user, updateUserRequest }) {
               <Form.Row>
                 <Form.Group as={Col} md="6" sm="6">
                   <FormikSwitch
-                    name="hasMultisport"
+                    name="acceptMultisport"
                     label="Multisport card"
-                    id="userProfileHasMultisportValidation"
-                    checked={values.hasMultisport}
+                    id="orgProfileAcceptMultisportValidation"
+                    checked={values.acceptMultisport}
                   />
 
                   <FormikSwitch
-                    name="hasActivePass"
+                    name="acceptActivePass"
                     label="Active Pass"
-                    id="userProfileHasActivePassValidation"
-                    checked={values.hasActivePass}
+                    id="orgProfileAcceptActivePassValidation"
+                    checked={values.acceptActivePass}
+                    variant="warning"
                   />
                 </Form.Group>
 
