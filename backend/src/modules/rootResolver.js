@@ -16,7 +16,6 @@ import { mutations as PlaceMutations } from './place';
 import { mutations as OrganizationMutations } from './organization';
 import { sportsman } from './sportsman/query';
 import { mutations as ActionMutations } from './action';
-import { mutations as OrganizationMutations } from './organization';
 import { getTypeIdByName } from './photo/helper';
 
 
@@ -135,7 +134,7 @@ export default {
         where organization_trainer.organization_id = ?`,
         [parent.user_id],
       );
-    }
+    },
     async places(parent, _, { dbConnection }) {
       return await dbConnection.query(
         `SELECT place_id, user_id, city, street, zip, country FROM place

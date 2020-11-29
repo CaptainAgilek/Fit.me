@@ -24,7 +24,6 @@ const RATINGS_QUERY = gql`
 
 export function TestimonialBoxGrid() {
   const { user } = useAuth();
-  /* RATINGS TEST */
   const ratingsFetcher = useQuery(RATINGS_QUERY, {
     variables: { id: user.user_id },
   });
@@ -42,7 +41,7 @@ export function TestimonialBoxGrid() {
       {ratingsData &&
         ratingsData.organization.ratings.map((x) => (
           <TestimonialBox
-            img={x.sportsman.profile_photo.url}
+            img={x.sportsman.profile_photo && x.sportsman.profile_photo.url}
             name={x.sportsman.firstname + ' ' + x.sportsman.lastname}
             rating={x.stars + '/5'}
           >

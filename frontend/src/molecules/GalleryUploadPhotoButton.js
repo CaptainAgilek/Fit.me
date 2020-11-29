@@ -11,14 +11,14 @@ const UPLOAD_PHOTO_MUTATION = gql`
     $photo_id: Int
     $user_id: Int!
     $description: String
-    $photo_type_id: Int!
+    $type: PhotoType!
   ) {
     singleUploadOrganizationGalleryPhoto(
       file: $file
       photo_id: $photo_id
       user_id: $user_id
       description: $description
-      photo_type_id: $photo_type_id
+      type: $type
     ) {
       filename
       mimetype
@@ -51,7 +51,7 @@ export function GalleryUploadPhotoButton({
         user_id: user_id,
         photo_id: photo_id,
         description: null,
-        photo_type_id: 0,
+        type: 'OTHER',
       },
     });
   };

@@ -19,16 +19,12 @@ const GALLERY_REMOVE_PHOTO_MUTATION = gql`
   }
 `;
 
-export function OrganizationProfileGallery({
-  user,
-  photoGallery,
-  galleryFetcher,
-}) {
+export function OrganizationProfileGallery({ photoGallery, profileFetcher }) {
   const [removeGalleryPhotoHandler] = useMutation(
     GALLERY_REMOVE_PHOTO_MUTATION,
     {
       onCompleted: () => {
-        galleryFetcher.refetch();
+        profileFetcher.refetch();
       },
     },
   );
@@ -44,7 +40,7 @@ export function OrganizationProfileGallery({
                   <Row className="organization-profile-gallery-card-header">
                     <GalleryPhotoTitle photo={x} />
                     <GalleryPhotoRemoveButton
-                      user={user}
+                      user={profileFetcher.data.organization}
                       photo={x}
                       removeGalleryPhotoHandler={removeGalleryPhotoHandler}
                       photoName={x.url
@@ -69,10 +65,10 @@ export function OrganizationProfileGallery({
         <Row className="d-flex align-items-center">
           <GalleryCounter>{photoGallery && photoGallery.length}</GalleryCounter>
           <Col lg={2}>
-            <GalleryUploadPhotoButton 
-              user_id={user.user_id}
+            <GalleryUploadPhotoButton
+              user_id={profileFetcher.data.organization.user_id}
               photo_id={undefined}
-              refetchGallery={galleryFetcher.refetch}
+              refetchGallery={profileFetcher.refetch}
             ></GalleryUploadPhotoButton>
           </Col>
         </Row>

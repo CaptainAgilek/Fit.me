@@ -57,7 +57,7 @@ export const singleUpload = async (
 
 export const singleUploadOrganizationGalleryPhoto = async (
   _, 
-  { file, photo_id, user_id, description, photo_type_id }, 
+  { file, photo_id, user_id, description, type }, 
   { dbConnection }, ) => {
   const { createReadStream, filename, mimetype, encoding } = await file;
   const fileStream = createReadStream();
@@ -69,8 +69,9 @@ export const singleUploadOrganizationGalleryPhoto = async (
   const publicUrl = process.env.BACKEND_URL + relativePath;
   const gallery_name = "DEFAULT";
 
-  const input = { photo_id, user_id: user_id, description: description, url: publicUrl, gallery_name: gallery_name, photo_type_id: photo_type_id };
-
+  const photo_type_id = await getTypeIdByName(type, dbConnection);
+  const input = { photo_id, user_id: user_id, description: description, url: publicUrl, gallery_name: gallery_name, type: photo_type_id };
+  
   await insertPhoto(null, { input }, { dbConnection });
 
   return { filename, mimetype, encoding, url: publicUrl };
@@ -120,7 +121,7 @@ export const insertPhoto = async (_, { input }, { dbConnection }) => {
       input.description,
       input.url,
       input.gallery_name,
-      input.photo_type_id,
+      input.type,
     ],
   );
 
