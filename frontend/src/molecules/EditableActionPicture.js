@@ -65,7 +65,7 @@ export function EditableActionPicture({ src, user_id, action, setPhotoId }) {
 
   return (
     <>
-      <img className="card-img-top" src={actionImageUrl} onClick={handleShow} />
+      <img className="card-img-top" src={actionImageUrl} onClick={handleShow}/>
 
       <PopUpModal
         show={show}
