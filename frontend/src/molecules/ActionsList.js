@@ -40,7 +40,7 @@ export function ActionsList({
           <ListGroup.Item
             key={action.action_id}
             className="borderNone"
-            style={{ paddingLeft: '0.1rem' }}
+            style={{ paddingLeft: '0.01rem' }}
           >
             <ActionCard
               key={action.action_id}

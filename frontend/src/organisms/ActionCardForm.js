@@ -27,17 +27,15 @@ export function ActionCardForm({
     >
       {({ errors, touched, handleSubmit, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
-          <div className="card" style={{ width: '18rem' }}>
+          <div className="card">
+            <div className="card-delete-icon"></div>
             <EditableActionPicture
               src={img}
               user_id={user_id}
               action={action}
               setPhotoId={setPhotoId}
             />
-            <div
-              className="text-center"
-              style={{ backgroundColor: '#dedede', height: '50px' }}
-            >
+            <div className="text-center" style={{ backgroundColor: '#dedede' }}>
               {editable && (
                 <Field
                   name="name"
