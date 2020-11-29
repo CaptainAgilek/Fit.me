@@ -36,6 +36,33 @@ const ORGANIZATION_PROFILE_QUERY = gql`
         user_id
         firstname
         lastname
+        facebook
+        instagram
+        description
+        profile_photo {
+          url
+        }
+      }
+      ratings {
+        id
+        sportsman {
+          firstname
+          lastname
+          profile_photo {
+            url
+          }
+        }
+        text
+        stars
+      }
+      organization_name
+      user {
+        email
+      }
+      photo_gallery {
+        url
+        photo_id
+        gallery_name
       }
       user {
         email
@@ -67,44 +94,68 @@ const UPDATE_ORGANIZATION_PROFILE_MUTATION = gql`
 `;
 
 const CHANGE_PASSWORD_MUTATION = gql`
-  mutation changePassword($email: String!, $oldPassword: String!, $newPassword: String!, $newPasswordAgain: String!) {
-    changePassword(email: $email, oldPassword: $oldPassword, newPassword: $newPassword, newPasswordAgain: $newPasswordAgain)
+  mutation changePassword(
+    $email: String!
+    $oldPassword: String!
+    $newPassword: String!
+    $newPasswordAgain: String!
+  ) {
+    changePassword(
+      email: $email
+      oldPassword: $oldPassword
+      newPassword: $newPassword
+      newPasswordAgain: $newPasswordAgain
+    )
   }
 `;
 
 export function OrganizationProfilePage() {
   const { user } = useAuth();
 
-
   const profileFetcher = useQuery(ORGANIZATION_PROFILE_QUERY, {
     variables: { user_id: user.user_id },
     onCompleted: () => {
-     actionsState.refetch( {place_id: (profileFetcher.data && profileFetcher.data.organization.places[0].place_id)});
+      actionsState.refetch({
+        place_id:
+          profileFetcher.data &&
+          profileFetcher.data.organization.places[0].place_id,
+      });
     },
   });
 
   const actionsState = useQuery(ACTIONS_QUERY, {
-    variables: { place_id: (profileFetcher.data && profileFetcher.data.organization.places[0].place_id) || null },
+    variables: {
+      place_id:
+        (profileFetcher.data &&
+          profileFetcher.data.organization.places[0].place_id) ||
+        null,
+    },
+  });
+  const [
+    updateOrganizationRequest,
+    updateOrganizationRequestState,
+  ] = useMutation(UPDATE_ORGANIZATION_PROFILE_MUTATION, {
+    onCompleted: () => {
+      profileFetcher.refetch();
+    },
   });
 
-  const [updateOrganizationRequest, updateOrganizationRequestState] = useMutation(
-    UPDATE_ORGANIZATION_PROFILE_MUTATION,
-    {
-      onCompleted: () => {
-        profileFetcher.refetch();
-      },
-    },
+  const [changePasswordRequest, changePasswordRequestState] = useMutation(
+    CHANGE_PASSWORD_MUTATION,
   );
-
-  const [changePasswordRequest, changePasswordRequestState] = useMutation(CHANGE_PASSWORD_MUTATION);
 
   return (
     <>
       <OrganizationProfileTemplate
         actionsState={actionsState}
+        profileFetcher={profileFetcher}
         organizationData={profileFetcher.data}
         loading={profileFetcher.loading}
-        error={profileFetcher.error || updateOrganizationRequestState.error || changePasswordRequestState.error}
+        error={
+          profileFetcher.error ||
+          updateOrganizationRequestState.error ||
+          changePasswordRequestState.error
+        }
         updateOrganizationRequest={updateOrganizationRequest}
         changePasswordRequest={changePasswordRequest}
       />

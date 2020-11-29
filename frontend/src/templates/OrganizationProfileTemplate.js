@@ -14,11 +14,15 @@ import {
   OrganizationMenu,
   ActionsList,
   ErrorBanner,
+  TestimonialBoxCol,
+  ActionCard,
 } from 'src/molecules/';
 import {
   Navigation,
   OrganizationProfileManagementCol,
   OrganizationProfileForm,
+  OrganizationProfileTrainers,
+  OrganizationProfileGallery,
 } from 'src/organisms/';
 
 export function OrganizationProfileTemplate({
@@ -28,6 +32,7 @@ export function OrganizationProfileTemplate({
   error,
   updateOrganizationRequest,
   changePasswordRequest,
+  profileFetcher,
 }) {
   const [actions, setActions] = useState(
     (actionsState.data && actionsState.data.actionsForPlace) || [],
@@ -43,8 +48,14 @@ export function OrganizationProfileTemplate({
       {loading && <Loading />}
       {error && <ErrorBanner message={error.message} />}
       <div id="alerts" className="fixed-top mt-1">
-        {<SuccessAlert headingText={actionSuccess} setActionSuccess={setActionSuccess}/>}
+        {
+          <SuccessAlert
+            headingText={actionSuccess}
+            setActionSuccess={setActionSuccess}
+          />
+        }
       </div>
+
       {organizationData && actionsState.data && (
         <>
           <div className="headerImg">
@@ -70,6 +81,29 @@ export function OrganizationProfileTemplate({
                   setActionSuccess={setActionSuccess}
                 />
               </Row>
+              {organizationData && (
+                <Container className="organization-profile-section-container">
+                  <h1 id="treneri">Trenéři</h1>
+                  <OrganizationProfileTrainers
+                    organizationState={profileFetcher}
+                  ></OrganizationProfileTrainers>
+                </Container>
+              )}
+              {organizationData && (
+                <Container className="organization-profile-section-container">
+                  <h1 id="galerie">Galerie</h1>
+                  <OrganizationProfileGallery
+                    photoGallery={organizationData.organization.photo_gallery}
+                    profileFetcher={profileFetcher}
+                  />
+                </Container>
+              )}
+              {organizationData && (
+                <Container className="organization-profile-section-container">
+                  <h1 id="hodnoceni">Hodnocení</h1>
+                  <TestimonialBoxCol />
+                </Container>
+              )}
 
               <Row className="justify-content-md-center">
                 <Col sm="12" md="3">

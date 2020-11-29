@@ -3,53 +3,45 @@ import { gql, useMutation } from '@apollo/client';
 
 import { Form } from 'react-bootstrap';
 
-import { AvatarPicture } from 'src/atoms/';
-import { PopUpModal } from 'src/molecules/';
+import { GenericPopUp } from 'src/atoms/';
 
 const UPLOAD_PHOTO_MUTATION = gql`
-  mutation SingleUpload(
+  mutation SingleUploadOrganizationGalleryPhoto(
     $file: Upload!
-    $user_id: Int!
     $photo_id: Int
+    $user_id: Int!
+    $description: String
     $type: PhotoType!
   ) {
-    singleUpload(
+    singleUploadOrganizationGalleryPhoto(
       file: $file
-      user_id: $user_id
       photo_id: $photo_id
+      user_id: $user_id
+      description: $description
       type: $type
     ) {
       filename
       mimetype
       encoding
       url
-      insertId
     }
   }
 `;
 
-export function EditableActionPicture({ src, user_id, action, setPhotoId }) {
-  //Modal
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-  //Modal
-
-  const [actionImageUrl, setActionImageUrl] = useState(src);
-
+export function GalleryUploadPhotoButton({
+  user_id,
+  photo_id,
+  refetchGallery,
+}) {
   const [uploadFileHandler] = useMutation(UPLOAD_PHOTO_MUTATION, {
-    onCompleted({ singleUpload }) {
-      setActionImageUrl(singleUpload.url);
-      console.log(singleUpload);
-      setPhotoId(singleUpload.insertId);
-      console.log(action);
+    onCompleted({ upload }) {
+      refetchGallery();
     },
   });
 
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const inputLabel = selectedFile ? selectedFile.name : 'Vyberte soubor';
+  const inputLabel = selectedFile ? selectedFile.name : 'Custom file input';
 
   const handleFileUpload = async (selectedFile) => {
     if (!selectedFile) return;
@@ -57,19 +49,18 @@ export function EditableActionPicture({ src, user_id, action, setPhotoId }) {
       variables: {
         file: selectedFile,
         user_id: user_id,
-        photo_id: action.photo_id,
-        type: 'ACTION',
+        photo_id: photo_id,
+        description: null,
+        type: 'OTHER',
       },
     });
   };
 
   return (
     <>
-      <img className="card-img-top" src={actionImageUrl} onClick={handleShow} />
-
-      <PopUpModal
-        show={show}
-        handleClose={handleClose}
+      <GenericPopUp
+        triggerVariant="success"
+        triggerText="PŘIDAT"
         modalTitle="Nahrát nový obrázek"
         footerLeftVariant="outline-secondary"
         footerLeftText="Zpět"
@@ -94,7 +85,7 @@ export function EditableActionPicture({ src, user_id, action, setPhotoId }) {
             custom
           />
         </Form>
-      </PopUpModal>
+      </GenericPopUp>
     </>
   );
 }

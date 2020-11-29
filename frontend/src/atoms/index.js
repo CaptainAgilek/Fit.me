@@ -12,8 +12,14 @@ export { Slideshow } from './Slideshow';
 export { CategoryBox } from './CategoryBox';
 export { UserReservation } from './UserReservation';
 export { OrganizationMenuButton } from './OrganizationMenuButton';
+
+export { GalleryCounter } from './GalleryCounter';
+export { GalleryPhotoTitle } from './GalleryPhotoTitle';
+export { OrganizationProfileSectionHeading } from './OrganizationProfileSectionHeading';
 export { CustomDatePickerField } from './CustomDatePickerField';
 export { CustomTimePickerField } from './CustomTimePickerField';
 export { FormikSelectField } from './FormikSelectField';
+export { TestimonialBox } from './TestimonialBox';
+export { TrainersSocialColumn } from './TrainersSocialColumn';
 export { DateFilter } from './DateFilter';
 export { SuccessAlert } from './SuccessAlert';
