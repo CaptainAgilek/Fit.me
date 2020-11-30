@@ -5,7 +5,7 @@ import { Col, Row } from 'react-bootstrap';
 export function TrainersTopRow({ organizationState }) {
   return (
     <Row className="d-flex align-items-center">
-      <Col xs={3}>
+      <Col xs={8} sm={6} md={4} lg={3}>
         {organizationState.data && (
           <TrainersPopUp
             size="sm"
