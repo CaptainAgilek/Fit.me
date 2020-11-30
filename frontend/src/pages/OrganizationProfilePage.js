@@ -24,6 +24,18 @@ const ACTIONS_QUERY = gql`
   }
 `;
 
+const SERVICES_QUERY = gql`
+  query servicesForPlace($place_id: Int!) {
+    servicesForPlace(place_id: $place_id) {
+      service_id
+      place_id
+      name
+      description
+      photo_id
+    }
+  }
+`;
+
 const ORGANIZATION_PROFILE_QUERY = gql`
   query getOrganization($user_id: Int!) {
     organization(user_id: $user_id) {
@@ -80,7 +92,11 @@ export function OrganizationProfilePage() {
   });
 
   const actionsState = useQuery(ACTIONS_QUERY, {
-    variables: { place_id: profileFetcher.data &&  profileFetcher.data.organization.places[0].place_id },
+    variables: { place_id: profileFetcher.data && profileFetcher.data.organization.places[0].place_id },
+  });
+
+  const servicesState = useQuery(SERVICES_QUERY, {
+    variables: { place_id: profileFetcher.data && profileFetcher.data.organization.places[0].place_id},
   });
 
   const [updateOrganizationRequest, updateOrganizationRequestState] = useMutation(
@@ -98,6 +114,7 @@ export function OrganizationProfilePage() {
     <>
       <OrganizationProfileTemplate
         actionsState={actionsState}
+        servicesState={servicesState}
         organizationData={profileFetcher.data}
         loading={profileFetcher.loading}
         error={profileFetcher.error}

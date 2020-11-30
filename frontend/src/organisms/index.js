@@ -6,3 +6,4 @@ export { Navigation } from './Navigation';
 export { ActionCardForm } from './ActionCardForm';
 export { OrganizationProfileForm } from './OrganizationProfileForm';
 export { OrganizationProfileManagementCol } from './OrganizationProfileManagementCol';
+export { ServiceCardForm } from './ServiceCardForm';
