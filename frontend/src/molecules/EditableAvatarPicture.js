@@ -10,13 +10,13 @@ const UPLOAD_PHOTO_MUTATION = gql`
     $file: Upload!
     $user_id: Int!
     $photo_id: Int
-    $photo_type_id: Boolean!
+    $type: PhotoType!
   ) {
     singleUpload(
       file: $file
       user_id: $user_id
       photo_id: $photo_id
-      photo_type_id: $photo_type_id
+      type: $type
     ) {
       filename
       mimetype
@@ -46,7 +46,7 @@ export function EditableAvatarPicture({ src, alt, user_id, photo_id }) {
         file: selectedFile,
         user_id: user_id,
         photo_id: photo_id,
-        photo_type_id: 1,
+        type: 'PROFILE_PICTURE',
       },
     });
   };
