@@ -81,6 +81,10 @@ export function TrainersPopUp({
 
   console.log('trainerpopup orgid:' + organizationId);
 
+  const arrayEmpty = (arr) => {
+    return !(Array.isArray(arr) && arr.length);
+  };
+
   return (
     <>
       <Button
@@ -99,6 +103,9 @@ export function TrainersPopUp({
         <Modal.Body>
           <Container>
             <ListGroup>
+              {trainersFetcher.data &&
+                arrayEmpty(trainersFetcher.data.trainersNotEmployed) &&
+                'Nejsou dostupní žádní další trenéři.'}
               {
                 /* 
                 MUTATION FOR ADDING TRAINER

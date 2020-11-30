@@ -32,6 +32,7 @@ export function GalleryUploadPhotoButton({
   user_id,
   photo_id,
   refetchGallery,
+  actionButtonClass,
 }) {
   const [uploadFileHandler] = useMutation(UPLOAD_PHOTO_MUTATION, {
     onCompleted({ upload }) {
@@ -66,6 +67,7 @@ export function GalleryUploadPhotoButton({
         footerLeftText="Zpět"
         footerRightVariant="outline-primary"
         footerRightText="Nahrát"
+        actionButtonClass={actionButtonClass}
         rightButtonOnClick={() => handleFileUpload(selectedFile)}
       >
         <Form>
