@@ -191,7 +191,7 @@ export default {
       return (await dbConnection.query(
           `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
           JOIN user USING (user_id)
-          WHERE user_id = ? AND photo_type_id=0`,
+          WHERE user_id = ? AND photo_type_id=1`,
           [parent.user_id],
         )
       )[0];
