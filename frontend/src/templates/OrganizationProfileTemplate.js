@@ -30,7 +30,8 @@ function useActionsFilter(data) {
   date.setHours(0);
   date.setMinutes(0);
   date.setSeconds(0);
-
+  date.setDate(date.getDate() + 1);
+  
   const weekAgoDate = new Date();
   weekAgoDate.setHours(0);
   weekAgoDate.setMinutes(0);
