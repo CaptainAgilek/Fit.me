@@ -73,14 +73,14 @@ export function ActionCard({
     value: `${trainer.user_id}`,
     label: trainer.firstname + ' ' + trainer.lastname,
   }));
-  console.log(options);
+
   if (action) {
     const [hours, minutes, seconds] = action.time.split(':');
     time.setHours(hours);
     time.setMinutes(minutes);
     time.setSeconds(seconds);
   }
-  console.log("ac", action);
+
   const initialValues = {
     name: action.name,
     date: parseInt(action.date),

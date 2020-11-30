@@ -18,6 +18,7 @@ export { GalleryUploadPhotoButton } from './GalleryUploadPhotoButton';
 export { GalleryPhotoRemoveButton } from './GalleryPhotoRemoveButton';
 
 export { ActionCard } from './ActionCard';
+export { ActionDeleteButton } from './ActionDeleteButton';
 
 export { TrainersPopUp } from './TrainersPopUp';
 export { TestimonialBoxCol } from './TestimonialBoxCol';
