@@ -191,7 +191,6 @@ code {
 
 .card {
   width: 18rem;
-  position: relative;
 }
 
 @media (max-width: 767px) {

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Formik, Field } from 'formik';
-import { Form, Button, Row, Badge } from 'react-bootstrap';
+import { Form, Button, Row, Badge, Col } from 'react-bootstrap';
 import {
   CustomDatePickerField,
   CustomTimePickerField,
   FormikSelectField,
 } from 'src/atoms/';
-import { EditableActionPicture } from 'src/molecules/';
+import { EditableActionPicture, ActionDeleteButton } from 'src/molecules/';
 
 export function ActionCardForm({
   initialValues,
@@ -29,16 +29,6 @@ export function ActionCardForm({
       {({ errors, touched, handleSubmit, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
           <div className="card">
-            {action.action_id && (
-              <div
-                className="card-delete-icon"
-                onClick={() =>
-                  deleteActionRequest({
-                    variables: { action_id: action.action_id },
-                  })
-                }
-              ></div>
-            )}
             <EditableActionPicture
               src={img}
               user_id={user_id}
@@ -133,7 +123,9 @@ export function ActionCardForm({
                   {!editable && action.max_capacity}
                 </div>
 
+                <Row>
                 {editable && (
+                  <Col>
                   <Button
                     className="mt-1"
                     size="lg"
@@ -144,7 +136,20 @@ export function ActionCardForm({
                   >
                     ULOŽIT
                   </Button>
+                  </Col>
                 )}
+
+                {editable && action.action_id && (
+                  <ActionDeleteButton
+                    handleRemove={() =>
+                      deleteActionRequest({
+                        variables: { action_id: action.action_id },
+                      })
+                    }
+                    name={action.name}
+                  ></ActionDeleteButton>
+                )}
+                </Row>
               </div>
             </div>
           </div>
