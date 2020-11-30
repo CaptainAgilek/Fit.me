@@ -77,7 +77,7 @@ export const singleUploadOrganizationGalleryPhoto = async (
     description: description,
     url: publicUrl,
     gallery_name: gallery_name,
-    type: photo_type_id,
+    photo_type_id: photo_type_id,
   };
 
   await insertPhoto(null, { input }, { dbConnection });
