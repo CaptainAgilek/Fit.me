@@ -13,6 +13,7 @@ export function GenericPopUp({
   footerLeftText,
   footerRightVariant,
   footerRightText,
+  actionButtonClass,
   rightButtonOnClick,
   children,
 }) {
@@ -23,7 +24,11 @@ export function GenericPopUp({
 
   return (
     <>
-      <UserProfileActionButton variant={triggerVariant} onClick={handleShow}>
+      <UserProfileActionButton
+        variant={triggerVariant}
+        onClick={handleShow}
+        actionButtonClass={actionButtonClass}
+      >
         {triggerText}
       </UserProfileActionButton>
 
@@ -37,7 +42,7 @@ export function GenericPopUp({
         footerRightText={footerRightText}
         rightButtonOnClick={rightButtonOnClick}
       >
-      {children}
+        {children}
       </PopUpModal>
     </>
   );

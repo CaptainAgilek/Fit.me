@@ -84,14 +84,14 @@ export function OrganizationProfileTrainers({ organizationState }) {
 
       <Tab.Container defaultActiveKey="#">
         <Row>
-          <Col sm={4}>
+          <Col sm={6} md={5} lg={4}>
             <TrainersColumn
               organizationState={organizationState}
               handleTrainerSelection={handleTrainerSelection}
               handleRemoveTrainer={handleRemoveTrainer}
             />
           </Col>
-          <Col sm={8}>
+          <Col sm={6} md={7} lg={8}>
             {organizationState.data &&
               organizationState.data.organization.trainers.map((trainer) => (
                 <Tab.Content>

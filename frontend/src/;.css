@@ -189,16 +189,6 @@ code {
   padding-right: 0.1rem;
 }
 
-.card {
-  width: 100%;
-  position: relative;
-}
-
-@media (max-width: 767px) {
-  .card {
-    width: 20rem;
-  }
-}
 .headerImg {
   position: relative;
   /* The image used */
@@ -332,19 +322,24 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
   height: 42vh;
   border-style: solid;
   border-width: thin;
-  border-color: #d3d3d3;
+  border-color: #D3D3D3;
   border-radius: 5px;
+}
+
+.custom-checkbox{
+  position: relative;
+  margin-left: 100%;
 }
 
 .organization-profile-trainer-tab.list-group-item.list-group-item-action {
   color: #000000;
   border: solid;
   border-width: thin;
-  border-color: #d3d3d3;
+  border-color: #D3D3D3;
   border-radius: 5px;
   position: relative;
-  margin-left: 0.5rem;
-  margin-top: 0.5rem;
+  margin-left: 15px;
+  margin-top: 5px;
   width: 95%;
 }
 
@@ -352,11 +347,11 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
   background-color: #e8aa3c;
   border: solid;
   border-width: thin;
-  border-color: #d3d3d3;
+  border-color: #D3D3D3;
   border-radius: 5px;
   position: relative;
-  margin-left: 0.5rem;
-  margin-top: 0.5rem;
+  margin-left: 15px;
+  margin-top: 5px;
   width: 95%;
 }
 
@@ -403,14 +398,6 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
   min-width: 100vh;
 }
 
-@media (max-width: 100vh) {
-  .organization-profile-rating-container {
-    min-width: 40vh;
-    padding: 10px;
-    padding-top: 6px;
-  }
-}
-
 .organization-icon-clickable {
   cursor: pointer;
 }
@@ -420,27 +407,11 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
   height: 30vh;
 }
 
-.card-delete-icon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 26px;
-  height: 26px;
-  margin-right: 0.1rem;
-  margin-top: 0.1rem;
-  background-image: url('/images/icons/trash-alt-solid.svg');
-  background-repeat: no-repeat;
-}
-
 .action-small-icon {
   width: 18.5px;
   height: 18.5px;
   margin-right: 0.8rem;
   margin-bottom: 0.3rem;
-}
-
-.navbar-item-right-offset {
-  margin-right: 1.5rem;
 }
 
 div::-webkit-scrollbar-thumb:horizontal {

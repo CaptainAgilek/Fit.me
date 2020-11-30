@@ -19,8 +19,10 @@ export function TrainersColumn({
             className="organization-profile-trainer-tab"
           >
             <Row className="d-flex align-items-center">
-              <Col xs={10}>{trainer.firstname}</Col>
-              <Col xl={2} md={3} sm={5} xs={2}>
+              <Col xs={10} sm={8} md={9} lg={9} xl={10}>
+                {trainer.firstname + ' ' + trainer.lastname}
+              </Col>
+              <Col xl={2} md={3} sm={4} xs={2} lg={3}>
                 <RemovePopUp
                   onConfirm={() => handleRemoveTrainer(trainer)}
                   target={trainer.firstname + ' ' + trainer.lastname}
