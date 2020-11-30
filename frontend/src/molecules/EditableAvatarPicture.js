@@ -46,7 +46,7 @@ export function EditableAvatarPicture({ src, alt, user_id, photo_id }) {
         file: selectedFile,
         user_id: user_id,
         photo_id: photo_id,
-        photo_type_id: 0,
+        photo_type_id: 1,
       },
     });
   };
