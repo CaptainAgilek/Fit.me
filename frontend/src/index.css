@@ -189,16 +189,16 @@ code {
   padding-right: 0.1rem;
 }
 
-.card {
-  width: 100%;
-  position: relative;
+.list-group-item .card {
+  width: 18rem;
 }
 
 @media (max-width: 767px) {
-  .card {
-    width: 20rem;
+  .list-group-item .card {
+    width: 17rem;
   }
 }
+
 .headerImg {
   position: relative;
   /* The image used */
