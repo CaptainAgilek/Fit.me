@@ -69,6 +69,7 @@ export function OrganizationProfileGallery({ photoGallery, profileFetcher }) {
               user_id={profileFetcher.data.organization.user_id}
               photo_id={undefined}
               refetchGallery={profileFetcher.refetch}
+              actionButtonClass={'organization-primary-button'}
             ></GalleryUploadPhotoButton>
           </Col>
         </Row>
