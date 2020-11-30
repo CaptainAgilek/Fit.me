@@ -403,9 +403,9 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
   min-width: 100vh;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 100vh) {
   .organization-profile-rating-container {
-    min-width: 20rem;
+    min-width: 40vh;
     padding: 10px;
     padding-top: 6px;
   }
