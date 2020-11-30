@@ -79,6 +79,7 @@ const ORGANIZATION_PROFILE_QUERY = gql`
       }
       profile_photo {
         url
+        photo_id
       }
       banner_photo {
         url
