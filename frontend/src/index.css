@@ -189,12 +189,12 @@ code {
   padding-right: 0.1rem;
 }
 
-.card {
+.list-group-item .card {
   width: 18rem;
 }
 
 @media (max-width: 767px) {
-  .card {
+  .list-group-item .card {
     width: 17rem;
   }
 }
