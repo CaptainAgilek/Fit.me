@@ -1,5 +1,4 @@
 import { gql } from 'apollo-server-express';
-
 export const typeDefs = gql`
   enum UserType {
     SPORTSMAN
@@ -19,6 +18,7 @@ export const typeDefs = gql`
     mimetype: String!
     encoding: String!
     url: String!
+    insertId: Int!
   }
 
   input CreateOrUpdateActionInput {
@@ -42,7 +42,7 @@ export const typeDefs = gql`
   }
 
   input CreateOrUpdatePlaceInput {
-    place_id: Int
+    place_id: Int!
     user_id: Int!
     city: String!
     street: String
@@ -77,6 +77,13 @@ export const typeDefs = gql`
     type: PhotoType!
   }
 
+  input UpdatePhotoGalleryNameInput{
+    user_id: Int!
+    photo_id: Int!
+    gallery_name: String
+
+  }
+
   type Action {
     action_id: Int!
     place_id: Int!
@@ -86,7 +93,7 @@ export const typeDefs = gql`
     trainer_id: Int
     max_capacity: Int!
     name: String!
-    photo_id: Int!
+    photo_id: Int
     photo: Photo
   }
 
@@ -147,13 +154,7 @@ export const typeDefs = gql`
     profile_photo: Photo
   }
 
-  type Trainer {
-    user_id: Int!
-    firstname: String!
-    lastname: String!
-  }
-
-  type Organization {
+  type Organization{
     user_id: Int!
     organization_name: String!
     username: String
@@ -164,6 +165,26 @@ export const typeDefs = gql`
     acceptedBenefits: [Benefit]!
     profile_photo: Photo
     banner_photo: Photo
+    photo_gallery: [Photo]
+    ratings: [Rating]
+  }
+
+  type Rating {
+    id: Int!
+    sportsman: Sportsman!
+    organization: Organization!
+    text: String
+    stars: Int}
+
+  type Trainer {
+    user_id: Int!
+    firstname: String!
+    lastname: String!
+    username: String
+    facebook: String
+    instagram: String
+    description: String
+    profile_photo: Photo
   }
 
   input OrganizationInput {
@@ -176,9 +197,10 @@ export const typeDefs = gql`
     acceptingMultisport: Boolean!
     acceptingActivePass: Boolean!
   }
+  
 
   type Query {
-    actionsForPlace(place_id: Int!): [Action]!
+    actionsForPlace(place_id: Int): [Action]!
     servicesForPlace(place_id: Int!): [Service]!
     benefitsForUser(user_id: Int!): [Benefit]!
     users: [User]!
@@ -191,6 +213,8 @@ export const typeDefs = gql`
     sportsmen: [Sportsman]!
     sportsman(filter: SportsmanFilter!): Sportsman
     organization(user_id: Int!): Organization
+    trainersNotEmployed(user_id: Int!): [Trainer]
+
   }
 
   type AuthInfo {
@@ -205,6 +229,7 @@ export const typeDefs = gql`
 
   type Mutation {
     insertOrRemoveBenefit(user_id: Int!, benefit_id: Int!, hasBenefit: Boolean!): Boolean!
+    deleteAction(action_id: Int!): Boolean!
     createOrUpdateAction(input: CreateOrUpdateActionInput!): Boolean!
     insertAction(input: CreateOrUpdateActionInput!): Boolean!
     updateAction(input: CreateOrUpdateActionInput!): Boolean!
@@ -216,9 +241,15 @@ export const typeDefs = gql`
     updatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
     updateProfilePhotoUrl(input: UpdatePhotoUrlInput!): Boolean!
     updatePhotoUrl(input: UpdatePhotoUrlInput!): Boolean!
+    updateOrganizationGalleryPhoto(input: UpdatePhotoGalleryNameInput!): Boolean!
+    updateOrganizationTrainerDescription(description: String, organization_id: Int!, trainer_id: Int!): Boolean!
+    removeOrganizationTrainer(organization_id: Int!, trainer_id: Int!): Boolean!
+    addOrganizationTrainer(organization_id: Int!, trainer_id: Int!): Boolean!
     insertPhoto(input: PhotoInput!): Boolean!
+    singleUploadOrganizationGalleryPhoto(file: Upload!, photo_id: Int, user_id: Int!, description: String, type: PhotoType!): UploadedFileResponse!
     singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, type: PhotoType!): UploadedFileResponse!
     singleUpload(file: Upload!, user_id: Int!, photo_id: Int, type: PhotoType!): UploadedFileResponse!
+
     updateSportsman(input: SportsmanInput!): Boolean!
     updateOrganization(input: OrganizationInput!): Boolean!
     updateUserEmail(email: String!, user_id: Int!): Boolean!

@@ -8,7 +8,8 @@ export function ActionsList({
   organizationLoading,
   actions,
   actionsState,
-  editable
+  editable,
+  setActionSuccess,
 }) {
   if (
     (organizationLoading && !organizationData) ||
@@ -31,7 +32,6 @@ export function ActionsList({
       max_capacity: 10,
     };
     actionsList = [defaultAction, ...actions];
-    console.log('actions ', actionsList);
   }
   return (
     <ListGroup horizontal className="horizontalScroll">
@@ -41,7 +41,7 @@ export function ActionsList({
           <ListGroup.Item
             key={action.action_id}
             className="borderNone"
-            style={{ paddingLeft: '0.1rem' }}
+            style={{ paddingLeft: '0.01rem' }}
           >
             <ActionCard
               key={action.action_id}
@@ -51,6 +51,7 @@ export function ActionsList({
               user_id={organizationData.organization.user_id}
               editable={true}
               actionsState={actionsState}
+              setActionSuccess={setActionSuccess}
             />
           </ListGroup.Item>
         ))}

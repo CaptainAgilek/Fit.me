@@ -6,8 +6,18 @@ import { Form } from 'react-bootstrap';
 import { AvatarPicture, GenericPopUp } from 'src/atoms/';
 
 const UPLOAD_PHOTO_MUTATION = gql`
-  mutation SingleUpload($file: Upload!, $user_id: Int!, $photo_id: Int, $type: PhotoType!) {
-    singleUpload(file: $file, user_id: $user_id, photo_id: $photo_id, type: $type) {
+  mutation SingleUpload(
+    $file: Upload!
+    $user_id: Int!
+    $photo_id: Int
+    $type: PhotoType!
+  ) {
+    singleUpload(
+      file: $file
+      user_id: $user_id
+      photo_id: $photo_id
+      type: $type
+    ) {
       filename
       mimetype
       encoding
@@ -32,7 +42,12 @@ export function EditableAvatarPicture({ src, alt, user_id, photo_id }) {
   const handleFileUpload = async (selectedFile) => {
     if (!selectedFile) return;
     await uploadFileHandler({
-      variables: { file: selectedFile, user_id: user_id, photo_id: photo_id, type: 'PROFILE_PICTURE' },
+      variables: {
+        file: selectedFile,
+        user_id: user_id,
+        photo_id: photo_id,
+        type: 'PROFILE_PICTURE',
+      },
     });
   };
 
@@ -41,7 +56,7 @@ export function EditableAvatarPicture({ src, alt, user_id, photo_id }) {
       <AvatarPicture src={profileImageUrl} alt={alt} className={'botOffset'} />
 
       <GenericPopUp
-        triggerVariant="outline-primary"
+        triggerVariant="outline-dark"
         triggerText="Změnit Avatar"
         modalTitle="Nahrát nový obrázek"
         footerLeftVariant="outline-secondary"

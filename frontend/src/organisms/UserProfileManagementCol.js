@@ -36,13 +36,6 @@ export function UserProfileManagementCol({
         <ChangePasswordPopUp userEmail={user.user.email} onSubmit={changePasswordRequest}/>
       </Row>
 
-      <Row className="justify-content-md-center botOffset" xs={1}>
-        <UserProfileActionButton variant="outline-primary">Exportovat osobní data</UserProfileActionButton>
-        <div>
-          Stáhne veškerá data, která o Vás máme
-        </div>
-      </Row>
-
       <Row className="justify-content-md-center" xs={1}>
         <GenericPopUp
           triggerVariant="outline-danger"

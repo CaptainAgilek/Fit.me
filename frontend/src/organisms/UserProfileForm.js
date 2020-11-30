@@ -3,7 +3,9 @@ import React from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-import { Form, Card } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
 
 import { UserProfileActionButton, FormikSwitch } from 'src/atoms/';
 import { FormikGroup } from 'src/molecules/';
@@ -158,27 +160,29 @@ export function UserProfileForm({ user, updateUserRequest }) {
                 />
               </Form.Row>
 
-              <Form.Group>
-                <FormikSwitch
-                  name="hasMultisport"
-                  label="Multisport card"
-                  id="userProfileHasMultisportValidation"
-                  checked={values.hasMultisport}
-                />
-              </Form.Group>
+              <Form.Row>
+                <Form.Group as={Col} md="6" sm="6">
+                  <FormikSwitch
+                    name="hasMultisport"
+                    label="Multisport card"
+                    id="userProfileHasMultisportValidation"
+                    checked={values.hasMultisport}
+                  />
 
-              <Form.Group>
-                <FormikSwitch
-                  name="hasActivePass"
-                  label="Active Pass"
-                  id="userProfileHasActivePassValidation"
-                  checked={values.hasActivePass}
-                />
-              </Form.Group>
+                  <FormikSwitch
+                    name="hasActivePass"
+                    label="Active Pass"
+                    id="userProfileHasActivePassValidation"
+                    checked={values.hasActivePass}
+                  />
+                </Form.Group>
 
-              <UserProfileActionButton variant="primary" type="submit">
-                Aktualizovat profil
-              </UserProfileActionButton>
+                <Form.Group as={Col} md={{ span: 2, offset: 4 }} sm={{ span: 2, offset: 3 }}>
+                    <UserProfileActionButton variant="warning" type="submit" size="lg">
+                      Uložit
+                    </UserProfileActionButton>
+                </Form.Group>
+              </Form.Row>
             </Form>
           )}
         </Formik>
