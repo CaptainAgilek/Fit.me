@@ -11,6 +11,7 @@ export const typeDefs = gql`
     BANNER
     OTHER
     ACTION
+    SERVICE
   }
 
   type UploadedFileResponse {
@@ -201,7 +202,7 @@ export const typeDefs = gql`
 
   type Query {
     actionsForPlace(place_id: Int): [Action]!
-    servicesForPlace(place_id: Int!): [Service]!
+    servicesForPlace(place_id: Int): [Service]!
     benefitsForUser(user_id: Int!): [Benefit]!
     users: [User]!
     user(email: String!): User

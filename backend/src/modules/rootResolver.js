@@ -4,10 +4,8 @@ import { queries as SportsmanQueries } from './sportsman';
 import { queries as OrganizationQueries } from './organization';
 import { queries as BenefitQueries } from './benefit';
 import { queries as ActionQueries } from './action';
-
-import { queries as TrainerQueries } from './trainer';
-
 import { queries as ServiceQueries } from './action';
+
 import { mutations as UserMutations } from './user';
 import { mutations as RoleMutations } from './role';
 import { mutations as SportsmanMutations } from './sportsman';
@@ -17,7 +15,6 @@ import { mutations as PlaceMutations } from './place';
 import { mutations as ActionMutations } from './action';
 import { mutations as ServiceMutations } from './service';
 import { mutations as OrganizationMutations } from './organization';
-import { sportsman } from './sportsman/query';
 import { getTypeIdByName } from './photo/helper';
 
 
@@ -204,14 +201,15 @@ export default {
   },
   Service: {
     async photo(parent, _, { dbConnection }) {
+      const photo_type_id = await getTypeIdByName(`SERVICE`, dbConnection);
       return (
         await dbConnection.query(
           `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
-          JOIN user USING (user_id)
-          WHERE photo_id= ?`,
-          [parent.photo_id],
+          JOIN service USING (photo_id)
+          WHERE photo_id = ? AND photo_type_id= ?`,
+          [parent.photo_id, photo_type_id],
         )
       )[0];
-    }
+    },
   }
 };
