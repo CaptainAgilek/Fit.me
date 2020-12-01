@@ -11,7 +11,7 @@ import {
 } from 'src/atoms/';
 import {
   Footer,
-  OrganizationMenu,
+  TrainerMenu,
   ActionsList,
   ErrorBanner,
   TestimonialBoxCol,
@@ -31,18 +31,18 @@ export function TrainerProfileTemplate() {
     <>
       <Navigation />
         <div className="headerImg">
-          <OrganizationMenu />
+          <TrainerMenu />
         </div>
 
         <Container className="organization-profile-top-margin">
           <Col>
-            <h1>Kalendář volných hodin</h1>
+            <h1 id="kalendar">Kalendář volných hodin</h1>
             <Row>
 
             </Row>
 
             <Container className="organization-profile-section-container">
-              <h1 id="treneri">Trenéři</h1>
+              <h1 id="popis">Popis</h1>
 
             </Container>
 
