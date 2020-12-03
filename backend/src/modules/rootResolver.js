@@ -28,6 +28,7 @@ export default {
     ...BenefitQueries,
     ...ActionQueries,
     ...OrganizationQueries,
+    ...TrainerQueries,
     todo: async () => {
       return new Date().toISOString();
     },
@@ -195,6 +196,14 @@ export default {
           [parent.user_id],
         )
       )[0];
+    },
+    async ratings(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT id, sportsman.user_id, organization_id, text, stars FROM rating
+        join sportsman on sportsman.user_id = rating.user_id
+        where rating.organization_id = ?`,
+        [parent.user_id],
+      );
     }
   }
 };
