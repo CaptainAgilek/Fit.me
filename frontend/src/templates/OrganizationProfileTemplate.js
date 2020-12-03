@@ -31,7 +31,7 @@ function useActionsFilter(data) {
   date.setMinutes(0);
   date.setSeconds(0);
   date.setDate(date.getDate() + 1);
-  
+
   const weekAgoDate = new Date();
   weekAgoDate.setHours(0);
   weekAgoDate.setMinutes(0);
@@ -129,7 +129,7 @@ export function OrganizationProfileTemplate({
               {organizationData && (
                 <Container className="organization-profile-section-container">
                   <h1 id="hodnoceni">Hodnocení</h1>
-                  <TestimonialBoxCol />
+                  <TestimonialBoxCol ratingsData={organizationData} />
                 </Container>
               )}
 

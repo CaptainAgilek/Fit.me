@@ -25,43 +25,38 @@ import {
   OrganizationProfileGallery,
 } from 'src/organisms/';
 
-export function TrainerProfileTemplate() {
-
+export function TrainerProfileTemplate({ trainerData }) {
   return (
     <>
       <Navigation />
-        <div className="headerImg">
-          <TrainerMenu />
-        </div>
+      <div className="headerImg">
+        <TrainerMenu />
+      </div>
 
-        <Container className="organization-profile-top-margin">
-          <Col>
-            <h1 id="kalendar">Kalendář volných hodin</h1>
-            <Row>
+      <Container className="organization-profile-top-margin">
+        <Col>
+          <h1 id="kalendar">Kalendář volných hodin</h1>
+          <Row></Row>
 
-            </Row>
+          <Container className="organization-profile-section-container">
+            <h1 id="popis">Popis</h1>
+          </Container>
 
-            <Container className="organization-profile-section-container">
-              <h1 id="popis">Popis</h1>
-
-            </Container>
-
+          {trainerData && (
             <Container className="organization-profile-section-container">
               <h1 id="hodnoceni">Hodnocení</h1>
+              <TestimonialBoxCol ratingsData={trainerData} />
             </Container>
+          )}
 
-            <Row className="justify-content-md-center">
-              <Col sm="12" md="3">
-
-              </Col>
-              <Col sm="12" md="7">
-                <Container>
-
-                </Container>
-              </Col>
-            </Row>
-          </Col>
-        </Container>
+          <Row className="justify-content-md-center">
+            <Col sm="12" md="3"></Col>
+            <Col sm="12" md="7">
+              <Container></Container>
+            </Col>
+          </Row>
+        </Col>
+      </Container>
       <Footer />
     </>
   );
