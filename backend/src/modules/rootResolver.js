@@ -122,7 +122,7 @@ export default {
     },
     async ratings(parent, _, { dbConnection }) {
       return await dbConnection.query(
-        `SELECT id, sportsman.user_id, text, stars FROM rating
+        `SELECT id, sportsman.user_id, organization_id, text, stars FROM rating
          join sportsman on sportsman.user_id = rating.user_id
         where rating.organization_id = ?`,
         [parent.user_id],
@@ -177,11 +177,11 @@ export default {
         [parent.user_id],
       ))[0];
     },
-    async organization(parent, _, { dbConnection }) {
+    async ratee(parent, _, { dbConnection }) {
       return (await dbConnection.query(
-        `SELECT rating.user_id, name, username FROM rating
-        JOIN organization on organization.user_id = rating.organization_id
-        WHERE organization.user_id = ?`,
+        `SELECT user.user_id, user.email, verification_token, is_verified FROM rating
+        JOIN user on user.user_id = rating.organization_id
+        WHERE user.user_id = ?`,
         [parent.organization_id],
       ))[0];
     }

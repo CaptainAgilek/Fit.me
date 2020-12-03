@@ -155,7 +155,7 @@ export const typeDefs = gql`
   type Rating {
     id: Int!
     sportsman: Sportsman!
-    organization: Organization!
+    ratee: User!
     text: String
     stars: Int}
 
