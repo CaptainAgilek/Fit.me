@@ -123,6 +123,10 @@ code {
   padding: 10px;
 }
 
+.category-box-text {
+  text-transform: uppercase;
+}
+
 .footer {
   margin-top: 60px;
   height: 210px;
