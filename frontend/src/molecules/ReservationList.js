@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown';
-
 import ListGroup from 'react-bootstrap/ListGroup';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button'
+
 
 import { UserReservation } from 'src/atoms/';
 
@@ -20,14 +20,12 @@ export function ReservationList({ reservations }) {
       </Row>
 
       <Row className="botOffset">
-        <DropdownButton variant="danger" id="dropdown-basic-button" title={filter}>
-          {filter !== "Tento týden" && (
-            <Dropdown.Item eventKey="Tento týden" onSelect={(filter) => {setFilter(filter)}}>Tento týden</Dropdown.Item>
-          )}
-          {filter !== "Tento měsíc" && (
-            <Dropdown.Item eventKey="Tento měsíc" onSelect={(filter) => {setFilter(filter)}}>Tento měsíc</Dropdown.Item>
-          )}
-        </DropdownButton>
+        <Form>
+          <Form.Control as="select" onChange={(value) => {console.log("zmena filteru", value)}}>
+            <option value="1">Tento týden</option>
+            <option value="2">Tento Měsíc</option>
+          </Form.Control>
+        </Form>
       </Row>
 
       <Row className="botOffset">

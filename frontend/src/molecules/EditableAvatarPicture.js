@@ -4,6 +4,8 @@ import { gql, useMutation } from '@apollo/client';
 import { Form } from 'react-bootstrap';
 
 import { AvatarPicture, GenericPopUp } from 'src/atoms/';
+import { AVATAR_FILE_SIZE_LIMIT } from 'src/utils/const';
+
 
 const UPLOAD_PHOTO_MUTATION = gql`
   mutation SingleUpload(
@@ -36,8 +38,9 @@ export function EditableAvatarPicture({ src, alt, user_id, photo_id }) {
   });
 
   const [selectedFile, setSelectedFile] = useState(null);
+  const [fileIsTooBig, setFileIsTooBig] = useState(false);
 
-  const inputLabel = selectedFile ? selectedFile.name : 'Custom file input';
+  const inputLabel = selectedFile ? selectedFile.name : 'Maximální velikost souboru je 5 MB.';
 
   const handleFileUpload = async (selectedFile) => {
     if (!selectedFile) return;
@@ -69,12 +72,20 @@ export function EditableAvatarPicture({ src, alt, user_id, photo_id }) {
           <Form.File
             id="custom-file"
             label={inputLabel}
+            data-browse="Vybrat"
+            isInvalid={fileIsTooBig}
+            feedback="Zvolený soubor je příliš velký!"
             onChange={({
               target: {
                 validity,
                 files: [file],
               },
             }) => {
+              if (file.size > AVATAR_FILE_SIZE_LIMIT) {
+                setFileIsTooBig(true);
+                return;
+              }
+              setFileIsTooBig(false);
               if (validity.valid) {
                 setSelectedFile(file);
               }
