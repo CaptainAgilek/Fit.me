@@ -42,7 +42,7 @@ export function UserProfileForm({ user, updateUserRequest }) {
     lastName: user.lastname,
     username: user.username,
     email: user.user.email,
-    phone: user.phone,
+    phone: user.phone ? user.phone : "",
     street: user.places[0] ? user.places[0].street : "",
     city: user.places[0] ? user.places[0].city : "",
     country: user.places[0] ? user.places[0].country : "",
