@@ -178,15 +178,11 @@ code {
 }
 
 .userReservationSportIcon {
-  max-height: 30%;
-  max-width: 30%;
+  max-height: 5rem;
+  max-width: 5rem;
   display: block;
   margin-left: auto;
   margin-right: auto;
-}
-
-.userReservationCard {
-  width: 15rem;
 }
 
 .list-group-item:not(.organization-profile-trainer-tab):not(.ignore-last-child-styling):last-child {

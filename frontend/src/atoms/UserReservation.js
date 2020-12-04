@@ -38,7 +38,7 @@ export function UserReservation({ reservation }){
   const sportIcon = getSportIcon({ name: reservation.icon });
 
   return(
-    <Card className="userReservationCard">
+    <Card>
       <Card.Img variant="top" src={sportIcon}  className="userReservationSportIcon"/>
       <Card.Body>
         <Card.Title>{reservation.name}</Card.Title>
