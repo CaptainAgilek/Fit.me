@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from "react";
 
-import { Col, Row, Container } from 'react-bootstrap';
-import ListGroup from 'react-bootstrap/ListGroup';
+import { Col, Row, Container } from "react-bootstrap";
+import ListGroup from "react-bootstrap/ListGroup";
 
 import {
   CustomDatePicker,
   Loading,
   DateFilter,
   SuccessAlert,
-} from 'src/atoms/';
+} from "src/atoms/";
 import {
   Footer,
   OrganizationMenu,
@@ -16,14 +16,14 @@ import {
   ErrorBanner,
   TestimonialBoxCol,
   ActionCard,
-} from 'src/molecules/';
+} from "src/molecules/";
 import {
   Navigation,
   OrganizationProfileManagementCol,
   OrganizationProfileForm,
   OrganizationProfileTrainers,
   OrganizationProfileGallery,
-} from 'src/organisms/';
+} from "src/organisms/";
 
 function useActionsFilter(data) {
   const date = new Date();
@@ -31,7 +31,7 @@ function useActionsFilter(data) {
   date.setMinutes(0);
   date.setSeconds(0);
   date.setDate(date.getDate() + 1);
-  
+
   const weekAgoDate = new Date();
   weekAgoDate.setHours(0);
   weekAgoDate.setMinutes(0);
@@ -46,7 +46,7 @@ function useActionsFilter(data) {
     return dataToFilter.filter(
       (item) =>
         new Date(parseInt(item.date, 10)) >= dateFrom &&
-        new Date(parseInt(item.date, 10)) <= dateTo,
+        new Date(parseInt(item.date, 10)) <= dateTo
     );
   }, [dataToFilter, dateFrom, dateTo]);
 
@@ -70,7 +70,7 @@ export function OrganizationProfileTemplate({
   const [actionSuccess, setActionSuccess] = useState(false);
 
   useEffect(() => {
-    console.log('effect ', actions);
+    console.log("effect ", actions);
   }, [actions]);
   return (
     <>

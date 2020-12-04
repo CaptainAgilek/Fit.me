@@ -1,11 +1,17 @@
-import React from 'react';
+import React from "react";
 
-import { Image } from 'react-bootstrap';
+import { Image } from "react-bootstrap";
 
-import classNames from 'classnames';
+import classNames from "classnames";
 
-export function AvatarPicture({ src, alt, size = '3', className, onChange }) {
+export function AvatarPicture({ src, alt, size = "3", className, onChange }) {
   return (
-    <Image src={src} alt={alt} fluid rounded className={classNames(`${className}`)}/>
+    <Image
+      src={src}
+      alt={alt}
+      fluid
+      rounded
+      className={classNames(`${className}`)}
+    />
   );
 }

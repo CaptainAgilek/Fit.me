@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import Button from 'react-bootstrap/Button';
+import Button from "react-bootstrap/Button";
 
 export function UserProfileActionButton({
   variant,

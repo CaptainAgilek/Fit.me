@@ -1,32 +1,32 @@
-import React from 'react';
+import React from "react";
 
-import Card from 'react-bootstrap/Card';
-import Image from 'react-bootstrap/Image';
+import Card from "react-bootstrap/Card";
+import Image from "react-bootstrap/Image";
 
-import fitness from 'src/assets/fitness.png';
-import football from 'src/assets/futbol-solid.svg';
-import hockey from 'src/assets/hockey-puck-solid.svg';
-import kravmaga from 'src/assets/krav-maga.png';
-import pilates from 'src/assets/pilates.png';
-import calendar from 'src/assets/calendar-alt-regular.svg';
-import clock from 'src/assets/clock-regular.svg';
-import placeholder from 'src/assets/placeholder.png';
+import fitness from "src/assets/fitness.png";
+import football from "src/assets/futbol-solid.svg";
+import hockey from "src/assets/hockey-puck-solid.svg";
+import kravmaga from "src/assets/krav-maga.png";
+import pilates from "src/assets/pilates.png";
+import calendar from "src/assets/calendar-alt-regular.svg";
+import clock from "src/assets/clock-regular.svg";
+import placeholder from "src/assets/placeholder.png";
 
 function getSportIcon({ name }) {
   switch (name) {
-    case 'fitness':
+    case "fitness":
       return fitness;
       break;
-    case 'football':
+    case "football":
       return football;
       break;
-    case 'hockey':
+    case "hockey":
       return hockey;
       break;
-    case 'kravmaga':
+    case "kravmaga":
       return kravmaga;
       break;
-    case 'pilates':
+    case "pilates":
       return pilates;
       break;
     default:
@@ -34,26 +34,30 @@ function getSportIcon({ name }) {
   }
 }
 
-export function UserReservation({ reservation }){
+export function UserReservation({ reservation }) {
   const sportIcon = getSportIcon({ name: reservation.icon });
 
-  return(
+  return (
     <Card>
-      <Card.Img variant="top" src={sportIcon}  className="userReservationSportIcon"/>
+      <Card.Img
+        variant="top"
+        src={sportIcon}
+        className="userReservationSportIcon"
+      />
       <Card.Body>
         <Card.Title>{reservation.name}</Card.Title>
         <Card.Text>
-          <Image src={calendar} className="userReservationIcon"/>
+          <Image src={calendar} className="userReservationIcon" />
           {reservation.date}
         </Card.Text>
         <Card.Text>
-          <Image src={clock} className="userReservationIcon"/>
+          <Image src={clock} className="userReservationIcon" />
           {reservation.hour}
         </Card.Text>
         <Card.Text>
-          <Image src={placeholder} className="userReservationIcon"/>
+          <Image src={placeholder} className="userReservationIcon" />
           {reservation.address}
-          </Card.Text>
+        </Card.Text>
       </Card.Body>
     </Card>
   );

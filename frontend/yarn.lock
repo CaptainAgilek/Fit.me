@@ -8638,6 +8638,11 @@
   "resolved" "https://registry.npmjs.org/prepend-http/-/prepend-http-1.0.4.tgz"
   "version" "1.0.4"
 
+"prettier@2.2.1":
+  "integrity" "sha512-PqyhM2yCjg/oKkFPtTGUojv7gnZAoG80ttl45O6x2Ug/rMJw4wcc9k6aaf2hibP7BGVCCM33gZoGjyvt9mm16Q=="
+  "resolved" "https://registry.npmjs.org/prettier/-/prettier-2.2.1.tgz"
+  "version" "2.2.1"
+
 "pretty-bytes@^5.1.0":
   "integrity" "sha512-s1Iam6Gwz3JI5Hweaz4GoCD1WUNUIyzePFy5+Js2hjwGVt2Z79wNN+ZKOZ2vB6C+Xs6njyB84Z1IthQg8d9LxA=="
   "resolved" "https://registry.npmjs.org/pretty-bytes/-/pretty-bytes-5.4.1.tgz"

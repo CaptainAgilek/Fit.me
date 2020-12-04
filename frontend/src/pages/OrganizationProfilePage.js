@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { useAuth } from 'src/utils/auth';
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { useAuth } from "src/utils/auth";
 
-import { OrganizationProfileTemplate } from 'src/templates/OrganizationProfileTemplate';
+import { OrganizationProfileTemplate } from "src/templates/OrganizationProfileTemplate";
 
 const ACTIONS_QUERY = gql`
   query actionsForPlace($place_id: Int) {
@@ -142,7 +142,7 @@ export function OrganizationProfilePage() {
   });
 
   const [changePasswordRequest, changePasswordRequestState] = useMutation(
-    CHANGE_PASSWORD_MUTATION,
+    CHANGE_PASSWORD_MUTATION
   );
 
   return (

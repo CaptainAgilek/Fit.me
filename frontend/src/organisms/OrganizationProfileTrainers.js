@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   TrainersTopRow,
   TrainersColumn,
   TrainersContentBody,
-} from 'src/molecules/';
-import { TrainersSocialColumn } from 'src/atoms/';
-import { Col, Row, Container, Tab } from 'react-bootstrap';
+} from "src/molecules/";
+import { TrainersSocialColumn } from "src/atoms/";
+import { Col, Row, Container, Tab } from "react-bootstrap";
 
-import { Image } from 'react-bootstrap';
-import { gql, useMutation } from '@apollo/client';
+import { Image } from "react-bootstrap";
+import { gql, useMutation } from "@apollo/client";
 
 const UPDATE_OPRGANIZATION_TRAINER_DESCRIPTION = gql`
   mutation updateOrganizationTrainerDescription(
@@ -43,7 +43,7 @@ export function OrganizationProfileTrainers({ organizationState }) {
       onCompleted: () => {
         organizationState.refetch();
       },
-    },
+    }
   );
 
   const [removeTrainer] = useMutation(REMOVE_ORGANIZATION_TRAINER, {
@@ -95,7 +95,7 @@ export function OrganizationProfileTrainers({ organizationState }) {
             {organizationState.data &&
               organizationState.data.organization.trainers.map((trainer) => (
                 <Tab.Content>
-                  <Tab.Pane eventKey={'#' + trainer.user_id}>
+                  <Tab.Pane eventKey={"#" + trainer.user_id}>
                     <Container>
                       <Row>
                         <Col xs={12} sm={12} md={4} lg={3} xl={3}>
@@ -119,13 +119,13 @@ export function OrganizationProfileTrainers({ organizationState }) {
                           setTrainerDescription={setTrainerDescription}
                         ></TrainersContentBody>
                         <TrainersSocialColumn
-                          socialIconUrl={'/images/icons/facebook-f-brands.svg'}
+                          socialIconUrl={"/images/icons/facebook-f-brands.svg"}
                         >
                           {trainer.facebook}
                         </TrainersSocialColumn>
                         <TrainersSocialColumn
                           socialIconUrl={
-                            '/images/icons/instagram-square-brands.svg'
+                            "/images/icons/instagram-square-brands.svg"
                           }
                         >
                           {trainer.instagram}

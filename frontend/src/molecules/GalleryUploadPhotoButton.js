@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import React, { useState } from "react";
+import { gql, useMutation } from "@apollo/client";
 
-import { Form } from 'react-bootstrap';
+import { Form } from "react-bootstrap";
 
-import { GenericPopUp } from 'src/atoms/';
+import { GenericPopUp } from "src/atoms/";
 
 const UPLOAD_PHOTO_MUTATION = gql`
   mutation SingleUploadOrganizationGalleryPhoto(
@@ -42,7 +42,7 @@ export function GalleryUploadPhotoButton({
 
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const inputLabel = selectedFile ? selectedFile.name : 'Custom file input';
+  const inputLabel = selectedFile ? selectedFile.name : "Custom file input";
 
   const handleFileUpload = async (selectedFile) => {
     if (!selectedFile) return;
@@ -52,7 +52,7 @@ export function GalleryUploadPhotoButton({
         user_id: user_id,
         photo_id: photo_id,
         description: null,
-        type: 'OTHER',
+        type: "OTHER",
       },
     });
   };

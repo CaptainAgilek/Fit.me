@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import React, { useState } from "react";
+import { gql, useMutation } from "@apollo/client";
 
-import { Form } from 'react-bootstrap';
+import { Form } from "react-bootstrap";
 
-import { AvatarPicture, GenericPopUp } from 'src/atoms/';
-import { AVATAR_FILE_SIZE_LIMIT } from 'src/utils/const';
-
+import { AvatarPicture, GenericPopUp } from "src/atoms/";
+import { AVATAR_FILE_SIZE_LIMIT } from "src/utils/const";
 
 const UPLOAD_PHOTO_MUTATION = gql`
   mutation SingleUpload(
@@ -40,7 +39,9 @@ export function EditableAvatarPicture({ src, alt, user_id, photo_id }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileIsTooBig, setFileIsTooBig] = useState(false);
 
-  const inputLabel = selectedFile ? selectedFile.name : 'Maximální velikost souboru je 5 MB.';
+  const inputLabel = selectedFile
+    ? selectedFile.name
+    : "Maximální velikost souboru je 5 MB.";
 
   const handleFileUpload = async (selectedFile) => {
     if (!selectedFile) return;
@@ -49,14 +50,14 @@ export function EditableAvatarPicture({ src, alt, user_id, photo_id }) {
         file: selectedFile,
         user_id: user_id,
         photo_id: photo_id,
-        type: 'PROFILE_PICTURE',
+        type: "PROFILE_PICTURE",
       },
     });
   };
 
   return (
     <>
-      <AvatarPicture src={profileImageUrl} alt={alt} className={'botOffset'} />
+      <AvatarPicture src={profileImageUrl} alt={alt} className={"botOffset"} />
 
       <GenericPopUp
         triggerVariant="outline-dark"

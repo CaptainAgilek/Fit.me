@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { Modal, Button, Image } from 'react-bootstrap';
+import { Modal, Button, Image } from "react-bootstrap";
 
 export function RemovePopUp({ onConfirm, target, openObjectClassName }) {
   const [show, setShow] = useState(false);

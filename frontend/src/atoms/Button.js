@@ -1,19 +1,19 @@
-import React from 'react';
-import classNames from 'classnames';
+import React from "react";
+import classNames from "classnames";
 
-const DEFAULT_COLOR_CLASSES = 'white bg-black hover-bg-dark-gray';
+const DEFAULT_COLOR_CLASSES = "white bg-black hover-bg-dark-gray";
 
 const COLORS = {
   black: DEFAULT_COLOR_CLASSES,
-  navbar: 'f6 white bg-transparent hover-bg-white hover-black mh3 b--white-20',
-  red: 'white bg-red hover-bg-dark-red',
+  navbar: "f6 white bg-transparent hover-bg-white hover-black mh3 b--white-20",
+  red: "white bg-red hover-bg-dark-red",
 };
 
 export function Button({
   children,
   color,
   className,
-  as: Component = 'button',
+  as: Component = "button",
   border = false,
   narrow = false,
   disabled,
@@ -24,12 +24,12 @@ export function Button({
   return (
     <Component
       className={classNames(
-        'dib bg-animate pv2 br-pill',
-        narrow ? 'ph3' : 'ph4',
-        border ? 'ba' : 'bn',
-        { 'o-50': disabled },
+        "dib bg-animate pv2 br-pill",
+        narrow ? "ph3" : "ph4",
+        border ? "ba" : "bn",
+        { "o-50": disabled },
         colorClasses,
-        className,
+        className
       )}
       type="button"
       disabled={disabled}
