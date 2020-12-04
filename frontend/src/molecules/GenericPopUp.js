@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import Modal from 'react-bootstrap/Modal';
+import Modal from "react-bootstrap/Modal";
 
-import { UserProfileActionButton } from 'src/atoms/';
-import { PopUpModal } from 'src/molecules/';
+import { UserProfileActionButton } from "src/atoms/";
+import { PopUpModal } from "src/molecules/";
 
 export function GenericPopUp({
   triggerVariant,

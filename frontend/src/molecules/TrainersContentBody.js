@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import {
   Col,
@@ -8,7 +8,7 @@ import {
   ListGroup,
   Form,
   Button,
-} from 'react-bootstrap';
+} from "react-bootstrap";
 
 export function TrainersContentBody({
   trainer,
@@ -18,7 +18,7 @@ export function TrainersContentBody({
   return (
     <Col xl={9} lg={9} md={8} sm={12}>
       <Row className="d-flex justify-content-center">
-        <h3>{trainer.firstname + ' ' + trainer.lastname}</h3>
+        <h3>{trainer.firstname + " " + trainer.lastname}</h3>
       </Row>
 
       <Form onSubmit={() => handleTrainerDescriptionSubmit(trainer)}>
@@ -33,7 +33,7 @@ export function TrainersContentBody({
             <Form.Control
               as="textarea"
               style={{
-                height: '100%',
+                height: "100%",
               }}
             >
               {trainer.description}
@@ -46,7 +46,7 @@ export function TrainersContentBody({
             variant="success"
             size="md"
             type="submit"
-            style={{ marginTop: '1.5rem' }}
+            style={{ marginTop: "1.5rem" }}
           >
             ULOŽIT
           </Button>

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import React, { useState } from "react";
+import { gql, useMutation } from "@apollo/client";
 
-import { Form } from 'react-bootstrap';
+import { Form } from "react-bootstrap";
 
-import { AvatarPicture } from 'src/atoms/';
-import { PopUpModal } from 'src/molecules/';
+import { AvatarPicture } from "src/atoms/";
+import { PopUpModal } from "src/molecules/";
 
 const UPLOAD_PHOTO_MUTATION = gql`
   mutation SingleUpload(
@@ -49,7 +49,7 @@ export function EditableActionPicture({ src, user_id, action, setPhotoId }) {
 
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const inputLabel = selectedFile ? selectedFile.name : 'Vyberte soubor';
+  const inputLabel = selectedFile ? selectedFile.name : "Vyberte soubor";
 
   const handleFileUpload = async (selectedFile) => {
     if (!selectedFile) return;
@@ -58,7 +58,7 @@ export function EditableActionPicture({ src, user_id, action, setPhotoId }) {
         file: selectedFile,
         user_id: user_id,
         photo_id: action.photo_id,
-        type: 'ACTION',
+        type: "ACTION",
       },
     });
   };

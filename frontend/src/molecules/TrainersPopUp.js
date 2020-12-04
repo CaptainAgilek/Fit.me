@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef } from "react";
 
 import {
   Container,
@@ -9,9 +9,9 @@ import {
   Row,
   Image,
   Form,
-} from 'react-bootstrap';
-import { gql, useQuery, useMutation } from '@apollo/client';
-import { propTypes } from 'react-bootstrap/esm/Image';
+} from "react-bootstrap";
+import { gql, useQuery, useMutation } from "@apollo/client";
+import { propTypes } from "react-bootstrap/esm/Image";
 
 export function TrainersPopUp({
   btnSize,
@@ -79,7 +79,7 @@ export function TrainersPopUp({
 
   const [formContent, setFormContent] = useState();
 
-  console.log('trainerpopup orgid:' + organizationId);
+  console.log("trainerpopup orgid:" + organizationId);
 
   const arrayEmpty = (arr) => {
     return !(Array.isArray(arr) && arr.length);
@@ -105,7 +105,7 @@ export function TrainersPopUp({
             <ListGroup>
               {trainersFetcher.data &&
                 arrayEmpty(trainersFetcher.data.trainersNotEmployed) &&
-                'Nejsou dostupní žádní další trenéři.'}
+                "Nejsou dostupní žádní další trenéři."}
               {
                 /* 
                 MUTATION FOR ADDING TRAINER
@@ -123,7 +123,7 @@ export function TrainersPopUp({
                                 fluid
                               ></Image>
                             </Col>
-                            <Col xs={8}>{x.firstname + ' ' + x.lastname}</Col>
+                            <Col xs={8}>{x.firstname + " " + x.lastname}</Col>
                             <Col xs={2}>
                               <Form.Control
                                 type="checkbox"

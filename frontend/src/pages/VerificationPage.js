@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import { gql, useMutation } from '@apollo/client';
-import { route } from 'src/Routes';
+import React, { useEffect } from "react";
+import { gql, useMutation } from "@apollo/client";
+import { route } from "src/Routes";
 import { Redirect } from "react-router-dom";
-import { Navigation } from 'src/organisms/';
+import { Navigation } from "src/organisms/";
 
 const VERIFY_REGISTRATION_MUTATION = gql`
   mutation VerifyRegistration($token: String!) {
@@ -12,10 +12,10 @@ const VERIFY_REGISTRATION_MUTATION = gql`
 
 export function VerificationPage(props) {
   var params = new URLSearchParams(props.location.search);
-  const token = params.get('token');
+  const token = params.get("token");
 
   const [tokenStateRequest, tokenState] = useMutation(
-    VERIFY_REGISTRATION_MUTATION,
+    VERIFY_REGISTRATION_MUTATION
   );
   useEffect(() => {
     tokenStateRequest({ variables: { token } });
@@ -29,23 +29,23 @@ export function VerificationPage(props) {
 
   return (
     <>
-    <Navigation/>
-    <div className="appWrapper">
-      <h1>Verification Page</h1>
-      <p>{message}</p>
-    </div>
+      <Navigation />
+      <div className="appWrapper">
+        <h1>Verification Page</h1>
+        <p>{message}</p>
+      </div>
     </>
   );
 }
 
 function getMessage(token, tokenState) {
   if (!token) {
-    return 'Nebyl zadán token.';
+    return "Nebyl zadán token.";
   }
 
   if (token) {
     if (!tokenState.data && tokenState.loading) {
-      return 'Loading...';
+      return "Loading...";
     }
 
     if (tokenState.error) {
@@ -53,15 +53,15 @@ function getMessage(token, tokenState) {
     }
 
     if (!tokenState.data) {
-      return 'Váš email se nepodařilo ověřit.';
+      return "Váš email se nepodařilo ověřit.";
     }
 
     if (tokenState.data.verifyRegistration) {
-      return 'Gratulujeme, Váš email je ověřený.';
+      return "Gratulujeme, Váš email je ověřený.";
     } else {
-      return 'Váš email se nepodařilo ověřit.';
+      return "Váš email se nepodařilo ověřit.";
     }
   }
 
-  return 'Nevalidní token ' + token;
+  return "Nevalidní token " + token;
 }

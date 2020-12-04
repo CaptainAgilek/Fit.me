@@ -1,7 +1,7 @@
-import React from 'react';
-import { TestimonialBox } from 'src/atoms/';
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { useAuth } from 'src/utils/auth';
+import React from "react";
+import { TestimonialBox } from "src/atoms/";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { useAuth } from "src/utils/auth";
 
 const RATINGS_QUERY = gql`
   query getOrganizationRatings($id: Int!) {
@@ -42,8 +42,8 @@ export function TestimonialBoxGrid() {
         ratingsData.organization.ratings.map((x) => (
           <TestimonialBox
             img={x.sportsman.profile_photo && x.sportsman.profile_photo.url}
-            name={x.sportsman.firstname + ' ' + x.sportsman.lastname}
-            rating={x.stars + '/5'}
+            name={x.sportsman.firstname + " " + x.sportsman.lastname}
+            rating={x.stars + "/5"}
           >
             {x.text}
           </TestimonialBox>

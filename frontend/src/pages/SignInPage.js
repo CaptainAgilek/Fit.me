@@ -1,21 +1,15 @@
-import React, { useCallback } from 'react';
-import { gql, useMutation } from '@apollo/client';
-import { useAuth } from 'src/utils/auth';
-import { useHistory } from 'react-router-dom';
+import React, { useCallback } from "react";
+import { gql, useMutation } from "@apollo/client";
+import { useAuth } from "src/utils/auth";
+import { useHistory } from "react-router-dom";
 
-import { SignInTemplate } from 'src/templates/SignInTemplate';
-import { route } from 'src/Routes';
-import { Container, Modal } from 'react-bootstrap';
+import { SignInTemplate } from "src/templates/SignInTemplate";
+import { route } from "src/Routes";
+import { Container, Modal } from "react-bootstrap";
 
 const SIGNIN_MUTATION = gql`
-  mutation signIn(
-    $email: String!
-    $password: String!
-  ) {
-    signin(
-      email: $email
-      password: $password
-    ) {
+  mutation signIn($email: String!, $password: String!) {
+    signin(email: $email, password: $password) {
       user {
         user_id
         email
@@ -29,8 +23,12 @@ const SIGNIN_MUTATION = gql`
   }
 `;
 
-export function SignInPage({ onCloseMethod, showSignIn, setShowSignUp, setShowForgotten }) {
-
+export function SignInPage({
+  onCloseMethod,
+  showSignIn,
+  setShowSignUp,
+  setShowForgotten,
+}) {
   const showSignUp = () => {
     onCloseMethod(false);
     setShowSignUp(true);
@@ -64,7 +62,7 @@ export function SignInPage({ onCloseMethod, showSignIn, setShowSignUp, setShowFo
         },
       });
     },
-    [signInRequest],
+    [signInRequest]
   );
 
   return (

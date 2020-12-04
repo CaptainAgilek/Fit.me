@@ -1,6 +1,6 @@
-import React from 'react';
-import { TrainersPopUp } from 'src/molecules/';
-import { Col, Row } from 'react-bootstrap';
+import React from "react";
+import { TrainersPopUp } from "src/molecules/";
+import { Col, Row } from "react-bootstrap";
 
 export function TrainersTopRow({ organizationState }) {
   return (
@@ -9,7 +9,7 @@ export function TrainersTopRow({ organizationState }) {
         {organizationState.data && (
           <TrainersPopUp
             size="sm"
-            btnStyle={{ marginBottom: '.8rem' }}
+            btnStyle={{ marginBottom: ".8rem" }}
             className="organization-secondary-button"
             organizationId={
               organizationState.data &&

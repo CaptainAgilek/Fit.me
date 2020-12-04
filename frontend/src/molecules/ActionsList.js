@@ -1,7 +1,7 @@
-import React from 'react';
-import { Loading } from 'src/atoms/';
-import { ActionCard } from 'src/molecules/';
-import ListGroup from 'react-bootstrap/ListGroup';
+import React from "react";
+import { Loading } from "src/atoms/";
+import { ActionCard } from "src/molecules/";
+import ListGroup from "react-bootstrap/ListGroup";
 
 export function ActionsList({
   organizationData,
@@ -21,14 +21,17 @@ export function ActionsList({
   let actionsList = actions;
   if (editable) {
     const defaultAction = {
-      time: '10' + ':' + '00' + ':' + '00',
+      time: "10" + ":" + "00" + ":" + "00",
       date: `${new Date().getTime()}`,
       price: 200,
-      name: 'Název akce',
+      name: "Název akce",
       action_id: null,
       place_id: organizationData.organization.places[0].place_id,
       photo_id: null,
-      trainer_id: (organizationData.organization.trainers.length>0  && organizationData.organization.trainers[0].user_id) || 0,
+      trainer_id:
+        (organizationData.organization.trainers.length > 0 &&
+          organizationData.organization.trainers[0].user_id) ||
+        0,
       max_capacity: 10,
     };
     actionsList = [defaultAction, ...actions];
@@ -41,11 +44,11 @@ export function ActionsList({
           <ListGroup.Item
             key={action.action_id}
             className="borderNone"
-            style={{ paddingLeft: '0.01rem' }}
+            style={{ paddingLeft: "0.01rem" }}
           >
             <ActionCard
               key={action.action_id}
-              img={(action.photo && action.photo.url) || '/images/add_img.png'}
+              img={(action.photo && action.photo.url) || "/images/add_img.png"}
               action={action}
               trainers={organizationData.organization.trainers}
               user_id={organizationData.organization.user_id}

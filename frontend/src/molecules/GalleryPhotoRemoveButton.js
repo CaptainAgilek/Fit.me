@@ -1,6 +1,6 @@
-import React from 'react';
-import { Col, Image } from 'react-bootstrap';
-import { RemovePopUp } from 'src/molecules/';
+import React from "react";
+import { Col, Image } from "react-bootstrap";
+import { RemovePopUp } from "src/molecules/";
 
 export function GalleryPhotoRemoveButton({
   user,
@@ -24,7 +24,7 @@ export function GalleryPhotoRemoveButton({
       <RemovePopUp
         onConfirm={handleRemove}
         openObjectClassName={
-          'organization-icon-color organization-icon-clickable'
+          "organization-icon-color organization-icon-clickable"
         }
         target={photoName}
       ></RemovePopUp>

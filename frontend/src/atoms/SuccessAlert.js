@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import Alert from 'react-bootstrap/Alert';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import React, { useEffect, useState } from "react";
+import Alert from "react-bootstrap/Alert";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export function SuccessAlert({ headingText, setActionSuccess, message }) {
   useEffect(() => {
-    headingText && setTimeout(() => {
-      setActionSuccess(false);
-    }, 2000);
+    headingText &&
+      setTimeout(() => {
+        setActionSuccess(false);
+      }, 2000);
   });
 
   return (

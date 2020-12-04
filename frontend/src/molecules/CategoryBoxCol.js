@@ -1,6 +1,6 @@
-import React from 'react';
-import { CategoryBoxGrid } from 'src/molecules/';
-import { Col } from 'react-bootstrap';
+import React from "react";
+import { CategoryBoxGrid } from "src/molecules/";
+import { Col } from "react-bootstrap";
 
 export function CategoryBoxCol() {
   return (

@@ -1,12 +1,12 @@
-import React from 'react';
-import { Formik, Field } from 'formik';
-import { Form, Button, Row, Badge, Col } from 'react-bootstrap';
+import React from "react";
+import { Formik, Field } from "formik";
+import { Form, Button, Row, Badge, Col } from "react-bootstrap";
 import {
   CustomDatePickerField,
   CustomTimePickerField,
   FormikSelectField,
-} from 'src/atoms/';
-import { EditableActionPicture, ActionDeleteButton } from 'src/molecules/';
+} from "src/atoms/";
+import { EditableActionPicture, ActionDeleteButton } from "src/molecules/";
 
 export function ActionCardForm({
   initialValues,
@@ -35,13 +35,13 @@ export function ActionCardForm({
               action={action}
               setPhotoId={setPhotoId}
             />
-            <div className="text-center" style={{ backgroundColor: '#dedede' }}>
+            <div className="text-center" style={{ backgroundColor: "#dedede" }}>
               {editable && (
                 <Field
                   name="name"
                   id="name"
                   className=" h5 card-title text-center mt-2 borderNone"
-                  style={{ backgroundColor: '#dedede' }}
+                  style={{ backgroundColor: "#dedede" }}
                 />
               )}
               {!editable && <h5 className="card-title">Název akce</h5>}
@@ -90,7 +90,7 @@ export function ActionCardForm({
                   {options.length > 0 &&
                     !editable &&
                     options.find(
-                      (option) => option.value === `${action.trainer_id}`,
+                      (option) => option.value === `${action.trainer_id}`
                     ).label}
                 </div>
                 <div>
@@ -124,31 +124,31 @@ export function ActionCardForm({
                 </div>
 
                 <Row>
-                {editable && (
-                  <Col>
-                  <Button
-                    className="mt-1"
-                    size="lg"
-                    block
-                    variant="success"
-                    type="submit"
-                    disabled={options.length === 0}
-                  >
-                    ULOŽIT
-                  </Button>
-                  </Col>
-                )}
+                  {editable && (
+                    <Col>
+                      <Button
+                        className="mt-1"
+                        size="lg"
+                        block
+                        variant="success"
+                        type="submit"
+                        disabled={options.length === 0}
+                      >
+                        ULOŽIT
+                      </Button>
+                    </Col>
+                  )}
 
-                {editable && action.action_id && (
-                  <ActionDeleteButton
-                    handleRemove={() =>
-                      deleteActionRequest({
-                        variables: { action_id: action.action_id },
-                      })
-                    }
-                    name={action.name}
-                  ></ActionDeleteButton>
-                )}
+                  {editable && action.action_id && (
+                    <ActionDeleteButton
+                      handleRemove={() =>
+                        deleteActionRequest({
+                          variables: { action_id: action.action_id },
+                        })
+                      }
+                      name={action.name}
+                    ></ActionDeleteButton>
+                  )}
                 </Row>
               </div>
             </div>

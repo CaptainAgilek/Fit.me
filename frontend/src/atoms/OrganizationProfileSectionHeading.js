@@ -1,5 +1,5 @@
-import React from 'react';
-import { Col, Row } from 'react-bootstrap';
+import React from "react";
+import { Col, Row } from "react-bootstrap";
 
 export function OrganizationProfileSectionHeading({ children }) {
   return (

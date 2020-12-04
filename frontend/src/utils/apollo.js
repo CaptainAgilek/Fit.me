@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import {
   ApolloClient,
   ApolloProvider,
@@ -7,15 +7,15 @@ import {
   createHttpLink,
   ApolloLink,
   from,
-} from '@apollo/client';
-import { createUploadLink } from 'apollo-upload-client'
-import { onError } from '@apollo/client/link/error';
+} from "@apollo/client";
+import { createUploadLink } from "apollo-upload-client";
+import { onError } from "@apollo/client/link/error";
 
-import { useAuth } from 'src/utils/auth';
-import { config } from 'src/config';
-import { route } from 'src/Routes';
+import { useAuth } from "src/utils/auth";
+import { config } from "src/config";
+import { route } from "src/Routes";
 
-const UNAUTHENTICATED_CODE = 'UNAUTHENTICATED';
+const UNAUTHENTICATED_CODE = "UNAUTHENTICATED";
 
 const hasUnauthenticatedErrorCode = (errors) => {
   return (
@@ -33,8 +33,8 @@ const httpLink = createHttpLink({
 });
 
 const uploadLink = createUploadLink({
-    uri: config.GRAPHQL_API,
-  })
+  uri: config.GRAPHQL_API,
+});
 
 export function EnhancedAppoloProvider({ children }) {
   const history = useHistory();
@@ -49,7 +49,7 @@ export function EnhancedAppoloProvider({ children }) {
   const authLink = new ApolloLink((operation, forward) => {
     operation.setContext({
       headers: {
-        Authorization: token ? `Bearer ${token}` : '',
+        Authorization: token ? `Bearer ${token}` : "",
       },
     });
 
@@ -70,11 +70,11 @@ export function EnhancedAppoloProvider({ children }) {
     cache: new InMemoryCache(),
     defaultOptions: {
       watchQuery: {
-        fetchPolicy: 'cache-and-network',
+        fetchPolicy: "cache-and-network",
       },
       query: {
         notifyOnNetworkStatusChange: true,
-        fetchPolicy: 'cache-and-network',
+        fetchPolicy: "cache-and-network",
       },
     },
   });

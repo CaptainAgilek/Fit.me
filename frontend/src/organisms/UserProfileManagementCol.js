@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row } from "react-bootstrap";
 
-import { UserProfileActionButton, GenericPopUp } from 'src/atoms/';
-import { EditableAvatarPicture, ChangePasswordPopUp } from 'src/molecules/';
-import { DEFAULT_IMG_URL } from 'src/utils/const';
+import { UserProfileActionButton, GenericPopUp } from "src/atoms/";
+import { EditableAvatarPicture, ChangePasswordPopUp } from "src/molecules/";
+import { DEFAULT_IMG_URL } from "src/utils/const";
 
 export function UserProfileManagementCol({
   user,
@@ -15,25 +15,25 @@ export function UserProfileManagementCol({
   console.log("user", user);
   return (
     <Container>
-      <Row className="justify-content-md-center profileComponentsOffset botOffset" xs={1}>
-          <EditableAvatarPicture
-            src={
-              user.profile_photo
-                ? user.profile_photo.url
-                : DEFAULT_IMG_URL
-            }
-            alt={user.username}
-            user_id={user.user_id}
-            photo_id={
-              user.profile_photo
-                ? user.profile_photo.photo_id
-                : undefined
-            }
-          />
+      <Row
+        className="justify-content-md-center profileComponentsOffset botOffset"
+        xs={1}
+      >
+        <EditableAvatarPicture
+          src={user.profile_photo ? user.profile_photo.url : DEFAULT_IMG_URL}
+          alt={user.username}
+          user_id={user.user_id}
+          photo_id={
+            user.profile_photo ? user.profile_photo.photo_id : undefined
+          }
+        />
       </Row>
 
       <Row className="justify-content-md-center botOffset" xs={1}>
-        <ChangePasswordPopUp userEmail={user.user.email} onSubmit={changePasswordRequest}/>
+        <ChangePasswordPopUp
+          userEmail={user.user.email}
+          onSubmit={changePasswordRequest}
+        />
       </Row>
 
       <Row className="justify-content-md-center" xs={1}>
@@ -45,7 +45,7 @@ export function UserProfileManagementCol({
           footerLeftText="Zpět"
           footerRightVariant="danger"
           footerRightText="Smazat"
-          rightButtonOnClick={ () => {
+          rightButtonOnClick={() => {
             deleteUserRequest({ variables: { userId: user.user_id } });
           }}
         >
