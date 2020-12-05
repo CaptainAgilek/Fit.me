@@ -89,68 +89,72 @@ export function OrganizationProfileTemplate({
 
       {organizationData && actionsState.data && (
         <>
-          <div className="headerImg">
+          <div className="headerImg organization-profile-section-container">
             <OrganizationMenu />
           </div>
 
-          <Container className="organization-profile-top-margin">
-            <Col>
-              <h1>Kalendář akcí</h1>
-              <Row>
-                <DateFilter {...dateFilterProps} />
-              </Row>
-              <Row>
-                <ActionsList
-                  organizationData={organizationData}
-                  organizationLoading={loading}
-                  actions={actions}
-                  actionsState={actionsState}
-                  editable={true}
-                  setActionSuccess={setActionSuccess}
-                />
-              </Row>
-              {organizationData && (
-                <Container className="organization-profile-section-container">
-                  <h1 id="treneri">Trenéři</h1>
-                  <OrganizationProfileTrainers
-                    organizationState={profileFetcher}
-                  ></OrganizationProfileTrainers>
-                </Container>
-              )}
-              {organizationData && (
-                <Container className="organization-profile-section-container">
-                  <h1 id="galerie">Galerie</h1>
-                  <OrganizationProfileGallery
-                    photoGallery={organizationData.organization.photo_gallery}
-                    profileFetcher={profileFetcher}
-                  />
-                </Container>
-              )}
-              {organizationData && (
-                <Container className="organization-profile-section-container">
-                  <h1 id="hodnoceni">Hodnocení</h1>
-                  <TestimonialBoxCol />
-                </Container>
-              )}
+          <Container className="organization-profile-top-margin organization-profile-section-container">
+            <Row className="justify-content-md-center organization-profile-section-container">
+              <Col sm="12" md="11">
+                <h1>Kalendář akcí</h1>
 
-              <Row className="justify-content-md-center">
-                <Col sm="12" md="3">
-                  <OrganizationProfileManagementCol
+                <DateFilter {...dateFilterProps} />
+              </Col>
+            </Row>
+            <Row className="justify-content-md-center organization-profile-section-container">
+              <ActionsList
+                organizationData={organizationData}
+                organizationLoading={loading}
+                actions={actions}
+                actionsState={actionsState}
+                editable={true}
+                setActionSuccess={setActionSuccess}
+              />
+            </Row>
+
+            <Row className="justify-content-md-center organization-profile-section-container">
+              <Col sm="12" md="11">
+                <h1 id="treneri">Trenéři</h1>
+                <OrganizationProfileTrainers
+                  organizationState={profileFetcher}
+                ></OrganizationProfileTrainers>
+              </Col>
+            </Row>
+
+            <Row className="justify-content-md-center organization-profile-section-container">
+              <Col sm="12" md="11">
+                <h1 id="galerie">Galerie</h1>
+                <OrganizationProfileGallery
+                  photoGallery={organizationData.organization.photo_gallery}
+                  profileFetcher={profileFetcher}
+                />
+              </Col>
+            </Row>
+
+            <Row className="justify-content-md-center organization-profile-section-container">
+              <Col sm="12" md="11">
+                <h1 id="hodnoceni">Hodnocení</h1>
+                <TestimonialBoxCol />
+              </Col>
+            </Row>
+
+            <Row className="justify-content-md-center organization-profile-section-container">
+              <Col sm="12" md="3">
+                <OrganizationProfileManagementCol
+                  organization={organizationData.organization}
+                  changePasswordRequest={changePasswordRequest}
+                />
+              </Col>
+              <Col sm="12" md="8">
+                <Container>
+                  <h1>{organizationData.organization.organization_name}</h1>
+                  <OrganizationProfileForm
                     organization={organizationData.organization}
-                    changePasswordRequest={changePasswordRequest}
+                    updateOrganizationRequest={updateOrganizationRequest}
                   />
-                </Col>
-                <Col sm="12" md="7">
-                  <Container>
-                    <h1>{organizationData.organization.organization_name}</h1>
-                    <OrganizationProfileForm
-                      organization={organizationData.organization}
-                      updateOrganizationRequest={updateOrganizationRequest}
-                    />
-                  </Container>
-                </Col>
-              </Row>
-            </Col>
+                </Container>
+              </Col>
+            </Row>
           </Container>
         </>
       )}
