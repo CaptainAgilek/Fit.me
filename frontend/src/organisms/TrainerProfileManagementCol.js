@@ -107,12 +107,6 @@ export function TrainerProfileManagementCol({
         </GenericPopUp>
       </Row>
 
-      <Row className="justify-content-md-center botOffset" xs={1}>
-        <ChangePasswordPopUp
-          userEmail={trainer.user.email}
-          onSubmit={changePasswordRequest}
-        />
-      </Row>
     </Container>
   );
 }

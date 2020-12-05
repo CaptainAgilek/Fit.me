@@ -14,41 +14,30 @@ const schema = yup.object({
   name: yup.string().required(),
   username: yup.string().nullable(),
   email: yup.string().email().required(),
-  phone: yup.string()
+  phone: yup
+    .string()
     .nullable()
-    .matches(
-      /^[0-9]{9}$/,
-      'Musí obsahovat 9 čísel bez mezer'
-    )
-  ,
+    .matches(/^[0-9]{9}$/, 'Musí obsahovat 9 čísel bez mezer'),
   street: yup.string().nullable(),
   city: yup.string().nullable(),
   country: yup.string().nullable(),
-  zip: yup.string()
+  zip: yup
+    .string()
     .nullable()
-    .matches(
-      /^[0-9]{5}$/,
-      'Musí obsahovat 5 čísel bez mezer'
-    )
-  ,
-  acceptMultisport: yup.bool(),
-  acceptActivePass: yup.bool(),
+    .matches(/^[0-9]{5}$/, 'Musí obsahovat 5 čísel bez mezer'),
 });
 
-export function TrainerProfileForm({ trainer, updatetrainerRequest }) {
-
-  console.log("org", trainer);
+export function TrainerProfileForm({ trainer, updateTrainerRequest }) {
+  console.log('trainer', trainer);
   const initialValues = {
     name: trainer.trainer_name,
     username: trainer.username,
-    email: trainer.user.email,
-    phone: trainer.phone || "",
-    street: trainer.places[0] ? trainer.places[0].street : "",
-    city: trainer.places[0] ? trainer.places[0].city : "",
-    country: trainer.places[0] ? trainer.places[0].country : "",
-    zip: trainer.places[0] ? trainer.places[0].zip : "",
-    acceptMultisport: trainer.acceptedBenefits.some(benefit => benefit.name === "Multisport"),
-    acceptActivePass: trainer.acceptedBenefits.some(benefit => benefit.name === "Active Pass"),
+    email: trainer.email || '',
+    phone: trainer.phone || '',
+    //street: trainer.places[0] ? trainer.places[0].street : "",
+    //city: trainer.places[0] ? trainer.places[0].city : "",
+    //country: trainer.places[0] ? trainer.places[0].country : "",
+    //zip: trainer.places[0] ? trainer.places[0].zip : "",
   };
 
   return (
@@ -71,108 +60,83 @@ export function TrainerProfileForm({ trainer, updatetrainerRequest }) {
                 zip: parseInt(values.zip),
                 country: values.country,
               },
-              acceptingMultisport: values.acceptMultisport,
-              acceptingActivePass: values.acceptActivePass
             };
 
             console.log('updating profile', values);
-            updatetrainerRequest({ variables: { input: profile } });
+            updateTrainerRequest({ variables: { input: profile } });
           }}
           initialValues={initialValues}
           enableReinitialize
         >
-          {({
-            handleSubmit,
-            handleChange,
-            values,
-            touched,
-            errors,
-          }) => (
+          {({ handleSubmit, handleChange, values, touched, errors }) => (
             <Form noValidate onSubmit={handleSubmit}>
               <Form.Row>
                 <FormikGroup
-                   name="name"
-                   label="Jméno Sportoviště"
-                   id="orgProfileNameValidation"
-                />
-
-                <FormikGroup
-                   name="username"
-                   label="Uživatelské jméno"
-                   id="orgProfileUsernameValidation"
+                  name="username"
+                  label="Uživatelské jméno"
+                  id="orgProfileUsernameValidation"
                 />
               </Form.Row>
 
               <Form.Row>
                 <FormikGroup
-                   name="email"
-                   label="Email"
-                   id="orgProfileEmailValidation"
-                   md="6"
+                  name="email"
+                  label="Email"
+                  id="orgProfileEmailValidation"
+                  md="6"
                 />
 
                 <FormikGroup
-                   name="phone"
-                   label="Telefon"
-                   id="orgProfileMobileValidation"
-                   md="6"
+                  name="phone"
+                  label="Telefon"
+                  id="orgProfileMobileValidation"
+                  md="6"
                 />
               </Form.Row>
 
               <Form.Row>
                 <FormikGroup
-                   name="street"
-                   label="Ulice a čp."
-                   id="orgProfileAddressStreetValidation"
+                  name="street"
+                  label="Ulice a čp."
+                  id="orgProfileAddressStreetValidation"
                 />
               </Form.Row>
 
               <Form.Row>
                 <FormikGroup
-                   name="city"
-                   label="Město"
-                   id="orgProfileAddressCityValidation"
-                   md="6"
+                  name="city"
+                  label="Město"
+                  id="orgProfileAddressCityValidation"
+                  md="6"
                 />
                 <FormikGroup
-                   name="country"
-                   label="Stát"
-                   id="orgProfileAddressCountryValidation"
-                   md="3"
+                  name="country"
+                  label="Stát"
+                  id="orgProfileAddressCountryValidation"
+                  md="3"
                 />
                 <FormikGroup
-                   name="zip"
-                   label="PSČ"
-                   id="orgProfileAddressZipValidation"
-                   type="integer"
-                   md="3"
+                  name="zip"
+                  label="PSČ"
+                  id="orgProfileAddressZipValidation"
+                  type="integer"
+                  md="3"
                 />
               </Form.Row>
 
-              <Form.Row>
-                <Form.Group as={Col} md="6" sm="6">
-                  <FormikSwitch
-                    name="acceptMultisport"
-                    label="Multisport card"
-                    id="orgProfileAcceptMultisportValidation"
-                    checked={values.acceptMultisport}
-                  />
-
-                  <FormikSwitch
-                    name="acceptActivePass"
-                    label="Active Pass"
-                    id="orgProfileAcceptActivePassValidation"
-                    checked={values.acceptActivePass}
-                    variant="warning"
-                  />
-                </Form.Group>
-
-                <Form.Group as={Col} md={{ span: 2, offset: 4 }} sm={{ span: 2, offset: 3 }}>
-                    <UserProfileActionButton variant="warning" type="submit" size="lg">
-                      Uložit
-                    </UserProfileActionButton>
-                </Form.Group>
-              </Form.Row>
+              <Form.Group
+                as={Col}
+                md={{ span: 2, offset: 4 }}
+                sm={{ span: 2, offset: 3 }}
+              >
+                <UserProfileActionButton
+                  variant="warning"
+                  type="submit"
+                  size="lg"
+                >
+                  Uložit
+                </UserProfileActionButton>
+              </Form.Group>
             </Form>
           )}
         </Formik>

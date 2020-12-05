@@ -19,13 +19,13 @@ import {
 } from 'src/molecules/';
 import {
   Navigation,
-  OrganizationProfileManagementCol,
-  OrganizationProfileForm,
+  TrainerProfileManagementCol,
+  TrainerProfileForm,
   OrganizationProfileTrainers,
   OrganizationProfileGallery,
 } from 'src/organisms/';
 
-export function TrainerProfileTemplate({ trainerData }) {
+export function TrainerProfileTemplate({ trainerData, updateTrainerRequest, changePasswordRequest }) {
   return (
     <>
       <Navigation />
@@ -33,6 +33,8 @@ export function TrainerProfileTemplate({ trainerData }) {
         <TrainerMenu />
       </div>
 
+    {trainerData && (
+      <>
       <Container className="organization-profile-top-margin">
         <Col>
           <h1 id="kalendar">Kalendář volných hodin</h1>
@@ -50,13 +52,25 @@ export function TrainerProfileTemplate({ trainerData }) {
           )}
 
           <Row className="justify-content-md-center">
-            <Col sm="12" md="3"></Col>
+            <Col sm="12" md="3">
+              <TrainerProfileManagementCol
+                trainer={trainerData.trainer}
+                changePasswordRequest={changePasswordRequest }
+              />
+            </Col>
             <Col sm="12" md="7">
-              <Container></Container>
+              <Container>
+                <TrainerProfileForm
+                  trainer={trainerData.trainer}
+                  updateTrainerRequest={updateTrainerRequest}
+                />
+              </Container>
             </Col>
           </Row>
         </Col>
       </Container>
+      </>
+    )}
       <Footer />
     </>
   );
