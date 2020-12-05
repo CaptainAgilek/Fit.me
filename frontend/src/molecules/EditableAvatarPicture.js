@@ -27,12 +27,28 @@ const UPLOAD_PHOTO_MUTATION = gql`
   }
 `;
 
-export function EditableAvatarPicture({ src, alt, user_id, photo_id }) {
+export function EditableAvatarPicture({
+  src,
+  alt,
+  user_id,
+  photo_id,
+  setActionSuccess,
+}) {
   const [profileImageUrl, setProfileImageUrl] = useState(src);
 
   const [uploadFileHandler] = useMutation(UPLOAD_PHOTO_MUTATION, {
     onCompleted({ singleUpload }) {
+      setActionSuccess({
+        message: "Avatar úspěšně změněný.",
+        variant: "success",
+      });
       setProfileImageUrl(singleUpload.url);
+    },
+    onError() {
+      setActionSuccess({
+        message: "Chyba při změně avatara.",
+        variant: "danger",
+      });
     },
   });
 

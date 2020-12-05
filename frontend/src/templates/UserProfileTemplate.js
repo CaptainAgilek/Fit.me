@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import { Loading, RegistrationLink } from "src/atoms/";
+import { Loading, RegistrationLink, CustomAlert } from "src/atoms/";
 import { ErrorBanner, ReservationList } from "src/molecules/";
 import {
   UserProfileForm,
@@ -20,6 +20,8 @@ export function UserProfileTemplate({
   deleteUserRequest,
   updateUserRequest,
   changePasswordRequest,
+  actionSuccess,
+  setActionSuccess,
 }) {
   return (
     <>
@@ -28,6 +30,16 @@ export function UserProfileTemplate({
         {state.showLoading && <Loading />}
 
         {error && <ErrorBanner message={error.message} />}
+
+        <div id="alerts" className="fixed-top mt-1">
+          {
+            <CustomAlert
+              headingText={actionSuccess.message}
+              setActionSuccess={setActionSuccess}
+              variant={actionSuccess.variant}
+            />
+          }
+        </div>
 
         {/*todo instead of Registration link redirect to organization page*/}
         {/*{state.showUknownUser && <RegistrationLink />} */}
@@ -49,6 +61,7 @@ export function UserProfileTemplate({
                   }}
                   deleteUserRequest={deleteUserRequest}
                   changePasswordRequest={changePasswordRequest}
+                  setActionSuccess={setActionSuccess}
                 />
               </Col>
 
