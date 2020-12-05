@@ -27,7 +27,7 @@ export function ActionCard({
   const [actionRequest, actionRequestState] = useMutation(ACTION_MUTATION, {
     onCompleted: () => {
       actionsState.refetch();
-      setActionSuccess("Akce byla uložena.");
+      setActionSuccess({ message: "Akce byla uložena.", variant: "success" });
     },
     onError: (error) => {
       console.log(error);
@@ -39,7 +39,7 @@ export function ActionCard({
     {
       onCompleted: () => {
         actionsState.refetch();
-        setActionSuccess("Akce byla smazána.");
+        setActionSuccess({ message: "Akce byla smazána.", variant: "success" });
       },
       onError: (error) => {
         console.log(error);

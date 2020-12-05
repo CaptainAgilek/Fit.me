@@ -11,6 +11,7 @@ export function UserProfileManagementCol({
   deleteProfilePopUpParams,
   deleteUserRequest,
   changePasswordRequest,
+  setActionSuccess,
 }) {
   console.log("user", user);
   return (
@@ -26,6 +27,7 @@ export function UserProfileManagementCol({
           photo_id={
             user.profile_photo ? user.profile_photo.photo_id : undefined
           }
+          setActionSuccess={setActionSuccess}
         />
       </Row>
 

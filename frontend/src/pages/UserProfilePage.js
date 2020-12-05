@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useHistory } from "react-router-dom";
 import { gql, useMutation, useQuery } from "@apollo/client";
@@ -74,6 +74,8 @@ export function UserProfilePage() {
     variables: { filter },
   });
 
+  const [actionSuccess, setActionSuccess] = useState(false);
+
   const [deleteUserRequest, deleteUserRequestState] = useMutation(
     DELETE_USER_PROFILE_MUTATION,
     {
@@ -88,12 +90,40 @@ export function UserProfilePage() {
     {
       onCompleted: () => {
         userFetcher.refetch();
+        setActionSuccess({
+          message: "Změny profilu uloženy.",
+          variant: "success",
+        });
+      },
+    },
+    {
+      onError: () => {
+        setActionSuccess({
+          message: "Chyba při ukládání hodnot.",
+          variant: "danger",
+        });
       },
     }
   );
 
   const [changePasswordRequest, changePasswordRequestState] = useMutation(
-    CHANGE_PASSWORD_MUTATION
+    CHANGE_PASSWORD_MUTATION,
+    {
+      onCompleted: () => {
+        setActionSuccess({
+          message: "Heslo bylo změněno.",
+          variant: "success",
+        });
+      },
+    },
+    {
+      onError: () => {
+        setActionSuccess({
+          message: "Chyba při změně hesla.",
+          variant: "danger",
+        });
+      },
+    }
   );
 
   const state = {
@@ -178,6 +208,8 @@ export function UserProfilePage() {
         deleteUserRequest={deleteUserRequest}
         updateUserRequest={updateUserRequest}
         changePasswordRequest={changePasswordRequest}
+        actionSuccess={actionSuccess}
+        setActionSuccess={setActionSuccess}
       />
     </>
   );

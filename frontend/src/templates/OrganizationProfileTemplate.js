@@ -3,12 +3,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Col, Row, Container } from "react-bootstrap";
 import ListGroup from "react-bootstrap/ListGroup";
 
-import {
-  CustomDatePicker,
-  Loading,
-  DateFilter,
-  SuccessAlert,
-} from "src/atoms/";
+import { CustomDatePicker, Loading, DateFilter, CustomAlert } from "src/atoms/";
 import {
   Footer,
   OrganizationMenu,
@@ -64,10 +59,10 @@ export function OrganizationProfileTemplate({
   updateOrganizationRequest,
   changePasswordRequest,
   profileFetcher,
+  actionSuccess,
+  setActionSuccess,
 }) {
   const { actions, dateFilterProps } = useActionsFilter(actionsState.data);
-
-  const [actionSuccess, setActionSuccess] = useState(false);
 
   useEffect(() => {
     console.log("effect ", actions);
@@ -80,9 +75,10 @@ export function OrganizationProfileTemplate({
       {error && <ErrorBanner message={error.message} />}
       <div id="alerts" className="fixed-top mt-1">
         {
-          <SuccessAlert
-            headingText={actionSuccess}
+          <CustomAlert
+            headingText={actionSuccess.message}
             setActionSuccess={setActionSuccess}
+            variant={actionSuccess.variant}
           />
         }
       </div>
@@ -143,6 +139,7 @@ export function OrganizationProfileTemplate({
                 <OrganizationProfileManagementCol
                   organization={organizationData.organization}
                   changePasswordRequest={changePasswordRequest}
+                  setActionSuccess={setActionSuccess}
                 />
               </Col>
               <Col sm="12" md="8">

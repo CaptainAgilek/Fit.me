@@ -32,6 +32,7 @@ const UPLOAD_PHOTO_MUTATION = gql`
 export function OrganizationProfileManagementCol({
   organization,
   changePasswordRequest,
+  setActionSuccess,
 }) {
   const src = organization.profile_photo
     ? organization.profile_photo.url
@@ -73,6 +74,7 @@ export function OrganizationProfileManagementCol({
               ? organization.profile_photo.photo_id
               : undefined
           }
+          setActionSuccess={setActionSuccess}
         />
       </Row>
 
