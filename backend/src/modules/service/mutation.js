@@ -1,3 +1,11 @@
+export const deleteService = async (_, { service_id }, { dbConnection }) => {
+  const deleteResponse = await dbConnection.query(
+    `DELETE FROM service WHERE service_id = ?`,
+    [service_id],
+  );
+  return deleteResponse.affectedRows === 1;
+};
+
 export const insertService = async (_, { input }, { dbConnection }) => {
   console.log(input);
   const dbResponse = await dbConnection.query(

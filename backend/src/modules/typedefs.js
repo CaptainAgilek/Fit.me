@@ -234,6 +234,7 @@ export const typeDefs = gql`
     createOrUpdateAction(input: CreateOrUpdateActionInput!): Boolean!
     insertAction(input: CreateOrUpdateActionInput!): Boolean!
     updateAction(input: CreateOrUpdateActionInput!): Boolean!
+    deleteService(service_id: Int!): Boolean!
     createOrUpdateService(input: CreateOrUpdateServiceInput!): Boolean!
     insertService(input: CreateOrUpdateServiceInput!): Boolean!
     updateService(input: CreateOrUpdateServiceInput!): Boolean!

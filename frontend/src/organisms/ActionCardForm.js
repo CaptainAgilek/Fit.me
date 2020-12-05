@@ -9,17 +9,17 @@ import {
 import { EditableActionPicture, ActionDeleteButton } from 'src/molecules/';
 
 export function ActionCardForm({
-  initialValues,
-  img,
-  action,
-  options,
-  editable,
-  handleSubmit,
-  user_id,
-  photo_id,
-  setPhotoId,
-  deleteActionRequest,
-}) {
+                                 initialValues,
+                                 img,
+                                 action,
+                                 options,
+                                 editable,
+                                 handleSubmit,
+                                 user_id,
+                                 photo_id,
+                                 setPhotoId,
+                                 deleteActionRequest,
+                               }) {
   return (
     <Formik
       initialValues={initialValues}
@@ -32,8 +32,9 @@ export function ActionCardForm({
             <EditableActionPicture
               src={img}
               user_id={user_id}
-              action={action}
+              photo_id={action.photo_id}
               setPhotoId={setPhotoId}
+              type='ACTION'
             />
             <div className="text-center" style={{ backgroundColor: '#dedede' }}>
               {editable && (
@@ -88,10 +89,10 @@ export function ActionCardForm({
                   )}
                   {options.length === 0 && <>V organizaci není trenér</>}
                   {options.length > 0 &&
-                    !editable &&
-                    options.find(
-                      (option) => option.value === `${action.trainer_id}`,
-                    ).label}
+                  !editable &&
+                  options.find(
+                    (option) => option.value === `${action.trainer_id}`,
+                  ).label}
                 </div>
                 <div>
                   <img
@@ -124,31 +125,31 @@ export function ActionCardForm({
                 </div>
 
                 <Row>
-                {editable && (
-                  <Col>
-                  <Button
-                    className="mt-1"
-                    size="lg"
-                    block
-                    variant="success"
-                    type="submit"
-                    disabled={options.length === 0}
-                  >
-                    ULOŽIT
-                  </Button>
-                  </Col>
-                )}
+                  {editable && (
+                    <Col>
+                      <Button
+                        className="mt-1"
+                        size="lg"
+                        block
+                        variant="success"
+                        type="submit"
+                        disabled={options.length === 0}
+                      >
+                        ULOŽIT
+                      </Button>
+                    </Col>
+                  )}
 
-                {editable && action.action_id && (
-                  <ActionDeleteButton
-                    handleRemove={() =>
-                      deleteActionRequest({
-                        variables: { action_id: action.action_id },
-                      })
-                    }
-                    name={action.name}
-                  ></ActionDeleteButton>
-                )}
+                  {editable && action.action_id && (
+                    <ActionDeleteButton
+                      handleRemove={() =>
+                        deleteActionRequest({
+                          variables: { action_id: action.action_id },
+                        })
+                      }
+                      name={action.name}
+                    />
+                  )}
                 </Row>
               </div>
             </div>

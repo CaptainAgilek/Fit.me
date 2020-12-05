@@ -28,7 +28,7 @@ const UPLOAD_PHOTO_MUTATION = gql`
   }
 `;
 
-export function EditableActionPicture({ src, user_id, action, setPhotoId }) {
+export function EditableActionPicture({ src, user_id, photo_id, setPhotoId, type }) {
   //Modal
   const [show, setShow] = useState(false);
 
@@ -43,7 +43,6 @@ export function EditableActionPicture({ src, user_id, action, setPhotoId }) {
       setActionImageUrl(singleUpload.url);
       console.log(singleUpload);
       setPhotoId(singleUpload.insertId);
-      console.log(action);
     },
   });
 
@@ -57,8 +56,8 @@ export function EditableActionPicture({ src, user_id, action, setPhotoId }) {
       variables: {
         file: selectedFile,
         user_id: user_id,
-        photo_id: action.photo_id,
-        type: 'ACTION',
+        photo_id: photo_id,
+        type: type,
       },
     });
   };

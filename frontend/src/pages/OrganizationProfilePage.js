@@ -26,7 +26,7 @@ const ACTIONS_QUERY = gql`
 `;
 
 const SERVICES_QUERY = gql`
-  query servicesForPlace($place_id: Int!) {
+  query servicesForPlace($place_id: Int) {
     servicesForPlace(place_id: $place_id) {
       service_id
       place_id
@@ -133,6 +133,11 @@ export function OrganizationProfilePage() {
           profileFetcher.data &&
           profileFetcher.data.organization.places[0].place_id,
       });
+      servicesState.refetch({
+        place_id:
+          profileFetcher.data &&
+          profileFetcher.data.organization.places[0].place_id,
+      });
     },
   });
 
@@ -144,23 +149,22 @@ export function OrganizationProfilePage() {
         null,
     },
   });
+
+  const servicesState = useQuery(SERVICES_QUERY, {
+    variables: {
+      place_id:
+        (profileFetcher.data &&
+          profileFetcher.data.organization.places[0].place_id) ||
+        null,
+    },
+  });
+
   const [
     updateOrganizationRequest,
     updateOrganizationRequestState,
   ] = useMutation(UPDATE_ORGANIZATION_PROFILE_MUTATION, {
     onCompleted: () => {
       profileFetcher.refetch();
-
-  const servicesState = useQuery(SERVICES_QUERY, {
-    variables: { place_id: profileFetcher.data && profileFetcher.data.organization.places[0].place_id},
-  });
-
-  const [updateOrganizationRequest, updateOrganizationRequestState] = useMutation(
-    UPDATE_ORGANIZATION_PROFILE_MUTATION,
-    {
-      onCompleted: () => {
-        profileFetcher.refetch();
-      },
     },
   });
 

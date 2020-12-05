@@ -3,7 +3,7 @@ import Alert from 'react-bootstrap/Alert';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-export function SuccessAlert({ headingText, setActionSuccess, message }) {
+export function SuccessAlert({ headingText, setActionSuccess, setServiceSuccess, message }) {
   useEffect(() => {
     headingText && setTimeout(() => {
       setActionSuccess(false);
@@ -18,7 +18,10 @@ export function SuccessAlert({ headingText, setActionSuccess, message }) {
             <Alert
               variant="success"
               dismissible
-              onClose={() => setActionSuccess(false)}
+              onClose={() => {
+                setActionSuccess(false);
+                setServiceSuccess(false);
+              }}
             >
               <Alert.Heading>{headingText}</Alert.Heading>
               <p>{message}</p>

@@ -59,17 +59,19 @@ function useActionsFilter(data) {
 }
 
 export function OrganizationProfileTemplate({
-  actionsState,
-  organizationData,
-  loading,
-  error,
-  updateOrganizationRequest,
-  changePasswordRequest,
-  profileFetcher,
-}) {
+                                              actionsState,
+                                              servicesState,
+                                              organizationData,
+                                              loading,
+                                              error,
+                                              updateOrganizationRequest,
+                                              changePasswordRequest,
+                                              profileFetcher,
+                                            }) {
   const { actions, dateFilterProps } = useActionsFilter(actionsState.data);
 
   const [actionSuccess, setActionSuccess] = useState(false);
+  const [serviceSuccess, setServiceSuccess] = useState(false);
 
   useEffect(() => {
     console.log('effect ', actions);
@@ -83,13 +85,14 @@ export function OrganizationProfileTemplate({
       <div id="alerts" className="fixed-top mt-1">
         {
           <SuccessAlert
-            headingText={actionSuccess}
+            headingText={actionSuccess || serviceSuccess}
             setActionSuccess={setActionSuccess}
+            setServiceSuccess={setServiceSuccess}
           />
         }
       </div>
 
-      {organizationData && actionsState.data && (
+      {organizationData && (actionsState.data || servicesState.data) && (
         <>
           <div className="headerImg">
             <OrganizationMenu />
@@ -113,10 +116,24 @@ export function OrganizationProfileTemplate({
               </Row>
               {organizationData && (
                 <Container className="organization-profile-section-container">
+                  <h1 id="sluzby">Služby</h1>
+                  <Row>
+                    <ServicesList
+                      organizationData={organizationData}
+                      organizationLoading={loading}
+                      servicesState={servicesState}
+                      editable={true}
+                      setServiceSuccess={setServiceSuccess}
+                    />
+                  </Row>
+                </Container>
+              )}
+              {organizationData && (
+                <Container className="organization-profile-section-container">
                   <h1 id="treneri">Trenéři</h1>
                   <OrganizationProfileTrainers
                     organizationState={profileFetcher}
-                  ></OrganizationProfileTrainers>
+                  />
                 </Container>
               )}
               {organizationData && (
@@ -134,16 +151,6 @@ export function OrganizationProfileTemplate({
                   <TestimonialBoxCol />
                 </Container>
               )}
-              <h1>Služby</h1>
-              <Row>
-                <ServicesList
-                  organizationData={organizationData}
-                  organizationLoading={loading}
-                  // services={services}
-                  // servicesState={servicesState}
-                  editable={true}
-                />
-              </Row>
 
               <Row className="justify-content-md-center">
                 <Col sm="12" md="3">

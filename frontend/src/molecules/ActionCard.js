@@ -16,18 +16,18 @@ const DELETE_ACTION_MUTATION = gql`
 `;
 
 export function ActionCard({
-  img,
-  action,
-  trainers,
-  user_id,
-  editable,
-  actionsState,
-  setActionSuccess
-}) {
+                             img,
+                             action,
+                             trainers,
+                             user_id,
+                             editable,
+                             actionsState,
+                             setActionSuccess,
+                           }) {
   const [actionRequest, actionRequestState] = useMutation(ACTION_MUTATION, {
     onCompleted: () => {
       actionsState.refetch();
-      setActionSuccess("Akce byla uložena.");
+      setActionSuccess('Akce byla uložena.');
     },
     onError: (error) => {
       console.log(error);
@@ -37,7 +37,7 @@ export function ActionCard({
   const [deleteActionRequest, deleteActionRequestState] = useMutation(DELETE_ACTION_MUTATION, {
     onCompleted: () => {
       actionsState.refetch();
-      setActionSuccess("Akce byla smazána.");
+      setActionSuccess('Akce byla smazána.');
     },
     onError: (error) => {
       console.log(error);
@@ -88,7 +88,7 @@ export function ActionCard({
     trainer:
       (options.length > 0 && action.trainer_id &&
         options.find((option) => option.value === `${action.trainer_id}`) && options.find((option) => option.value === `${action.trainer_id}`).value) ||
-    `${action.trainer_id}`,
+      `${action.trainer_id}`,
     price: action.price || '',
     max_capacity: action.max_capacity || '',
   };
