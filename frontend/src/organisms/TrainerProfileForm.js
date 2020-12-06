@@ -32,12 +32,12 @@ export function TrainerProfileForm({ trainer, updateTrainerRequest }) {
   const initialValues = {
     name: trainer.trainer_name,
     username: trainer.username,
-    email: trainer.email || '',
+    email: trainer.user.email || '',
     phone: trainer.phone || '',
-    //street: trainer.places[0] ? trainer.places[0].street : "",
-    //city: trainer.places[0] ? trainer.places[0].city : "",
-    //country: trainer.places[0] ? trainer.places[0].country : "",
-    //zip: trainer.places[0] ? trainer.places[0].zip : "",
+    street: trainer.places[0] ? trainer.places[0].street : "",
+    city: trainer.places[0] ? trainer.places[0].city : "",
+    country: trainer.places[0] ? trainer.places[0].country : "",
+    zip: trainer.places[0] ? trainer.places[0].zip : "",
   };
 
   return (

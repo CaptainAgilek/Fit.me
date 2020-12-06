@@ -204,6 +204,21 @@ export default {
         where rating.organization_id = ?`,
         [parent.user_id],
       );
+    },
+    async user(parent, _, { dbConnection }) {
+      return (await dbConnection.query(
+        `SELECT user_id, user.email, verification_token, is_verified FROM user
+        JOIN trainer USING (user_id)
+        WHERE user_id = ?`,
+        [parent.user_id]))[0];
+    },
+    async places(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT place_id, user_id, city, street, zip, country FROM place
+          JOIN trainer USING (user_id)
+          WHERE user_id = ?`,
+        [parent.user_id],
+      );
     }
   }
 };

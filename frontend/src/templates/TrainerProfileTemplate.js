@@ -9,6 +9,7 @@ import {
   DateFilter,
   SuccessAlert,
   Calendar,
+  CustomAlert
 } from 'src/atoms/';
 import {
   Footer,
@@ -40,12 +41,24 @@ export function TrainerProfileTemplate({
   trainerData,
   updateTrainerRequest,
   changePasswordRequest,
+  actionSuccess,
+  setActionSuccess
 }) {
   return (
     <>
       <Navigation />
       <div className="headerImg">
         <TrainerMenu />
+      </div>
+
+      <div id="alerts" className="fixed-top mt-1">
+        {
+          <CustomAlert
+            headingText={actionSuccess.message}
+            setActionSuccess={setActionSuccess}
+            variant={actionSuccess.variant}
+          />
+        }
       </div>
 
       {trainerData && (
@@ -74,6 +87,7 @@ export function TrainerProfileTemplate({
                   <TrainerProfileManagementCol
                     trainer={trainerData.trainer}
                     changePasswordRequest={changePasswordRequest}
+                    setActionSuccess={setActionSuccess}
                   />
                 </Col>
                 <Col sm="12" md="7">

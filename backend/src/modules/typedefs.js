@@ -169,6 +169,9 @@ export const typeDefs = gql`
     description: String
     profile_photo: Photo
     ratings: [Rating]
+    user: User!
+    places: [Place]!
+    phone: String
   }
 
   input OrganizationInput {

@@ -46,25 +46,25 @@ export function SignInPage({
   const orgProfile = route.organizationProfile();
 
   const [signInRequest, signInRequestState] = useMutation(SIGNIN_MUTATION, {
-    onCompleted: ({ signin: { user, trainer, organization, token } }) => {
-      console.log(user.roles[0]);
+    onCompleted: ({ signin: { user, token } }) => {
+      console.log(user.roles);
 
-      auth.signin({ token, user });
-      history.replace(trainerProfile);
-
-      //if (user.roles == 'ROLE_ORGANIZATION') {
-      //  console.log('som org');
-      //auth.signin({ token, user });
-      //history.replace(orgProfile);
-      //} else if (user.roles == 'ROLE_TRAINER') {
-      //  console.log('som trener');
       //auth.signin({ token, user });
       //history.replace(trainerProfile);
-      //  } else {
-      //    console.log('som sportsman');
-      //auth.signin({ token, user });
-      //history.replace(homePageLink);
-      //  }
+
+      if (user.roles.some(x => x.name === "ROLE_ORGANIZATION")) {
+        console.log('som org');
+        auth.signin({ token, user });
+        history.replace(orgProfile);
+      } else if (user.roles.some(x => x.name === "ROLE_TRAINER")) {
+        console.log('som trener');
+        auth.signin({ token, user });
+        history.replace(trainerProfile);
+      } else {
+        console.log('som sportsman');
+        auth.signin({ token, user });
+        history.replace(homePageLink);
+      }
     },
     onError: (error) => {
       console.log(error);

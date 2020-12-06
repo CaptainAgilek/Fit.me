@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { useAuth } from 'src/utils/auth';
@@ -14,6 +14,7 @@ const TRAINER_PROFILE_QUERY = gql`
       username
       facebook
       instagram
+      phone
       ratings {
         sportsman {
           firstname
@@ -24,6 +25,20 @@ const TRAINER_PROFILE_QUERY = gql`
         }
         text
         stars
+      }
+      user{
+        email
+      }
+      places {
+        place_id
+        city
+        street
+        zip
+        country
+      }
+      profile_photo {
+        url
+        photo_id
       }
     }
   }
@@ -36,9 +51,11 @@ export function TrainerProfilePage() {
     variables: { user_id: userId },
   });
 
+  const [actionSuccess, setActionSuccess] = useState(false);
+
   return (
     <>
-      <TrainerProfileTemplate trainerData={trainerFetcher.data} />
+      <TrainerProfileTemplate trainerData={trainerFetcher.data} actionSuccess={actionSuccess} setActionSuccess={setActionSuccess} />
     </>
   );
 }
