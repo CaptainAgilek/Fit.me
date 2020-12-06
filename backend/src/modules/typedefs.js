@@ -155,7 +155,7 @@ export const typeDefs = gql`
   type Rating {
     id: Int!
     sportsman: Sportsman!
-    organization: Organization!
+    ratee: User!
     text: String
     stars: Int}
 
@@ -168,6 +168,7 @@ export const typeDefs = gql`
     instagram: String
     description: String
     profile_photo: Photo
+    ratings: [Rating]
   }
 
   input OrganizationInput {
@@ -196,7 +197,7 @@ export const typeDefs = gql`
     sportsman(filter: SportsmanFilter!): Sportsman
     organization(user_id: Int!): Organization
     trainersNotEmployed(user_id: Int!): [Trainer]
-
+    trainer(user_id: Int!): Trainer!
   }
 
   type AuthInfo {

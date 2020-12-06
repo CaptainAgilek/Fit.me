@@ -8,14 +8,8 @@ import { route } from 'src/Routes';
 import { Container, Modal } from 'react-bootstrap';
 
 const SIGNIN_MUTATION = gql`
-  mutation signIn(
-    $email: String!
-    $password: String!
-  ) {
-    signin(
-      email: $email
-      password: $password
-    ) {
+  mutation signIn($email: String!, $password: String!) {
+    signin(email: $email, password: $password) {
       user {
         user_id
         email
@@ -29,8 +23,12 @@ const SIGNIN_MUTATION = gql`
   }
 `;
 
-export function SignInPage({ onCloseMethod, showSignIn, setShowSignUp, setShowForgotten }) {
-
+export function SignInPage({
+  onCloseMethod,
+  showSignIn,
+  setShowSignUp,
+  setShowForgotten,
+}) {
   const showSignUp = () => {
     onCloseMethod(false);
     setShowSignUp(true);
@@ -44,11 +42,29 @@ export function SignInPage({ onCloseMethod, showSignIn, setShowSignUp, setShowFo
   const auth = useAuth();
   const history = useHistory();
   const homePageLink = route.home();
+  const trainerProfile = route.trainerProfiler();
+  const orgProfile = route.organizationProfile();
 
   const [signInRequest, signInRequestState] = useMutation(SIGNIN_MUTATION, {
-    onCompleted: ({ signin: { user, token } }) => {
+    onCompleted: ({ signin: { user, trainer, organization, token } }) => {
+      console.log(user.roles[0]);
+
       auth.signin({ token, user });
-      history.replace(homePageLink);
+      history.replace(trainerProfile);
+
+      //if (user.roles == 'ROLE_ORGANIZATION') {
+      //  console.log('som org');
+      //auth.signin({ token, user });
+      //history.replace(orgProfile);
+      //} else if (user.roles == 'ROLE_TRAINER') {
+      //  console.log('som trener');
+      //auth.signin({ token, user });
+      //history.replace(trainerProfile);
+      //  } else {
+      //    console.log('som sportsman');
+      //auth.signin({ token, user });
+      //history.replace(homePageLink);
+      //  }
     },
     onError: (error) => {
       console.log(error);
