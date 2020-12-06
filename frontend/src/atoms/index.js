@@ -23,3 +23,7 @@ export { TestimonialBox } from './TestimonialBox';
 export { TrainersSocialColumn } from './TrainersSocialColumn';
 export { DateFilter } from './DateFilter';
 export { SuccessAlert } from './SuccessAlert';
+
+export { Calendar} from './Calendar';
+export { CalendarLegendIcon } from './CalendarLegendIcon';
+export { CalendarLegendText } from './CalendarLegendText';

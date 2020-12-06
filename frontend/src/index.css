@@ -439,6 +439,15 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
   margin-bottom: 0.3rem;
 }
 
+.calendar-legend-icon {
+  width: 18.5px;
+  height: 18.5px;
+}
+/* remove padding from calendar buttons, this makes it look better and fixes bad responsivity on mobile devices*/
+.fc .fc-button {
+  padding: 2.3px!important;
+}
+
 .navbar-item-right-offset {
   margin-right: 1.5rem;
 }
@@ -496,4 +505,9 @@ html {
 .href:hover {
   text-decoration: none;
   color: black;
+}
+
+.fc-cell-text
+{
+  white-space: normal;
 }

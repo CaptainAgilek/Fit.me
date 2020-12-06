@@ -30,3 +30,5 @@ export { TrainersColumn } from './TrainersColumn';
 export { TrainersContentBody } from './TrainersContentBody';
 
 export { ActionsList } from './ActionsList';
+
+export { CalendarLegendRow } from './CalendarLegendRow';
