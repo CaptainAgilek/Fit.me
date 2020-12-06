@@ -1,37 +1,31 @@
-import React from 'react';
+import React from "react";
 
-import { Formik } from 'formik';
-import * as yup from 'yup';
+import { Formik } from "formik";
+import * as yup from "yup";
 
-import Form from 'react-bootstrap/Form';
-import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
+import Form from "react-bootstrap/Form";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
 
-import { UserProfileActionButton, FormikSwitch } from 'src/atoms/';
-import { FormikGroup } from 'src/molecules/';
+import { UserProfileActionButton, FormikSwitch } from "src/atoms/";
+import { FormikGroup } from "src/molecules/";
 
 const schema = yup.object({
   firstName: yup.string().required(),
   lastName: yup.string().required(),
   username: yup.string().min(3).required(),
   email: yup.string().email().required(),
-  phone: yup.string()
+  phone: yup
+    .string()
     .nullable()
-    .matches(
-      /^[0-9]{9}$/,
-      'Musí obsahovat 9 čísel bez mezer'
-    )
-  ,
+    .matches(/^[0-9]{9}$/, "Musí obsahovat 9 čísel bez mezer"),
   street: yup.string().nullable(),
   city: yup.string().nullable(),
   country: yup.string().nullable(),
-  zip: yup.string()
+  zip: yup
+    .string()
     .nullable()
-    .matches(
-      /^[0-9]{5}$/,
-      'Musí obsahovat 5 čísel bez mezer'
-    )
-  ,
+    .matches(/^[0-9]{5}$/, "Musí obsahovat 5 čísel bez mezer"),
   hasMultisport: yup.bool(),
   hasActivePass: yup.bool(),
 });
@@ -42,13 +36,17 @@ export function UserProfileForm({ user, updateUserRequest }) {
     lastName: user.lastname,
     username: user.username,
     email: user.user.email,
-    phone: user.phone,
+    phone: user.phone ? user.phone : "",
     street: user.places[0] ? user.places[0].street : "",
     city: user.places[0] ? user.places[0].city : "",
     country: user.places[0] ? user.places[0].country : "",
     zip: user.places[0] ? user.places[0].zip : "",
-    hasMultisport: user.benefits.some(benefit => benefit.name === "Multisport"),
-    hasActivePass: user.benefits.some(benefit => benefit.name === "Active Pass"),
+    hasMultisport: user.benefits.some(
+      (benefit) => benefit.name === "Multisport"
+    ),
+    hasActivePass: user.benefits.some(
+      (benefit) => benefit.name === "Active Pass"
+    ),
   };
 
   return (
@@ -73,90 +71,84 @@ export function UserProfileForm({ user, updateUserRequest }) {
                 country: values.country,
               },
               hasMultisport: values.hasMultisport,
-              hasActivePass: values.hasActivePass
+              hasActivePass: values.hasActivePass,
             };
 
-            console.log('updating profile', profile);
+            console.log("updating profile", profile);
             updateUserRequest({ variables: { input: profile } });
           }}
           initialValues={initialValues}
           enableReinitialize
         >
-          {({
-            handleSubmit,
-            handleChange,
-            values,
-            touched,
-            errors,
-          }) => (
+          {({ handleSubmit, handleChange, values, touched, errors }) => (
             <Form noValidate onSubmit={handleSubmit}>
               <Form.Row>
                 <FormikGroup
-                   name="firstName"
-                   label="Jméno"
-                   id="userProfileFirstnameValidation"
-                   md="6"
+                  name="firstName"
+                  label="Jméno"
+                  id="userProfileFirstnameValidation"
+                  md="6"
                 />
 
                 <FormikGroup
-                   name="lastName"
-                   label="Příjmení"
-                   id="userProfileLastnameValidation"
-                   md="6"
+                  name="lastName"
+                  label="Příjmení"
+                  id="userProfileLastnameValidation"
+                  md="6"
                 />
               </Form.Row>
 
               <Form.Row>
                 <FormikGroup
-                   name="username"
-                   label="Uživatelské jméno"
-                   id="userProfileUsernameValidation"
+                  name="username"
+                  label="Uživatelské jméno"
+                  id="userProfileUsernameValidation"
                 />
               </Form.Row>
 
               <Form.Row>
                 <FormikGroup
-                   name="email"
-                   label="Email"
-                   id="userProfileEmailValidation"
-                   md="6"
+                  name="email"
+                  label="Email"
+                  id="userProfileEmailValidation"
+                  md="6"
                 />
 
                 <FormikGroup
-                   name="phone"
-                   label="Telefon"
-                   id="userProfileMobileValidation"
-                   md="6"
+                  name="phone"
+                  label="Telefon"
+                  id="userProfileMobileValidation"
+                  md="6"
                 />
               </Form.Row>
 
               <Form.Row>
                 <FormikGroup
-                   name="street"
-                   label="Ulice a čp."
-                   id="userProfileAddressStreetValidation"
+                  name="street"
+                  label="Ulice a čp."
+                  id="userProfileAddressStreetValidation"
                 />
               </Form.Row>
 
               <Form.Row>
                 <FormikGroup
-                   name="city"
-                   label="Město"
-                   id="userProfileAddressCityValidation"
-                   md="6"
+                  name="city"
+                  label="Město"
+                  id="userProfileAddressCityValidation"
+                  md="6"
                 />
                 <FormikGroup
-                   name="country"
-                   label="Stát"
-                   id="userProfileAddressCountryValidation"
-                   md="3"
+                  name="country"
+                  label="Stát"
+                  id="userProfileAddressCountryValidation"
+                  md="3"
                 />
                 <FormikGroup
-                   name="zip"
-                   label="PSČ"
-                   id="userProfileAddressZipValidation"
-                   type="integer"
-                   md="3"
+                  name="zip"
+                  label="PSČ"
+                  id="userProfileAddressZipValidation"
+                  type="integer"
+                  md="3"
                 />
               </Form.Row>
 
@@ -177,10 +169,18 @@ export function UserProfileForm({ user, updateUserRequest }) {
                   />
                 </Form.Group>
 
-                <Form.Group as={Col} md={{ span: 2, offset: 4 }} sm={{ span: 2, offset: 3 }}>
-                    <UserProfileActionButton variant="warning" type="submit" size="lg">
-                      Uložit
-                    </UserProfileActionButton>
+                <Form.Group
+                  as={Col}
+                  md={{ span: 2, offset: 4 }}
+                  sm={{ span: 2, offset: 3 }}
+                >
+                  <UserProfileActionButton
+                    variant="warning"
+                    type="submit"
+                    size="lg"
+                  >
+                    Uložit
+                  </UserProfileActionButton>
                 </Form.Group>
               </Form.Row>
             </Form>

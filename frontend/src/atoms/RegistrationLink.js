@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import { route } from 'src/Routes';
+import { route } from "src/Routes";
 
-import { Row } from 'react-bootstrap';
+import { Row } from "react-bootstrap";
 
 export function RegistrationLink() {
   const homeLink = route.home();

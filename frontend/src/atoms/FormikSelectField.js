@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { Field } from 'formik';
+import { Field } from "formik";
 
 export function FormikSelectField({ name, id, options, ...props }) {
   return (

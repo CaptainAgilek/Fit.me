@@ -15,19 +15,19 @@ export { DelimiterRow } from './DelimiterRow';
 export { OrganizationMenu } from './OrganizationMenu';
 export { TrainerMenu } from './TrainerMenu';
 
-export { GalleryUploadPhotoButton } from './GalleryUploadPhotoButton';
-export { GalleryPhotoRemoveButton } from './GalleryPhotoRemoveButton';
+export { GalleryUploadPhotoButton } from "./GalleryUploadPhotoButton";
+export { GalleryPhotoRemoveButton } from "./GalleryPhotoRemoveButton";
 
-export { ActionCard } from './ActionCard';
-export { ActionDeleteButton } from './ActionDeleteButton';
+export { ActionCard } from "./ActionCard";
+export { ActionDeleteButton } from "./ActionDeleteButton";
 
-export { TrainersPopUp } from './TrainersPopUp';
-export { TestimonialBoxCol } from './TestimonialBoxCol';
-export { TestimonialBoxGrid } from './TestimonialBoxGrid';
-export { RemovePopUp } from './RemovePopUp';
-export { TrainersTopRow } from './TrainersTopRow';
-export { TrainersColumn } from './TrainersColumn';
-export { TrainersContentBody } from './TrainersContentBody';
+export { TrainersPopUp } from "./TrainersPopUp";
+export { TestimonialBoxCol } from "./TestimonialBoxCol";
+export { TestimonialBoxGrid } from "./TestimonialBoxGrid";
+export { RemovePopUp } from "./RemovePopUp";
+export { TrainersTopRow } from "./TrainersTopRow";
+export { TrainersColumn } from "./TrainersColumn";
+export { TrainersContentBody } from "./TrainersContentBody";
 
 export { ActionsList } from './ActionsList';
 

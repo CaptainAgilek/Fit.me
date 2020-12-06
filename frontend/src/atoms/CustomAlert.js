@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import Alert from 'react-bootstrap/Alert';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import React, { useEffect, useState } from "react";
+import Alert from "react-bootstrap/Alert";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-export function SuccessAlert({ headingText, setActionSuccess, message }) {
+export function CustomAlert({
+  headingText,
+  setActionSuccess,
+  message,
+  variant,
+}) {
   useEffect(() => {
-    headingText && setTimeout(() => {
-      setActionSuccess(false);
-    }, 2000);
+    headingText &&
+      setTimeout(() => {
+        setActionSuccess(false);
+      }, 2000);
   });
 
   return (
@@ -16,7 +22,7 @@ export function SuccessAlert({ headingText, setActionSuccess, message }) {
         <Row className="justify-content-md-center">
           <Col sm="6" className="justify-content-md-center">
             <Alert
-              variant="success"
+              variant={variant}
               dismissible
               onClose={() => setActionSuccess(false)}
             >

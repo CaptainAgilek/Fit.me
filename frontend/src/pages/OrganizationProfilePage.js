@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { useAuth } from 'src/utils/auth';
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { useAuth } from "src/utils/auth";
 
-import { OrganizationProfileTemplate } from 'src/templates/OrganizationProfileTemplate';
+import { OrganizationProfileTemplate } from "src/templates/OrganizationProfileTemplate";
 
 const ACTIONS_QUERY = gql`
   query actionsForPlace($place_id: Int) {
@@ -113,6 +113,8 @@ const CHANGE_PASSWORD_MUTATION = gql`
 export function OrganizationProfilePage() {
   const { user } = useAuth();
 
+  const [actionSuccess, setActionSuccess] = useState(false);
+
   const profileFetcher = useQuery(ORGANIZATION_PROFILE_QUERY, {
     variables: { user_id: user.user_id },
     onCompleted: () => {
@@ -132,17 +134,49 @@ export function OrganizationProfilePage() {
         null,
     },
   });
+
   const [
     updateOrganizationRequest,
     updateOrganizationRequestState,
-  ] = useMutation(UPDATE_ORGANIZATION_PROFILE_MUTATION, {
-    onCompleted: () => {
-      profileFetcher.refetch();
+  ] = useMutation(
+    UPDATE_ORGANIZATION_PROFILE_MUTATION,
+    {
+      onCompleted: () => {
+        profileFetcher.refetch();
+        setActionSuccess({
+          message: "Změny profilu uloženy.",
+          variant: "success",
+        });
+      },
     },
-  });
+    {
+      onError: () => {
+        setActionSuccess({
+          message: "Chyba při ukládání hodnot.",
+          variant: "danger",
+        });
+      },
+    }
+  );
 
   const [changePasswordRequest, changePasswordRequestState] = useMutation(
     CHANGE_PASSWORD_MUTATION,
+    {
+      onCompleted: () => {
+        setActionSuccess({
+          message: "Heslo bylo změněno.",
+          variant: "success",
+        });
+      },
+    },
+    {
+      onError: () => {
+        setActionSuccess({
+          message: "Chyba při změně hesla.",
+          variant: "danger",
+        });
+      },
+    }
   );
 
   return (
@@ -159,6 +193,8 @@ export function OrganizationProfilePage() {
         }
         updateOrganizationRequest={updateOrganizationRequest}
         changePasswordRequest={changePasswordRequest}
+        actionSuccess={actionSuccess}
+        setActionSuccess={setActionSuccess}
       />
     </>
   );

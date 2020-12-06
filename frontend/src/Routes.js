@@ -15,7 +15,7 @@ import { SignInPage } from 'src/pages/SignInPage';
 export const route = {
   home: () => `/`,
   about: () => `/about`,
-  verification: () => "/verification/",
+  verification: () => '/verification/',
 
   signIn: () => `/auth/signin`,
   signUp: () => `/auth/signup`,
@@ -32,9 +32,31 @@ export function Routes() {
       <Route path={route.signUp()} exact component={SignUpPage} />
       <Route path={route.signIn()} exact component={SignInPage} />
       <Route path={route.verification()} exact component={VerificationPage} />
-      <Route path={route.trainerProfiler()} exact component={TrainerProfilePage} />
-      <PrivateRoute path={route.userProfile()} exact component={UserProfilePage} />
-      <PrivateRoute path={route.organizationProfile()} exact component={OrganizationProfilePage} />
+      <Route
+        path={route.trainerProfiler()}
+        exact
+        component={TrainerProfilePage}
+      />
+      <PrivateRoute
+        path={route.userProfile()}
+        exact
+        component={UserProfilePage}
+      />
+      <PrivateRoute
+        path={route.organizationProfile()}
+        exact
+        component={OrganizationProfilePage}
+      />
+      <PrivateRoute
+        path={route.userProfile()}
+        exact
+        component={UserProfilePage}
+      />
+      <PrivateRoute
+        path={route.organizationProfile()}
+        exact
+        component={OrganizationProfilePage}
+      />
       <Route path="*" component={PageNotFound} />
     </Switch>
   );

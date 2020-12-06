@@ -4,9 +4,9 @@ import React, {
   useContext,
   useMemo,
   useState,
-} from 'react';
+} from "react";
 
-const LOCAL_STORAGE_AUTH_KEY = 'app-auth';
+const LOCAL_STORAGE_AUTH_KEY = "app-auth";
 
 const initialState = {
   token: null,
@@ -18,8 +18,8 @@ const AuthContext = createContext(
     token: initialState.token,
     user: initialState.user,
     setState: () =>
-      console.error('You are using AuthContext without AuthProvider!'),
-  }),
+      console.error("You are using AuthContext without AuthProvider!"),
+  })
 );
 
 export function useAuth() {

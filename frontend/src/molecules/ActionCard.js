@@ -1,7 +1,7 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from "react";
 
-import { gql, useMutation } from '@apollo/client';
-import { ActionCardForm } from 'src/organisms/';
+import { gql, useMutation } from "@apollo/client";
+import { ActionCardForm } from "src/organisms/";
 
 const ACTION_MUTATION = gql`
   mutation createOrUpdateAction($input: CreateOrUpdateActionInput!) {
@@ -22,36 +22,39 @@ export function ActionCard({
   user_id,
   editable,
   actionsState,
-  setActionSuccess
+  setActionSuccess,
 }) {
   const [actionRequest, actionRequestState] = useMutation(ACTION_MUTATION, {
     onCompleted: () => {
       actionsState.refetch();
-      setActionSuccess("Akce byla uložena.");
+      setActionSuccess({ message: "Akce byla uložena.", variant: "success" });
     },
     onError: (error) => {
       console.log(error);
     },
   });
 
-  const [deleteActionRequest, deleteActionRequestState] = useMutation(DELETE_ACTION_MUTATION, {
-    onCompleted: () => {
-      actionsState.refetch();
-      setActionSuccess("Akce byla smazána.");
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
+  const [deleteActionRequest, deleteActionRequestState] = useMutation(
+    DELETE_ACTION_MUTATION,
+    {
+      onCompleted: () => {
+        actionsState.refetch();
+        setActionSuccess({ message: "Akce byla smazána.", variant: "success" });
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    }
+  );
 
   const [photoId, setPhotoId] = useState(action.photo_id || null);
 
   const handleActionSubmit = useCallback(
     (values) => {
-      const [hours, minutes, seconds] = values.time.toTimeString().split(':');
+      const [hours, minutes, seconds] = values.time.toTimeString().split(":");
 
       const deepCopyVariables = {
-        time: hours + ':' + minutes,
+        time: hours + ":" + minutes,
         date: new String(new Date(values.date).getTime()),
         price: parseFloat(values.price),
         name: values.name,
@@ -64,18 +67,18 @@ export function ActionCard({
 
       actionRequest({ variables: { input: deepCopyVariables } });
     },
-    [actionRequest, photoId],
+    [actionRequest, photoId]
   );
 
   let time = new Date();
 
   const options = trainers.map((trainer) => ({
     value: `${trainer.user_id}`,
-    label: trainer.firstname + ' ' + trainer.lastname,
+    label: trainer.firstname + " " + trainer.lastname,
   }));
 
   if (action) {
-    const [hours, minutes, seconds] = action.time.split(':');
+    const [hours, minutes, seconds] = action.time.split(":");
     time.setHours(hours);
     time.setMinutes(minutes);
     time.setSeconds(seconds);
@@ -86,11 +89,14 @@ export function ActionCard({
     date: parseInt(action.date),
     time: time || new Date(),
     trainer:
-      (options.length > 0 && action.trainer_id &&
-        options.find((option) => option.value === `${action.trainer_id}`) && options.find((option) => option.value === `${action.trainer_id}`).value) ||
-    `${action.trainer_id}`,
-    price: action.price || '',
-    max_capacity: action.max_capacity || '',
+      (options.length > 0 &&
+        action.trainer_id &&
+        options.find((option) => option.value === `${action.trainer_id}`) &&
+        options.find((option) => option.value === `${action.trainer_id}`)
+          .value) ||
+      `${action.trainer_id}`,
+    price: action.price || "",
+    max_capacity: action.max_capacity || "",
   };
 
   return (

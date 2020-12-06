@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from "react";
 
-import { useHistory } from 'react-router-dom';
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { useHistory } from "react-router-dom";
+import { gql, useMutation, useQuery } from "@apollo/client";
 
-import { UserProfileTemplate } from 'src/templates/UserProfileTemplate';
-import { useAuth } from 'src/utils/auth';
+import { UserProfileTemplate } from "src/templates/UserProfileTemplate";
+import { useAuth } from "src/utils/auth";
 
 const USER_PROFILE_QUERY = gql`
   query getSportsman($filter: SportsmanFilter!) {
@@ -49,8 +49,18 @@ const UPDATE_USER_PROFILE_MUTATION = gql`
 `;
 
 const CHANGE_PASSWORD_MUTATION = gql`
-  mutation changePassword($email: String!, $oldPassword: String!, $newPassword: String!, $newPasswordAgain: String!) {
-    changePassword(email: $email, oldPassword: $oldPassword, newPassword: $newPassword, newPasswordAgain: $newPasswordAgain)
+  mutation changePassword(
+    $email: String!
+    $oldPassword: String!
+    $newPassword: String!
+    $newPasswordAgain: String!
+  ) {
+    changePassword(
+      email: $email
+      oldPassword: $oldPassword
+      newPassword: $newPassword
+      newPasswordAgain: $newPasswordAgain
+    )
   }
 `;
 
@@ -61,16 +71,18 @@ export function UserProfilePage() {
   const filter = { id: user.user_id };
 
   const userFetcher = useQuery(USER_PROFILE_QUERY, {
-    variables: { filter }
+    variables: { filter },
   });
+
+  const [actionSuccess, setActionSuccess] = useState(false);
 
   const [deleteUserRequest, deleteUserRequestState] = useMutation(
     DELETE_USER_PROFILE_MUTATION,
     {
       onCompleted: () => {
-        history.replace('/');
+        history.replace("/");
       },
-    },
+    }
   );
 
   const [updateUserRequest, updateUserRequestState] = useMutation(
@@ -78,11 +90,41 @@ export function UserProfilePage() {
     {
       onCompleted: () => {
         userFetcher.refetch();
+        setActionSuccess({
+          message: "Změny profilu uloženy.",
+          variant: "success",
+        });
       },
     },
+    {
+      onError: () => {
+        setActionSuccess({
+          message: "Chyba při ukládání hodnot.",
+          variant: "danger",
+        });
+      },
+    }
   );
 
-  const [changePasswordRequest, changePasswordRequestState] = useMutation(CHANGE_PASSWORD_MUTATION);
+  const [changePasswordRequest, changePasswordRequestState] = useMutation(
+    CHANGE_PASSWORD_MUTATION,
+    {
+      onCompleted: () => {
+        setActionSuccess({
+          message: "Heslo bylo změněno.",
+          variant: "success",
+        });
+      },
+    },
+    {
+      onError: () => {
+        setActionSuccess({
+          message: "Chyba při změně hesla.",
+          variant: "danger",
+        });
+      },
+    }
+  );
 
   const state = {
     showLoading:
@@ -101,25 +143,73 @@ export function UserProfilePage() {
   };
 
   const userReservations = [
-    { id: 1, icon: "hockey", name: 'HTC Praha', date: '20.10.2020', hour: "14:00 - 17:00", address: "Náhodná 88, Praha" },
-    { id: 2, icon: 'fitness', name: 'Sportcentrum Prosek', date: '24.10.2020', hour: "14:00 - 17:00", address: "Náhodná 89, Praha" },
-    { id: 3, icon: "football", name: 'Sportcentrum Prosek', date: '29.10.2020', hour: "14:00 - 17:00", address: "Náhodná 89, Praha" },
-    { id: 4, icon: "fitness", name: 'Sportcentrum Prosek', date: '2.11.2020', hour: "14:00 - 17:00", address: "Náhodná 89, Praha" },
-    { id: 5, icon: "kravmaga", name: 'Sportcentrum Prosek', date: '12.11.2020', hour: "14:00 - 17:00", address: "Náhodná 89, Praha" },
-    { id: 6, icon: "hockey", name: 'HTC Praha', date: '13.11.2020', hour: "14:00 - 17:00", address: "Náhodná 88, Praha" },
+    {
+      id: 1,
+      icon: "hockey",
+      name: "HTC Praha",
+      date: "20.10.2020",
+      hour: "14:00 - 17:00",
+      address: "Náhodná 88, Praha",
+    },
+    {
+      id: 2,
+      icon: "fitness",
+      name: "Sportcentrum Prosek",
+      date: "24.10.2020",
+      hour: "14:00 - 17:00",
+      address: "Náhodná 89, Praha",
+    },
+    {
+      id: 3,
+      icon: "football",
+      name: "Sportcentrum Prosek",
+      date: "29.10.2020",
+      hour: "14:00 - 17:00",
+      address: "Náhodná 89, Praha",
+    },
+    {
+      id: 4,
+      icon: "fitness",
+      name: "Sportcentrum Prosek",
+      date: "2.11.2020",
+      hour: "14:00 - 17:00",
+      address: "Náhodná 89, Praha",
+    },
+    {
+      id: 5,
+      icon: "kravmaga",
+      name: "Sportcentrum Prosek",
+      date: "12.11.2020",
+      hour: "14:00 - 17:00",
+      address: "Náhodná 89, Praha",
+    },
+    {
+      id: 6,
+      icon: "hockey",
+      name: "HTC Praha",
+      date: "13.11.2020",
+      hour: "14:00 - 17:00",
+      address: "Náhodná 88, Praha",
+    },
   ];
 
   return (
     <>
       <UserProfileTemplate
         state={state}
-        error={userFetcher.error || deleteUserRequestState.error || updateUserRequestState.error}
+        error={
+          userFetcher.error ||
+          deleteUserRequestState.error ||
+          updateUserRequestState.error
+        }
         data={userFetcher.data}
         onReload={userFetcher.refetch}
         userReservations={userReservations}
         deleteUserRequest={deleteUserRequest}
         updateUserRequest={updateUserRequest}
         changePasswordRequest={changePasswordRequest}
+        actionSuccess={actionSuccess}
+        setActionSuccess={setActionSuccess}
       />
     </>
   );

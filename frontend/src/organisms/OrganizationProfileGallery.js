@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 import {
   GalleryUploadPhotoButton,
   GalleryPhotoRemoveButton,
-} from 'src/molecules/';
+} from "src/molecules/";
 import {
   OrganizationProfileSectionHeading,
   GalleryPhotoTitle,
   GalleryCounter,
-} from 'src/atoms/';
-import { Col, Row, Container, Image } from 'react-bootstrap';
-import { gql, useMutation } from '@apollo/client';
+} from "src/atoms/";
+import { Col, Row, Container, Image } from "react-bootstrap";
+import { gql, useMutation } from "@apollo/client";
 
 const GALLERY_REMOVE_PHOTO_MUTATION = gql`
   mutation updateOrganizationGalleryPhoto(
@@ -26,7 +26,7 @@ export function OrganizationProfileGallery({ photoGallery, profileFetcher }) {
       onCompleted: () => {
         profileFetcher.refetch();
       },
-    },
+    }
   );
 
   return (
@@ -44,11 +44,11 @@ export function OrganizationProfileGallery({ photoGallery, profileFetcher }) {
                       photo={x}
                       removeGalleryPhotoHandler={removeGalleryPhotoHandler}
                       photoName={x.url
-                        .split('#')
+                        .split("#")
                         .shift()
-                        .split('?')
+                        .split("?")
                         .shift()
-                        .split('/')
+                        .split("/")
                         .pop()}
                     />
                   </Row>
@@ -69,7 +69,7 @@ export function OrganizationProfileGallery({ photoGallery, profileFetcher }) {
               user_id={profileFetcher.data.organization.user_id}
               photo_id={undefined}
               refetchGallery={profileFetcher.refetch}
-              actionButtonClass={'organization-primary-button'}
+              actionButtonClass={"organization-primary-button"}
             ></GalleryUploadPhotoButton>
           </Col>
         </Row>

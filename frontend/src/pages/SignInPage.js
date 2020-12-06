@@ -1,11 +1,11 @@
-import React, { useCallback } from 'react';
-import { gql, useMutation } from '@apollo/client';
-import { useAuth } from 'src/utils/auth';
-import { useHistory } from 'react-router-dom';
+import React, { useCallback } from "react";
+import { gql, useMutation } from "@apollo/client";
+import { useAuth } from "src/utils/auth";
+import { useHistory } from "react-router-dom";
 
-import { SignInTemplate } from 'src/templates/SignInTemplate';
-import { route } from 'src/Routes';
-import { Container, Modal } from 'react-bootstrap';
+import { SignInTemplate } from "src/templates/SignInTemplate";
+import { route } from "src/Routes";
+import { Container, Modal } from "react-bootstrap";
 
 const SIGNIN_MUTATION = gql`
   mutation signIn($email: String!, $password: String!) {
@@ -80,7 +80,7 @@ export function SignInPage({
         },
       });
     },
-    [signInRequest],
+    [signInRequest]
   );
 
   return (

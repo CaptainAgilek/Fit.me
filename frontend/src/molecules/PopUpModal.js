@@ -1,10 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import Modal from 'react-bootstrap/Modal'
+import Modal from "react-bootstrap/Modal";
 
-import { UserProfileActionButton } from 'src/atoms/';
+import { UserProfileActionButton } from "src/atoms/";
 
-export function PopUpModal({show, handleClose, modalTitle, footerLeftVariant, footerLeftText, footerRightVariant, footerRightText, rightButtonOnClick, children}) {
+export function PopUpModal({
+  show,
+  handleClose,
+  modalTitle,
+  footerLeftVariant,
+  footerLeftText,
+  footerRightVariant,
+  footerRightText,
+  rightButtonOnClick,
+  children,
+}) {
   return (
     <Modal show={show} onHide={handleClose} keyboard={false}>
       <Modal.Header>

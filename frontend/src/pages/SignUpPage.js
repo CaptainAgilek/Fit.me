@@ -1,8 +1,8 @@
-import React, { useCallback, useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import React, { useCallback, useState } from "react";
+import { gql, useMutation } from "@apollo/client";
 
-import { Container, Modal, Row } from 'react-bootstrap';
-import { SignUpTemplate } from '../organisms';
+import { Container, Modal, Row } from "react-bootstrap";
+import { SignUpTemplate } from "../organisms";
 
 const SIGNUP_MUTATION = gql`
   mutation signUp(
@@ -71,7 +71,7 @@ export function SignUpPage({ onCloseMethod, showSignUp, setShowSignIn }) {
         },
       });
     },
-    [signupRequest],
+    [signupRequest]
   );
 
   if (show) {
@@ -80,9 +80,12 @@ export function SignUpPage({ onCloseMethod, showSignUp, setShowSignIn }) {
         <Modal show={show} onHide={onCloseMethod}>
           <Modal.Body>
             <Row className="justify-content-md-center">
-              <p>Na Váš email jsme poslali potvrzení registrace. Pro přihlášení do aplikace je potřeba již poslední
-                krok, kterým je potvrzení správnosti vašeho emailového účtu tím, že kliknete na odkaz ve Vašem
-                emailu.</p>
+              <p>
+                Na Váš email jsme poslali potvrzení registrace. Pro přihlášení
+                do aplikace je potřeba již poslední krok, kterým je potvrzení
+                správnosti vašeho emailového účtu tím, že kliknete na odkaz ve
+                Vašem emailu.
+              </p>
             </Row>
           </Modal.Body>
         </Modal>

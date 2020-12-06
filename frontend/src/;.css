@@ -1,15 +1,15 @@
 body {
   margin: 0;
 
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -192,7 +192,7 @@ code {
 .headerImg {
   position: relative;
   /* The image used */
-  background-image: url('/images/organization_header.jpg');
+  background-image: url("/images/organization_header.jpg");
   /* Full height */
   height: 500px;
   /* Center and scale the image nicely */
@@ -235,7 +235,7 @@ code {
   height: 75px;
   min-width: 100px;
   background-color: #e8aa3c;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
 }
 
 @media (max-width: 767px) {
@@ -248,7 +248,7 @@ code {
 }
 
 .organization-menu-button + .organization-menu-button::after {
-  content: '';
+  content: "";
   border-left: 1px solid #ba8f43;
   height: 90%;
   display: block;
@@ -286,11 +286,11 @@ div::-webkit-scrollbar {
 
 /* Left */
 div::-webkit-scrollbar-button:single-button:horizontal:decrement {
-  background: url('/images/icons/left_arrow_green.png') 0px 0px no-repeat;
+  background: url("/images/icons/left_arrow_green.png") 0px 0px no-repeat;
 }
 /* Right */
 div::-webkit-scrollbar-button:single-button:horizontal:increment {
-  background: url('/images/icons/right_arrow_green.png') 0px 0px no-repeat;
+  background: url("/images/icons/right_arrow_green.png") 0px 0px no-repeat;
 }
 
 .organization-primary-button {
@@ -322,11 +322,11 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
   height: 42vh;
   border-style: solid;
   border-width: thin;
-  border-color: #D3D3D3;
+  border-color: #d3d3d3;
   border-radius: 5px;
 }
 
-.custom-checkbox{
+.custom-checkbox {
   position: relative;
   margin-left: 100%;
 }
@@ -335,7 +335,7 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
   color: #000000;
   border: solid;
   border-width: thin;
-  border-color: #D3D3D3;
+  border-color: #d3d3d3;
   border-radius: 5px;
   position: relative;
   margin-left: 15px;
@@ -347,7 +347,7 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
   background-color: #e8aa3c;
   border: solid;
   border-width: thin;
-  border-color: #D3D3D3;
+  border-color: #d3d3d3;
   border-radius: 5px;
   position: relative;
   margin-left: 15px;
@@ -425,11 +425,11 @@ div::-webkit-scrollbar {
 
 /* Left */
 div::-webkit-scrollbar-button:single-button:horizontal:decrement {
-  background: url('/images/icons/left_arrow_green.png') 0px 0px no-repeat;
+  background: url("/images/icons/left_arrow_green.png") 0px 0px no-repeat;
 }
 /* Right */
 div::-webkit-scrollbar-button:single-button:horizontal:increment {
-  background: url('/images/icons/right_arrow_green.png') 0px 0px no-repeat;
+  background: url("/images/icons/right_arrow_green.png") 0px 0px no-repeat;
 }
 
 .testimonialProfilePicture {

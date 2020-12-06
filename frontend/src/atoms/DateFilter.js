@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import DatePicker from 'react-datepicker';
-import { Col, Row } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import { Col, Row } from "react-bootstrap";
 
 export function DateFilter({ dateFrom, setDateFrom, dateTo, setDateTo }) {
-
   return (
     <Col>
       <Row>

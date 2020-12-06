@@ -1,5 +1,5 @@
-import React from 'react';
-import { Col, Image } from 'react-bootstrap';
+import React from "react";
+import { Col, Image } from "react-bootstrap";
 
 export function TrainersSocialColumn({ socialIconUrl, children }) {
   return (

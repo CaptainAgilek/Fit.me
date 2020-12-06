@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import React, { useState } from "react";
+import { gql, useMutation } from "@apollo/client";
 
-import { Form } from 'react-bootstrap';
+import { Form } from "react-bootstrap";
 
-import { AvatarPicture, GenericPopUp } from 'src/atoms/';
+import { AvatarPicture, GenericPopUp } from "src/atoms/";
+import { AVATAR_FILE_SIZE_LIMIT } from "src/utils/const";
 
 const UPLOAD_PHOTO_MUTATION = gql`
   mutation SingleUpload(
@@ -26,18 +27,37 @@ const UPLOAD_PHOTO_MUTATION = gql`
   }
 `;
 
-export function EditableAvatarPicture({ src, alt, user_id, photo_id }) {
+export function EditableAvatarPicture({
+  src,
+  alt,
+  user_id,
+  photo_id,
+  setActionSuccess,
+}) {
   const [profileImageUrl, setProfileImageUrl] = useState(src);
 
   const [uploadFileHandler] = useMutation(UPLOAD_PHOTO_MUTATION, {
     onCompleted({ singleUpload }) {
+      setActionSuccess({
+        message: "Avatar úspěšně změněný.",
+        variant: "success",
+      });
       setProfileImageUrl(singleUpload.url);
+    },
+    onError() {
+      setActionSuccess({
+        message: "Chyba při změně avatara.",
+        variant: "danger",
+      });
     },
   });
 
   const [selectedFile, setSelectedFile] = useState(null);
+  const [fileIsTooBig, setFileIsTooBig] = useState(false);
 
-  const inputLabel = selectedFile ? selectedFile.name : 'Custom file input';
+  const inputLabel = selectedFile
+    ? selectedFile.name
+    : "Maximální velikost souboru je 5 MB.";
 
   const handleFileUpload = async (selectedFile) => {
     if (!selectedFile) return;
@@ -46,14 +66,14 @@ export function EditableAvatarPicture({ src, alt, user_id, photo_id }) {
         file: selectedFile,
         user_id: user_id,
         photo_id: photo_id,
-        type: 'PROFILE_PICTURE',
+        type: "PROFILE_PICTURE",
       },
     });
   };
 
   return (
     <>
-      <AvatarPicture src={profileImageUrl} alt={alt} className={'botOffset'} />
+      <AvatarPicture src={profileImageUrl} alt={alt} className={"botOffset"} />
 
       <GenericPopUp
         triggerVariant="outline-dark"
@@ -69,12 +89,20 @@ export function EditableAvatarPicture({ src, alt, user_id, photo_id }) {
           <Form.File
             id="custom-file"
             label={inputLabel}
+            data-browse="Vybrat"
+            isInvalid={fileIsTooBig}
+            feedback="Zvolený soubor je příliš velký!"
             onChange={({
               target: {
                 validity,
                 files: [file],
               },
             }) => {
+              if (file.size > AVATAR_FILE_SIZE_LIMIT) {
+                setFileIsTooBig(true);
+                return;
+              }
+              setFileIsTooBig(false);
               if (validity.valid) {
                 setSelectedFile(file);
               }
