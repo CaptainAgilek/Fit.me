@@ -184,6 +184,18 @@ export const typeDefs = gql`
     acceptingMultisport: Boolean!
     acceptingActivePass: Boolean!
   }
+
+  input TrainerInput {
+    user_id: Int!
+    firstname: String!
+    lastname: String!
+    username: String!
+    facebook: String
+    instagram: String
+    email: String!
+    phone: String
+    place: CreateOrUpdatePlaceInput
+  }
   
 
   type Query {
@@ -235,6 +247,7 @@ export const typeDefs = gql`
 
     updateSportsman(input: SportsmanInput!): Boolean!
     updateOrganization(input: OrganizationInput!): Boolean!
+    updateTrainer(input: TrainerInput!): Boolean!
     updateUserEmail(email: String!, user_id: Int!): Boolean!
     deleteUser(user_id: Int!): Boolean!
     assignRoleToUser(name: String!, user_id: Int!): Boolean!

@@ -17,6 +17,7 @@ import { mutations as OrganizationMutations } from './organization';
 import { sportsman } from './sportsman/query';
 import { mutations as ActionMutations } from './action';
 import { getTypeIdByName } from './photo/helper';
+import { mutations as TrainerMutations } from './trainer';
 
 
 export default {
@@ -42,6 +43,7 @@ export default {
     ...PlaceMutations,
     ...OrganizationMutations,
     ...ActionMutations,
+    ...TrainerMutations,
   },
   User: {
     async roles(parent, _, { dbConnection }) {

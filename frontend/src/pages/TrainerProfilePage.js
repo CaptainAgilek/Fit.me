@@ -53,6 +53,8 @@ export function TrainerProfilePage() {
 
   const [actionSuccess, setActionSuccess] = useState(false);
 
+  //TODO: add trainer update request just like in org (mutation to go with the form) 
+
   return (
     <>
       <TrainerProfileTemplate trainerData={trainerFetcher.data} actionSuccess={actionSuccess} setActionSuccess={setActionSuccess} />
