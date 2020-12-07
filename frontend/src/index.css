@@ -325,6 +325,8 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
 
 .organization-profile-section-container {
   margin-bottom: 5rem;
+  padding-left: 0rem !important;
+  padding-right: 0rem !important;
 }
 
 .organization-profile-section-contents {
@@ -445,7 +447,7 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
 }
 /* remove padding from calendar buttons, this makes it look better and fixes bad responsivity on mobile devices*/
 .fc .fc-button {
-  padding: 2.3px!important;
+  padding: 2.3px !important;
 }
 
 .navbar-item-right-offset {
@@ -507,7 +509,6 @@ html {
   color: black;
 }
 
-.fc-cell-text
-{
+.fc-cell-text {
   white-space: normal;
 }

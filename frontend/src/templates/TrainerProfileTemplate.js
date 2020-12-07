@@ -65,22 +65,29 @@ export function TrainerProfileTemplate({
         <>
           <Container className="organization-profile-top-margin">
             <Col>
-              <h1 id="kalendar">Kalendář volných hodin</h1>
-              <CalendarLegendRow />
-              <Row>
-                <Calendar events={events} freeHours={freeHours} />
-              </Row>
-
               <Container className="organization-profile-section-container">
-                <h1 id="popis">Popis</h1>
+                <Row>
+                  <h1 id="kalendar">Kalendář volných hodin</h1>
+                </Row>
+                <CalendarLegendRow />
+                <Row>
+                  <Calendar events={events} freeHours={freeHours} />
+                </Row>
+              </Container>
+              <Container className="organization-profile-section-container">
+                <Row>
+                  <h1 id="popis">Popis</h1>
+                </Row>
               </Container>
 
-              {trainerData && (
-                <Container className="organization-profile-section-container">
+
+              <Container className="organization-profile-section-container">
+                <Row>
                   <h1 id="hodnoceni">Hodnocení</h1>
-                  <TestimonialBoxCol ratingsData={trainerData} />
-                </Container>
-              )}
+                </Row>
+                <TestimonialBoxCol ratingsData={trainerData} />
+              </Container>
+
 
               <Row className="justify-content-md-center">
                 <Col sm="12" md="3">
