@@ -34,7 +34,7 @@ export const typeDefs = gql`
   }
 
   input CreateOrUpdatePlaceInput {
-    place_id: Int!
+    place_id: Int
     user_id: Int!
     city: String!
     street: String

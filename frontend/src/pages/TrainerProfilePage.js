@@ -44,6 +44,12 @@ const TRAINER_PROFILE_QUERY = gql`
   }
 `;
 
+const UPDATE_TRAINER_PROFILE_MUTATION = gql`
+  mutation updateTrainer($input: TrainerInput!) {
+    updateTrainer(input: $input)
+  }
+`;
+
 export function TrainerProfilePage() {
   const { user } = useAuth();
   const userId = user.user_id;
@@ -54,10 +60,37 @@ export function TrainerProfilePage() {
   const [actionSuccess, setActionSuccess] = useState(false);
 
   //TODO: add trainer update request just like in org (mutation to go with the form) 
+  const [
+    updateTrainerRequest,
+    updateTrainerRequestState,
+  ] = useMutation(
+    UPDATE_TRAINER_PROFILE_MUTATION,
+    {
+      onCompleted: () => {
+        trainerFetcher.refetch();
+        setActionSuccess({
+          message: "Změny profilu uloženy.",
+          variant: "success",
+        });
+      },
+    },
+    {
+      onError: () => {
+        setActionSuccess({
+          message: "Chyba při ukládání hodnot.",
+          variant: "danger",
+        });
+      },
+    }
+  );
 
   return (
     <>
-      <TrainerProfileTemplate trainerData={trainerFetcher.data} actionSuccess={actionSuccess} setActionSuccess={setActionSuccess} />
+      <TrainerProfileTemplate trainerData={trainerFetcher.data} actionSuccess={actionSuccess} setActionSuccess={setActionSuccess} error={
+        trainerFetcher.error ||
+        updateTrainerRequestState.error
+      }
+        updateTrainerRequest={updateTrainerRequest} />
     </>
   );
 }

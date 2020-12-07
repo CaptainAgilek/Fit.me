@@ -11,7 +11,6 @@ import { FormikSwitch, UserProfileActionButton } from 'src/atoms/';
 import { FormikGroup } from 'src/molecules/';
 
 const schema = yup.object({
-  name: yup.string().required(),
   username: yup.string().nullable(),
   email: yup.string().email().required(),
   phone: yup
@@ -30,7 +29,8 @@ const schema = yup.object({
 export function TrainerProfileForm({ trainer, updateTrainerRequest }) {
   console.log('trainer', trainer);
   const initialValues = {
-    name: trainer.trainer_name,
+    firstname: trainer.firstname,
+    lastname: trainer.lastname,
     username: trainer.username,
     email: trainer.user.email || '',
     phone: trainer.phone || '',
@@ -39,6 +39,7 @@ export function TrainerProfileForm({ trainer, updateTrainerRequest }) {
     country: trainer.places[0] ? trainer.places[0].country : "",
     zip: trainer.places[0] ? trainer.places[0].zip : "",
   };
+  console.log(initialValues);
 
   return (
     <Card>
@@ -46,9 +47,11 @@ export function TrainerProfileForm({ trainer, updateTrainerRequest }) {
         <Formik
           validationSchema={schema}
           onSubmit={(values) => {
+            console.log("submitted");
             const profile = {
               user_id: trainer.user_id,
-              trainer_name: values.name,
+              firstname: trainer.firstname,
+              lastname: trainer.lastname,
               username: values.username,
               email: values.email,
               phone: values.phone ? values.phone : null,

@@ -42,7 +42,8 @@ export function TrainerProfileTemplate({
   updateTrainerRequest,
   changePasswordRequest,
   actionSuccess,
-  setActionSuccess
+  setActionSuccess,
+  error,
 }) {
   return (
     <>
