@@ -32,9 +32,5 @@ export const updateTrainer = async (_, { input }, { dbConnection }) => {
     placeResult = await createOrUpdatePlace(_, { input }, { dbConnection });
   }
 
-  return (
-    dbResponse.affectedRows === 1 &&
-    placeResult &&
-    userEmailResult
-  );
+  return dbResponse.affectedRows === 1 && placeResult && userEmailResult;
 };
