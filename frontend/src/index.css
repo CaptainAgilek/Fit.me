@@ -1,15 +1,15 @@
 body {
   margin: 0;
 
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -123,6 +123,10 @@ code {
   padding: 10px;
 }
 
+.category-box-text {
+  text-transform: uppercase;
+}
+
 .footer {
   margin-top: 60px;
   height: 210px;
@@ -159,6 +163,14 @@ code {
   border: none !important;
 }
 
+.userReservationsHistory {
+  overflow-x: scroll;
+}
+
+.userReservationsHistoryItem {
+  border: none !important;
+}
+
 .userReservationIcon {
   height: 0.8em;
   width: 0.8em;
@@ -166,24 +178,31 @@ code {
 }
 
 .userReservationSportIcon {
-  max-height: 30%;
-  max-width: 30%;
+  max-height: 5rem;
+  max-width: 5rem;
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
-.userReservationCard {
-  width: 15rem;
-}
-
-.list-group-item:last-child {
+.list-group-item:not(.organization-profile-trainer-tab):not(.ignore-last-child-styling):last-child {
   padding-right: 0.1rem;
 }
+
+.list-group-item .card {
+  width: 18rem;
+}
+
+@media (max-width: 767px) {
+  .list-group-item .card {
+    width: 17rem;
+  }
+}
+
 .headerImg {
   position: relative;
   /* The image used */
-  background-image: url('/images/organization_header.jpg');
+  background-image: url("/images/organization_header.jpg");
   /* Full height */
   height: 500px;
   /* Center and scale the image nicely */
@@ -226,7 +245,7 @@ code {
   height: 75px;
   min-width: 100px;
   background-color: #e8aa3c;
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
 }
 
 @media (max-width: 767px) {
@@ -239,7 +258,7 @@ code {
 }
 
 .organization-menu-button + .organization-menu-button::after {
-  content: '';
+  content: "";
   border-left: 1px solid #ba8f43;
   height: 90%;
   display: block;
@@ -277,9 +296,219 @@ div::-webkit-scrollbar {
 
 /* Left */
 div::-webkit-scrollbar-button:single-button:horizontal:decrement {
-  background: url('/images/icons/left_arrow_green.png') 0px 0px no-repeat;
+  background: url("/images/icons/left_arrow_green.png") 0px 0px no-repeat;
 }
 /* Right */
 div::-webkit-scrollbar-button:single-button:horizontal:increment {
-  background: url('/images/icons/right_arrow_green.png') 0px 0px no-repeat;
+  background: url("/images/icons/right_arrow_green.png") 0px 0px no-repeat;
+}
+
+.organization-primary-button {
+  background-color: #e8aa3c !important;
+  border: none !important;
+  color: #ffffff;
+  font-weight: 600 !important;
+  /*padding: 100px;*/
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.organization-secondary-button {
+  background-color: #ffffff !important;
+  border-color: #e8aa3c !important;
+  color: #000000 !important;
+  font-weight: bolder !important;
+  /*padding: 100px;*/
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.organization-profile-section-container {
+  margin-bottom: 5rem;
+  padding-left: 0rem !important;
+  padding-right: 0rem !important;
+}
+
+.organization-profile-section-contents {
+  overflow-y: scroll;
+  height: 42vh;
+  border-style: solid;
+  border-width: thin;
+  border-color: #d3d3d3;
+  border-radius: 5px;
+}
+
+.organization-profile-trainer-tab.list-group-item.list-group-item-action {
+  color: #000000;
+  border: solid;
+  border-width: thin;
+  border-color: #d3d3d3;
+  border-radius: 5px;
+  position: relative;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+  width: 95%;
+}
+
+.organization-profile-trainer-tab.list-group-item.list-group-item-action.active {
+  background-color: #e8aa3c;
+  border: solid;
+  border-width: thin;
+  border-color: #d3d3d3;
+  border-radius: 5px;
+  position: relative;
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+  width: 95%;
+}
+
+.organization-profile-icon-svg {
+  /*width: 512px;
+  height: 512px;*/
+  transform: scale(0.8);
+  filter: invert(93%) sepia(0%) saturate(27%) hue-rotate(247deg) brightness(87%)
+    contrast(87%);
+}
+
+.organization-profile-gallery-card {
+  width: 18rem;
+  position: relative;
+  margin-left: 15px;
+  margin-top: 10px;
+}
+
+.organization-profile-gallery-card-header {
+  margin-bottom: 1rem;
+}
+
+.organization-profile-heading {
+  margin-bottom: 2.5rem;
+}
+
+.organization-icon-color {
+  filter: invert(91%) sepia(9%) saturate(6567%) hue-rotate(328deg)
+    brightness(101%) contrast(103%);
+}
+
+.organization-profile-star {
+  transform: scale(0.1);
+}
+
+.organization-profile-rating-container {
+  box-shadow: 0 0.8px 0.2px rgba(0, 0, 0, 0.015),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 2.5px 1px rgba(0, 0, 0, 0.03),
+    0 2.3px 7.9px rgba(0, 0, 0, 0.048), 0 4.8px 3.4px rgba(0, 0, 0, 0.042),
+    0 1px 2px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  min-width: 100vh;
+}
+
+@media (max-width: 100vh) {
+  .organization-profile-rating-container {
+    min-width: 40vh;
+    padding: 10px;
+    padding-top: 6px;
+  }
+}
+
+.organization-icon-clickable {
+  cursor: pointer;
+}
+
+.card-img-top {
+  object-fit: cover;
+  height: 30vh;
+}
+
+.card-delete-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 26px;
+  height: 26px;
+  margin-right: 0.1rem;
+  margin-top: 0.1rem;
+  background-image: url("/images/icons/trash-alt-solid.svg");
+  background-repeat: no-repeat;
+}
+
+.action-small-icon {
+  width: 18.5px;
+  height: 18.5px;
+  margin-right: 0.8rem;
+  margin-bottom: 0.3rem;
+}
+
+.calendar-legend-icon {
+  width: 18.5px;
+  height: 18.5px;
+}
+/* remove padding from calendar buttons, this makes it look better and fixes bad responsivity on mobile devices*/
+.fc .fc-button {
+  padding: 2.3px !important;
+}
+
+.navbar-item-right-offset {
+  margin-right: 1.5rem;
+}
+
+div::-webkit-scrollbar-thumb:horizontal {
+  background: #cec9c9;
+  border-radius: 7px;
+}
+
+div::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Left */
+div::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  background: url("/images/icons/left_arrow_green.png") 0px 0px no-repeat;
+}
+/* Right */
+div::-webkit-scrollbar-button:single-button:horizontal:increment {
+  background: url("/images/icons/right_arrow_green.png") 0px 0px no-repeat;
+}
+
+.testimonialProfilePicture {
+  float: left;
+  margin: 5px;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+}
+
+.ratings {
+  float: right;
+  margin: 5px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.href {
+  text-decoration: none;
+  color: black;
+  flex-basis: 15%;
+  height: 75px;
+  min-width: 100px;
+}
+
+.href:hover {
+  text-decoration: none;
+  color: black;
+}
+
+.fc-cell-text {
+  white-space: normal;
 }

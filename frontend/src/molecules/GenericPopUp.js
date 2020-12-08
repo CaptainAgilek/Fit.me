@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import Modal from 'react-bootstrap/Modal'
+import Modal from "react-bootstrap/Modal";
 
-import { UserProfileActionButton } from 'src/atoms/';
+import { UserProfileActionButton } from "src/atoms/";
+import { PopUpModal } from "src/molecules/";
 
 export function GenericPopUp({
   triggerVariant,
@@ -12,8 +13,9 @@ export function GenericPopUp({
   footerLeftText,
   footerRightVariant,
   footerRightText,
+  actionButtonClass,
   rightButtonOnClick,
-  children
+  children,
 }) {
   const [show, setShow] = useState(false);
 
@@ -25,26 +27,23 @@ export function GenericPopUp({
       <UserProfileActionButton
         variant={triggerVariant}
         onClick={handleShow}
+        actionButtonClass={actionButtonClass}
       >
         {triggerText}
       </UserProfileActionButton>
 
-      <Modal
+      <PopUpModal
         show={show}
-        onHide={handleClose}
-        keyboard={false}
+        handleClose={handleClose}
+        modalTitle={modalTitle}
+        footerLeftVariant={footerLeftVariant}
+        footerLeftText={footerLeftText}
+        footerRightVariant={footerRightVariant}
+        footerRightText={footerRightText}
+        rightButtonOnClick={rightButtonOnClick}
       >
-        <Modal.Header>
-          <Modal.Title>{modalTitle}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {children}
-        </Modal.Body>
-        <Modal.Footer>
-          <UserProfileActionButton variant={footerLeftVariant} onClick={handleClose}>{footerLeftText}</UserProfileActionButton>
-          <UserProfileActionButton variant={footerRightVariant} onClick={() => {handleClose(); rightButtonOnClick()}}>{footerRightText}</UserProfileActionButton>
-        </Modal.Footer>
-      </Modal>
+        {children}
+      </PopUpModal>
     </>
   );
 }

@@ -1,21 +1,15 @@
-import React, { useCallback } from 'react';
-import { gql, useMutation } from '@apollo/client';
-import { useAuth } from 'src/utils/auth';
-import { useHistory } from 'react-router-dom';
+import React, { useCallback } from "react";
+import { gql, useMutation } from "@apollo/client";
+import { useAuth } from "src/utils/auth";
+import { useHistory } from "react-router-dom";
 
-import { SignInTemplate } from 'src/templates/SignInTemplate';
-import { route } from 'src/Routes';
-import { Container, Modal } from 'react-bootstrap';
+import { SignInTemplate } from "src/templates/SignInTemplate";
+import { route } from "src/Routes";
+import { Container, Modal } from "react-bootstrap";
 
 const SIGNIN_MUTATION = gql`
-  mutation signIn(
-    $email: String!
-    $password: String!
-  ) {
-    signin(
-      email: $email
-      password: $password
-    ) {
+  mutation signIn($email: String!, $password: String!) {
+    signin(email: $email, password: $password) {
       user {
         user_id
         email
@@ -29,8 +23,12 @@ const SIGNIN_MUTATION = gql`
   }
 `;
 
-export function SignInPage({ onCloseMethod, showSignIn, setShowSignUp, setShowForgotten }) {
-
+export function SignInPage({
+  onCloseMethod,
+  showSignIn,
+  setShowSignUp,
+  setShowForgotten,
+}) {
   const showSignUp = () => {
     onCloseMethod(false);
     setShowSignUp(true);
@@ -43,12 +41,30 @@ export function SignInPage({ onCloseMethod, showSignIn, setShowSignUp, setShowFo
 
   const auth = useAuth();
   const history = useHistory();
-  const userProfileLink = route.userProfile();
+  const homePageLink = route.home();
+  const trainerProfile = route.trainerProfiler();
+  const orgProfile = route.organizationProfile();
 
   const [signInRequest, signInRequestState] = useMutation(SIGNIN_MUTATION, {
     onCompleted: ({ signin: { user, token } }) => {
-      auth.signin({ token, user });
-      history.replace(userProfileLink);
+      console.log(user.roles);
+
+      //auth.signin({ token, user });
+      //history.replace(trainerProfile);
+
+      if (user.roles.some(x => x.name === "ROLE_ORGANIZATION")) {
+        console.log('som org');
+        auth.signin({ token, user });
+        history.replace(orgProfile);
+      } else if (user.roles.some(x => x.name === "ROLE_TRAINER")) {
+        console.log('som trener');
+        auth.signin({ token, user });
+        history.replace(trainerProfile);
+      } else {
+        console.log('som sportsman');
+        auth.signin({ token, user });
+        history.replace(homePageLink);
+      }
     },
     onError: (error) => {
       console.log(error);
@@ -64,7 +80,7 @@ export function SignInPage({ onCloseMethod, showSignIn, setShowSignUp, setShowFo
         },
       });
     },
-    [signInRequest],
+    [signInRequest]
   );
 
   return (

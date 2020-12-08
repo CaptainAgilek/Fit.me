@@ -6,15 +6,35 @@ export const typeDefs = gql`
     TRAINER
   }
 
+  enum PhotoType {
+    PROFILE_PICTURE
+    BANNER
+    OTHER
+    ACTION
+  }
+
   type UploadedFileResponse {
     filename: String!
     mimetype: String!
     encoding: String!
     url: String!
+    insertId: Int!
+  }
+
+  input CreateOrUpdateActionInput {
+    action_id: Int
+    place_id: Int!
+    date: String!
+    time: String!
+    price: Float!
+    trainer_id: Int!
+    max_capacity: Int!
+    photo_id: Int
+    name: String!
   }
 
   input CreateOrUpdatePlaceInput {
-    place_id: Int,
+    place_id: Int
     user_id: Int!
     city: String!
     street: String
@@ -38,7 +58,7 @@ export const typeDefs = gql`
       photo_id: Int
       user_id: Int!
       url: String!
-      is_profile_picture: Boolean!
+      type: PhotoType!
   }
 
   input PhotoInput {
@@ -46,7 +66,14 @@ export const typeDefs = gql`
     description: String
     url: String!
     gallery_name: String
-    is_profile_picture: Boolean!
+    type: PhotoType!
+  }
+
+  input UpdatePhotoGalleryNameInput{
+    user_id: Int!
+    photo_id: Int!
+    gallery_name: String
+
   }
 
   type Action {
@@ -57,6 +84,9 @@ export const typeDefs = gql`
     price: Float!
     trainer_id: Int
     max_capacity: Int!
+    name: String!
+    photo_id: Int
+    photo: Photo
   }
 
   type Photo {
@@ -65,7 +95,7 @@ export const typeDefs = gql`
     description: String
     url: String!
     gallery_name: String
-    is_profile_picture: Boolean!
+    type: PhotoType!
   }
 
   type Benefit {
@@ -107,21 +137,69 @@ export const typeDefs = gql`
     profile_photo: Photo
   }
 
+  type Organization{
+    user_id: Int!
+    organization_name: String!
+    username: String
+    phone: String
+    trainers: [Trainer]!
+    user: User!
+    places: [Place]!
+    acceptedBenefits: [Benefit]!
+    profile_photo: Photo
+    banner_photo: Photo
+    photo_gallery: [Photo]
+    ratings: [Rating]
+  }
+
+  type Rating {
+    id: Int!
+    sportsman: Sportsman!
+    ratee: User!
+    text: String
+    stars: Int}
+
   type Trainer {
     user_id: Int!
     firstname: String!
     lastname: String!
+    username: String
+    facebook: String
+    instagram: String
+    description: String
+    profile_photo: Photo
+    ratings: [Rating]
+    user: User!
+    places: [Place]!
+    phone: String
   }
 
-  type Organization {
+  input OrganizationInput {
     user_id: Int!
-    name: String!
-    username: String
-    trainers: [Trainer]!
+    organization_name: String!
+    username: String!
+    email: String!
+    phone: String
+    place: CreateOrUpdatePlaceInput
+    acceptingMultisport: Boolean!
+    acceptingActivePass: Boolean!
   }
+
+  input TrainerInput {
+    user_id: Int!
+    firstname: String!
+    lastname: String!
+    username: String!
+    facebook: String
+    instagram: String
+    email: String!
+    phone: String
+    place: CreateOrUpdatePlaceInput
+  }
+  
 
   type Query {
-    actionsForPlace(place_id: Int!): [Action]!
+    actionsForPlace(place_id: Int): [Action]!
     benefitsForUser(user_id: Int!): [Benefit]!
     users: [User]!
     user(email: String!): User
@@ -133,6 +211,8 @@ export const typeDefs = gql`
     sportsmen: [Sportsman]!
     sportsman(filter: SportsmanFilter!): Sportsman
     organization(user_id: Int!): Organization
+    trainersNotEmployed(user_id: Int!): [Trainer]
+    trainer(user_id: Int!): Trainer!
   }
 
   type AuthInfo {
@@ -147,15 +227,27 @@ export const typeDefs = gql`
 
   type Mutation {
     insertOrRemoveBenefit(user_id: Int!, benefit_id: Int!, hasBenefit: Boolean!): Boolean!
+    deleteAction(action_id: Int!): Boolean!
+    createOrUpdateAction(input: CreateOrUpdateActionInput!): Boolean!
+    insertAction(input: CreateOrUpdateActionInput!): Boolean!
+    updateAction(input: CreateOrUpdateActionInput!): Boolean!
     createOrUpdatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
     insertPlace(input: CreateOrUpdatePlaceInput!): Boolean!
     updatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
     updateProfilePhotoUrl(input: UpdatePhotoUrlInput!): Boolean!
     updatePhotoUrl(input: UpdatePhotoUrlInput!): Boolean!
+    updateOrganizationGalleryPhoto(input: UpdatePhotoGalleryNameInput!): Boolean!
+    updateOrganizationTrainerDescription(description: String, organization_id: Int!, trainer_id: Int!): Boolean!
+    removeOrganizationTrainer(organization_id: Int!, trainer_id: Int!): Boolean!
+    addOrganizationTrainer(organization_id: Int!, trainer_id: Int!): Boolean!
     insertPhoto(input: PhotoInput!): Boolean!
-    singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, is_profile_picture: Boolean!): UploadedFileResponse!
-    singleUpload(file: Upload!, user_id: Int!, photo_id: Int, is_profile_picture: Boolean!): UploadedFileResponse!
+    singleUploadOrganizationGalleryPhoto(file: Upload!, photo_id: Int, user_id: Int!, description: String, type: PhotoType!): UploadedFileResponse!
+    singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, type: PhotoType!): UploadedFileResponse!
+    singleUpload(file: Upload!, user_id: Int!, photo_id: Int, type: PhotoType!): UploadedFileResponse!
+
     updateSportsman(input: SportsmanInput!): Boolean!
+    updateOrganization(input: OrganizationInput!): Boolean!
+    updateTrainer(input: TrainerInput!): Boolean!
     updateUserEmail(email: String!, user_id: Int!): Boolean!
     deleteUser(user_id: Int!): Boolean!
     assignRoleToUser(name: String!, user_id: Int!): Boolean!

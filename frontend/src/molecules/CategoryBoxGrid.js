@@ -1,50 +1,98 @@
-import React from 'react';
-import { CategoryBox } from 'src/atoms/';
+import React from "react";
+import { CategoryBox } from "src/atoms/";
 
-const sportColors = {
-  aerialJoga: '#B9E0EE',
-  gravidJoga: '#ACE2D8',
-  hotJoga: '#DBF6E9',
-  stralaJoga: '#FCF6D1',
-  jogaProZacatecniky: '#F6DEDA',
-  bodyPump: '#C16868',
-  kravMaga: '#ED8F8B',
-  thaiBox: '#EEACAC',
-  kruhovyTrenink: '#F8BB97',
-  soukromeLekce: '#F3D8C8',
-  sportovniAerobik: '#A4A0C3',
-  pilates: '#C3D2EB',
-  plavani: '#ACDBEA',
-  poleDance: '#EAC0CE',
-  zumba: '#C7D4EC',
-};
+const categories = [
+  {
+    color: "#B9E0EE",
+    imgUrl: "/images/icons/aerialYoga.png",
+    children: <>aerial jóga</>,
+  },
+  {
+    color: "#ACE2D8",
+    imgUrl: "/images/icons/gravidYoga.png",
+    children: <>gravid jóga</>,
+  },
+  {
+    color: "#DBF6E9",
+    imgUrl: "/images/icons/hotYoga.png",
+    children: <>hot jóga</>,
+  },
+  {
+    color: "#FCF6D1",
+    imgUrl: "/images/icons/stralaYoga.png",
+    children: <>strala jóga</>,
+  },
+  {
+    color: "#F6DEDA",
+    imgUrl: "/images/icons/jogaProZacatecniky.png",
+    children: <>jóga pro začátečníky</>,
+  },
+  {
+    color: "#C16868",
+    imgUrl: "/images/icons/bodyPump.png",
+    children: <>body pump</>,
+  },
+  {
+    color: "#ED8F8B",
+    imgUrl: "/images/icons/kravMaga.png",
+    children: <>krav maga</>,
+  },
+  {
+    color: "#EEACAC",
+    imgUrl: "/images/icons/thaiBox.png",
+    children: <>thai box</>,
+  },
+  {
+    color: "#F8BB97",
+    imgUrl: "/images/icons/kruhovyTrenink.png",
+    children: <>kruhový trénink</>,
+  },
+  {
+    color: "#F3D8C8",
+    imgUrl: "/images/icons/soukromeLekce.png",
+    children: <>soukromé lekce</>,
+  },
+  {
+    color: "#A4A0C3",
+    imgUrl: "/images/icons/sportovniAerobik.png",
+    children: <>sportovní aerobik</>,
+  },
+  {
+    color: "#C3D2EB",
+    imgUrl: "/images/icons/pilates.png",
+    children: <>pilates</>,
+  },
+  {
+    color: "#ACDBEA",
+    imgUrl: "/images/icons/plavani.png",
+    children: <>plavání</>,
+  },
+  {
+    color: "#EAC0CE",
+    imgUrl: "/images/icons/poleDance.png",
+    children: <>pole dance</>,
+  },
+  {
+    color: "#C7D4EC",
+    imgUrl: "/images/icons/zumba.png",
+    children: <>zumba</>,
+  },
+];
 
 export function CategoryBoxGrid() {
   return (
     <div className="d-flex justify-content-center align-items-start flex-wrap">
-      <CategoryBox color={sportColors.aerialJoga} img="/images/icons/aerialYoga.png">AERIAL JÓGA</CategoryBox>
-      <CategoryBox color={sportColors.gravidJoga} img="/images/icons/gravidYoga.png">GRAVID JÓGA</CategoryBox>
-      <CategoryBox color={sportColors.hotJoga} img="/images/icons/hotYoga.png">HOT JÓGA</CategoryBox>
-      <CategoryBox color={sportColors.stralaJoga} img="/images/icons/stralaYoga.png">STRALA JÓGA</CategoryBox>
-      <CategoryBox color={sportColors.jogaProZacatecniky} img="/images/icons/jogaProZacatecniky.png">
-        JÓGA PRO ZAČÁTEČNÍKY
-      </CategoryBox>
-      <CategoryBox color={sportColors.bodyPump} img="/images/icons/bodyPump.png">BODY PUMP</CategoryBox>
-      <CategoryBox color={sportColors.kravMaga} img="/images/icons/kravMaga.png">KRAV MAGA</CategoryBox>
-      <CategoryBox color={sportColors.thaiBox} img="/images/icons/thaiBox.png">THAI BOX</CategoryBox>
-      <CategoryBox color={sportColors.kruhovyTrenink} img="/images/icons/kruhovyTrenink.png">
-        KRUHOVÝ TRÉNINK
-      </CategoryBox>
-      <CategoryBox color={sportColors.soukromeLekce} img="/images/icons/soukromeLekce.png">
-        SOUKROMÉ LEKCE
-      </CategoryBox>
-      <CategoryBox color={sportColors.sportovniAerobik} img="/images/icons/sportovniAerobik.png">
-        SPORTOVNÍ AEROBIK
-      </CategoryBox>
-      <CategoryBox color={sportColors.pilates} img="/images/icons/pilates.png">PILATES</CategoryBox>
-      <CategoryBox color={sportColors.plavani} img="/images/icons/plavani.png">PLAVÁNÍ</CategoryBox>
-      <CategoryBox color={sportColors.poleDance} img="/images/icons/poleDance.png">POLE DANCE</CategoryBox>
-      <CategoryBox color={sportColors.zumba} img="/images/icons/zumba.png">ZUMBA</CategoryBox>
+      {categories.map((category) => {
+        return (
+          <CategoryBox
+            key={category.imgUrl}
+            color={category.color}
+            img={category.imgUrl}
+          >
+            {category.children}
+          </CategoryBox>
+        );
+      })}
     </div>
   );
 }

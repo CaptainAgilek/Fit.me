@@ -1,8 +1,8 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import React from "react";
+import { Route, Redirect } from "react-router-dom";
 
 import { useAuth } from "./auth";
-import { route } from 'src/Routes';
+import { route } from "src/Routes";
 
 export function PrivateRoute({ component: Component, ...rest }) {
   const { user } = useAuth();
@@ -11,12 +11,8 @@ export function PrivateRoute({ component: Component, ...rest }) {
   return (
     <Route
       {...rest}
-      render={props =>
-        user ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to={homeLink} />
-        )
+      render={(props) =>
+        user ? <Component {...props} /> : <Redirect to={homeLink} />
       }
     />
   );

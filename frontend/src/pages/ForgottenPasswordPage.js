@@ -1,8 +1,8 @@
-import React, { useCallback, useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import React, { useCallback, useState } from "react";
+import { gql, useMutation } from "@apollo/client";
 
-import { Container, Modal, Row } from 'react-bootstrap';
-import { ForgottenPasswordTemplate } from '../templates/ForgottenPasswordTemplate';
+import { Container, Modal, Row } from "react-bootstrap";
+import { ForgottenPasswordTemplate } from "../templates/ForgottenPasswordTemplate";
 
 // const SIGNUP_MUTATION = gql`
 //   mutation signUp(
@@ -51,10 +51,10 @@ export function ForgottenPasswordPage({ onCloseMethod, showForgotten }) {
       //     type: variables.type,
       //   },
       // });
-    }, [null],
+    },
+    [null]
     // [signupRequest],
   );
-
 
   if (show) {
     return (

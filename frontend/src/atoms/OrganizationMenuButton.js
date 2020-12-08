@@ -1,10 +1,12 @@
-import React from 'react';
+import React from "react";
 
-export function OrganizationMenuButton({ img, children }) {
+export function OrganizationMenuButton({ img, children, section }) {
   return (
-    <div className="organization-menu-button" >
+    <a className="href" href={section}>
+      <div className="organization-menu-button">
         <img className="organization-menu-button-img img-fluid" src={img} />
-      <div className="organization-menu-button-text">{children}</div>
-    </div>
+        <div className="organization-menu-button-text">{children}</div>
+      </div>
+    </a>
   );
 }
