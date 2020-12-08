@@ -1,4 +1,5 @@
 import { gql } from 'apollo-server-express';
+
 export const typeDefs = gql`
   enum UserType {
     SPORTSMAN
@@ -33,6 +34,11 @@ export const typeDefs = gql`
     name: String!
   }
 
+  input CreateOrUpdateServiceInput {
+    service_id: Int!
+    place_id: Int!
+  }
+
   input CreateOrUpdatePlaceInput {
     place_id: Int!
     user_id: Int!
@@ -55,10 +61,10 @@ export const typeDefs = gql`
   }
 
   input UpdatePhotoUrlInput {
-      photo_id: Int
-      user_id: Int!
-      url: String!
-      type: PhotoType!
+    photo_id: Int
+    user_id: Int!
+    url: String!
+    type: PhotoType!
   }
 
   input PhotoInput {
@@ -87,6 +93,13 @@ export const typeDefs = gql`
     name: String!
     photo_id: Int
     photo: Photo
+  }
+
+  type Service {
+    service_id: Int!
+    place_id: Int!
+    name: String!
+    description: String!
   }
 
   type Photo {
@@ -180,10 +193,11 @@ export const typeDefs = gql`
     acceptingMultisport: Boolean!
     acceptingActivePass: Boolean!
   }
-  
+
 
   type Query {
     actionsForPlace(place_id: Int): [Action]!
+    servicesForPlace(place_id: Int): [Service]!
     benefitsForUser(user_id: Int!): [Benefit]!
     users: [User]!
     user(email: String!): User
@@ -215,6 +229,8 @@ export const typeDefs = gql`
     createOrUpdateAction(input: CreateOrUpdateActionInput!): Boolean!
     insertAction(input: CreateOrUpdateActionInput!): Boolean!
     updateAction(input: CreateOrUpdateActionInput!): Boolean!
+    insertPlaceService(input: CreateOrUpdateServiceInput!): Boolean!
+    deletePlaceService(place_id: Int!, service_id: Int!): Boolean!
     createOrUpdatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
     insertPlace(input: CreateOrUpdatePlaceInput!): Boolean!
     updatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
