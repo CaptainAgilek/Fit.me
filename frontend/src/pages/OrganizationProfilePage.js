@@ -67,15 +67,13 @@ const ORGANIZATION_PROFILE_QUERY = gql`
         stars
       }
       organization_name
-      user {
-        email
-      }
       photo_gallery {
         url
         photo_id
         gallery_name
       }
       user {
+        user_id
         email
       }
       places {

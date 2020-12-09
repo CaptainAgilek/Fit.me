@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 
 import { Col, Row, Container } from "react-bootstrap";
-import { OrganizationProfileServices } from '../organisms/OrganizationProfileServices';
 import ListGroup from "react-bootstrap/ListGroup";
 
 import { CustomDatePicker, Loading, DateFilter, CustomAlert } from "src/atoms/";
@@ -19,6 +18,7 @@ import {
   OrganizationProfileForm,
   OrganizationProfileTrainers,
   OrganizationProfileGallery,
+  OrganizationProfileServices,
 } from "src/organisms/";
 
 function useActionsFilter(data) {
@@ -87,7 +87,7 @@ export function OrganizationProfileTemplate({
         }
       </div>
 
-      {organizationData && actionsState.data && (
+      {organizationData && actionsState.data && servicesState.data && (
         <>
           <div className="headerImg organization-profile-section-container">
             <OrganizationMenu />
@@ -135,18 +135,13 @@ export function OrganizationProfileTemplate({
               <Col sm="12" md="11">
                 <h1 id="sluzby">Služby</h1>
                 <OrganizationProfileServices
-                  place_id={organizationData}
+                  organizationData={organizationData}
                   servicesState={servicesState}
                 />
               </Col>
             </Row>
 
-            <Row className="justify-content-md-center organization-profile-section-container">
-              <Col sm="12" md="11">
-                <h1 id="hodnoceni">Hodnocení</h1>
-                <TestimonialBoxCol />
-              </Col>
-            </Row>
+
 
             <Row className="justify-content-md-center organization-profile-section-container">
               <Col sm="12" md="3">
