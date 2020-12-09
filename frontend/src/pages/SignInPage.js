@@ -42,11 +42,29 @@ export function SignInPage({
   const auth = useAuth();
   const history = useHistory();
   const homePageLink = route.home();
+  const trainerProfile = route.trainerProfiler();
+  const orgProfile = route.organizationProfile();
 
   const [signInRequest, signInRequestState] = useMutation(SIGNIN_MUTATION, {
     onCompleted: ({ signin: { user, token } }) => {
-      auth.signin({ token, user });
-      history.replace(homePageLink);
+      console.log(user.roles);
+
+      //auth.signin({ token, user });
+      //history.replace(trainerProfile);
+
+      if (user.roles.some(x => x.name === "ROLE_ORGANIZATION")) {
+        console.log('som org');
+        auth.signin({ token, user });
+        history.replace(orgProfile);
+      } else if (user.roles.some(x => x.name === "ROLE_TRAINER")) {
+        console.log('som trener');
+        auth.signin({ token, user });
+        history.replace(trainerProfile);
+      } else {
+        console.log('som sportsman');
+        auth.signin({ token, user });
+        history.replace(homePageLink);
+      }
     },
     onError: (error) => {
       console.log(error);

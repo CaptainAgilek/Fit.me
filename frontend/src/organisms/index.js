@@ -11,3 +11,5 @@ export { OrganizationProfileTrainers } from "./OrganizationProfileTrainers";
 export { OrganizationProfileForm } from "./OrganizationProfileForm";
 export { OrganizationProfileManagementCol } from "./OrganizationProfileManagementCol";
 export { OrganizationProfileServices } from "./OrganizationProfileServices";
+export { TrainerProfileForm } from './TrainerProfileForm';
+export { TrainerProfileManagementCol } from './TrainerProfileManagementCol';

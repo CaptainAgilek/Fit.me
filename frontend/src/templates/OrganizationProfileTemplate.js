@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from 'react';
 
-import { Col, Row, Container } from "react-bootstrap";
-import ListGroup from "react-bootstrap/ListGroup";
+import { Col, Row, Container } from 'react-bootstrap';
+import ListGroup from 'react-bootstrap/ListGroup';
 
-import { CustomDatePicker, Loading, DateFilter, CustomAlert } from "src/atoms/";
+import { CustomDatePicker, Loading, DateFilter, CustomAlert } from 'src/atoms/';
 import {
   Footer,
   OrganizationMenu,
@@ -11,7 +11,7 @@ import {
   ErrorBanner,
   TestimonialBoxCol,
   ActionCard,
-} from "src/molecules/";
+} from 'src/molecules/';
 import {
   Navigation,
   OrganizationProfileManagementCol,
@@ -42,7 +42,7 @@ function useActionsFilter(data) {
     return dataToFilter.filter(
       (item) =>
         new Date(parseInt(item.date, 10)) >= dateFrom &&
-        new Date(parseInt(item.date, 10)) <= dateTo
+        new Date(parseInt(item.date, 10)) <= dateTo,
     );
   }, [dataToFilter, dateFrom, dateTo]);
 
@@ -65,11 +65,9 @@ export function OrganizationProfileTemplate({
   setActionSuccess,
 }) {
   const { actions, dateFilterProps } = useActionsFilter(actionsState.data);
-  // console.log("nahore")
-  // console.log(organizationData.organization.places[0].place_id)
 
   useEffect(() => {
-    console.log("effect ", actions);
+    console.log('effect ', actions);
   }, [actions]);
   return (
     <>

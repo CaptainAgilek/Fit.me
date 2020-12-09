@@ -22,24 +22,24 @@ const RATINGS_QUERY = gql`
   }
 `;
 
-export function TestimonialBoxGrid() {
-  const { user } = useAuth();
+export function TestimonialBoxGrid({ ratingsData }) {
+  /*const { user } = useAuth();
   const ratingsFetcher = useQuery(RATINGS_QUERY, {
     variables: { id: user.user_id },
   });
-  const ratingsData = ratingsFetcher.data;
+  const ratingsData = ratingsFetcher.data;*/
   /*const ratings =
     ratingsData === undefined ? undefined : ratingsData.organization.ratings;*/
 
   //console.log(ratingsFetcher);
-  //console.log('ratings data', ratingsData);
+  console.log('ratings data', ratingsData);
   //console.log('haho', ratings);
   //console.log('user_id', user.user_id);
 
   return (
     <div className="d-flex justify-content-center align-items-start flex-wrap">
       {ratingsData &&
-        ratingsData.organization.ratings.map((x) => (
+        ratingsData.trainer.ratings.map((x) => (
           <TestimonialBox
             img={x.sportsman.profile_photo && x.sportsman.profile_photo.url}
             name={x.sportsman.firstname + " " + x.sportsman.lastname}

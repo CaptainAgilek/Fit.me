@@ -1,5 +1,4 @@
 import { gql } from 'apollo-server-express';
-
 export const typeDefs = gql`
   enum UserType {
     SPORTSMAN
@@ -40,7 +39,7 @@ export const typeDefs = gql`
   }
 
   input CreateOrUpdatePlaceInput {
-    place_id: Int!
+    place_id: Int
     user_id: Int!
     city: String!
     street: String
@@ -168,7 +167,7 @@ export const typeDefs = gql`
   type Rating {
     id: Int!
     sportsman: Sportsman!
-    organization: Organization!
+    ratee: User!
     text: String
     stars: Int}
 
@@ -181,6 +180,10 @@ export const typeDefs = gql`
     instagram: String
     description: String
     profile_photo: Photo
+    ratings: [Rating]
+    user: User!
+    places: [Place]!
+    phone: String
   }
 
   input OrganizationInput {
@@ -194,6 +197,19 @@ export const typeDefs = gql`
     acceptingActivePass: Boolean!
   }
 
+
+  input TrainerInput {
+    user_id: Int!
+    firstname: String!
+    lastname: String!
+    username: String!
+    facebook: String
+    instagram: String
+    email: String!
+    phone: String
+    place: CreateOrUpdatePlaceInput
+  }
+  
 
   type Query {
     actionsForPlace(place_id: Int): [Action]!
@@ -210,7 +226,7 @@ export const typeDefs = gql`
     sportsman(filter: SportsmanFilter!): Sportsman
     organization(user_id: Int!): Organization
     trainersNotEmployed(user_id: Int!): [Trainer]
-
+    trainer(user_id: Int!): Trainer!
   }
 
   type AuthInfo {
@@ -247,6 +263,7 @@ export const typeDefs = gql`
 
     updateSportsman(input: SportsmanInput!): Boolean!
     updateOrganization(input: OrganizationInput!): Boolean!
+    updateTrainer(input: TrainerInput!): Boolean!
     updateUserEmail(email: String!, user_id: Int!): Boolean!
     deleteUser(user_id: Int!): Boolean!
     assignRoleToUser(name: String!, user_id: Int!): Boolean!
