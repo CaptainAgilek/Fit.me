@@ -142,6 +142,12 @@ export function OrganizationProfileTemplate({
             </Row>
 
 
+             <Row className="justify-content-md-center organization-profile-section-container">
+                <Col sm="12" md="11">
+                  <h1 id="hodnoceni">Hodnocení</h1>
+                  <TestimonialBoxCol />
+                </Col>
+             </Row>
 
             <Row className="justify-content-md-center organization-profile-section-container">
               <Col sm="12" md="3">
