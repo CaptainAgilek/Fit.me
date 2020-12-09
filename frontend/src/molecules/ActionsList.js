@@ -17,8 +17,6 @@ export function ActionsList({
   ) {
     return <Loading />;
   }
-  console.log("testik")
-  console.log(organizationData)
   if (!actionsState.data || !organizationData) return <div />;
   let actionsList = actions;
   if (editable) {
