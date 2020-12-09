@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 
 import { Col, Row, Container } from "react-bootstrap";
+import { OrganizationProfileServices } from '../organisms/OrganizationProfileServices';
 import ListGroup from "react-bootstrap/ListGroup";
 
 import { CustomDatePicker, Loading, DateFilter, CustomAlert } from "src/atoms/";
@@ -53,6 +54,7 @@ function useActionsFilter(data) {
 
 export function OrganizationProfileTemplate({
   actionsState,
+  servicesState,
   organizationData,
   loading,
   error,
@@ -63,6 +65,8 @@ export function OrganizationProfileTemplate({
   setActionSuccess,
 }) {
   const { actions, dateFilterProps } = useActionsFilter(actionsState.data);
+  // console.log("nahore")
+  // console.log(organizationData.organization.places[0].place_id)
 
   useEffect(() => {
     console.log("effect ", actions);
@@ -123,6 +127,16 @@ export function OrganizationProfileTemplate({
                 <OrganizationProfileGallery
                   photoGallery={organizationData.organization.photo_gallery}
                   profileFetcher={profileFetcher}
+                />
+              </Col>
+            </Row>
+
+            <Row className="justify-content-md-center organization-profile-section-container">
+              <Col sm="12" md="11">
+                <h1 id="sluzby">Služby</h1>
+                <OrganizationProfileServices
+                  place_id={organizationData}
+                  servicesState={servicesState}
                 />
               </Col>
             </Row>

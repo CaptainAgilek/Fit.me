@@ -3,7 +3,9 @@ export const servicesForPlace = async (_, { place_id }, { dbConnection }) => {
     return [];
   }
   const result = await dbConnection.query(
-    `SELECT * FROM place_service
+    `SELECT * FROM service
+      JOIN place_service USING (service_id)
+      JOIN place USING (place_id)
       WHERE place_id = ?`,
     [place_id],
   );

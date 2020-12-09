@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { gql, useMutation, useQuery } from "@apollo/client";
-import { useAuth } from "src/utils/auth";
+import { gql, useMutation, useQuery } from '@apollo/client';
+import { useAuth } from 'src/utils/auth';
 
-import { OrganizationProfileTemplate } from "src/templates/OrganizationProfileTemplate";
+import { OrganizationProfileTemplate } from 'src/templates/OrganizationProfileTemplate';
 
 const ACTIONS_QUERY = gql`
   query actionsForPlace($place_id: Int) {
@@ -21,6 +21,17 @@ const ACTIONS_QUERY = gql`
         photo_id
         url
       }
+    }
+  }
+`;
+
+const SERVICE_QUERY = gql`
+  query servicesForPlace($place_id: Int) {
+    servicesForPlace(place_id: $place_id) {
+      service_id
+      place_id
+      name
+      description
     }
   }
 `;
@@ -123,10 +134,24 @@ export function OrganizationProfilePage() {
           profileFetcher.data &&
           profileFetcher.data.organization.places[0].place_id,
       });
+      servicesState.refetch({
+        place_id:
+          profileFetcher.data &&
+          profileFetcher.data.organization.places[0].place_id,
+      });
     },
   });
 
   const actionsState = useQuery(ACTIONS_QUERY, {
+    variables: {
+      place_id:
+        (profileFetcher.data &&
+          profileFetcher.data.organization.places[0].place_id) ||
+        null,
+    },
+  });
+
+  const servicesState = useQuery(SERVICE_QUERY, {
     variables: {
       place_id:
         (profileFetcher.data &&
@@ -144,19 +169,19 @@ export function OrganizationProfilePage() {
       onCompleted: () => {
         profileFetcher.refetch();
         setActionSuccess({
-          message: "Změny profilu uloženy.",
-          variant: "success",
+          message: 'Změny profilu uloženy.',
+          variant: 'success',
         });
       },
     },
     {
       onError: () => {
         setActionSuccess({
-          message: "Chyba při ukládání hodnot.",
-          variant: "danger",
+          message: 'Chyba při ukládání hodnot.',
+          variant: 'danger',
         });
       },
-    }
+    },
   );
 
   const [changePasswordRequest, changePasswordRequestState] = useMutation(
@@ -164,25 +189,26 @@ export function OrganizationProfilePage() {
     {
       onCompleted: () => {
         setActionSuccess({
-          message: "Heslo bylo změněno.",
-          variant: "success",
+          message: 'Heslo bylo změněno.',
+          variant: 'success',
         });
       },
     },
     {
       onError: () => {
         setActionSuccess({
-          message: "Chyba při změně hesla.",
-          variant: "danger",
+          message: 'Chyba při změně hesla.',
+          variant: 'danger',
         });
       },
-    }
+    },
   );
 
   return (
     <>
       <OrganizationProfileTemplate
         actionsState={actionsState}
+        servicesState={servicesState}
         profileFetcher={profileFetcher}
         organizationData={profileFetcher.data}
         loading={profileFetcher.loading}
