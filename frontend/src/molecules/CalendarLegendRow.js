@@ -5,7 +5,7 @@ import { Row, Col } from 'react-bootstrap';
 export function CalendarLegendRow() {
   return (
     <Row>
-      <CalendarLegendIcon color="#2cff0047" />
+      <CalendarLegendIcon color="#63d14ccc" />
       <CalendarLegendText>volno</CalendarLegendText>
       <CalendarLegendIcon color="#007bff" />
       <CalendarLegendText>akce</CalendarLegendText>

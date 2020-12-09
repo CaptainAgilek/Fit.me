@@ -445,7 +445,7 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
 }
 /* remove padding from calendar buttons, this makes it look better and fixes bad responsivity on mobile devices*/
 .fc .fc-button {
-  padding: 2.3px!important;
+  padding: 2.3px !important;
 }
 
 .navbar-item-right-offset {
@@ -507,7 +507,8 @@ html {
   color: black;
 }
 
-.fc-cell-text
-{
+.fc-event-time,
+.fc-event-title {
+  padding: 0 1px;
   white-space: normal;
 }
