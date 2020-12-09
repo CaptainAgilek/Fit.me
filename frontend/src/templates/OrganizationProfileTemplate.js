@@ -19,7 +19,7 @@ import {
   OrganizationProfileTrainers,
   OrganizationProfileGallery,
   OrganizationProfileServices,
-} from "src/organisms/";
+} from 'src/organisms/';
 
 function useActionsFilter(data) {
   const date = new Date();
@@ -53,17 +53,17 @@ function useActionsFilter(data) {
 }
 
 export function OrganizationProfileTemplate({
-  actionsState,
-  servicesState,
-  organizationData,
-  loading,
-  error,
-  updateOrganizationRequest,
-  changePasswordRequest,
-  profileFetcher,
-  actionSuccess,
-  setActionSuccess,
-}) {
+                                              actionsState,
+                                              servicesState,
+                                              organizationData,
+                                              loading,
+                                              error,
+                                              updateOrganizationRequest,
+                                              changePasswordRequest,
+                                              profileFetcher,
+                                              actionSuccess,
+                                              setActionSuccess,
+                                            }) {
   const { actions, dateFilterProps } = useActionsFilter(actionsState.data);
 
   useEffect(() => {
@@ -139,13 +139,12 @@ export function OrganizationProfileTemplate({
               </Col>
             </Row>
 
-
-             <Row className="justify-content-md-center organization-profile-section-container">
-                <Col sm="12" md="11">
-                  <h1 id="hodnoceni">Hodnocení</h1>
-                  <TestimonialBoxCol />
-                </Col>
-             </Row>
+            <Row className="justify-content-md-center organization-profile-section-container">
+              <Col sm="12" md="11">
+                <h1 id="hodnoceni">Hodnocení</h1>
+                <TestimonialBoxCol />
+              </Col>
+            </Row>
 
             <Row className="justify-content-md-center organization-profile-section-container">
               <Col sm="12" md="3">
