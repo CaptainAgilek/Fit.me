@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { useAuth } from 'src/utils/auth';
@@ -14,6 +14,7 @@ const TRAINER_PROFILE_QUERY = gql`
       username
       facebook
       instagram
+      phone
       ratings {
         sportsman {
           firstname
@@ -25,7 +26,27 @@ const TRAINER_PROFILE_QUERY = gql`
         text
         stars
       }
+      user{
+        email
+      }
+      places {
+        place_id
+        city
+        street
+        zip
+        country
+      }
+      profile_photo {
+        url
+        photo_id
+      }
     }
+  }
+`;
+
+const UPDATE_TRAINER_PROFILE_MUTATION = gql`
+  mutation updateTrainer($input: TrainerInput!) {
+    updateTrainer(input: $input)
   }
 `;
 
@@ -36,9 +57,40 @@ export function TrainerProfilePage() {
     variables: { user_id: userId },
   });
 
+  const [actionSuccess, setActionSuccess] = useState(false);
+
+  //TODO: add trainer update request just like in org (mutation to go with the form) 
+  const [
+    updateTrainerRequest,
+    updateTrainerRequestState,
+  ] = useMutation(
+    UPDATE_TRAINER_PROFILE_MUTATION,
+    {
+      onCompleted: () => {
+        trainerFetcher.refetch();
+        setActionSuccess({
+          message: "Změny profilu uloženy.",
+          variant: "success",
+        });
+      },
+    },
+    {
+      onError: () => {
+        setActionSuccess({
+          message: "Chyba při ukládání hodnot.",
+          variant: "danger",
+        });
+      },
+    }
+  );
+
   return (
     <>
-      <TrainerProfileTemplate trainerData={trainerFetcher.data} />
+      <TrainerProfileTemplate trainerData={trainerFetcher.data} actionSuccess={actionSuccess} setActionSuccess={setActionSuccess} error={
+        trainerFetcher.error ||
+        updateTrainerRequestState.error
+      }
+        updateTrainerRequest={updateTrainerRequest} />
     </>
   );
 }

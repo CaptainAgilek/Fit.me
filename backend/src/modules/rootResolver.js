@@ -17,7 +17,7 @@ import { mutations as OrganizationMutations } from './organization';
 import { sportsman } from './sportsman/query';
 import { mutations as ActionMutations } from './action';
 import { getTypeIdByName } from './photo/helper';
-
+import { mutations as TrainerMutations } from './trainer';
 
 export default {
   Query: {
@@ -42,6 +42,7 @@ export default {
     ...PlaceMutations,
     ...OrganizationMutations,
     ...ActionMutations,
+    ...TrainerMutations,
   },
   User: {
     async roles(parent, _, { dbConnection }) {
@@ -81,7 +82,10 @@ export default {
       );
     },
     async profile_photo(parent, _, { dbConnection }) {
-      const photo_type_id = await getTypeIdByName(`PROFILE_PICTURE`, dbConnection);
+      const photo_type_id = await getTypeIdByName(
+        `PROFILE_PICTURE`,
+        dbConnection,
+      );
       return (
         await dbConnection.query(
           `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
@@ -94,14 +98,20 @@ export default {
   },
   Organization: {
     async user(parent, _, { dbConnection }) {
-      return (await dbConnection.query(
-        `SELECT user_id, user.email, verification_token, is_verified FROM user
+      return (
+        await dbConnection.query(
+          `SELECT user_id, user.email, verification_token, is_verified FROM user
         JOIN organization USING (user_id)
         WHERE user_id = ?`,
-        [parent.user_id]))[0];
+          [parent.user_id],
+        )
+      )[0];
     },
     async profile_photo(parent, _, { dbConnection }) {
-      const photo_type_id = await getTypeIdByName(`PROFILE_PICTURE`, dbConnection);
+      const photo_type_id = await getTypeIdByName(
+        `PROFILE_PICTURE`,
+        dbConnection,
+      );
 
       return (
         await dbConnection.query(
@@ -113,7 +123,6 @@ export default {
       )[0];
     },
     async photo_gallery(parent, _, { dbConnection }) {
-
       return await dbConnection.query(
         `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
         JOIN user USING (user_id)
@@ -131,7 +140,7 @@ export default {
     },
     async trainers(parent, _, { dbConnection }) {
       return await dbConnection.query(
-        `select user_id, firstname, lastname, facebook, instagram, description
+        `select user_id, firstname, lastname, facebook, instagram, organization_trainer.description
         from trainer
         join organization_trainer on organization_trainer.trainer_id = trainer.user_id
         where organization_trainer.organization_id = ?`,
@@ -171,25 +180,30 @@ export default {
   },
   Rating: {
     async sportsman(parent, _, { dbConnection }) {
-      return (await dbConnection.query(
-        `SELECT rating.user_id, firstname, lastname, username, phone FROM rating
+      return (
+        await dbConnection.query(
+          `SELECT rating.user_id, firstname, lastname, username, phone FROM rating
         JOIN sportsman on sportsman.user_id = rating.user_id
         WHERE sportsman.user_id = ?`,
-        [parent.user_id],
-      ))[0];
+          [parent.user_id],
+        )
+      )[0];
     },
     async ratee(parent, _, { dbConnection }) {
-      return (await dbConnection.query(
-        `SELECT user.user_id, user.email, verification_token, is_verified FROM rating
+      return (
+        await dbConnection.query(
+          `SELECT user.user_id, user.email, verification_token, is_verified FROM rating
         JOIN user on user.user_id = rating.organization_id
         WHERE user.user_id = ?`,
-        [parent.organization_id],
-      ))[0];
-    }
+          [parent.organization_id],
+        )
+      )[0];
+    },
   },
   Trainer: {
     async profile_photo(parent, _, { dbConnection }) {
-      return (await dbConnection.query(
+      return (
+        await dbConnection.query(
           `SELECT photo_id, user_id, description, url, gallery_name, photo_type_id FROM photo
           JOIN user USING (user_id)
           WHERE user_id = ? AND photo_type_id=1`,
@@ -204,6 +218,24 @@ export default {
         where rating.organization_id = ?`,
         [parent.user_id],
       );
-    }
-  }
+    },
+    async user(parent, _, { dbConnection }) {
+      return (
+        await dbConnection.query(
+          `SELECT user_id, user.email, verification_token, is_verified FROM user
+        JOIN trainer USING (user_id)
+        WHERE user_id = ?`,
+          [parent.user_id],
+        )
+      )[0];
+    },
+    async places(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT place_id, user_id, city, street, zip, country FROM place
+          JOIN trainer USING (user_id)
+          WHERE user_id = ?`,
+        [parent.user_id],
+      );
+    },
+  },
 };

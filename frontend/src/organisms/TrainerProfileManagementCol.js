@@ -32,6 +32,7 @@ const UPLOAD_PHOTO_MUTATION = gql`
 export function TrainerProfileManagementCol({
   trainer,
   changePasswordRequest,
+  setActionSuccess,
 }) {
   const src = trainer.profile_photo
     ? trainer.profile_photo.url
@@ -72,7 +73,9 @@ export function TrainerProfileManagementCol({
             trainer.profile_photo
               ? trainer.profile_photo.photo_id
               : undefined
+
           }
+          setActionSuccess={setActionSuccess}
         />
       </Row>
 

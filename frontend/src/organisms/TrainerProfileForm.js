@@ -1,44 +1,47 @@
-import React from 'react';
+import React from "react";
 
-import { Formik } from 'formik';
-import * as yup from 'yup';
+import { Formik } from "formik";
+import * as yup from "yup";
 
-import Form from 'react-bootstrap/Form';
-import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
+import Form from "react-bootstrap/Form";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
 
-import { FormikSwitch, UserProfileActionButton } from 'src/atoms/';
-import { FormikGroup } from 'src/molecules/';
+import { FormikSwitch, UserProfileActionButton } from "src/atoms/";
+import { FormikGroup } from "src/molecules/";
 
 const schema = yup.object({
-  name: yup.string().required(),
   username: yup.string().nullable(),
   email: yup.string().email().required(),
   phone: yup
     .string()
     .nullable()
-    .matches(/^[0-9]{9}$/, 'Musí obsahovat 9 čísel bez mezer'),
+    .matches(/^[0-9]{9}$/, "Musí obsahovat 9 čísel bez mezer"),
+  description: yup.string().nullable(),
   street: yup.string().nullable(),
   city: yup.string().nullable(),
   country: yup.string().nullable(),
   zip: yup
     .string()
     .nullable()
-    .matches(/^[0-9]{5}$/, 'Musí obsahovat 5 čísel bez mezer'),
+    .matches(/^[0-9]{5}$/, "Musí obsahovat 5 čísel bez mezer"),
 });
 
 export function TrainerProfileForm({ trainer, updateTrainerRequest }) {
-  console.log('trainer', trainer);
+  console.log("trainer", trainer);
   const initialValues = {
-    name: trainer.trainer_name,
+    firstname: trainer.firstname,
+    lastname: trainer.lastname,
     username: trainer.username,
-    email: trainer.email || '',
-    phone: trainer.phone || '',
-    //street: trainer.places[0] ? trainer.places[0].street : "",
-    //city: trainer.places[0] ? trainer.places[0].city : "",
-    //country: trainer.places[0] ? trainer.places[0].country : "",
-    //zip: trainer.places[0] ? trainer.places[0].zip : "",
+    email: trainer.user.email || "",
+    phone: trainer.phone || "",
+    description: trainer.description || "",
+    street: trainer.places[0] ? trainer.places[0].street : "",
+    city: trainer.places[0] ? trainer.places[0].city : "",
+    country: trainer.places[0] ? trainer.places[0].country : "",
+    zip: trainer.places[0] ? trainer.places[0].zip : "",
   };
+  console.log(initialValues);
 
   return (
     <Card>
@@ -46,12 +49,15 @@ export function TrainerProfileForm({ trainer, updateTrainerRequest }) {
         <Formik
           validationSchema={schema}
           onSubmit={(values) => {
+            console.log("submitted");
             const profile = {
               user_id: trainer.user_id,
-              trainer_name: values.name,
+              firstname: trainer.firstname,
+              lastname: trainer.lastname,
               username: values.username,
               email: values.email,
               phone: values.phone ? values.phone : null,
+              description: values.description,
               place: {
                 place_id: trainer.places[0] ? trainer.places[0].place_id : null,
                 user_id: trainer.user_id,
@@ -62,7 +68,7 @@ export function TrainerProfileForm({ trainer, updateTrainerRequest }) {
               },
             };
 
-            console.log('updating profile', values);
+            console.log("updating profile", values);
             updateTrainerRequest({ variables: { input: profile } });
           }}
           initialValues={initialValues}
@@ -121,6 +127,18 @@ export function TrainerProfileForm({ trainer, updateTrainerRequest }) {
                   id="orgProfileAddressZipValidation"
                   type="integer"
                   md="3"
+                />
+              </Form.Row>
+
+              <Form.Row>
+                <FormikGroup
+                  name="description"
+                  label="Popis"
+                  id="trainerDescriptionValidation"
+                  as="textarea"
+                  style={{
+                    height: "100%",
+                  }}
                 />
               </Form.Row>
 

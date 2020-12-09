@@ -98,7 +98,7 @@ export function EditableAvatarPicture({
                 files: [file],
               },
             }) => {
-              if (file.size > AVATAR_FILE_SIZE_LIMIT) {
+              if (file !== undefined && file.size > AVATAR_FILE_SIZE_LIMIT) {
                 setFileIsTooBig(true);
                 return;
               }

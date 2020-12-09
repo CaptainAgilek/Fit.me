@@ -34,7 +34,7 @@ export const typeDefs = gql`
   }
 
   input CreateOrUpdatePlaceInput {
-    place_id: Int!
+    place_id: Int
     user_id: Int!
     city: String!
     street: String
@@ -169,6 +169,9 @@ export const typeDefs = gql`
     description: String
     profile_photo: Photo
     ratings: [Rating]
+    user: User!
+    places: [Place]!
+    phone: String
   }
 
   input OrganizationInput {
@@ -180,6 +183,18 @@ export const typeDefs = gql`
     place: CreateOrUpdatePlaceInput
     acceptingMultisport: Boolean!
     acceptingActivePass: Boolean!
+  }
+
+  input TrainerInput {
+    user_id: Int!
+    firstname: String!
+    lastname: String!
+    username: String!
+    facebook: String
+    instagram: String
+    email: String!
+    phone: String
+    place: CreateOrUpdatePlaceInput
   }
   
 
@@ -232,6 +247,7 @@ export const typeDefs = gql`
 
     updateSportsman(input: SportsmanInput!): Boolean!
     updateOrganization(input: OrganizationInput!): Boolean!
+    updateTrainer(input: TrainerInput!): Boolean!
     updateUserEmail(email: String!, user_id: Int!): Boolean!
     deleteUser(user_id: Int!): Boolean!
     assignRoleToUser(name: String!, user_id: Int!): Boolean!
