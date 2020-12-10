@@ -509,6 +509,8 @@ html {
   color: black;
 }
 
-.fc-cell-text {
+.fc-event-time,
+.fc-event-title {
+  padding: 0 1px;
   white-space: normal;
 }
