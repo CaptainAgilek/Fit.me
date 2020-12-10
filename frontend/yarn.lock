@@ -1197,10 +1197,18 @@
   dependencies:
     tslib "^2.0.3"
 
-"@fullcalendar/daygrid@^5.4.0":
+"@fullcalendar/daygrid@^5.4.0", "@fullcalendar/daygrid@~5.4.0":
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/@fullcalendar/daygrid/-/daygrid-5.4.0.tgz#9e29089f58166cbfea980da1a69b55e157794ed6"
   integrity sha512-UgBcEWNMFuhnwQNH0NP1qWo3swH3jAqXY7Y43eQakwwFbCuP/gBSmiOgkVnfK2SmPJTDMEnFR5jApcXPlpPXlQ==
+  dependencies:
+    "@fullcalendar/common" "~5.4.0"
+    tslib "^2.0.3"
+
+"@fullcalendar/list@^5.4.0":
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/list/-/list-5.4.0.tgz#f6ade6d4a6dc9e61ef8eac155bc2fab94a897c76"
+  integrity sha512-6J/ZeZttjfPhpQ7elVHabvjvdnnvH/ttgRmqx5kYyV4Fpjm3TPD9DJVLsONAvp/wFM9PWoF4t+JkXapXJAYH3Q==
   dependencies:
     "@fullcalendar/common" "~5.4.0"
     tslib "^2.0.3"
@@ -1211,6 +1219,15 @@
   integrity sha512-FtTuD40jdbSzttKmC6PHLnoJSNrw48oq/zbjZ2Qm/94YPEuGULJ0YMjftGTg6pGxBhJf7LiC1bU5eM92iwIYZA==
   dependencies:
     "@fullcalendar/common" "~5.4.0"
+    tslib "^2.0.3"
+
+"@fullcalendar/timegrid@^5.4.0":
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/@fullcalendar/timegrid/-/timegrid-5.4.0.tgz#7869d6c8ba625f4508bb2f4c4a3c3933527a0690"
+  integrity sha512-/b3ZeZVEZf2BxC8mJ6nHW2XZY9mKbN+RpZbdocEiQniGqYq0o3hqGz0FXMA+JSTE6lGjo747RE3b5p295avw7A==
+  dependencies:
+    "@fullcalendar/common" "~5.4.0"
+    "@fullcalendar/daygrid" "~5.4.0"
     tslib "^2.0.3"
 
 "@graphql-typed-document-node/core@^3.0.0":
