@@ -29,12 +29,9 @@ import {
 } from 'src/organisms/';
 
 const events = [
-  {
-    title: 'Cvičení s činkama',
-    date: '2020-12-05',
-  },
-  { title: 'event 2 cviceni s cinkou', start: new Date(), end: new Date("December 07, 2020 12:30:00") },
-  { title: '', start: new Date("December 07, 2020 12:45:00"), end: new Date("December 07, 2020 13:30:00"), backgroundColor: "#63d14ccc" }
+  { title: 'event 2 cviceni s cinkou', start: new Date(), end: new Date("December 10, 2020 12:30:00") },
+  { title: '', start: new Date("December 13, 2020 12:45:00"), end: new Date("December 13, 2020 13:30:00"), backgroundColor: "#63d14ccc" },
+  { title: '', start: new Date("December 13, 2020 14:00:00"), end: new Date("December 13, 2020 15:00:00"), backgroundColor: "#63d14ccc" }
 ];
 const freeHours = [{ date: '2020-12-01' }, { date: '2020-12-03' }];
 
