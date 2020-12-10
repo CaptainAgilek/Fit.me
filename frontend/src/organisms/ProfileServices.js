@@ -217,8 +217,6 @@ export function ProfileServices({
                     SMAZAT
                   </button>
                 </CategoryBox>
-
-
               </>
             );
           })}
