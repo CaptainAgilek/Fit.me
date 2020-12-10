@@ -18,7 +18,7 @@ import {
   OrganizationProfileForm,
   OrganizationProfileTrainers,
   OrganizationProfileGallery,
-  OrganizationProfileServices,
+  ProfileServices,
 } from 'src/organisms/';
 
 function useActionsFilter(data) {
@@ -112,6 +112,16 @@ export function OrganizationProfileTemplate({
 
             <Row className="justify-content-md-center organization-profile-section-container">
               <Col sm="12" md="11">
+                <h1 id="sluzby">Služby</h1>
+                <ProfileServices
+                  user_id={organizationData.organization.user.user_id}
+                  servicesState={servicesState}
+                />
+              </Col>
+            </Row>
+
+            <Row className="justify-content-md-center organization-profile-section-container">
+              <Col sm="12" md="11">
                 <h1 id="treneri">Trenéři</h1>
                 <OrganizationProfileTrainers
                   organizationState={profileFetcher}
@@ -125,16 +135,6 @@ export function OrganizationProfileTemplate({
                 <OrganizationProfileGallery
                   photoGallery={organizationData.organization.photo_gallery}
                   profileFetcher={profileFetcher}
-                />
-              </Col>
-            </Row>
-
-            <Row className="justify-content-md-center organization-profile-section-container">
-              <Col sm="12" md="11">
-                <h1 id="sluzby">Služby</h1>
-                <OrganizationProfileServices
-                  organizationData={organizationData}
-                  servicesState={servicesState}
                 />
               </Col>
             </Row>

@@ -35,7 +35,7 @@ export const typeDefs = gql`
 
   input CreateOrUpdateServiceInput {
     service_id: Int!
-    place_id: Int!
+    user_id: Int!
   }
 
   input CreateOrUpdatePlaceInput {
@@ -96,7 +96,7 @@ export const typeDefs = gql`
 
   type Service {
     service_id: Int!
-    place_id: Int!
+    user_id: Int!
     name: String!
     description: String!
   }
@@ -213,7 +213,7 @@ export const typeDefs = gql`
 
   type Query {
     actionsForPlace(place_id: Int): [Action]!
-    servicesForPlace(place_id: Int): [Service]!
+    servicesForUser(user_id: Int): [Service]!
     benefitsForUser(user_id: Int!): [Benefit]!
     users: [User]!
     user(email: String!): User
@@ -245,8 +245,8 @@ export const typeDefs = gql`
     createOrUpdateAction(input: CreateOrUpdateActionInput!): Boolean!
     insertAction(input: CreateOrUpdateActionInput!): Boolean!
     updateAction(input: CreateOrUpdateActionInput!): Boolean!
-    insertPlaceService(input: CreateOrUpdateServiceInput!): Boolean!
-    deletePlaceService(place_id: Int!, service_id: Int!): Boolean!
+    insertUserService(input: CreateOrUpdateServiceInput!): Boolean!
+    deleteUserService(user_id: Int!, service_id: Int!): Boolean!
     createOrUpdatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
     insertPlace(input: CreateOrUpdatePlaceInput!): Boolean!
     updatePlace(input: CreateOrUpdatePlaceInput!): Boolean!

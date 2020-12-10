@@ -26,10 +26,10 @@ const ACTIONS_QUERY = gql`
 `;
 
 const SERVICE_QUERY = gql`
-  query servicesForPlace($place_id: Int) {
-    servicesForPlace(place_id: $place_id) {
+  query servicesForUser($user_id: Int) {
+    servicesForUser(user_id: $user_id) {
       service_id
-      place_id
+      user_id
       name
       description
     }
@@ -133,9 +133,9 @@ export function OrganizationProfilePage() {
           profileFetcher.data.organization.places[0].place_id,
       });
       servicesState.refetch({
-        place_id:
+        user_id:
           profileFetcher.data &&
-          profileFetcher.data.organization.places[0].place_id,
+          profileFetcher.data.organization.user.user_id,
       });
     },
   });
@@ -151,9 +151,9 @@ export function OrganizationProfilePage() {
 
   const servicesState = useQuery(SERVICE_QUERY, {
     variables: {
-      place_id:
+      user_id:
         (profileFetcher.data &&
-          profileFetcher.data.organization.places[0].place_id) ||
+        profileFetcher.data.organization.user.user_id) ||
         null,
     },
   });
@@ -201,6 +201,7 @@ export function OrganizationProfilePage() {
       },
     },
   );
+  console.log("organ: ", profileFetcher.data)
 
   return (
     <>

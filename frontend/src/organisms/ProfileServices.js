@@ -4,11 +4,11 @@ import { ErrorBanner } from '../molecules';
 import { Button, Container, Modal } from 'react-bootstrap';
 import { gql, useMutation } from '@apollo/client';
 
-export function OrganizationProfileServices({
-                                              servicesState,
-                                              organizationData,
-                                            }) {
-  console.log('organization data ', JSON.stringify(organizationData));
+export function ProfileServices({
+                                  servicesState,
+                                  user_id,
+                                }) {
+  // console.log('user_id: ', user_id);
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -110,14 +110,14 @@ export function OrganizationProfileServices({
   ];
 
   const SERVICE_MUTATION = gql`
-    mutation insertPlaceService($input: CreateOrUpdateServiceInput!) {
-      insertPlaceService(input: $input)
+    mutation insertUserService($input: CreateOrUpdateServiceInput!) {
+      insertUserService(input: $input)
     }
   `;
 
   const DELETE_SERVICE = gql`
-    mutation deletePlaceService($place_id: Int!, $service_id: Int!) {
-      deletePlaceService(place_id: $place_id, service_id: $service_id)
+    mutation deleteUserService($user_id: Int!, $service_id: Int!) {
+      deleteUserService(user_id: $user_id, service_id: $service_id)
     }
   `;
 
@@ -146,7 +146,7 @@ export function OrganizationProfileServices({
   );
 
   if (
-    !organizationData.organization ||
+    !user_id ||
     (servicesState.loading && !servicesState.data)
   ) {
     return <Loading />;
@@ -156,14 +156,14 @@ export function OrganizationProfileServices({
   let servicesList = [];
   let availableCategories = [];
   if (servicesState.data) {
-    tmpList = servicesState.data.servicesForPlace;
+    tmpList = servicesState.data.servicesForUser;
 
     tmpList.map((service) => {
       categories.map((category) => {
         if (category.id === service.service_id) {
           servicesList.push({
             service_id: service.service_id,
-            place_id: service.place_id,
+            user_id: service.user_id,
             name: service.name,
             description: service.description,
             color: category.color,
@@ -193,7 +193,7 @@ export function OrganizationProfileServices({
       {/*List of services*/}
       {servicesState &&
       servicesState.data &&
-      organizationData && (
+      user_id && (
         <div className="d-flex justify-content-center align-items-start flex-wrap">
           {servicesList.map((service) => {
             return (
@@ -208,7 +208,7 @@ export function OrganizationProfileServices({
                           onClick={() =>
                             deleteServiceRequest({
                               variables: {
-                                place_id: service.place_id,
+                                user_id: service.user_id,
                                 service_id: service.service_id,
                               },
                             })
@@ -246,9 +246,7 @@ export function OrganizationProfileServices({
                     serviceRequest({
                       variables: {
                         input: {
-                          // place_id: servicesState.servicesState.data.place_id,
-                          place_id:
-                          organizationData.organization.places[0].place_id,
+                          user_id: user_id,
                           service_id: category.id,
                         },
                       },

@@ -1,13 +1,13 @@
-export const servicesForPlace = async (_, { place_id }, { dbConnection }) => {
-  if (!place_id) {
+export const servicesForUser = async (_, { user_id }, { dbConnection }) => {
+  if (!user_id) {
     return [];
   }
   const result = await dbConnection.query(
     `SELECT * FROM service
-      JOIN place_service USING (service_id)
-      JOIN place USING (place_id)
-      WHERE place_id = ?`,
-    [place_id],
+      JOIN user_service USING (service_id)
+      JOIN user USING (user_id)
+      WHERE user_id = ?`,
+    [user_id],
   );
   return result;
 };
