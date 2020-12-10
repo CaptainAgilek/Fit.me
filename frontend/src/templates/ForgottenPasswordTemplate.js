@@ -28,7 +28,14 @@ export function ForgottenPasswordTemplate({
 }) {
   return (
     <Formik
-      onSubmit={onSubmit}
+      onSubmit={(values) => {
+        console.log("email", values.email);
+        onSubmit({
+          variables: {
+            email: values.email,
+          },
+        });
+      }}
       initialValues={initialValues}
       validateOnBlur={false}
       validationSchema={schema}

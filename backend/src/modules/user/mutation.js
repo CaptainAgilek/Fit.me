@@ -1,5 +1,5 @@
 import * as argon2 from 'argon2';
-import { createToken } from '../../libs/token';
+import { createPasswordResetToken, createToken, decodeToken, verifyPasswordResetToken } from '../../libs/token';
 import { sendEmail } from '../../libs/mailer';
 import {
   checkAlreadyTakenEmail,
@@ -187,6 +187,72 @@ export const changePassword = async (
 
   if (await !argon2.verify(storedUser.password, oldPassword)) {
     throw Error('Nesprávné heslo.');
+  }
+
+  const newPasswordHash = await argon2.hash(newPassword);
+
+  const updatePasswordResponse = await dbConnection.query(
+    `UPDATE user SET password = ? WHERE user_id = ?;`,
+    [newPasswordHash, storedUser.user_id],
+  );
+
+  return updatePasswordResponse.affectedRows === 1;
+};
+
+export const resetPassword = async (_, { email }, { dbConnection }) => {
+  const storedUser = await user(email, dbConnection);
+  if (!storedUser) {
+    throw Error('Neexistující email.');
+  }
+
+  const tmpUser = { user_id: storedUser.user_id, email: storedUser.email };
+  const token = createPasswordResetToken(tmpUser, storedUser.password);
+
+  console.log(process.env.FRONTEND_URL +
+    'passwordReset?token=' +
+    token);
+
+  const mailResult = await sendEmail(
+    '"Fit.me" <sedm22@vse.cz>',
+    email,
+    'Reset hesla',
+    'Kliknutim na nasledujici link si resetujte heslo: ' +
+    process.env.FRONTEND_URL +
+    'passwordReset?token=' +
+    token,
+  );
+
+  return true;
+};
+
+export const verifyPasswordReset = async (_, { token }, { dbConnection }) => {
+  const email = decodeToken(token).email;
+
+  const storedUser = await user(email, dbConnection);
+  if (!storedUser) {
+    throw Error('Neexistující email.');
+  }
+
+  try {
+    verifyPasswordResetToken(token, storedUser.password);
+    return true;  //at this point prepare new mutation that is changePassword without the oldPassword arg
+  } catch (error) {
+    return false;
+  } 
+};
+
+export const newPassword = async (_ , { email, newPassword, newPasswordAgain }, { dbConnection }) => {
+  if (newPassword !== newPasswordAgain) {
+    throw Error('Hesla se neshodují.');
+  }
+
+  const storedUser = await user(email, dbConnection);
+  if (!storedUser) {
+    throw Error('Neexistující email.');
+  }
+
+  if (!storedUser.is_verified) {
+    throw Error('Uživatel není ověřený.');
   }
 
   const newPasswordHash = await argon2.hash(newPassword);

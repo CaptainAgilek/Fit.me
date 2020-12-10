@@ -253,6 +253,9 @@ export const typeDefs = gql`
     assignRoleToUser(name: String!, user_id: Int!): Boolean!
     verifyRegistration(token: String!): Boolean!
     changePassword(email: String!, oldPassword: String!, newPassword: String! newPasswordAgain: String!): Boolean!
+    resetPassword(email: String!): Boolean
+    verifyPasswordReset(token: String!): Boolean!
+    newPassword(email: String!, newPassword: String! newPasswordAgain: String!): Boolean!
     signin(email: String!, password: String!): AuthInfo!
     signup(
       username: String

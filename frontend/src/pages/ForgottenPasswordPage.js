@@ -26,6 +26,12 @@ import { ForgottenPasswordTemplate } from "../templates/ForgottenPasswordTemplat
 //   }
 // `;
 
+const RESET_PASSWORD_MUTATION = gql`
+  mutation resetPassword($email: String!) {
+    resetPassword(email: $email)
+  }
+`;
+
 export function ForgottenPasswordPage({ onCloseMethod, showForgotten }) {
   const [show, setShow] = useState(false);
 
@@ -56,6 +62,10 @@ export function ForgottenPasswordPage({ onCloseMethod, showForgotten }) {
     // [signupRequest],
   );
 
+  const [resetPasswordRequest, resetPasswordRequestState] = useMutation(
+    RESET_PASSWORD_MUTATION
+  );
+
   if (show) {
     return (
       <Container>
@@ -76,7 +86,7 @@ export function ForgottenPasswordPage({ onCloseMethod, showForgotten }) {
             <ForgottenPasswordTemplate
               // isLoading={signupRequestState.loading}
               // error={signupRequestState.error}
-              onSubmit={handleForgottenFormSubmit}
+              onSubmit={resetPasswordRequest}
               onClose={onCloseMethod}
             />
           </Modal.Body>
