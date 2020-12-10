@@ -44,6 +44,11 @@ export function ForgottenPasswordPage({ onCloseMethod, showForgotten }) {
   //   },
   // });
   //
+
+  const [resetPasswordRequest, resetPasswordRequestState] = useMutation(
+    RESET_PASSWORD_MUTATION
+  );
+
   const handleForgottenFormSubmit = useCallback(
     (variables) => {
       setShow(true);
@@ -57,13 +62,9 @@ export function ForgottenPasswordPage({ onCloseMethod, showForgotten }) {
       //     type: variables.type,
       //   },
       // });
+      resetPasswordRequest({ variables: { email: variables.email } })
     },
-    [null]
-    // [signupRequest],
-  );
-
-  const [resetPasswordRequest, resetPasswordRequestState] = useMutation(
-    RESET_PASSWORD_MUTATION
+    [resetPasswordRequest]
   );
 
   if (show) {
@@ -86,7 +87,7 @@ export function ForgottenPasswordPage({ onCloseMethod, showForgotten }) {
             <ForgottenPasswordTemplate
               // isLoading={signupRequestState.loading}
               // error={signupRequestState.error}
-              onSubmit={resetPasswordRequest}
+              onSubmit={handleForgottenFormSubmit}
               onClose={onCloseMethod}
             />
           </Modal.Body>
