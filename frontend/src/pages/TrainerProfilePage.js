@@ -50,6 +50,22 @@ const UPDATE_TRAINER_PROFILE_MUTATION = gql`
   }
 `;
 
+const CHANGE_PASSWORD_MUTATION = gql`
+  mutation changePassword(
+    $email: String!
+    $oldPassword: String!
+    $newPassword: String!
+    $newPasswordAgain: String!
+  ) {
+    changePassword(
+      email: $email
+      oldPassword: $oldPassword
+      newPassword: $newPassword
+      newPasswordAgain: $newPasswordAgain
+    )
+  }
+`;
+
 export function TrainerProfilePage() {
   const { user } = useAuth();
   const userId = user.user_id;
@@ -59,7 +75,6 @@ export function TrainerProfilePage() {
 
   const [actionSuccess, setActionSuccess] = useState(false);
 
-  //TODO: add trainer update request just like in org (mutation to go with the form) 
   const [
     updateTrainerRequest,
     updateTrainerRequestState,
@@ -84,13 +99,35 @@ export function TrainerProfilePage() {
     }
   );
 
+  const [changePasswordRequest, changePasswordRequestState] = useMutation(
+    CHANGE_PASSWORD_MUTATION,
+    {
+      onCompleted: () => {
+        setActionSuccess({
+          message: "Heslo bylo změněno.",
+          variant: "success",
+        });
+      },
+    },
+    {
+      onError: () => {
+        setActionSuccess({
+          message: "Chyba při změně hesla.",
+          variant: "danger",
+        });
+      },
+    }
+  );
+
   return (
     <>
       <TrainerProfileTemplate trainerData={trainerFetcher.data} actionSuccess={actionSuccess} setActionSuccess={setActionSuccess} error={
         trainerFetcher.error ||
-        updateTrainerRequestState.error
+        updateTrainerRequestState.error ||
+        changePasswordRequest.error
       }
-        updateTrainerRequest={updateTrainerRequest} />
+        updateTrainerRequest={updateTrainerRequest}
+        changePasswordRequest={changePasswordRequest}/>
     </>
   );
 }
