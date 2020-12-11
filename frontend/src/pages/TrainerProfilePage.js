@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { useAuth } from 'src/utils/auth';
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { useAuth } from "src/utils/auth";
 
-import { TrainerProfileTemplate } from 'src/templates/TrainerProfileTemplate';
+import { TrainerProfileTemplate } from "src/templates/TrainerProfileTemplate";
 
 const TRAINER_PROFILE_QUERY = gql`
   query trainer($user_id: Int!) {
@@ -15,6 +15,7 @@ const TRAINER_PROFILE_QUERY = gql`
       facebook
       instagram
       phone
+      description
       ratings {
         sportsman {
           firstname
@@ -26,7 +27,7 @@ const TRAINER_PROFILE_QUERY = gql`
         text
         stars
       }
-      user{
+      user {
         email
       }
       places {
@@ -75,10 +76,7 @@ export function TrainerProfilePage() {
 
   const [actionSuccess, setActionSuccess] = useState(false);
 
-  const [
-    updateTrainerRequest,
-    updateTrainerRequestState,
-  ] = useMutation(
+  const [updateTrainerRequest, updateTrainerRequestState] = useMutation(
     UPDATE_TRAINER_PROFILE_MUTATION,
     {
       onCompleted: () => {
@@ -121,13 +119,18 @@ export function TrainerProfilePage() {
 
   return (
     <>
-      <TrainerProfileTemplate trainerData={trainerFetcher.data} actionSuccess={actionSuccess} setActionSuccess={setActionSuccess} error={
-        trainerFetcher.error ||
-        updateTrainerRequestState.error ||
-        changePasswordRequest.error
-      }
+      <TrainerProfileTemplate
+        trainerData={trainerFetcher.data}
+        actionSuccess={actionSuccess}
+        setActionSuccess={setActionSuccess}
+        error={
+          trainerFetcher.error ||
+          updateTrainerRequestState.error ||
+          changePasswordRequest.error
+        }
         updateTrainerRequest={updateTrainerRequest}
-        changePasswordRequest={changePasswordRequest}/>
+        changePasswordRequest={changePasswordRequest}
+      />
     </>
   );
 }
