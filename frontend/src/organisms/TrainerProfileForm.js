@@ -52,12 +52,12 @@ export function TrainerProfileForm({ trainer, updateTrainerRequest }) {
             console.log("submitted");
             const profile = {
               user_id: trainer.user_id,
-              firstname: trainer.firstname,
-              lastname: trainer.lastname,
+              firstname: values.firstname,
+              lastname: values.lastname,
               username: values.username,
               email: values.email,
               phone: values.phone ? values.phone : null,
-              description: trainer.description,
+              description: values.description,
               place: {
                 place_id: trainer.places[0] ? trainer.places[0].place_id : null,
                 user_id: trainer.user_id,

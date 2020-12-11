@@ -55,10 +55,10 @@ export const typeDefs = gql`
   }
 
   input UpdatePhotoUrlInput {
-      photo_id: Int
-      user_id: Int!
-      url: String!
-      type: PhotoType!
+    photo_id: Int
+    user_id: Int!
+    url: String!
+    type: PhotoType!
   }
 
   input PhotoInput {
@@ -69,11 +69,10 @@ export const typeDefs = gql`
     type: PhotoType!
   }
 
-  input UpdatePhotoGalleryNameInput{
+  input UpdatePhotoGalleryNameInput {
     user_id: Int!
     photo_id: Int!
     gallery_name: String
-
   }
 
   type Action {
@@ -137,7 +136,7 @@ export const typeDefs = gql`
     profile_photo: Photo
   }
 
-  type Organization{
+  type Organization {
     user_id: Int!
     organization_name: String!
     username: String
@@ -157,7 +156,8 @@ export const typeDefs = gql`
     sportsman: Sportsman!
     ratee: User!
     text: String
-    stars: Int}
+    stars: Int
+  }
 
   type Trainer {
     user_id: Int!
@@ -194,9 +194,9 @@ export const typeDefs = gql`
     instagram: String
     email: String!
     phone: String
+    description: String
     place: CreateOrUpdatePlaceInput
   }
-  
 
   type Query {
     actionsForPlace(place_id: Int): [Action]!
@@ -226,7 +226,11 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    insertOrRemoveBenefit(user_id: Int!, benefit_id: Int!, hasBenefit: Boolean!): Boolean!
+    insertOrRemoveBenefit(
+      user_id: Int!
+      benefit_id: Int!
+      hasBenefit: Boolean!
+    ): Boolean!
     deleteAction(action_id: Int!): Boolean!
     createOrUpdateAction(input: CreateOrUpdateActionInput!): Boolean!
     insertAction(input: CreateOrUpdateActionInput!): Boolean!
@@ -236,14 +240,36 @@ export const typeDefs = gql`
     updatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
     updateProfilePhotoUrl(input: UpdatePhotoUrlInput!): Boolean!
     updatePhotoUrl(input: UpdatePhotoUrlInput!): Boolean!
-    updateOrganizationGalleryPhoto(input: UpdatePhotoGalleryNameInput!): Boolean!
-    updateOrganizationTrainerDescription(description: String, organization_id: Int!, trainer_id: Int!): Boolean!
+    updateOrganizationGalleryPhoto(
+      input: UpdatePhotoGalleryNameInput!
+    ): Boolean!
+    updateOrganizationTrainerDescription(
+      description: String
+      organization_id: Int!
+      trainer_id: Int!
+    ): Boolean!
     removeOrganizationTrainer(organization_id: Int!, trainer_id: Int!): Boolean!
     addOrganizationTrainer(organization_id: Int!, trainer_id: Int!): Boolean!
     insertPhoto(input: PhotoInput!): Boolean!
-    singleUploadOrganizationGalleryPhoto(file: Upload!, photo_id: Int, user_id: Int!, description: String, type: PhotoType!): UploadedFileResponse!
-    singleUploadOrganizationPhoto(file: Upload!, user_id: Int!, photo_id: Int, type: PhotoType!): UploadedFileResponse!
-    singleUpload(file: Upload!, user_id: Int!, photo_id: Int, type: PhotoType!): UploadedFileResponse!
+    singleUploadOrganizationGalleryPhoto(
+      file: Upload!
+      photo_id: Int
+      user_id: Int!
+      description: String
+      type: PhotoType!
+    ): UploadedFileResponse!
+    singleUploadOrganizationPhoto(
+      file: Upload!
+      user_id: Int!
+      photo_id: Int
+      type: PhotoType!
+    ): UploadedFileResponse!
+    singleUpload(
+      file: Upload!
+      user_id: Int!
+      photo_id: Int
+      type: PhotoType!
+    ): UploadedFileResponse!
 
     updateSportsman(input: SportsmanInput!): Boolean!
     updateOrganization(input: OrganizationInput!): Boolean!
@@ -252,10 +278,19 @@ export const typeDefs = gql`
     deleteUser(user_id: Int!): Boolean!
     assignRoleToUser(name: String!, user_id: Int!): Boolean!
     verifyRegistration(token: String!): Boolean!
-    changePassword(email: String!, oldPassword: String!, newPassword: String! newPasswordAgain: String!): Boolean!
+    changePassword(
+      email: String!
+      oldPassword: String!
+      newPassword: String!
+      newPasswordAgain: String!
+    ): Boolean!
     resetPassword(email: String!): Boolean
     verifyPasswordReset(token: String!): Boolean!
-    newPassword(email: String!, newPassword: String! newPasswordAgain: String!): Boolean!
+    newPassword(
+      email: String!
+      newPassword: String!
+      newPasswordAgain: String!
+    ): Boolean!
     signin(email: String!, password: String!): AuthInfo!
     signup(
       username: String

@@ -3,6 +3,7 @@ import { userById } from '../user/query';
 import { updateUserEmail } from '../user/mutation';
 
 export const updateTrainer = async (_, { input }, { dbConnection }) => {
+  console.log(input);
   const dbResponse = await dbConnection.query(
     `UPDATE trainer SET firstname = ?, lastname = ?, username = ?, facebook = ?, instagram = ?, phone = ?, description = ?
      WHERE user_id = ?;`,
