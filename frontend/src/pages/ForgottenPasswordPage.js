@@ -26,6 +26,12 @@ import { ForgottenPasswordTemplate } from "../templates/ForgottenPasswordTemplat
 //   }
 // `;
 
+const RESET_PASSWORD_MUTATION = gql`
+  mutation resetPassword($email: String!) {
+    resetPassword(email: $email)
+  }
+`;
+
 export function ForgottenPasswordPage({ onCloseMethod, showForgotten }) {
   const [show, setShow] = useState(false);
 
@@ -38,6 +44,11 @@ export function ForgottenPasswordPage({ onCloseMethod, showForgotten }) {
   //   },
   // });
   //
+
+  const [resetPasswordRequest, resetPasswordRequestState] = useMutation(
+    RESET_PASSWORD_MUTATION
+  );
+
   const handleForgottenFormSubmit = useCallback(
     (variables) => {
       setShow(true);
@@ -51,9 +62,9 @@ export function ForgottenPasswordPage({ onCloseMethod, showForgotten }) {
       //     type: variables.type,
       //   },
       // });
+      resetPasswordRequest({ variables: { email: variables.email } })
     },
-    [null]
-    // [signupRequest],
+    [resetPasswordRequest]
   );
 
   if (show) {

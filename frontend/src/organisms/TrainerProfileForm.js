@@ -57,7 +57,7 @@ export function TrainerProfileForm({ trainer, updateTrainerRequest }) {
               username: values.username,
               email: values.email,
               phone: values.phone ? values.phone : null,
-              description: values.description,
+              description: trainer.description,
               place: {
                 place_id: trainer.places[0] ? trainer.places[0].place_id : null,
                 user_id: trainer.user_id,
@@ -144,6 +144,7 @@ export function TrainerProfileForm({ trainer, updateTrainerRequest }) {
 
               <Form.Group
                 as={Col}
+                className="trainerProfileActionButton"
                 md={{ span: 2, offset: 4 }}
                 sm={{ span: 2, offset: 3 }}
               >

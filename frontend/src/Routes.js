@@ -11,11 +11,13 @@ import { OrganizationProfilePage } from 'src/pages/OrganizationProfilePage';
 import { TrainerProfilePage } from 'src/pages/TrainerProfilePage';
 import { SignUpPage } from 'src/pages/SignUpPage';
 import { SignInPage } from 'src/pages/SignInPage';
+import { PasswordResetPage } from 'src/pages/PasswordResetPage';
 
 export const route = {
   home: () => `/`,
   about: () => `/about`,
   verification: () => '/verification/',
+  passwordReset: () => "/passwordReset/",
 
   signIn: () => `/auth/signin`,
   signUp: () => `/auth/signup`,
@@ -32,6 +34,7 @@ export function Routes() {
       <Route path={route.signUp()} exact component={SignUpPage} />
       <Route path={route.signIn()} exact component={SignInPage} />
       <Route path={route.verification()} exact component={VerificationPage} />
+      <Route path={route.passwordReset()} exact component={PasswordResetPage} />
       <Route
         path={route.trainerProfiler()}
         exact
