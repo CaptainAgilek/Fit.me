@@ -450,6 +450,12 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
   padding: 2.3px !important;
 }
 
+@media (max-width: 767px) {
+  .fc .fc-toolbar-title {
+    margin-left: 10px!important;
+  }
+}
+
 .navbar-item-right-offset {
   margin-right: 1.5rem;
 }
