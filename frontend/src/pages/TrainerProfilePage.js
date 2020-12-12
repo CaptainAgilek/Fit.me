@@ -44,6 +44,17 @@ const TRAINER_PROFILE_QUERY = gql`
   }
 `;
 
+const SERVICE_QUERY = gql`
+  query servicesForUser($user_id: Int) {
+    servicesForUser(user_id: $user_id) {
+      service_id
+      user_id
+      name
+      description
+    }
+  }
+`;
+
 const UPDATE_TRAINER_PROFILE_MUTATION = gql`
   mutation updateTrainer($input: TrainerInput!) {
     updateTrainer(input: $input)
@@ -72,6 +83,11 @@ export function TrainerProfilePage() {
           message: "Změny profilu uloženy.",
           variant: "success",
         });
+        servicesState.refetch({
+          user_id:
+            trainerFetcher.data &&
+            trainerFetcher.data.trainer.user_id,
+        });
       },
     },
     {
@@ -84,9 +100,21 @@ export function TrainerProfilePage() {
     }
   );
 
+  const servicesState = useQuery(SERVICE_QUERY, {
+    variables: {
+      user_id:
+        (trainerFetcher.data &&
+          trainerFetcher.data.trainer.user_id) ||
+        null,
+    },
+  });
+
   return (
     <>
-      <TrainerProfileTemplate trainerData={trainerFetcher.data} actionSuccess={actionSuccess} setActionSuccess={setActionSuccess} error={
+      <TrainerProfileTemplate trainerData={trainerFetcher.data}
+                              servicesState={servicesState}
+                              actionSuccess={actionSuccess}
+                              setActionSuccess={setActionSuccess} error={
         trainerFetcher.error ||
         updateTrainerRequestState.error
       }

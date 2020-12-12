@@ -33,6 +33,11 @@ export const typeDefs = gql`
     name: String!
   }
 
+  input CreateOrUpdateServiceInput {
+    service_id: Int!
+    user_id: Int!
+  }
+
   input CreateOrUpdatePlaceInput {
     place_id: Int
     user_id: Int!
@@ -55,10 +60,10 @@ export const typeDefs = gql`
   }
 
   input UpdatePhotoUrlInput {
-      photo_id: Int
-      user_id: Int!
-      url: String!
-      type: PhotoType!
+    photo_id: Int
+    user_id: Int!
+    url: String!
+    type: PhotoType!
   }
 
   input PhotoInput {
@@ -87,6 +92,13 @@ export const typeDefs = gql`
     name: String!
     photo_id: Int
     photo: Photo
+  }
+
+  type Service {
+    service_id: Int!
+    user_id: Int!
+    name: String!
+    description: String!
   }
 
   type Photo {
@@ -185,6 +197,7 @@ export const typeDefs = gql`
     acceptingActivePass: Boolean!
   }
 
+
   input TrainerInput {
     user_id: Int!
     firstname: String!
@@ -200,6 +213,7 @@ export const typeDefs = gql`
 
   type Query {
     actionsForPlace(place_id: Int): [Action]!
+    servicesForUser(user_id: Int): [Service]!
     benefitsForUser(user_id: Int!): [Benefit]!
     users: [User]!
     user(email: String!): User
@@ -231,6 +245,8 @@ export const typeDefs = gql`
     createOrUpdateAction(input: CreateOrUpdateActionInput!): Boolean!
     insertAction(input: CreateOrUpdateActionInput!): Boolean!
     updateAction(input: CreateOrUpdateActionInput!): Boolean!
+    insertUserService(input: CreateOrUpdateServiceInput!): Boolean!
+    deleteUserService(user_id: Int!, service_id: Int!): Boolean!
     createOrUpdatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
     insertPlace(input: CreateOrUpdatePlaceInput!): Boolean!
     updatePlace(input: CreateOrUpdatePlaceInput!): Boolean!
