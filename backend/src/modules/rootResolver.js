@@ -4,6 +4,7 @@ import { queries as SportsmanQueries } from './sportsman';
 import { queries as OrganizationQueries } from './organization';
 import { queries as BenefitQueries } from './benefit';
 import { queries as ActionQueries } from './action';
+import { queries as ServiceQueries } from './service';
 
 import { queries as TrainerQueries } from './trainer';
 
@@ -16,6 +17,7 @@ import { mutations as PlaceMutations } from './place';
 import { mutations as OrganizationMutations } from './organization';
 import { sportsman } from './sportsman/query';
 import { mutations as ActionMutations } from './action';
+import { mutations as ServiceMutation } from './service';
 import { getTypeIdByName } from './photo/helper';
 import { mutations as TrainerMutations } from './trainer';
 
@@ -28,6 +30,7 @@ export default {
     ...BenefitQueries,
     ...ActionQueries,
     ...OrganizationQueries,
+    ...ServiceQueries,
     ...TrainerQueries,
     todo: async () => {
       return new Date().toISOString();
@@ -42,6 +45,7 @@ export default {
     ...PlaceMutations,
     ...OrganizationMutations,
     ...ActionMutations,
+    ...ServiceMutation,
     ...TrainerMutations,
   },
   User: {

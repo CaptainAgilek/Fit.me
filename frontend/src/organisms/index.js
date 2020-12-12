@@ -6,9 +6,10 @@ export { Navigation } from "./Navigation";
 
 export { OrganizationProfileGallery } from "./OrganizationProfileGallery";
 
-export { ActionCardForm } from './ActionCardForm'
-export { OrganizationProfileTrainers } from './OrganizationProfileTrainers';
-export { OrganizationProfileForm } from './OrganizationProfileForm';
+export { ActionCardForm } from "./ActionCardForm";
+export { OrganizationProfileTrainers } from "./OrganizationProfileTrainers";
+export { OrganizationProfileForm } from "./OrganizationProfileForm";
+export { OrganizationProfileManagementCol } from "./OrganizationProfileManagementCol";
+export { ProfileServices } from "./ProfileServices";
 export { TrainerProfileForm } from './TrainerProfileForm';
-export { OrganizationProfileManagementCol } from './OrganizationProfileManagementCol';
 export { TrainerProfileManagementCol } from './TrainerProfileManagementCol';

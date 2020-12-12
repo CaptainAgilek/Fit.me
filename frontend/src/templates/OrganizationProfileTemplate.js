@@ -18,6 +18,7 @@ import {
   OrganizationProfileForm,
   OrganizationProfileTrainers,
   OrganizationProfileGallery,
+  ProfileServices,
 } from 'src/organisms/';
 
 function useActionsFilter(data) {
@@ -52,16 +53,17 @@ function useActionsFilter(data) {
 }
 
 export function OrganizationProfileTemplate({
-  actionsState,
-  organizationData,
-  loading,
-  error,
-  updateOrganizationRequest,
-  changePasswordRequest,
-  profileFetcher,
-  actionSuccess,
-  setActionSuccess,
-}) {
+                                              actionsState,
+                                              servicesState,
+                                              organizationData,
+                                              loading,
+                                              error,
+                                              updateOrganizationRequest,
+                                              changePasswordRequest,
+                                              profileFetcher,
+                                              actionSuccess,
+                                              setActionSuccess,
+                                            }) {
   const { actions, dateFilterProps } = useActionsFilter(actionsState.data);
 
   useEffect(() => {
@@ -83,7 +85,7 @@ export function OrganizationProfileTemplate({
         }
       </div>
 
-      {organizationData && actionsState.data && (
+      {organizationData && actionsState.data && servicesState.data && (
         <>
           <div className="headerImg organization-profile-section-container">
             <OrganizationMenu />
@@ -106,6 +108,16 @@ export function OrganizationProfileTemplate({
                 editable={true}
                 setActionSuccess={setActionSuccess}
               />
+            </Row>
+
+            <Row className="justify-content-md-center organization-profile-section-container">
+              <Col sm="12" md="11">
+                <h1 id="sluzby">Služby</h1>
+                <ProfileServices
+                  user_id={organizationData.organization.user.user_id}
+                  servicesState={servicesState}
+                />
+              </Col>
             </Row>
 
             <Row className="justify-content-md-center organization-profile-section-container">
