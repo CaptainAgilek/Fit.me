@@ -52,6 +52,7 @@ const freeHours = [{ date: "2020-12-01" }, { date: "2020-12-03" }];
 
 export function TrainerProfileTemplate({
   trainerData,
+  servicesState,
   updateTrainerRequest,
   changePasswordRequest,
   actionSuccess,
@@ -59,7 +60,7 @@ export function TrainerProfileTemplate({
   error,
   servicesState,
 }) {
-  console.log("trainerData", trainerData);
+
   return (
     <>
       <Navigation />
@@ -90,7 +91,15 @@ export function TrainerProfileTemplate({
                   <Calendar events={events} freeHours={freeHours} />
                 </Row>
               </Container>
-
+              <Row className="organization-profile-section-container">
+                <Col sm="12" md="11">
+                  <h1 id="sluzby">Služby</h1>
+                  <ProfileServices
+                    user_id={trainerData.trainer.user_id}
+                    servicesState={servicesState}
+                  />
+                </Col>
+              </Row>
               <Container className="organization-profile-section-container">
                 <Row>
                   <h1 id="sluzby">Služby</h1>
