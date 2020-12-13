@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from "react";
 
-import { Col, Row, Container } from 'react-bootstrap';
-import ListGroup from 'react-bootstrap/ListGroup';
+import { Col, Row, Container } from "react-bootstrap";
+import ListGroup from "react-bootstrap/ListGroup";
 
-import { CustomDatePicker, Loading, DateFilter, CustomAlert } from 'src/atoms/';
+import { CustomDatePicker, Loading, DateFilter, CustomAlert } from "src/atoms/";
 import {
   Footer,
   OrganizationMenu,
@@ -11,7 +11,7 @@ import {
   ErrorBanner,
   TestimonialBoxCol,
   ActionCard,
-} from 'src/molecules/';
+} from "src/molecules/";
 import {
   Navigation,
   OrganizationProfileManagementCol,
@@ -19,7 +19,7 @@ import {
   OrganizationProfileTrainers,
   OrganizationProfileGallery,
   ProfileServices,
-} from 'src/organisms/';
+} from "src/organisms/";
 
 function useActionsFilter(data) {
   const date = new Date();
@@ -42,7 +42,7 @@ function useActionsFilter(data) {
     return dataToFilter.filter(
       (item) =>
         new Date(parseInt(item.date, 10)) >= dateFrom &&
-        new Date(parseInt(item.date, 10)) <= dateTo,
+        new Date(parseInt(item.date, 10)) <= dateTo
     );
   }, [dataToFilter, dateFrom, dateTo]);
 
@@ -53,22 +53,23 @@ function useActionsFilter(data) {
 }
 
 export function OrganizationProfileTemplate({
-                                              actionsState,
-                                              servicesState,
-                                              organizationData,
-                                              loading,
-                                              error,
-                                              updateOrganizationRequest,
-                                              changePasswordRequest,
-                                              profileFetcher,
-                                              actionSuccess,
-                                              setActionSuccess,
-                                            }) {
+  actionsState,
+  servicesState,
+  organizationData,
+  loading,
+  error,
+  updateOrganizationRequest,
+  changePasswordRequest,
+  profileFetcher,
+  actionSuccess,
+  setActionSuccess,
+}) {
   const { actions, dateFilterProps } = useActionsFilter(actionsState.data);
 
   useEffect(() => {
-    console.log('effect ', actions);
+    console.log("effect ", actions);
   }, [actions]);
+  console.log("organizationData", organizationData);
   return (
     <>
       <Navigation />

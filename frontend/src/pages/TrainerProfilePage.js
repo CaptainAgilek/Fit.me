@@ -5,6 +5,17 @@ import { useAuth } from "src/utils/auth";
 
 import { TrainerProfileTemplate } from "src/templates/TrainerProfileTemplate";
 
+const SERVICE_QUERY = gql`
+  query servicesForUser($user_id: Int) {
+    servicesForUser(user_id: $user_id) {
+      service_id
+      user_id
+      name
+      description
+    }
+  }
+`;
+
 const TRAINER_PROFILE_QUERY = gql`
   query trainer($user_id: Int!) {
     trainer(user_id: $user_id) {
@@ -28,6 +39,7 @@ const TRAINER_PROFILE_QUERY = gql`
         stars
       }
       user {
+        user_id
         email
       }
       places {
@@ -72,6 +84,20 @@ export function TrainerProfilePage() {
   const userId = user.user_id;
   const trainerFetcher = useQuery(TRAINER_PROFILE_QUERY, {
     variables: { user_id: userId },
+    onCompleted: () => {
+      servicesState.refetch({
+        user_id:
+          trainerFetcher.data && trainerFetcher.data.trainer.user.user_id,
+      });
+    },
+  });
+
+  const servicesState = useQuery(SERVICE_QUERY, {
+    variables: {
+      user_id:
+        (trainerFetcher.data && trainerFetcher.data.trainer.user.user_id) ||
+        null,
+    },
   });
 
   const [actionSuccess, setActionSuccess] = useState(false);
@@ -122,6 +148,9 @@ export function TrainerProfilePage() {
     <>
       <TrainerProfileTemplate
         trainerData={trainerFetcher.data}
+        servicesState={servicesState}
+        trainerFetcher={trainerFetcher}
+        loading={trainerFetcher.loading}
         actionSuccess={actionSuccess}
         setActionSuccess={setActionSuccess}
         error={

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { useAuth } from 'src/utils/auth';
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { useAuth } from "src/utils/auth";
 
-import { OrganizationProfileTemplate } from 'src/templates/OrganizationProfileTemplate';
+import { OrganizationProfileTemplate } from "src/templates/OrganizationProfileTemplate";
 
 const ACTIONS_QUERY = gql`
   query actionsForPlace($place_id: Int) {
@@ -134,8 +134,7 @@ export function OrganizationProfilePage() {
       });
       servicesState.refetch({
         user_id:
-          profileFetcher.data &&
-          profileFetcher.data.organization.user.user_id,
+          profileFetcher.data && profileFetcher.data.organization.user.user_id,
       });
     },
   });
@@ -153,7 +152,7 @@ export function OrganizationProfilePage() {
     variables: {
       user_id:
         (profileFetcher.data &&
-        profileFetcher.data.organization.user.user_id) ||
+          profileFetcher.data.organization.user.user_id) ||
         null,
     },
   });
@@ -167,19 +166,19 @@ export function OrganizationProfilePage() {
       onCompleted: () => {
         profileFetcher.refetch();
         setActionSuccess({
-          message: 'Změny profilu uloženy.',
-          variant: 'success',
+          message: "Změny profilu uloženy.",
+          variant: "success",
         });
       },
     },
     {
       onError: () => {
         setActionSuccess({
-          message: 'Chyba při ukládání hodnot.',
-          variant: 'danger',
+          message: "Chyba při ukládání hodnot.",
+          variant: "danger",
         });
       },
-    },
+    }
   );
 
   const [changePasswordRequest, changePasswordRequestState] = useMutation(
@@ -187,21 +186,21 @@ export function OrganizationProfilePage() {
     {
       onCompleted: () => {
         setActionSuccess({
-          message: 'Heslo bylo změněno.',
-          variant: 'success',
+          message: "Heslo bylo změněno.",
+          variant: "success",
         });
       },
     },
     {
       onError: () => {
         setActionSuccess({
-          message: 'Chyba při změně hesla.',
-          variant: 'danger',
+          message: "Chyba při změně hesla.",
+          variant: "danger",
         });
       },
-    },
+    }
   );
-  console.log("organ: ", profileFetcher.data)
+  console.log("organ: ", profileFetcher.data);
 
   return (
     <>
