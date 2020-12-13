@@ -105,7 +105,7 @@ export function TrainerProfileTemplate({
                 <Row>
                   <h1 id="hodnoceni">Hodnocení</h1>
                 </Row>
-                <TestimonialBoxCol ratingsData={trainerData} />
+                <TestimonialBoxCol ratingsData={trainerData.trainer.ratings} />
               </Container>
 
               <Row className="justify-content-md-center">
