@@ -36,10 +36,11 @@ export function TestimonialBoxGrid({ ratingsData }) {
   //console.log('haho', ratings);
   //console.log('user_id', user.user_id);
 
+
   return (
     <div className="d-flex justify-content-center align-items-start flex-wrap">
       {ratingsData &&
-        ratingsData.trainer.ratings.map((x) => (
+        ratingsData.map((x) => (
           <TestimonialBox
             img={x.sportsman.profile_photo && x.sportsman.profile_photo.url}
             name={x.sportsman.firstname + " " + x.sportsman.lastname}

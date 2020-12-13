@@ -143,7 +143,7 @@ export function OrganizationProfileTemplate({
             <Row className="justify-content-md-center organization-profile-section-container">
               <Col sm="12" md="11">
                 <h1 id="hodnoceni">Hodnocení</h1>
-                <TestimonialBoxCol />
+                <TestimonialBoxCol ratingsData={organizationData.organization.ratings} />
               </Col>
             </Row>
 
