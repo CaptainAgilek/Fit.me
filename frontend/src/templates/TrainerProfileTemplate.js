@@ -58,7 +58,6 @@ export function TrainerProfileTemplate({
   actionSuccess,
   setActionSuccess,
   error,
-  servicesState,
 }) {
 
   return (
@@ -100,16 +99,6 @@ export function TrainerProfileTemplate({
                   />
                 </Col>
               </Row>
-              <Container className="organization-profile-section-container">
-                <Row>
-                  <h1 id="sluzby">Služby</h1>
-                </Row>
-                <ProfileServices
-                  user_id={trainerData.trainer.user.user_id}
-                  servicesState={servicesState}
-                />
-              </Container>
-
               <Container className="organization-profile-section-container">
                 <Row>
                   <h1 id="hodnoceni">Hodnocení</h1>
