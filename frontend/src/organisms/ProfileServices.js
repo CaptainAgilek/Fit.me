@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CategoryBox, Loading } from '../atoms';
-import { ErrorBanner } from '../molecules';
+import { ErrorBanner, DeleteButton } from '../molecules';
 import { Button, Container, Modal } from 'react-bootstrap';
 import { gql, useMutation } from '@apollo/client';
 
@@ -162,6 +162,7 @@ export function ProfileServices({
       categories.map((category) => {
         if (category.id === service.service_id) {
           servicesList.push({
+            key: service.service_id,
             service_id: service.service_id,
             user_id: service.user_id,
             name: service.name,
@@ -194,28 +195,30 @@ export function ProfileServices({
       {servicesState &&
       servicesState.data &&
       user_id && (
-        <div className="d-flex justify-content-center align-items-start flex-wrap">
+        <div className="d-flex justify-content-center align-items-start flex-wrap text-center">
           {servicesList.map((service) => {
             return (
               <>
                 <CategoryBox
-                  key={service.imageUrl}
+                  key={service.user_id}
                   color={service.color}
                   img={service.imageUrl}
                 >
-                  {service.children} <br />
-                  <button className="align-items-center"
-                          onClick={() =>
-                            deleteServiceRequest({
-                              variables: {
-                                user_id: service.user_id,
-                                service_id: service.service_id,
-                              },
-                            })
-                          }
-                  >
-                    SMAZAT
-                  </button>
+                <DeleteButton
+                        handleRemove={() =>
+                          deleteServiceRequest({
+                            variables: {
+                              user_id: service.user_id,
+                              service_id: service.service_id,
+                            },
+                          })
+                        }
+                        name={service.name}
+                        imageClassname="service-delete-icon filter-none"
+                >
+                </DeleteButton>
+                  {service.children}
+
                 </CategoryBox>
               </>
             );

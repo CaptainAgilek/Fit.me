@@ -6,7 +6,7 @@ import {
   CustomTimePickerField,
   FormikSelectField,
 } from "src/atoms/";
-import { EditableActionPicture, ActionDeleteButton } from "src/molecules/";
+import { EditableActionPicture, DeleteButton } from "src/molecules/";
 
 export function ActionCardForm({
   initialValues,
@@ -140,14 +140,14 @@ export function ActionCardForm({
                   )}
 
                   {editable && action.action_id && (
-                    <ActionDeleteButton
+                    <DeleteButton
                       handleRemove={() =>
                         deleteActionRequest({
                           variables: { action_id: action.action_id },
                         })
                       }
                       name={action.name}
-                    ></ActionDeleteButton>
+                    ></DeleteButton>
                   )}
                 </Row>
               </div>

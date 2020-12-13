@@ -3,8 +3,9 @@ import { userById } from '../user/query';
 import { updateUserEmail } from '../user/mutation';
 
 export const updateTrainer = async (_, { input }, { dbConnection }) => {
+  console.log(input);
   const dbResponse = await dbConnection.query(
-    `UPDATE trainer SET firstname = ?, lastname = ?, username = ?, facebook = ?, instagram = ?, phone = ?
+    `UPDATE trainer SET firstname = ?, lastname = ?, username = ?, facebook = ?, instagram = ?, phone = ?, description = ?
      WHERE user_id = ?;`,
     [
       input.firstname,
@@ -13,6 +14,7 @@ export const updateTrainer = async (_, { input }, { dbConnection }) => {
       input.facebook ? input.facebook : null,
       input.instagram ? input.instagram : null,
       input.phone ? input.phone : null,
+      input.description ? input.description : null,
       input.user_id,
     ],
   );

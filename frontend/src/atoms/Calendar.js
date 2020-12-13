@@ -1,34 +1,52 @@
-import React from 'react';
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
+import React, { useRef } from "react";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import listPlugin from "@fullcalendar/list";
 
 export function Calendar({ events, freeHours }) {
+  const calendarRef = useRef();
+
+  const getHeader = () => {
+    return {
+      left: "prev,next",
+      center: "title",
+      right:
+        window.innerWidth < 765
+          ? "listMonth,listWeek"
+          : "dayGridMonth,timeGridWeek",
+    };
+  };
   return (
     <FullCalendar
-      plugins={[dayGridPlugin, timeGridPlugin]}
-      initialView="dayGridMonth"
+      plugins={[dayGridPlugin, timeGridPlugin, listPlugin]}
+      initialView={window.innerWidth < 765 ? "listMonth" : "dayGridMonth"}
       events={events}
       locale="cs"
       height="auto"
-      headerToolbar={{
-         left: "prev,next",
-         center: "title",
-         right: "dayGridMonth,timeGridWeek"
-       }}
+      headerToolbar={getHeader()}
+      ref={calendarRef}
       eventDidMount={(arg) => {
-        arg.el.setAttribute('title', arg.event.title);
+        arg.el.setAttribute("title", arg.event.title);
       }}
       buttonText={{
-        today: 'dnes',
-        month: 'měsíc',
-        week: 'týden',
+        today: "dnes",
+        month: "měsíc",
+        week: "týden",
       }}
       displayEventEnd={true}
       dayCellDidMount={(arg) => {
         /*if (freeHours.find((item) => sameDay(new Date(item.date), arg.date))) {
           arg.el.bgColor = '#d2fdc8';
         }*/
+      }}
+      windowResize={() => {
+        const calendar = calendarRef.current.getApi();
+
+        calendar.changeView(
+          window.innerWidth < 765 ? "listMonth" : "dayGridMonth"
+        );
+        calendar.setOption("headerToolbar", getHeader());
       }}
     />
   );

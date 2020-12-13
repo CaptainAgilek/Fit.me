@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { useAuth } from 'src/utils/auth';
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { useAuth } from "src/utils/auth";
 
-import { TrainerProfileTemplate } from 'src/templates/TrainerProfileTemplate';
+import { TrainerProfileTemplate } from "src/templates/TrainerProfileTemplate";
 
 const TRAINER_PROFILE_QUERY = gql`
   query trainer($user_id: Int!) {
@@ -15,6 +15,7 @@ const TRAINER_PROFILE_QUERY = gql`
       facebook
       instagram
       phone
+      description
       ratings {
         sportsman {
           firstname
@@ -26,7 +27,8 @@ const TRAINER_PROFILE_QUERY = gql`
         text
         stars
       }
-      user{
+      user {
+        user_id
         email
       }
       places {
@@ -61,20 +63,47 @@ const UPDATE_TRAINER_PROFILE_MUTATION = gql`
   }
 `;
 
+const CHANGE_PASSWORD_MUTATION = gql`
+  mutation changePassword(
+    $email: String!
+    $oldPassword: String!
+    $newPassword: String!
+    $newPasswordAgain: String!
+  ) {
+    changePassword(
+      email: $email
+      oldPassword: $oldPassword
+      newPassword: $newPassword
+      newPasswordAgain: $newPasswordAgain
+    )
+  }
+`;
+
 export function TrainerProfilePage() {
   const { user } = useAuth();
   const userId = user.user_id;
   const trainerFetcher = useQuery(TRAINER_PROFILE_QUERY, {
     variables: { user_id: userId },
+    onCompleted: () => {
+      servicesState.refetch({
+        user_id:
+          trainerFetcher.data && trainerFetcher.data.trainer.user.user_id,
+      });
+    },
+  });
+
+  const servicesState = useQuery(SERVICE_QUERY, {
+    variables: {
+      user_id:
+        (trainerFetcher.data && trainerFetcher.data.trainer.user.user_id) ||
+        null,
+    },
   });
 
   const [actionSuccess, setActionSuccess] = useState(false);
 
-  //TODO: add trainer update request just like in org (mutation to go with the form) 
-  const [
-    updateTrainerRequest,
-    updateTrainerRequestState,
-  ] = useMutation(
+  //TODO: add trainer update request just like in org (mutation to go with the form)
+  const [updateTrainerRequest, updateTrainerRequestState] = useMutation(
     UPDATE_TRAINER_PROFILE_MUTATION,
     {
       onCompleted: () => {
@@ -100,25 +129,43 @@ export function TrainerProfilePage() {
     }
   );
 
-  const servicesState = useQuery(SERVICE_QUERY, {
-    variables: {
-      user_id:
-        (trainerFetcher.data &&
-          trainerFetcher.data.trainer.user_id) ||
-        null,
+  const [changePasswordRequest, changePasswordRequestState] = useMutation(
+    CHANGE_PASSWORD_MUTATION,
+    {
+      onCompleted: () => {
+        setActionSuccess({
+          message: "Heslo bylo změněno.",
+          variant: "success",
+        });
+      },
     },
-  });
+    {
+      onError: () => {
+        setActionSuccess({
+          message: "Chyba při změně hesla.",
+          variant: "danger",
+        });
+      },
+    }
+  );
 
   return (
     <>
-      <TrainerProfileTemplate trainerData={trainerFetcher.data}
-                              servicesState={servicesState}
-                              actionSuccess={actionSuccess}
-                              setActionSuccess={setActionSuccess} error={
-        trainerFetcher.error ||
-        updateTrainerRequestState.error
-      }
-        updateTrainerRequest={updateTrainerRequest} />
+      <TrainerProfileTemplate
+        trainerData={trainerFetcher.data}
+        servicesState={servicesState}
+        trainerFetcher={trainerFetcher}
+        loading={trainerFetcher.loading}
+        actionSuccess={actionSuccess}
+        setActionSuccess={setActionSuccess}
+        error={
+          trainerFetcher.error ||
+          updateTrainerRequestState.error ||
+          changePasswordRequest.error
+        }
+        updateTrainerRequest={updateTrainerRequest}
+        changePasswordRequest={changePasswordRequest}
+      />
     </>
   );
 }

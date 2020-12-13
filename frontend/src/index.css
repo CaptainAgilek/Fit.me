@@ -105,6 +105,7 @@ code {
 }
 
 .category-box {
+  position: relative;
   flex-basis: 18%;
   width: 138px;
   height: 138px;
@@ -422,16 +423,18 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
   height: 30vh;
 }
 
-.card-delete-icon {
-  position: absolute;
+.service-delete-icon {
+  position: absolute!important;
   top: 0;
-  right: 0;
+  right: -3px;
   width: 26px;
   height: 26px;
   margin-right: 0.1rem;
   margin-top: 0.1rem;
-  background-image: url("/images/icons/trash-alt-solid.svg");
-  background-repeat: no-repeat;
+}
+
+.filter-none {
+  filter: none!important;
 }
 
 .action-small-icon {
@@ -448,6 +451,12 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
 /* remove padding from calendar buttons, this makes it look better and fixes bad responsivity on mobile devices*/
 .fc .fc-button {
   padding: 2.3px !important;
+}
+
+@media (max-width: 767px) {
+  .fc .fc-toolbar-title {
+    margin-left: 10px!important;
+  }
 }
 
 .navbar-item-right-offset {
@@ -513,4 +522,9 @@ html {
 .fc-event-title {
   padding: 0 1px;
   white-space: normal;
+}
+
+.trainerProfileActionButton {
+  position: absolute;
+  top: 26px;
 }

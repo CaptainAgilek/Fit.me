@@ -52,8 +52,8 @@ export function TrainerProfileForm({ trainer, updateTrainerRequest }) {
             console.log("submitted");
             const profile = {
               user_id: trainer.user_id,
-              firstname: trainer.firstname,
-              lastname: trainer.lastname,
+              firstname: values.firstname,
+              lastname: values.lastname,
               username: values.username,
               email: values.email,
               phone: values.phone ? values.phone : null,
@@ -144,6 +144,7 @@ export function TrainerProfileForm({ trainer, updateTrainerRequest }) {
 
               <Form.Group
                 as={Col}
+                className="trainerProfileActionButton"
                 md={{ span: 2, offset: 4 }}
                 sm={{ span: 2, offset: 3 }}
               >

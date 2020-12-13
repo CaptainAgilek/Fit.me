@@ -17,8 +17,9 @@
     "@fortawesome/free-solid-svg-icons": "5.14.0",
     "@fortawesome/react-fontawesome": "0.1.11",
     "@fullcalendar/daygrid": "^5.4.0",
-    "@fullcalendar/timegrid": "^5.4.0",
+    "@fullcalendar/list": "^5.4.0",
     "@fullcalendar/react": "^5.4.0",
+    "@fullcalendar/timegrid": "^5.4.0",
     "apollo-upload-client": "^14.1.2",
     "bootstrap": "^4.5.3",
     "classnames": "2.2.6",
@@ -34,7 +35,8 @@
     "react-scripts": "^3.4.4",
     "react-slideshow-image": "^3.3.1",
     "reactjs-popup": "^2.0.4",
-    "yup": "0.29.3"
+    "yup": "0.29.3",
+    "jsonwebtoken": "^8.5.1"
   },
   "eslintConfig": {
     "extends": "react-app"

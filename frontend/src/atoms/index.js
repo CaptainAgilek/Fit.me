@@ -24,6 +24,8 @@ export { TrainersSocialColumn } from './TrainersSocialColumn';
 export { DateFilter } from './DateFilter';
 export { CustomAlert } from './CustomAlert';
 
-export { Calendar} from './Calendar';
+export { Calendar } from './Calendar';
 export { CalendarLegendIcon } from './CalendarLegendIcon';
 export { CalendarLegendText } from './CalendarLegendText';
+
+export { ResetPasswordForm } from './ResetPasswordForm';

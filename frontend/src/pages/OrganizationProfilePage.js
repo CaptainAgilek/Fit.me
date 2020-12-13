@@ -201,7 +201,7 @@ export function OrganizationProfilePage() {
       },
     },
   );
-  console.log("organ: ", profileFetcher.data)
+
 
   return (
     <>
