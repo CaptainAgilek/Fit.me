@@ -59,6 +59,7 @@ export function TrainerProfileTemplate({
   error,
   servicesState,
 }) {
+  console.log("trainerData", trainerData);
   return (
     <>
       <Navigation />
@@ -90,15 +91,15 @@ export function TrainerProfileTemplate({
                 </Row>
               </Container>
 
-              <Row className="justify-content-md-center organization-profile-section-container">
-                <Col sm="12" md="11">
+              <Container className="organization-profile-section-container">
+                <Row>
                   <h1 id="sluzby">Služby</h1>
-                  <ProfileServices
-                    user_id={trainerData.user_id}
-                    servicesState={servicesState}
-                  />
-                </Col>
-              </Row>
+                </Row>
+                <ProfileServices
+                  user_id={trainerData.trainer.user.user_id}
+                  servicesState={servicesState}
+                />
+              </Container>
 
               <Container className="organization-profile-section-container">
                 <Row>
