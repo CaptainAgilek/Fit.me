@@ -1,22 +1,23 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
 
-import { PrivateRoute } from 'src/utils/PrivateRoute';
+import { PrivateRoute } from "src/utils/PrivateRoute";
 
-import { LandingPage } from 'src/pages/LandingPage';
-import { VerificationPage } from 'src/pages/VerificationPage';
-import { PageNotFound } from 'src/pages/PageNotFound';
-import { UserProfilePage } from 'src/pages/UserProfilePage';
-import { OrganizationProfilePage } from 'src/pages/OrganizationProfilePage';
-import { TrainerProfilePage } from 'src/pages/TrainerProfilePage';
-import { SignUpPage } from 'src/pages/SignUpPage';
-import { SignInPage } from 'src/pages/SignInPage';
-import { PasswordResetPage } from 'src/pages/PasswordResetPage';
+import { LandingPage } from "src/pages/LandingPage";
+import { VerificationPage } from "src/pages/VerificationPage";
+import { PageNotFound } from "src/pages/PageNotFound";
+import { UserProfilePage } from "src/pages/UserProfilePage";
+import { OrganizationProfilePage } from "src/pages/OrganizationProfilePage";
+import { TrainerProfilePage } from "src/pages/TrainerProfilePage";
+import { SignUpPage } from "src/pages/SignUpPage";
+import { SignInPage } from "src/pages/SignInPage";
+import { PasswordResetPage } from "src/pages/PasswordResetPage";
+import { SignedInUserLandingPage } from "src/pages/SignedInUserLandingPage";
 
 export const route = {
   home: () => `/`,
   about: () => `/about`,
-  verification: () => '/verification/',
+  verification: () => `/verification/`,
   passwordReset: () => "/passwordReset/",
 
   signIn: () => `/auth/signin`,
@@ -25,6 +26,8 @@ export const route = {
   userProfile: () => `/user/profile`,
   organizationProfile: () => `/organization/profile`,
   trainerProfiler: () => `/trainer/profile`,
+
+  signedInUserLandingPage: () => `/home`,
 };
 
 export function Routes() {
@@ -59,6 +62,11 @@ export function Routes() {
         path={route.organizationProfile()}
         exact
         component={OrganizationProfilePage}
+      />
+      <PrivateRoute
+        path={route.signedInUserLandingPage()}
+        exact
+        component={SignedInUserLandingPage}
       />
       <Route path="*" component={PageNotFound} />
     </Switch>

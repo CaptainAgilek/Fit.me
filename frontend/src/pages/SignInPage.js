@@ -41,7 +41,7 @@ export function SignInPage({
 
   const auth = useAuth();
   const history = useHistory();
-  const homePageLink = route.home();
+  const homePageLink = route.signedInUserLandingPage();
   const trainerProfile = route.trainerProfiler();
   const orgProfile = route.organizationProfile();
 
@@ -52,16 +52,16 @@ export function SignInPage({
       //auth.signin({ token, user });
       //history.replace(trainerProfile);
 
-      if (user.roles.some(x => x.name === "ROLE_ORGANIZATION")) {
-        console.log('som org');
+      if (user.roles.some((x) => x.name === "ROLE_ORGANIZATION")) {
+        console.log("som org");
         auth.signin({ token, user });
         history.replace(orgProfile);
-      } else if (user.roles.some(x => x.name === "ROLE_TRAINER")) {
-        console.log('som trener');
+      } else if (user.roles.some((x) => x.name === "ROLE_TRAINER")) {
+        console.log("som trener");
         auth.signin({ token, user });
         history.replace(trainerProfile);
       } else {
-        console.log('som sportsman');
+        console.log("som sportsman");
         auth.signin({ token, user });
         history.replace(homePageLink);
       }
