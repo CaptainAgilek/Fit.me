@@ -1,5 +1,6 @@
 import React from "react";
 import { Navigation } from "src/organisms/";
+
 export function PageNotFound() {
   return (
     <>

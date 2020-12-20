@@ -197,7 +197,6 @@ export const typeDefs = gql`
     acceptingActivePass: Boolean!
   }
 
-
   input TrainerInput {
     user_id: Int!
     firstname: String!
@@ -227,6 +226,7 @@ export const typeDefs = gql`
     organization(user_id: Int!): Organization
     trainersNotEmployed(user_id: Int!): [Trainer]
     trainer(user_id: Int!): Trainer!
+    filteredActions(filter: ActionsFilter!): [Action]!
   }
 
   type AuthInfo {
@@ -237,6 +237,14 @@ export const typeDefs = gql`
   input SportsmanFilter {
     id: Int
     username: String
+  }
+
+  input ActionsFilter {
+    date: String
+    hourStart: String
+    hourEnd: String
+    city: String
+    category: String
   }
 
   type Mutation {
