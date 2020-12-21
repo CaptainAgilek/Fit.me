@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 
 import {
   Container,
@@ -11,7 +11,6 @@ import {
   Form,
 } from "react-bootstrap";
 import { gql, useQuery, useMutation } from "@apollo/client";
-import { propTypes } from "react-bootstrap/esm/Image";
 
 export function TrainersPopUp({
   btnSize,
@@ -107,7 +106,7 @@ export function TrainersPopUp({
                 arrayEmpty(trainersFetcher.data.trainersNotEmployed) &&
                 "Nejsou dostupní žádní další trenéři."}
               {
-                /* 
+                /*
                 MUTATION FOR ADDING TRAINER
                 QUERY FOR LISTING ALL TRAINERS
                */

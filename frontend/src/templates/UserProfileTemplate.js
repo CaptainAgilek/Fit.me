@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import { Loading, RegistrationLink, CustomAlert } from "src/atoms/";
+import { Loading, CustomAlert } from "src/atoms/";
 import { ErrorBanner, ReservationList } from "src/molecules/";
 import {
   UserProfileForm,

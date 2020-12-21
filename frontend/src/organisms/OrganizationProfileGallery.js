@@ -3,11 +3,7 @@ import {
   GalleryUploadPhotoButton,
   GalleryPhotoRemoveButton,
 } from "src/molecules/";
-import {
-  OrganizationProfileSectionHeading,
-  GalleryPhotoTitle,
-  GalleryCounter,
-} from "src/atoms/";
+import { GalleryPhotoTitle, GalleryCounter } from "src/atoms/";
 import { Col, Row, Container, Image } from "react-bootstrap";
 import { gql, useMutation } from "@apollo/client";
 

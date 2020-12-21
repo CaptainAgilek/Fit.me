@@ -106,7 +106,7 @@ export function UserProfilePage() {
     }
   );
 
-  const [changePasswordRequest, changePasswordRequestState] = useMutation(
+  const [changePasswordRequest] = useMutation(
     CHANGE_PASSWORD_MUTATION,
     {
       onCompleted: () => {

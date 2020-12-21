@@ -1,16 +1,14 @@
 import React, { useState, useEffect, useMemo } from "react";
 
 import { Col, Row, Container } from "react-bootstrap";
-import ListGroup from "react-bootstrap/ListGroup";
 
-import { CustomDatePicker, Loading, DateFilter, CustomAlert } from "src/atoms/";
+import { Loading, DateFilter, CustomAlert } from "src/atoms/";
 import {
   Footer,
   OrganizationMenu,
   ActionsList,
   ErrorBanner,
   TestimonialBoxCol,
-  ActionCard,
 } from "src/molecules/";
 import {
   Navigation,
@@ -143,7 +141,9 @@ export function OrganizationProfileTemplate({
             <Row className="justify-content-md-center organization-profile-section-container">
               <Col sm="12" md="11">
                 <h1 id="hodnoceni">Hodnocení</h1>
-                <TestimonialBoxCol ratingsData={organizationData.organization.ratings} />
+                <TestimonialBoxCol
+                  ratingsData={organizationData.organization.ratings}
+                />
               </Col>
             </Row>
 

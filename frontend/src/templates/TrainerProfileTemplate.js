@@ -1,31 +1,18 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React from "react";
 
 import { Col, Row, Container } from "react-bootstrap";
-import ListGroup from "react-bootstrap/ListGroup";
 
-import {
-  CustomDatePicker,
-  Loading,
-  DateFilter,
-  SuccessAlert,
-  Calendar,
-  CustomAlert,
-} from "src/atoms/";
+import { Calendar, CustomAlert } from "src/atoms/";
 import {
   Footer,
   TrainerMenu,
-  ActionsList,
-  ErrorBanner,
   TestimonialBoxCol,
-  ActionCard,
   CalendarLegendRow,
 } from "src/molecules/";
 import {
   Navigation,
   TrainerProfileManagementCol,
   TrainerProfileForm,
-  OrganizationProfileTrainers,
-  OrganizationProfileGallery,
   ProfileServices,
 } from "src/organisms/";
 
@@ -70,7 +57,6 @@ export function TrainerProfileTemplate({
   setActionSuccess,
   error,
 }) {
-
   return (
     <>
       <Navigation />

@@ -9,7 +9,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import moment from "moment";
 
 import { Loading } from "src/atoms/";
-import { Footer, ErrorBanner, FormikGroup } from "src/molecules/";
+import { Footer, ErrorBanner } from "src/molecules/";
 import { Navigation } from "src/organisms/";
 
 const FILTERED_ACTIONS_QUERY = gql`

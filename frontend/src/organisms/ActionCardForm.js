@@ -57,6 +57,7 @@ export function ActionCardForm({
                   <img
                     className="action-small-icon"
                     src="/images/icons/calendar.png"
+                    alt="calendar"
                   />
                   {editable && (
                     <CustomDatePickerField name="date" borderless={true} />
@@ -67,6 +68,7 @@ export function ActionCardForm({
                   <img
                     className="action-small-icon"
                     src="/images/icons/clock-regular.svg"
+                    alt="clock"
                   />
                   {editable && (
                     <CustomTimePickerField name="time" borderless={true} />
@@ -77,6 +79,7 @@ export function ActionCardForm({
                   <img
                     className="action-small-icon"
                     src="/images/icons/personal.svg"
+                    alt="personal"
                   />
                   {options.length > 0 && editable && (
                     <FormikSelectField
@@ -97,6 +100,7 @@ export function ActionCardForm({
                   <img
                     className="action-small-icon"
                     src="/images/icons/money.svg"
+                    alt="money"
                   />
                   {editable && (
                     <Field
@@ -112,6 +116,7 @@ export function ActionCardForm({
                   <img
                     className="action-small-icon"
                     src="/images/icons/users-solid.svg"
+                    alt="users"
                   />
                   {editable && (
                     <Field

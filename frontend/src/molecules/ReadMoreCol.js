@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { route } from "src/Routes";
 
 export function ReadMoreCol() {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BasicSlide, SlideBanner } from "src/atoms/";
 
 export function BasicSlideWithBanner({ imageUrl, headline, children }) {

@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 
-import { FormikSwitch, UserProfileActionButton } from "src/atoms/";
+import { UserProfileActionButton } from "src/atoms/";
 import { FormikGroup } from "src/molecules/";
 
 const schema = yup.object({

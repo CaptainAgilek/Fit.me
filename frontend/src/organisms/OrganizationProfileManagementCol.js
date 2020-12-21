@@ -4,7 +4,7 @@ import { gql, useMutation } from "@apollo/client";
 
 import { Container, Row, Form } from "react-bootstrap";
 
-import { UserProfileActionButton, GenericPopUp } from "src/atoms/";
+import { GenericPopUp } from "src/atoms/";
 import { EditableAvatarPicture, ChangePasswordPopUp } from "src/molecules/";
 import { DEFAULT_IMG_URL } from "src/utils/const";
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useAuth } from "src/utils/auth";
@@ -113,9 +113,7 @@ export function TrainerProfilePage() {
           variant: "success",
         });
         servicesState.refetch({
-          user_id:
-            trainerFetcher.data &&
-            trainerFetcher.data.trainer.user_id,
+          user_id: trainerFetcher.data && trainerFetcher.data.trainer.user_id,
         });
       },
     },
@@ -129,7 +127,7 @@ export function TrainerProfilePage() {
     }
   );
 
-  const [changePasswordRequest, changePasswordRequestState] = useMutation(
+  const [changePasswordRequest] = useMutation(
     CHANGE_PASSWORD_MUTATION,
     {
       onCompleted: () => {

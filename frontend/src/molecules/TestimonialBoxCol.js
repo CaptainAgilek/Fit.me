@@ -1,6 +1,6 @@
 import React from "react";
 import { TestimonialBoxGrid } from "src/molecules/";
-import { Col, Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 
 export function TestimonialBoxCol({ ratingsData }) {
   return (

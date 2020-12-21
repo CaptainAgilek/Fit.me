@@ -3,11 +3,10 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import { Form, Button, Row } from "react-bootstrap";
 
-import { ErrorBanner, FormikGroup } from "../molecules";
+import { FormikGroup } from "../molecules";
 import classNames from "classnames";
 import Col from "react-bootstrap/Col";
 import Alert from "react-bootstrap/Alert";
-import { UserProfileActionButton } from "../molecules/ErrorBanner";
 
 const initialValues = {
   email: "",

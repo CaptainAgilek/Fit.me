@@ -7,13 +7,25 @@ export function Footer() {
       <Container>
         <Row className="pt-5">
           <Col>
-            <img className="img-fluid" src="/images/fitmeLogo.png" />
+            <img
+              className="img-fluid"
+              src="/images/fitmeLogo.png"
+              alt="Fit.Me logo"
+            />
           </Col>
           <Col>
             <Row>
               <div className="ml-auto text-right">
-                <img className="social-icon" src="/images/facebookLogo.svg" />
-                <img className="social-icon" src="/images/twitterLogo.svg" />
+                <img
+                  className="social-icon"
+                  src="/images/facebookLogo.svg"
+                  alt="facebook logo"
+                />
+                <img
+                  className="social-icon"
+                  src="/images/twitterLogo.svg"
+                  alt="twitter logo"
+                />
               </div>
             </Row>
           </Col>

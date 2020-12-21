@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Image } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import { RemovePopUp } from "src/molecules/";
 
 export function GalleryPhotoRemoveButton({

@@ -45,9 +45,7 @@ export function ForgottenPasswordPage({ onCloseMethod, showForgotten }) {
   // });
   //
 
-  const [resetPasswordRequest, resetPasswordRequestState] = useMutation(
-    RESET_PASSWORD_MUTATION
-  );
+  const [resetPasswordRequest] = useMutation(RESET_PASSWORD_MUTATION);
 
   const handleForgottenFormSubmit = useCallback(
     (variables) => {
@@ -62,7 +60,7 @@ export function ForgottenPasswordPage({ onCloseMethod, showForgotten }) {
       //     type: variables.type,
       //   },
       // });
-      resetPasswordRequest({ variables: { email: variables.email } })
+      resetPasswordRequest({ variables: { email: variables.email } });
     },
     [resetPasswordRequest]
   );

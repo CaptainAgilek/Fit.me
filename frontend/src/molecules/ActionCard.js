@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState } from "react";
 
 import { gql, useMutation } from "@apollo/client";
 import { ActionCardForm } from "src/organisms/";
@@ -24,7 +24,7 @@ export function ActionCard({
   actionsState,
   setActionSuccess,
 }) {
-  const [actionRequest, actionRequestState] = useMutation(ACTION_MUTATION, {
+  const [actionRequest] = useMutation(ACTION_MUTATION, {
     onCompleted: () => {
       actionsState.refetch();
       setActionSuccess({ message: "Akce byla uložena.", variant: "success" });
@@ -34,24 +34,21 @@ export function ActionCard({
     },
   });
 
-  const [deleteActionRequest, deleteActionRequestState] = useMutation(
-    DELETE_ACTION_MUTATION,
-    {
-      onCompleted: () => {
-        actionsState.refetch();
-        setActionSuccess({ message: "Akce byla smazána.", variant: "success" });
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    }
-  );
+  const [deleteActionRequest] = useMutation(DELETE_ACTION_MUTATION, {
+    onCompleted: () => {
+      actionsState.refetch();
+      setActionSuccess({ message: "Akce byla smazána.", variant: "success" });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   const [photoId, setPhotoId] = useState(action.photo_id || null);
 
   const handleActionSubmit = useCallback(
     (values) => {
-      const [hours, minutes, seconds] = values.time.toTimeString().split(":");
+      const [hours, minutes] = values.time.toTimeString().split(":");
 
       const deepCopyVariables = {
         time: hours + ":" + minutes,

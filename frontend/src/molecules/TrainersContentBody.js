@@ -1,14 +1,6 @@
 import React from "react";
 
-import {
-  Col,
-  Row,
-  Container,
-  Tab,
-  ListGroup,
-  Form,
-  Button,
-} from "react-bootstrap";
+import { Col, Row, Form, Button } from "react-bootstrap";
 
 export function TrainersContentBody({
   trainer,

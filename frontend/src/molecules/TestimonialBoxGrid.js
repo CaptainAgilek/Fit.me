@@ -1,6 +1,6 @@
 import React from "react";
 import { TestimonialBox } from "src/atoms/";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import { useAuth } from "src/utils/auth";
 
 const RATINGS_QUERY = gql`
@@ -32,10 +32,9 @@ export function TestimonialBoxGrid({ ratingsData }) {
     ratingsData === undefined ? undefined : ratingsData.organization.ratings;*/
 
   //console.log(ratingsFetcher);
-  console.log('ratings data', ratingsData);
+  console.log("ratings data", ratingsData);
   //console.log('haho', ratings);
   //console.log('user_id', user.user_id);
-
 
   return (
     <div className="d-flex justify-content-center align-items-start flex-wrap">

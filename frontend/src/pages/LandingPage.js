@@ -7,7 +7,7 @@ import {
   Footer,
   DelimiterRow,
 } from "src/molecules/";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Container } from "react-bootstrap";
 
 export function LandingPage() {
   return (

@@ -1,6 +1,6 @@
-import React from 'react';
-import { CalendarLegendIcon, CalendarLegendText } from 'src/atoms/';
-import { Row, Col } from 'react-bootstrap';
+import React from "react";
+import { CalendarLegendIcon, CalendarLegendText } from "src/atoms/";
+import { Row } from "react-bootstrap";
 
 export function CalendarLegendRow() {
   return (
