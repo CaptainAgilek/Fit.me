@@ -28,7 +28,7 @@ export const filteredActions = async (_, { filter }, { dbConnection }) => {
       date: filter.date ? filter.date : new Date(),
       hourStart: filter.hourStart ? filter.hourStart : '00',
       hourEnd: filter.hourEnd ? filter.hourEnd : '23',
-      category: filter.category,
+      category_id: filter.category_id,
     },
     { dbConnection },
   );
@@ -38,20 +38,32 @@ export const filteredActions = async (_, { filter }, { dbConnection }) => {
 
 const actionsForPlaceIds = async (
   _,
-  { place_ids, date, hourStart, hourEnd, category },
+  { place_ids, date, hourStart, hourEnd, category_id },
   { dbConnection },
 ) => {
-  // TODO: USE CATEGORY (MISSING IN DB)
   var actions = [];
 
+  /// TADY JE TO ZAKOMENTOVANY, DOKUD NEBUDE CATEGORY ID U ACTION V DB
+
+  /**if (category_id) {
+    for (const id of place_ids) {
+      const result = await dbConnection.query(
+        `SELECT * FROM action
+          WHERE place_id = ? AND date = ? AND time>= ? AND time <= ? AND category_id = ?`,
+        [id.place_id, date, hourStart, hourEnd, category_id],
+      );
+      actions = [...result];
+    }
+  } else {*/
   for (const id of place_ids) {
     const result = await dbConnection.query(
       `SELECT * FROM action
-        WHERE place_id = ? AND date = ? AND time>= ? AND time <= ?`,
+          WHERE place_id = ? AND date = ? AND time>= ? AND time <= ?`,
       [id.place_id, date, hourStart, hourEnd],
     );
     actions = [...result];
   }
+  //}
 
   return actions;
 };

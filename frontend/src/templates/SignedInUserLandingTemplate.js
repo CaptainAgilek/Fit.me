@@ -76,7 +76,7 @@ export function SignedInUserLandingTemplate({ error }) {
                   hourStart: timeFilter.start,
                   hourEnd: timeFilter.end,
                   city: cityFilter,
-                  category: categoryFilter,
+                  category_id: categoryFilter,
                 };
                 setDateFilter(date);
                 requestActions({ filter: filter });
@@ -100,7 +100,7 @@ export function SignedInUserLandingTemplate({ error }) {
                   hourStart: timeFilter.start,
                   hourEnd: timeFilter.end,
                   city: cityFilter,
-                  category: categoryFilter,
+                  category_id: categoryFilter,
                 };
                 requestActions({ filter: filter });
               }}
@@ -129,7 +129,7 @@ export function SignedInUserLandingTemplate({ error }) {
                       hourStart: timeFilter.start,
                       hourEnd: timeFilter.end,
                       city: event.target.value,
-                      category: categoryFilter,
+                      category_id: categoryFilter,
                     };
                     setCityFilter(event.target.value);
                     requestActions({ filter: filter });
@@ -138,11 +138,13 @@ export function SignedInUserLandingTemplate({ error }) {
                   <option value="Praha">Praha</option>
                   <option value="Bratislava">Bratislava</option>
                 </Form.Control>
-                <Form.Label>Sport - NENI IMPLEMENTOVANE</Form.Label>
+
+                <Form.Label>Sport - CATEGORY CHYBI V DB</Form.Label>
                 <Form.Control
                   id="categoriesCityFilter"
                   as="select"
                   onChange={(event) => {
+                    const categoryID = parseInt(event.target.value);
                     const filter = {
                       date: moment(dateFilter.toISOString()).format(
                         "YYYY-MM-DD"
@@ -150,14 +152,33 @@ export function SignedInUserLandingTemplate({ error }) {
                       hourStart: timeFilter.start,
                       hourEnd: timeFilter.end,
                       city: cityFilter,
-                      category: event.target.value,
+                      category_id: categoryID,
                     };
-                    setCategoryFilter(event.target.value);
+                    setCategoryFilter(categoryID);
                     requestActions({ filter: filter });
                   }}
                 >
-                  <option value="Tenis">Tenis</option>
-                  <option value="Plavání">Plavání</option>
+                  {/** hodnota value muze sedet s category_id v DB (jestli ty
+                  categories budou "hardcoded"), usetrime tim praci
+
+                  mozna pujde neco podobnyho i u mesta ... zalezi jestli tam zustane
+                  nejaky dropdown*/}
+                  <option value="null">Vše</option>
+                  <option value="1">Aerial Jóga</option>
+                  <option value="2">Gravid Jóga</option>
+                  <option value="3">Hot Jóga</option>
+                  <option value="4">Strala Jóga</option>
+                  <option value="5">Jóga pro začátečníky</option>
+                  <option value="6">Body Pump</option>
+                  <option value="7">Krav Maga</option>
+                  <option value="8">Thai Box</option>
+                  <option value="9">Kruhový trénink</option>
+                  <option value="10">Soukromé Lekce</option>
+                  <option value="11">Sportovní aerobik</option>
+                  <option value="12">Pilates</option>
+                  <option value="13">Plavání</option>
+                  <option value="14">Pole Dance</option>
+                  <option value="15">Zumba</option>
                 </Form.Control>
               </Form.Row>
             </Form>

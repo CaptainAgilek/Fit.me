@@ -244,7 +244,7 @@ export const typeDefs = gql`
     hourStart: String
     hourEnd: String
     city: String
-    category: String
+    category_id: Int
   }
 
   type Mutation {
