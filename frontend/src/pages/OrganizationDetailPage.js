@@ -97,6 +97,17 @@ const ORGANIZATION_PROFILE_QUERY = gql`
   }
 `;
 
+const SERVICE_QUERY = gql`
+  query servicesForUser($user_id: Int) {
+    servicesForUser(user_id: $user_id) {
+      service_id
+      user_id
+      name
+      description
+    }
+  }
+`;
+
 export function OrganizationDetailPage(props) {
     var params = new URLSearchParams(props.location.search);
     const organizationId = parseInt(params.get("organizationId"));
@@ -114,6 +125,13 @@ export function OrganizationDetailPage(props) {
 
     const organizationFetcher = useQuery(ORGANIZATION_PROFILE_QUERY, {
         variables: { user_id: organizationId }
+
+    });
+
+    const servicesState = useQuery(SERVICE_QUERY, {
+        variables: {
+            user_id: organizationId
+        },
     });
 
     const state = {
@@ -143,7 +161,8 @@ export function OrganizationDetailPage(props) {
                 actionSuccess={actionSuccess}
                 setActionSuccess={setActionSuccess}
                 organizationFetcher={organizationFetcher}
-                userFetcher={userFetcher} />
+                userFetcher={userFetcher}
+                servicesState={servicesState} />
         </>
     );
 }
