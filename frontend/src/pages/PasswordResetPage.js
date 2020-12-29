@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { route } from "src/Routes";
 import { Redirect } from "react-router-dom";
 import { Navigation } from "src/organisms/";
-import { ResetPasswordForm } from "src/atoms/";
+import { ResetPasswordForm, CustomAlert } from "src/atoms/";
 import { decodeToken } from "src/utils/jwt";
 import { useHistory } from "react-router-dom";
+import { Container } from "react-bootstrap";
 
 const VERIFY_PASSWORD_RESET_MUTATION = gql`
   mutation VerifyPasswordReset($token: String!) {
@@ -32,7 +33,23 @@ export function PasswordResetPage(props) {
     );
 
     const [updatePasswordRequest, updatePasswordRequestState] = useMutation(
-        UPDATE_PASSWORD
+        UPDATE_PASSWORD,
+        {
+            onCompleted: () => {
+                setActionSuccess({
+                    message: "Heslo bylo resetováno.",
+                    variant: "success",
+                });
+            },
+        },
+        {
+            onError: () => {
+                setActionSuccess({
+                    message: "Chyba při resetu hesla.",
+                    variant: "danger",
+                });
+            },
+        }
     );
 
     useEffect(() => {
@@ -41,8 +58,23 @@ export function PasswordResetPage(props) {
 
     let message = getMessage(token, tokenState);
 
+    const [actionSuccess, setActionSuccess] = useState(false);
+
+    const passwordResetSuccessfully = async () => {
+        await new Promise(res => setTimeout(res, 2000));
+        history.push("/");
+    }
+
     if (tokenState.data && tokenState.data.verifyPasswordReset) {
-        return <ResetPasswordForm userEmail={email} onSubmit={updatePasswordRequest} handleClose={() => history.push("/")}></ResetPasswordForm>;
+        return <Container><div id="alerts" className="fixed-top mt-1">
+            {
+                <CustomAlert
+                    headingText={actionSuccess.message}
+                    setActionSuccess={setActionSuccess}
+                    variant={actionSuccess.variant}
+                />
+            }
+        </div><ResetPasswordForm userEmail={email} onSubmit={updatePasswordRequest} handleClose={() => passwordResetSuccessfully()}></ResetPasswordForm></Container>;
     }
 
     return (
