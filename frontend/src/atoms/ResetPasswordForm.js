@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 
 import Form from "react-bootstrap/Form";
+import { Container, Col, Row, Image } from "react-bootstrap";
 
 import { UserProfileActionButton } from "src/atoms/";
 import { FormikGroup } from "src/molecules/";
@@ -29,47 +30,60 @@ const initialValues = {
 
 export function ResetPasswordForm({ userEmail, onSubmit, handleClose }) {
     return (
-        <Formik
-            validationSchema={schema}
-            onSubmit={(values) => {
-                console.log("sending values:", values);
-                console.log("sending email:", userEmail);
-                onSubmit({
-                    variables: {
-                        email: userEmail,
-                        newPassword: values.newPassword,
-                        newPasswordAgain: values.newPasswordAgain,
-                    },
-                });
-                console.log("firing handleclose");
-                handleClose();
-            }}
-            initialValues={initialValues}
-        >
-            {({ handleSubmit, handleChange, values, touched, errors }) => (
-                <Form onSubmit={handleSubmit}>
-                    <Form.Row>
 
-                        <FormikGroup
-                            name="newPassword"
-                            label="Nové heslo"
-                            id="newPasswordValidation"
-                            type="password"
-                        />
+        <Col xl={12} xs={12}>
+            <Container >
+                <Row className="d-flex justify-content-center passwordResetHeading">
+                    <Col xl={2} lg={2} md={3} sm={3} xs={4}>
+                        <Image src="/images/icons/key-solid.svg" className="paswordResetIcon" fluid></Image>
+                    </Col>
+                </Row>
+                <Row className="d-flex justify-content-center passwordResetHeading" ><h3>Zde můžete resetovat své heslo.</h3></Row>
+                <Row className="d-flex justify-content-center" >
+                    <Formik
+                        validationSchema={schema}
+                        onSubmit={(values) => {
+                            console.log("sending values:", values);
+                            console.log("sending email:", userEmail);
+                            onSubmit({
+                                variables: {
+                                    email: userEmail,
+                                    newPassword: values.newPassword,
+                                    newPasswordAgain: values.newPasswordAgain,
+                                },
+                            });
+                            console.log("firing handleclose");
+                            handleClose();
+                        }}
+                        initialValues={initialValues}
+                    >
+                        {({ handleSubmit, handleChange, values, touched, errors }) => (
+                            <Form onSubmit={handleSubmit}>
+                                <Form.Row>
 
-                        <FormikGroup
-                            name="newPasswordAgain"
-                            label="Nové heslo znovu"
-                            id="newPasswordAgainValidation"
-                            type="password"
-                        />
-                    </Form.Row>
+                                    <FormikGroup
+                                        name="newPassword"
+                                        label="Nové heslo"
+                                        id="newPasswordValidation"
+                                        type="password"
+                                    />
 
-                    <UserProfileActionButton variant="outline-success" type="submit">
-                        Změnit heslo
+                                    <FormikGroup
+                                        name="newPasswordAgain"
+                                        label="Nové heslo znovu"
+                                        id="newPasswordAgainValidation"
+                                        type="password"
+                                    />
+                                </Form.Row>
+
+
+                                <UserProfileActionButton variant="outline-success" type="submit">
+                                    Změnit heslo
           </UserProfileActionButton>
-                </Form>
-            )}
-        </Formik>
+                            </Form>
+                        )}
+                    </Formik></Row></Container>
+        </Col>
+
     );
 }

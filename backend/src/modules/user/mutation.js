@@ -208,15 +208,15 @@ export const resetPassword = async (_, { email }, { dbConnection }) => {
   const tmpUser = { user_id: storedUser.user_id, email: storedUser.email };
   const token = createPasswordResetToken(tmpUser, storedUser.password);
 
-  console.log(process.env.FRONTEND_URL +
+  /*console.log(process.env.FRONTEND_URL +
     'passwordReset?token=' +
-    token);
+    token);*/
 
   const mailResult = await sendEmail(
     '"Fit.me" <sedm22@vse.cz>',
     email,
     'Reset hesla',
-    'Kliknutim na nasledujici link si resetujte heslo: ' +
+    'Kliknutím na následující link si resetujte heslo: ' +
     process.env.FRONTEND_URL +
     'passwordReset?token=' +
     token,

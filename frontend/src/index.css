@@ -424,7 +424,7 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
 }
 
 .service-delete-icon {
-  position: absolute!important;
+  position: absolute !important;
   top: 0;
   right: -3px;
   width: 26px;
@@ -434,7 +434,7 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
 }
 
 .filter-none {
-  filter: none!important;
+  filter: none !important;
 }
 
 .action-small-icon {
@@ -455,7 +455,7 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
 
 @media (max-width: 767px) {
   .fc .fc-toolbar-title {
-    margin-left: 10px!important;
+    margin-left: 10px !important;
   }
 }
 
@@ -527,4 +527,14 @@ html {
 .trainerProfileActionButton {
   position: absolute;
   top: 26px;
+}
+
+.passwordResetHeading {
+  padding-top: 1rem;
+  padding-bottom: 2.5rem;
+}
+
+.paswordResetIcon {
+  filter: invert(60%) sepia(11%) saturate(2938%) hue-rotate(81deg)
+    brightness(86%) contrast(86%);
 }
