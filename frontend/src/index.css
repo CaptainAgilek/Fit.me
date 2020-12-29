@@ -538,3 +538,23 @@ html {
   filter: invert(60%) sepia(11%) saturate(2938%) hue-rotate(81deg)
     brightness(86%) contrast(86%);
 }
+
+.organization-detail-header {
+  color: #ffffff;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 3rem;
+}
+
+.organization-detail-slogan-first {
+  color: #2c2c2c;
+  font-size: 2rem;
+}
+
+.organization-detail-slogan-second {
+  color: #96c648;
+  font-size: 2rem;
+}
