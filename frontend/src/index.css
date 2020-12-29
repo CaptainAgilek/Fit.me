@@ -558,3 +558,21 @@ html {
   color: #96c648;
   font-size: 2rem;
 }
+
+.map-container {
+  width: 90%;
+  height: 90%;
+}
+
+.organization-detail-info {
+  background-color: #ececec;
+  color: 2c2c2c;
+}
+
+.organization-detail-carousel-container {
+  margin: 1rem;
+}
+
+.organization-detail-info-line {
+  margin-bottom: 0.5rem;
+}

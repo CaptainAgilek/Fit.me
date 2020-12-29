@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Container, Row, Col, Carousel, Image } from "react-bootstrap";
 
@@ -17,9 +17,29 @@ import {
     ProfileServicesReadonly
 } from "src/organisms/";
 
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+
+
 export function OrganizationDetailTemplate({
-    state, error, actionSuccess, setActionSuccess, organizationFetcher, userFetcher, servicesState
+    state, error, actionSuccess, setActionSuccess, organizationFetcher, userFetcher, servicesState, mapProvider
 }) {
+    const [locationState, setLocationState] = useState(null);
+    useEffect(() => {
+        const getLocation = async () => {
+            if (organizationFetcher.data) {
+                const res = await mapProvider.search({
+                    query: organizationFetcher.data.organization.places[0].street + ", " +
+                        organizationFetcher.data.organization.places[0].zip + " " +
+                        organizationFetcher.data.organization.places[0].city
+                });
+                //console.log(res, "res");
+                setLocationState(res[0]);
+            }
+        };
+
+        getLocation();
+    }, [mapProvider, organizationFetcher.data]);
+
     return (
         <>
             <Navigation />
@@ -42,6 +62,8 @@ export function OrganizationDetailTemplate({
             }
             { console.log(state)}
             { console.log(servicesState)}
+            {/*state.showData && mapProvider.search({ query: organizationFetcher.data.organization.places[0].city }).then((res) => console.log(res))*/}
+            {state.showData && console.log(mapProvider.search({ query: organizationFetcher.data.organization.places[0].city }))}
             {state.showData &&
                 <>
                     <div className="headerImg organization-detail-header organization-profile-section-container">
@@ -58,10 +80,11 @@ export function OrganizationDetailTemplate({
                                 {servicesState && <ProfileServicesReadonly servicesState={servicesState} user_id={organizationFetcher.data.organization.user_id} />}
                             </Col>
                         </Row>
+
                         <Row className="justify-content-center organization-profile-section-container">
-                            <Col xl={4}>
+                            <Col xl={4} className="organization-detail-info">
                                 <Row>
-                                    <Carousel indicators={true} controls={false}>
+                                    <Carousel indicators={true} controls={false} className="organization-detail-carousel-container">
                                         {organizationFetcher.data.organization.photo_gallery.map((photo) =>
                                             (
                                                 <Carousel.Item>
@@ -72,8 +95,8 @@ export function OrganizationDetailTemplate({
                                 </Row>
                                 <Row>
                                     { /* zakladni info */}
-                                    <Col>
-                                        <Row>
+                                    <Col className="organization-detail-carousel-container">
+                                        <Row className="organization-detail-info-line">
                                             <Col xl={1}>
                                                 <Image src="/images/icons/map-marker-alt-solid.svg" fluid></Image>
                                             </Col>
@@ -83,24 +106,24 @@ export function OrganizationDetailTemplate({
                                                 organizationFetcher.data.organization.places[0].city + ", " +
                                                 organizationFetcher.data.organization.places[0].country}
                                         </Row>
-                                        <Row>
+                                        <Row className="organization-detail-info-line">
                                             <Col xl={1}>
                                                 <Image src="/images/icons/phone-alt-solid.svg" fluid></Image>
                                             </Col>
 
                                             {organizationFetcher.data.organization.phone}
                                         </Row>
-                                        <Row>
+                                        <Row className="organization-detail-info-line">
                                             <Col xl={1}><Image src="/images/icons/mail.svg" fluid></Image></Col>
 
                                             {organizationFetcher.data.organization.user.email}
                                         </Row>
-                                        <Row>
+                                        <Row className="organization-detail-info-line">
                                             <Col xl={1}><Image src="/images/icons/external-link-alt-solid.svg" fluid></Image></Col>
 
                                             <a href={window.location.href}>{window.location.href}</a>
                                         </Row>
-                                        <Row>
+                                        <Row className="organization-detail-info-line">
                                             <Col xl={1}><Image src="/images/icons/check-circle-regular.svg" fluid></Image></Col>
 
                                             Možnost uplatnění&nbsp;
@@ -112,9 +135,22 @@ export function OrganizationDetailTemplate({
                                     </Col>
                                 </Row>
                             </Col>
-                            <Col xl={4}>
-                                test
+                            <Col xl={4} className="organization-detail-info">
+                                {locationState && console.log(locationState)}
+                                {locationState &&
+                                    <MapContainer center={[locationState.y, locationState.x]} zoom={13} scrollWheelZoom={false} className="map-container organization-detail-carousel-container" >
+                                        <TileLayer
+                                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                        />
+                                        <Marker position={[locationState.y, locationState.x]}></Marker>
+                                    </MapContainer>
+                                }
                             </Col>
+                        </Row>
+
+                        <Row className="justify-content-center organization-profile-section-container">
+                            <Row>Připravované akce</Row>
                         </Row>
 
                     </Container>

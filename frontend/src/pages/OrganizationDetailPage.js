@@ -6,6 +6,8 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { OrganizationDetailTemplate } from "src/templates/OrganizationDetailTemplate";
 import { useAuth } from "src/utils/auth";
 
+import { OpenStreetMapProvider } from 'leaflet-geosearch';
+
 const USER_PROFILE_QUERY = gql`
   query getSportsman($filter: SportsmanFilter!) {
     sportsman(filter: $filter) {
@@ -149,6 +151,8 @@ export function OrganizationDetailPage(props) {
             organizationFetcher.data.organization != null,
     };
 
+    const mapProvider = new OpenStreetMapProvider();
+
     //loading, error, actionSuccess, setActionSuccess, organizationData, userData
 
     return (
@@ -162,7 +166,8 @@ export function OrganizationDetailPage(props) {
                 setActionSuccess={setActionSuccess}
                 organizationFetcher={organizationFetcher}
                 userFetcher={userFetcher}
-                servicesState={servicesState} />
+                servicesState={servicesState}
+                mapProvider={mapProvider} />
         </>
     );
 }
