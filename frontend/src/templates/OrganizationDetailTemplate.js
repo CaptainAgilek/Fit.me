@@ -16,16 +16,17 @@ import {
     UserProfileForm,
     UserProfileManagementCol,
     Navigation,
+    ProfileServicesReadonly
 } from "src/organisms/";
 
 export function OrganizationDetailTemplate({
-    /*loading, error, actionSuccess, setActionSuccess*/
+    state, error, actionSuccess, setActionSuccess, organizationFetcher, userFetcher
 }) {
     return (
         <>
             <Navigation />
-            {/*{loading && <Loading />}
-            {error && <ErrorBanner message={error.message} />}
+            {state.showLoading && <Loading />}
+            {error && !state.showLoading && <ErrorBanner message={error.message} />}
             <div id="alerts" className="fixed-top mt-1">
                 {
                     <CustomAlert
@@ -34,21 +35,35 @@ export function OrganizationDetailTemplate({
                         variant={actionSuccess.variant}
                     />
                 }
-            </div>*/}
+            </div>
+            {
+                userFetcher && console.log(userFetcher)
+            }
+            {
+                organizationFetcher && console.log(organizationFetcher)
+            }
+            { console.log(state)}
+            {state.showData &&
+                <>
+                    <div className="headerImg organization-detail-header organization-profile-section-container">
+                        {organizationFetcher.data.organization && organizationFetcher.data.organization.organization_name}
+                    </div>
 
-            <div className="headerImg organization-detail-header organization-profile-section-container">Form factory fitness club vinohradská</div>
+                    <Container className="organization-profile-top-margin organization-profile-section-container">
 
-            <Container className="organization-profile-top-margin organization-profile-section-container">
+                        <Row className="d-flex justify-content-center organization-detail-slogan-first">Můžeme ti nabídnout</Row>
+                        <Row className="d-flex justify-content-center organization-detail-slogan-second">mnohem více než ostatní</Row>
+
+                        <Row className="justify-content-center organization-profile-section-container">
+                            <Col sm="12" md="11">
+                                {/*<ProfileServicesReadonly servicesState={ } user_id={ }  />*/}
+                            </Col>
+                        </Row>
 
 
-                <Row className="d-flex justify-content-center organization-detail-slogan-first">Můžeme ti nabídnout</Row>
-                <Row className="d-flex justify-content-center organization-detail-slogan-second">mnohem více než ostatní</Row>
-
-
-
-
-            </Container>
-
+                    </Container>
+                </>
+            }
             <Footer />
         </>
     );
