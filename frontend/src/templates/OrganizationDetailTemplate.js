@@ -5,7 +5,7 @@ import { Container, Row, Col, Carousel, Image } from "react-bootstrap";
 import {
     Footer,
     OrganizationMenu,
-    ActionsList,
+    ActionsListReadonly,
     ErrorBanner,
     TestimonialBoxCol,
 } from "src/molecules/";
@@ -21,7 +21,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 
 
 export function OrganizationDetailTemplate({
-    state, error, actionSuccess, setActionSuccess, organizationFetcher, userFetcher, servicesState, mapProvider
+    state, error, actionSuccess, setActionSuccess, organizationFetcher, userFetcher, servicesState, mapProvider, actionsState
 }) {
     const [locationState, setLocationState] = useState(null);
     useEffect(() => {
@@ -149,8 +149,23 @@ export function OrganizationDetailTemplate({
                             </Col>
                         </Row>
 
-                        <Row className="justify-content-center organization-profile-section-container">
-                            <Row>Připravované akce</Row>
+                        <Row className="organization-profile-section-container justify-content-center ">
+                            <Col lg={10} className="organization-detail-actions">
+
+                                <Row className="justify-content-center "><h2>Připravované akce</h2></Row>
+
+                                <Row className="justify-content-center "><Col lg={5}><hr class="organization-detail-hr"></hr></Col></Row>
+                                <Row className="justify-content-center ">
+                                    {console.log(actionsState, "aState")}
+                                    {actionsState && actionsState.data &&
+                                        <ActionsListReadonly organizationData={organizationFetcher.data}
+                                            organizationLoading={organizationFetcher.showLoading}
+                                            actions={actionsState.data.actionsForPlace}
+                                            actionsState={actionsState}
+                                            editable={false}
+                                            setActionSuccess={setActionSuccess} />}
+                                </Row>
+                            </Col>
                         </Row>
 
                     </Container>

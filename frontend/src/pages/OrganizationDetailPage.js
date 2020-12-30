@@ -110,6 +110,26 @@ const SERVICE_QUERY = gql`
   }
 `;
 
+const ACTIONS_QUERY = gql`
+  query actionsForPlace($place_id: Int) {
+    actionsForPlace(place_id: $place_id) {
+      action_id
+      place_id
+      date
+      time
+      price
+      trainer_id
+      max_capacity
+      name
+      photo_id
+      photo {
+        photo_id
+        url
+      }
+    }
+  }
+`;
+
 export function OrganizationDetailPage(props) {
     var params = new URLSearchParams(props.location.search);
     const organizationId = parseInt(params.get("organizationId"));
@@ -126,13 +146,28 @@ export function OrganizationDetailPage(props) {
     });
 
     const organizationFetcher = useQuery(ORGANIZATION_PROFILE_QUERY, {
-        variables: { user_id: organizationId }
-
+        variables: { user_id: organizationId },
+        onCompleted: () => {
+            actionsState.refetch({
+                place_id:
+                    organizationFetcher.data &&
+                    organizationFetcher.data.organization.places[0].place_id,
+            })
+        }
     });
 
     const servicesState = useQuery(SERVICE_QUERY, {
         variables: {
             user_id: organizationId
+        },
+    });
+
+    const actionsState = useQuery(ACTIONS_QUERY, {
+        variables: {
+            place_id:
+                (organizationFetcher.data &&
+                    organizationFetcher.data.organization.places[0].place_id) ||
+                null,
         },
     });
 
@@ -167,7 +202,8 @@ export function OrganizationDetailPage(props) {
                 organizationFetcher={organizationFetcher}
                 userFetcher={userFetcher}
                 servicesState={servicesState}
-                mapProvider={mapProvider} />
+                mapProvider={mapProvider}
+                actionsState={actionsState} />
         </>
     );
 }

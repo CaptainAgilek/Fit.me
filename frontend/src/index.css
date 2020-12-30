@@ -566,7 +566,7 @@ html {
 
 .organization-detail-info {
   background-color: #ececec;
-  color: 2c2c2c;
+  color: #2c2c2c;
 }
 
 .organization-detail-carousel-container {
@@ -575,4 +575,21 @@ html {
 
 .organization-detail-info-line {
   margin-bottom: 0.5rem;
+}
+
+.organization-detail-hr {
+  height: 0.01rem !important;
+  background-color: #96c648 !important;
+}
+
+.organization-detail-actions {
+  background-color: rgba(44, 44, 44, 0.77);
+  color: #ffffff;
+}
+
+.organization-detail-action-card {
+  color: #2c2c2c;
+  border: none;
+  padding: 0.1rem;
+  padding-left: 0.5rem;
 }
