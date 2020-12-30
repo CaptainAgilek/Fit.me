@@ -8,7 +8,7 @@ import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import moment from "moment";
 
-import { Loading, HeaderImg } from "src/atoms/";
+import { Loading, HeaderImg, SimpleBanner } from "src/atoms/";
 import { Footer, ErrorBanner } from "src/molecules/";
 import { Navigation } from "src/organisms/";
 
@@ -56,8 +56,9 @@ export function SignedInUserLandingTemplate({ error }) {
   return (
     <>
       <Navigation />
-      <HeaderImg img="/images/landing_page_header.jpg" />
-
+      <HeaderImg img="/images/landing_page_header.jpg" className="d-flex">
+          <SimpleBanner headline="Najdi si cvičení přesně pro tebe">Rychle a jednoduše</SimpleBanner>
+      </HeaderImg>
       {error && <ErrorBanner message={error.message} />}
 
       <Container className="organization-profile-top-margin organization-profile-section-container">
