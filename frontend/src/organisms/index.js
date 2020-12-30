@@ -14,3 +14,4 @@ export { ProfileServices } from "./ProfileServices";
 export { TrainerProfileForm } from './TrainerProfileForm';
 export { TrainerProfileManagementCol } from './TrainerProfileManagementCol';
 export { ProfileServicesReadonly } from './ProfileServicesReadonly';
+export { TrainersList } from "./TrainersList";
