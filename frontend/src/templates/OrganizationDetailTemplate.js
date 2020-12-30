@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Container, Row, Col, Carousel, Image, ListGroup, Card } from "react-bootstrap";
+import { Container, Row, Col, Carousel, Image, ListGroup, Card, Button } from "react-bootstrap";
 
 import {
     Footer,
@@ -154,7 +154,7 @@ export function OrganizationDetailTemplate({
                         <Row className="justify-content-center ">
                             <Col lg={10} className="organization-detail-actions">
 
-                                <Row className="justify-content-center "><h2>Připravované akce</h2></Row>
+                                <Row className="justify-content-center "><h1>Připravované akce</h1></Row>
 
                                 <Row className="justify-content-center "><Col lg={5}><hr class="organization-detail-actions-hr"></hr></Col></Row>
                                 <Row className="justify-content-center ">
@@ -172,11 +172,62 @@ export function OrganizationDetailTemplate({
 
                         <Row className="organization-profile-section-container justify-content-center">
                             <Col lg={10} className="organization-detail-trainers">
-                                <Row className="justify-content-center "><h2>Naši trenéři</h2></Row>
+                                <Row className="justify-content-center "><h1>Naši trenéři</h1></Row>
                                 <Row className="justify-content-center "><Col lg={5}><hr class="organization-detail-trainers-hr"></hr></Col></Row>
-
                                 <Row className="justify-content-center " style={{ height: "100%" }}>
                                     {organizationFetcher.data.organization.trainers && <TrainersList trainers={organizationFetcher.data.organization.trainers} />}
+                                </Row>
+                            </Col>
+                        </Row>
+
+                        <Row className="organization-profile-section-container justify-content-center">
+                            <Col lg={10}>
+                                <Row className="justify-content-center"><h1>Ceník</h1></Row>
+                                <Row className="justify-content-center">
+                                    <ListGroup horizontal>
+                                        <ListGroup.Item className="borderNone">
+                                            <Card style={{ backgroundColor: "rgba(44, 44, 44, 0.07)" }}>
+                                                <Card.Body>
+                                                    <Card.Title style={{ fontSize: "2.5vh" }}>Jednodenní trénink</Card.Title>
+                                                    <ul>
+                                                        <li style={{ display: "inline", fontSize: "8vh" }}>9.99</li>
+                                                        <li>Placeholder</li>
+                                                        <li>Placeholder</li>
+                                                        <li>Placeholder</li>
+                                                    </ul>
+                                                    <Row className="justify-content-center"><Button variant="outline-success" className="sportsman-secondary-button">Rezervovat</Button></Row>
+                                                </Card.Body>
+                                            </Card>
+                                        </ListGroup.Item>
+                                        <ListGroup.Item className="borderNone">
+                                            <Card style={{ backgroundColor: "rgba(150, 198, 72, 0.25)" }}>
+                                                <Card.Body>
+                                                    <Card.Title style={{ fontSize: "2.5vh" }}>Standardní přístup</Card.Title>
+                                                    <ul>
+                                                        <li style={{ display: "inline", fontSize: "8vh" }}>29.99</li>
+                                                        <li>Placeholder</li>
+                                                        <li>Placeholder</li>
+                                                        <li>Placeholder</li>
+                                                    </ul>
+                                                    <Row className="justify-content-center"><Button variant="outline-success" className="sportsman-secondary-button">Rezervovat</Button></Row>
+                                                </Card.Body>
+                                            </Card>
+                                        </ListGroup.Item>
+                                        <ListGroup.Item className="borderNone">
+                                            <Card style={{ backgroundColor: "rgba(44, 44, 44, 0.07)" }}>
+                                                <Card.Body>
+                                                    <Card.Title style={{ fontSize: "2.5vh" }}>Neustálý přístup</Card.Title>
+                                                    <ul>
+                                                        <li style={{ display: "inline", fontSize: "8vh" }}>59.99</li>
+                                                        <li>Placeholder</li>
+                                                        <li>Placeholder</li>
+                                                        <li>Placeholder</li>
+                                                    </ul>
+                                                    <Row className="justify-content-center"><Button variant="outline-success" className="sportsman-secondary-button">Rezervovat</Button></Row>
+                                                </Card.Body>
+                                            </Card>
+                                        </ListGroup.Item>
+                                    </ListGroup>
                                 </Row>
                             </Col>
                         </Row>

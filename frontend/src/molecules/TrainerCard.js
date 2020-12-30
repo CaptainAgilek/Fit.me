@@ -12,8 +12,8 @@ export function TrainerCard({ trainer, order }) {
                 <Col lg={7} style={{ paddingLeft: "0" }}>
                     <Card className={order === 1 ? "organization-detail-trainer-card-first" : "organization-detail-trainer-card-second"}>
                         <Card.Body>
-                            <Card.Title>{trainer.firstname + " " + trainer.lastname}</Card.Title>
-                            <Row style={{ fontSize: "13px", marginBottom: "1rem" }}>{trainer.description}</Row>
+                            <Card.Title style={{ marginLeft: "0.85rem" }}>{trainer.firstname + " " + trainer.lastname}</Card.Title>
+                            <Row style={{ fontSize: "13px", marginBottom: "1rem", marginLeft: "1rem", marginRight: "1rem" }}>{trainer.description}</Row>
                             <Row style={{ paddingBottom: "0.5rem" }}>
                                 <Col lg={2}><Image src="/images/icons/facebook-f-brands.svg" className="organization-detail-trainer-card-icon" fluid></Image></Col>
                                 <Col lg={10}>{trainer.facebook}</Col>

@@ -317,11 +317,15 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
 .organization-secondary-button {
   background-color: #ffffff !important;
   border-color: #e8aa3c !important;
-  color: #000000 !important;
+  color: #2c2c2c !important;
   font-weight: bolder !important;
   /*padding: 100px;*/
   margin-right: 10px;
   margin-top: 10px;
+}
+
+.organization-secondary-button:focus {
+  box-shadow: 0 0 0 0.2rem rgba(232, 170, 60, 0.5) !important;
 }
 
 .organization-profile-section-container {
@@ -642,7 +646,6 @@ html {
   filter: invert(99%) sepia(0%) saturate(1489%) hue-rotate(184deg)
     brightness(81%) contrast(87%);
 }
-
 .organization-detail-trainers-carousel-item.carousel-item {
   height: 35rem;
   overflow: hidden;
@@ -666,4 +669,18 @@ ol.carousel-indicators .active {
 
 ol.carousel-indicators :not(.active) {
   background-color: #ffffff;
+}
+
+.sportsman-secondary-button {
+  background-color: #ffffff !important;
+  border-color: #e0226b !important;
+  color: #2c2c2c !important;
+  font-weight: bolder !important;
+  /*padding: 100px;*/
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.sportsman-secondary-button:focus {
+  box-shadow: 0 0 0 0.2rem rgba(224, 34, 107, 0.5) !important;
 }

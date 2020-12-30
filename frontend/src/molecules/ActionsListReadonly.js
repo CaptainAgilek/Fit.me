@@ -93,7 +93,7 @@ export function ActionsListReadonly({
                                     </Col>
                                 </Row>
                                 <Row className="d-flex justify-content-center">
-                                    <Button variant="outline-success">Rezervovat</Button>
+                                    <Button variant="outline-success" className="sportsman-secondary-button">Rezervovat</Button>
                                 </Row>
                             </Col>
 
