@@ -131,79 +131,82 @@ const ACTIONS_QUERY = gql`
 `;
 
 export function OrganizationDetailPage(props) {
-    var params = new URLSearchParams(props.location.search);
-    const organizationId = parseInt(params.get("organizationId"));
+  var params = new URLSearchParams(props.location.search);
+  const organizationId = parseInt(params.get("organizationId"));
 
-    const { user } = useAuth();
-    const history = useHistory();
+  const { user } = useAuth();
+  const history = useHistory();
 
-    const [actionSuccess, setActionSuccess] = useState(false);
+  const [actionSuccess, setActionSuccess] = useState(false);
 
-    const filter = { id: user.user_id };
+  const filter = { id: user.user_id };
 
-    const userFetcher = useQuery(USER_PROFILE_QUERY, {
-        variables: { filter }
-    });
+  const userFetcher = useQuery(USER_PROFILE_QUERY, {
+    variables: { filter }
+  });
 
-    const organizationFetcher = useQuery(ORGANIZATION_PROFILE_QUERY, {
-        variables: { user_id: organizationId },
-        onCompleted: () => {
-            actionsState.refetch({
-                place_id:
-                    organizationFetcher.data &&
-                    organizationFetcher.data.organization.places[0].place_id,
-            })
-        }
-    });
+  const organizationFetcher = useQuery(ORGANIZATION_PROFILE_QUERY, {
+    variables: { user_id: organizationId },
+    onCompleted: () => {
+      actionsState.refetch({
+        place_id:
+          organizationFetcher.data && organizationFetcher.data.organization &&
+          organizationFetcher.data.organization.places[0].place_id,
+      })
+    }
+  });
 
-    const servicesState = useQuery(SERVICE_QUERY, {
-        variables: {
-            user_id: organizationId
-        },
-    });
+  const servicesState = useQuery(SERVICE_QUERY, {
+    variables: {
+      user_id: organizationId
+    },
+  });
 
-    const actionsState = useQuery(ACTIONS_QUERY, {
-        variables: {
-            place_id:
-                (organizationFetcher.data &&
-                    organizationFetcher.data.organization.places[0].place_id) ||
-                null,
-        },
-    });
+  const actionsState = useQuery(ACTIONS_QUERY, {
+    variables: {
+      place_id:
+        (organizationFetcher.data && organizationFetcher.data.organization &&
+          organizationFetcher.data.organization.places[0].place_id) ||
+        null,
+    }
+  });
 
-    const state = {
-        showLoading:
-            (userFetcher.loading && !userFetcher.data) ||
-            (organizationFetcher.loading && !organizationFetcher.data),
-        showData:
-            !userFetcher.loading &&
-            !userFetcher.data.error &&
-            userFetcher.data &&
-            userFetcher.data.sportsman != null &&
-            !organizationFetcher.loading &&
-            !organizationFetcher.error &&
-            organizationFetcher.data &&
-            organizationFetcher.data.organization != null,
-    };
+  const state = {
+    showLoading:
+      (userFetcher.loading && !userFetcher.data) ||
+      (organizationFetcher.loading && !organizationFetcher.data),
+    showData:
+      !userFetcher.loading &&
+      !userFetcher.data.error &&
+      userFetcher.data &&
+      userFetcher.data.sportsman != null &&
+      !organizationFetcher.loading &&
+      !organizationFetcher.error &&
+      organizationFetcher.data &&
+      organizationFetcher.data.organization != null,
+  };
 
-    const mapProvider = new OpenStreetMapProvider();
+  const error = userFetcher.error || organizationFetcher.error || userFetcher.data == null || organizationFetcher.data == null ||
+    (userFetcher.data && !userFetcher.data.sportsman) ||
+    (organizationFetcher.data && !organizationFetcher.data.organization);
 
-    //loading, error, actionSuccess, setActionSuccess, organizationData, userData
 
-    return (
-        <>
-            <OrganizationDetailTemplate
-                state={state}
-                error={userFetcher.error || organizationFetcher.error || userFetcher.data == null || organizationFetcher.data == null ||
-                    (userFetcher.data && !userFetcher.data.sportsman) ||
-                    (organizationFetcher.data && !organizationFetcher.data.organization)}
-                actionSuccess={actionSuccess}
-                setActionSuccess={setActionSuccess}
-                organizationFetcher={organizationFetcher}
-                userFetcher={userFetcher}
-                servicesState={servicesState}
-                mapProvider={mapProvider}
-                actionsState={actionsState} />
-        </>
-    );
+  const mapProvider = new OpenStreetMapProvider();
+
+  //loading, error, actionSuccess, setActionSuccess, organizationData, userData
+
+  return (
+    <>
+      <OrganizationDetailTemplate
+        state={state}
+        error={error}
+        actionSuccess={actionSuccess}
+        setActionSuccess={setActionSuccess}
+        organizationFetcher={organizationFetcher}
+        userFetcher={userFetcher}
+        servicesState={servicesState}
+        mapProvider={mapProvider}
+        actionsState={actionsState} />
+    </>
+  );
 }

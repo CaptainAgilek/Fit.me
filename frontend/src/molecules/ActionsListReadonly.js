@@ -14,6 +14,11 @@ const toCustomTime = (timeString) => {
     return tmp[0] + ":" + tmp[1] + ":" + tmp[2];
 }
 
+const resolveTrainerName = (trainerId, org) => {
+    const trainer = org.trainers.find(trainer => trainer.user_id === trainerId);
+    return trainer.firstname + " " + trainer.lastname;
+}
+
 export function ActionsListReadonly({
     organizationData,
     organizationLoading,
@@ -40,21 +45,10 @@ export function ActionsListReadonly({
                     <ListGroup.Item
                         key={action.action_id}
                         className="borderNone organization-detail-actions"
-                        style={{ paddingLeft: "0.01rem", margin: "1rem" }}
                     >
-                        {/*<ActionCardOrganizationDetail
-                            key={action.action_id}
-                            img={(action.photo && action.photo.url)}
-                            action={action}
-                            trainers={organizationData.organization.trainers}
-                            user_id={organizationData.organization.user_id}
-                            editable={false}
-                            actionsState={actionsState}
-                            setActionSuccess={setActionSuccess}
-                        />*/}
                         <Card className="borderNone organization-detail-action-card">
-                            <Card.Img variant="top" src={action.photo.url} />
-                            <Card.Body style={{ backgroundColor: "#96c648", color: "#ffffff" }}>
+                            <Card.Img variant="top" src={action.photo.url} className="organization-detail-action-card-image" />
+                            <Card.Body className="organization-detail-action-card-body">
                                 <Card.Title>{action.name}</Card.Title>
                             </Card.Body>
                             <Col className="justify-content-center">
@@ -79,7 +73,7 @@ export function ActionsListReadonly({
                                         <Image src="/images/icons/personal.svg" fluid></Image>
                                     </Col>
                                     <Col>
-                                        trainer_id: {action.trainer_id}
+                                        {resolveTrainerName(action.trainer_id, organizationData.organization)}
                                     </Col>
                                 </Row>
                                 <Row>
@@ -104,6 +98,7 @@ export function ActionsListReadonly({
                             </Col>
 
                         </Card>
+
                     </ListGroup.Item>
                 ))}
         </ListGroup>

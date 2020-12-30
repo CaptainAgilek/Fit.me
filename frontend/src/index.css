@@ -585,11 +585,27 @@ html {
 .organization-detail-actions {
   background-color: rgba(44, 44, 44, 0.77);
   color: #ffffff;
+  padding: unset !important;
+  padding-bottom: 0.5rem !important;
+  margin: 1rem;
 }
 
 .organization-detail-action-card {
   color: #2c2c2c;
   border: none;
-  padding: 0.1rem;
-  padding-left: 0.5rem;
+  width: 100%;
+  height: 100%;
+}
+
+.organization-detail-action-card-image {
+  height: unset !important;
+}
+
+.organization-detail-action-card-body {
+  background-color: #96c648;
+  color: #ffffff;
+}
+
+.organization-detail-action-card-body .card-title.h5 {
+  text-align: center;
 }

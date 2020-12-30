@@ -26,7 +26,7 @@ export function OrganizationDetailTemplate({
     const [locationState, setLocationState] = useState(null);
     useEffect(() => {
         const getLocation = async () => {
-            if (organizationFetcher.data) {
+            if (!error) {
                 const res = await mapProvider.search({
                     query: organizationFetcher.data.organization.places[0].street + ", " +
                         organizationFetcher.data.organization.places[0].zip + " " +
@@ -38,7 +38,8 @@ export function OrganizationDetailTemplate({
         };
 
         getLocation();
-    }, [mapProvider, organizationFetcher.data]);
+    }, [mapProvider, organizationFetcher.data, error]);
+    //console.log(error, "err");
 
     return (
         <>
