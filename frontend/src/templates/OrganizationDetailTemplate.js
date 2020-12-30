@@ -16,7 +16,8 @@ import {
     Navigation,
     ProfileServicesReadonly,
     TrainersList,
-    OrganizationPricing
+    OrganizationPricing,
+    OrganizationDetailRatings
 } from "src/organisms/";
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
@@ -58,7 +59,7 @@ export function OrganizationDetailTemplate({
                 }
             </div>
             {
-                //userFetcher && console.log(userFetcher)
+                userFetcher && userFetcher.data && console.log(userFetcher.data, "userdata")
             }
             {
                 //organizationFetcher && console.log(organizationFetcher)
@@ -194,6 +195,15 @@ export function OrganizationDetailTemplate({
                             <Col lg={10}>
                                 <Row className="justify-content-center"><h1>Ohlasy</h1></Row>
                                 <Row className="justify-content-center">
+                                    {/* 
+                                        use itemlist horizontal, fill with cards that dont have title, such as card(row(col(img), col(row(name), row(rating)))row(text))
+                                        grab first N ratings, say 2 or 5 (making itemlits rows of 3 cards), then append an editable card with a send button
+                                     */}
+
+                                    {organizationFetcher.data.organization.ratings && userFetcher.data &&
+                                        <OrganizationDetailRatings ratings={organizationFetcher.data.organization.ratings} userData={userFetcher.data} />}
+
+
 
                                 </Row>
                             </Col>

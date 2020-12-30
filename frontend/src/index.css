@@ -684,3 +684,13 @@ ol.carousel-indicators :not(.active) {
 .sportsman-secondary-button:focus {
   box-shadow: 0 0 0 0.2rem rgba(224, 34, 107, 0.5) !important;
 }
+
+.organization-detail-rating-star {
+  padding-right: 0.1rem !important;
+  padding-left: 0.1rem !important;
+}
+
+.star-full {
+  filter: invert(66%) sepia(68%) saturate(361%) hue-rotate(41deg)
+    brightness(95%) contrast(90%);
+}
