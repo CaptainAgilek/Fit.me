@@ -577,13 +577,26 @@ html {
   margin-bottom: 0.5rem;
 }
 
-.organization-detail-hr {
+.organization-detail-actions-hr {
   height: 0.01rem !important;
   background-color: #96c648 !important;
 }
 
+.organization-detail-trainers-hr {
+  height: 0.01rem !important;
+  background-color: #2c2c2c !important;
+}
+
 .organization-detail-actions {
   background-color: rgba(44, 44, 44, 0.77);
+  color: #ffffff;
+  padding: unset !important;
+  padding-bottom: 0.5rem !important;
+  margin: 1rem;
+}
+
+.organization-detail-trainers {
+  background-color: rgba(150, 198, 72, 0.9);
   color: #ffffff;
   padding: unset !important;
   padding-bottom: 0.5rem !important;
