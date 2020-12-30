@@ -15,7 +15,8 @@ import {
     UserProfileManagementCol,
     Navigation,
     ProfileServicesReadonly,
-    TrainersList
+    TrainersList,
+    OrganizationPricing
 } from "src/organisms/";
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
@@ -184,50 +185,16 @@ export function OrganizationDetailTemplate({
                             <Col lg={10}>
                                 <Row className="justify-content-center"><h1>Ceník</h1></Row>
                                 <Row className="justify-content-center">
-                                    <ListGroup horizontal>
-                                        <ListGroup.Item className="borderNone">
-                                            <Card style={{ backgroundColor: "rgba(44, 44, 44, 0.07)" }}>
-                                                <Card.Body>
-                                                    <Card.Title style={{ fontSize: "2.5vh" }}>Jednodenní trénink</Card.Title>
-                                                    <ul>
-                                                        <li style={{ display: "inline", fontSize: "8vh" }}>9.99</li>
-                                                        <li>Placeholder</li>
-                                                        <li>Placeholder</li>
-                                                        <li>Placeholder</li>
-                                                    </ul>
-                                                    <Row className="justify-content-center"><Button variant="outline-success" className="sportsman-secondary-button">Rezervovat</Button></Row>
-                                                </Card.Body>
-                                            </Card>
-                                        </ListGroup.Item>
-                                        <ListGroup.Item className="borderNone">
-                                            <Card style={{ backgroundColor: "rgba(150, 198, 72, 0.25)" }}>
-                                                <Card.Body>
-                                                    <Card.Title style={{ fontSize: "2.5vh" }}>Standardní přístup</Card.Title>
-                                                    <ul>
-                                                        <li style={{ display: "inline", fontSize: "8vh" }}>29.99</li>
-                                                        <li>Placeholder</li>
-                                                        <li>Placeholder</li>
-                                                        <li>Placeholder</li>
-                                                    </ul>
-                                                    <Row className="justify-content-center"><Button variant="outline-success" className="sportsman-secondary-button">Rezervovat</Button></Row>
-                                                </Card.Body>
-                                            </Card>
-                                        </ListGroup.Item>
-                                        <ListGroup.Item className="borderNone">
-                                            <Card style={{ backgroundColor: "rgba(44, 44, 44, 0.07)" }}>
-                                                <Card.Body>
-                                                    <Card.Title style={{ fontSize: "2.5vh" }}>Neustálý přístup</Card.Title>
-                                                    <ul>
-                                                        <li style={{ display: "inline", fontSize: "8vh" }}>59.99</li>
-                                                        <li>Placeholder</li>
-                                                        <li>Placeholder</li>
-                                                        <li>Placeholder</li>
-                                                    </ul>
-                                                    <Row className="justify-content-center"><Button variant="outline-success" className="sportsman-secondary-button">Rezervovat</Button></Row>
-                                                </Card.Body>
-                                            </Card>
-                                        </ListGroup.Item>
-                                    </ListGroup>
+                                    <OrganizationPricing />
+                                </Row>
+                            </Col>
+                        </Row>
+
+                        <Row className="organization-profile-section-container justify-content-center">
+                            <Col lg={10}>
+                                <Row className="justify-content-center"><h1>Ohlasy</h1></Row>
+                                <Row className="justify-content-center">
+
                                 </Row>
                             </Col>
                         </Row>
