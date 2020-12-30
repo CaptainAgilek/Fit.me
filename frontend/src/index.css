@@ -202,8 +202,6 @@ code {
 
 .headerImg {
   position: relative;
-  /* The image used */
-  background-image: url("/images/organization_header.jpg");
   /* Full height */
   height: 500px;
   /* Center and scale the image nicely */

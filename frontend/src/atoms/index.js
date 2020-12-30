@@ -29,3 +29,4 @@ export { CalendarLegendIcon } from './CalendarLegendIcon';
 export { CalendarLegendText } from './CalendarLegendText';
 
 export { ResetPasswordForm } from './ResetPasswordForm';
+export { HeaderImg } from './HeaderImg';

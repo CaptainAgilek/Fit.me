@@ -2,7 +2,7 @@ import React from "react";
 
 import { Col, Row, Container } from "react-bootstrap";
 
-import { Calendar, CustomAlert } from "src/atoms/";
+import { Calendar, CustomAlert, HeaderImg } from "src/atoms/";
 import {
   Footer,
   TrainerMenu,
@@ -60,9 +60,9 @@ export function TrainerProfileTemplate({
   return (
     <>
       <Navigation />
-      <div className="headerImg">
+      <HeaderImg img="/images/organization_header.jpg">
         <TrainerMenu />
-      </div>
+      </HeaderImg>
 
       <div id="alerts" className="fixed-top mt-1">
         {
