@@ -9,7 +9,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import moment from "moment";
 
 import { Loading, HeaderImg, SimpleBanner } from "src/atoms/";
-import { Footer, ErrorBanner } from "src/molecules/";
+import { Footer, ErrorBanner, CategoryBoxCol } from "src/molecules/";
 import { Navigation } from "src/organisms/";
 
 const FILTERED_ACTIONS_QUERY = gql`
@@ -57,11 +57,16 @@ export function SignedInUserLandingTemplate({ error }) {
     <>
       <Navigation />
       <HeaderImg img="/images/landing_page_header.jpg" className="d-flex">
-          <SimpleBanner headline="Najdi si cvičení přesně pro tebe">Rychle a jednoduše</SimpleBanner>
+        <SimpleBanner headline="Najdi si cvičení přesně pro tebe">
+          Rychle a jednoduše
+        </SimpleBanner>
       </HeaderImg>
       {error && <ErrorBanner message={error.message} />}
 
       <Container className="organization-profile-top-margin organization-profile-section-container">
+        <Row>
+          <CategoryBoxCol />
+        </Row>
         <Row className="justify-content-md-center organization-profile-section-container">
           <h1>Filtr</h1>
         </Row>
