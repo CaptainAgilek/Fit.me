@@ -117,3 +117,16 @@ export const addOrganizationTrainer = async (
 
   return addResponse.affectedRows === 1;
 };
+
+export const addRating = async (
+  _,
+  { organization_id, user_id, text, stars },
+  { dbConnection },
+) => {
+  const addResponse = await dbConnection.query(
+    `INSERT INTO rating(user_id, organization_id, text, stars) VALUES (?, ?, ?, ?)`,
+    [user_id, organization_id, text, stars],
+  );
+
+  return addResponse.affectedRows === 1;
+};

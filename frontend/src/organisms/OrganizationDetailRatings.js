@@ -1,18 +1,59 @@
 import React, { useState } from "react";
 import classNames from 'classnames';
+import { gql, useMutation } from "@apollo/client";
 
 import { Card, Row, Col, Image, Form } from "react-bootstrap";
 
-export function OrganizationDetailRatings({ ratings, userData }) {
+const ADD_RATING_MUTATION = gql`
+  mutation addRating($organization_id: Int!, $user_id: Int!, $text: String!, $stars: Int!) {
+    addRating(organization_id: $organization_id, user_id: $user_id, text: $text, stars: $stars)
+  }
+`;
 
-    const displayedRatings = ratings.slice(0, 5);
+export function OrganizationDetailRatings({ ratings, userData, organizationFetcher }) {
+
+    const displayedRatings = ratings.slice(-5);
+
+    const [ratingText, setRatingText] = useState(null);
+
+    const handleChange = (e) => {
+        setRatingText(e.target.value);
+    }
 
     const handleSubmit = (e) => {
         //console.log(e.key);
-        if (e.key === "Enter") {
-            //console.log("enter pressed");
+
+        if (!ratingText) {
+
+            console.log("empty");
+            return;
         }
+        if (e.key === "Enter" && !e.shiftKey) {
+            //console.log(e.target);
+            console.log(ratingText);
+
+            //TODO: send ratingText & starState to db, refetch after
+            addRatingHandler({
+                variables:
+                {
+                    organization_id: organizationFetcher.data.organization.user_id,
+                    user_id: userData.sportsman.user_id,
+                    text: ratingText,
+                    stars: starState.filter(s => s).length
+                }
+            });
+        }
+
     }
+
+    const [addRatingHandler] = useMutation(
+        ADD_RATING_MUTATION,
+        {
+            onCompleted: () => {
+                organizationFetcher.refetch();
+            },
+        }
+    );
 
     const [starsClicked, setStarsClicked] = useState(false);
     const stars = [false, false, false, false, false];
@@ -44,7 +85,7 @@ export function OrganizationDetailRatings({ ratings, userData }) {
                         <Card.Body>
                             <Row style={{ paddingBottom: "1.5rem" }}>
                                 <Col lg={4} xs={5}>
-                                    <Image src={rating.sportsman.profile_photo.url} style={{ maxWidth: "100%", height: "5rem" }} roundedCircle fluid></Image>
+                                    <Image src={rating.sportsman.profile_photo && rating.sportsman.profile_photo.url} style={{ maxWidth: "100%", height: "5rem" }} roundedCircle fluid></Image>
                                 </Col>
                                 <Col>
                                     <Row style={{ fontSize: "3vh" }}>{rating.sportsman.firstname + " " + rating.sportsman.lastname}</Row>
@@ -88,7 +129,7 @@ export function OrganizationDetailRatings({ ratings, userData }) {
                                 </Row>
                             </Col>
                         </Row>
-                        <Form onSubmit={() => alert("submit")}>
+                        <Form>
                             <Form.Row>
                                 <Form.Group
                                     name="text"
@@ -100,6 +141,8 @@ export function OrganizationDetailRatings({ ratings, userData }) {
                                         style={{
                                             height: "100%",
                                         }}
+                                        value={ratingText}
+                                        onChange={(e) => handleChange(e)}
                                         onKeyPress={(e) => handleSubmit(e)}
                                     >
                                     </Form.Control>
