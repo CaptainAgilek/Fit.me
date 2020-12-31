@@ -33,6 +33,9 @@ const FILTERED_ACTIONS_QUERY = gql`
 `;
 
 export function SignedInUserLandingTemplate({ error }) {
+
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
   const currentDate = new Date();
 
   const [timeFilter, setTimeFilter] = useState({
@@ -65,7 +68,7 @@ export function SignedInUserLandingTemplate({ error }) {
 
       <Container className="organization-profile-top-margin organization-profile-section-container">
         <Row>
-          <CategoryBoxCol />
+          <CategoryBoxCol selectedCategory={selectedCategory} selectCategory={setSelectedCategory}/>
         </Row>
         <Row className="justify-content-md-center organization-profile-section-container">
           <h1>Filtr</h1>
