@@ -28,7 +28,7 @@ export function TrainersList({ trainers }) {
   //console.log(pairs, "pairs");
 
   return (
-    <Col lg={6}>
+    <Col xl={6} lg={8} md={10} sm={10}>
       <Carousel
         indicators={true}
         controls={false}

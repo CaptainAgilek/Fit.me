@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-import { useHistory } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 
 import { OrganizationDetailTemplate } from "src/templates/OrganizationDetailTemplate";
@@ -135,7 +134,6 @@ export function OrganizationDetailPage(props) {
   const organizationId = parseInt(params.get("organizationId"));
 
   const { user } = useAuth();
-  const history = useHistory();
 
   const [actionSuccess, setActionSuccess] = useState(false);
 

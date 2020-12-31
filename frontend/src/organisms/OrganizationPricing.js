@@ -6,7 +6,7 @@ import { OrganizationPricingCard } from "src/molecules/OrganizationPricingCard";
 
 export function OrganizationPricing() {
     return (
-        <ListGroup horizontal>
+        <ListGroup horizontal className="overflow-horizontal-scroll-cond">
             <ListGroup.Item className="borderNone">
                 <OrganizationPricingCard title={"Jednodenní trénink"} price={"9.99"} items={["Placeholder", "Placeholder", "Placeholder"]} highlighted={false} />
             </ListGroup.Item>

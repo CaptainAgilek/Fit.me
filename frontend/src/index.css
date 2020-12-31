@@ -646,6 +646,13 @@ html {
   filter: invert(99%) sepia(0%) saturate(1489%) hue-rotate(184deg)
     brightness(81%) contrast(87%);
 }
+
+@media (max-width: 991.98px) {
+  .organization-detail-trainers-carousel-item.carousel-item {
+    overflow-y: scroll !important;
+  }
+}
+
 .organization-detail-trainers-carousel-item.carousel-item {
   height: 35rem;
   overflow: hidden;

@@ -1,8 +1,7 @@
 import React from "react";
 import { Loading } from "src/atoms/";
-import { ActionCardOrganizationDetail } from "src/molecules/";
 import ListGroup from "react-bootstrap/ListGroup";
-import { Container, Row, Col, Image, Card, Button } from "react-bootstrap";
+import { Row, Col, Image, Card, Button } from "react-bootstrap";
 
 const toCustomDate = (timestamp) => {
   const tmp = new Date(parseInt(timestamp)).toLocaleDateString().split("/");
