@@ -12,7 +12,7 @@ export function OrganizationDetailInfo({ organizationFetcher }) {
       .toString();
 
   return (
-    <Col xl={4} className="organization-detail-info">
+    <Col xl={4} lg={4} md={4} sm={12} xs={12} className="organization-detail-info">
       <Row>
         <Carousel
           indicators={true}

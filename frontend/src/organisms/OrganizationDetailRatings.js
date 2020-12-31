@@ -74,7 +74,7 @@ export function OrganizationDetailRatings({ ratings, userData, organizationFetch
     return (
         <>
             {ratings && displayedRatings.map((rating) => (
-                <Col lg={3} xs={12} key={rating.id}>
+                <Col xl={3} lg={4} md={6} sm={12} key={rating.id}>
                     <Card className="borderNone">
                         <Card.Body>
                             <Row style={{ paddingBottom: "1.5rem" }}>
@@ -85,10 +85,10 @@ export function OrganizationDetailRatings({ ratings, userData, organizationFetch
                                     <Row style={{ fontSize: "3vh" }}>{rating.sportsman.firstname + " " + rating.sportsman.lastname}</Row>
                                     <Row>
                                         {[...Array(rating.stars)].map((_, index) =>
-                                            <Col lg={1} xs={2} className="organization-detail-rating-star star-full" key={index}><Image src="/images/icons/star-solid.svg"></Image></Col>
+                                            <Col lg={1} sm={1} xs={2} className="organization-detail-rating-star star-full" key={index}><Image src="/images/icons/star-solid.svg"></Image></Col>
                                         )}
                                         {[...Array(5 - rating.stars)].map((_, index) =>
-                                            <Col lg={1} xs={2} className="organization-detail-rating-star" key={index}><Image src="/images/icons/star-regular.svg"></Image></Col>
+                                            <Col lg={1} sm={1} xs={2} className="organization-detail-rating-star" key={index}><Image src="/images/icons/star-regular.svg"></Image></Col>
                                         )}
                                     </Row>
                                 </Col>
@@ -102,7 +102,7 @@ export function OrganizationDetailRatings({ ratings, userData, organizationFetch
                     </Card>
                 </Col>
             ))}
-            <Col lg={3} xs={12}>
+            <Col xl={3} lg={4} md={6} xs={12}>
                 <Card className="borderNone">
                     <Card.Body>
                         <Row style={{ paddingBottom: "1.5rem" }}>
@@ -113,7 +113,7 @@ export function OrganizationDetailRatings({ ratings, userData, organizationFetch
                                 <Row style={{ fontSize: "3vh" }}>{userData.sportsman.firstname + " " + userData.sportsman.lastname}</Row>
                                 <Row>
                                     {[...Array(5)].map((_, index) =>
-                                        <Col lg={1} xs={2} className={classNames("organization-detail-rating-star", { "star-full": starState[index] })} id={index} key={index}>
+                                        <Col lg={1} sm={1} xs={2} className={classNames("organization-detail-rating-star", { "star-full": starState[index] })} id={index} key={index}>
                                             <Image src={(starState[index] ? "/images/icons/star-solid.svg" : "/images/icons/star-regular.svg")}
                                                 onClick={(e) => handleSetStarClick(index, true)}
                                                 onMouseEnter={(e) => handleSetStar(index, true)}

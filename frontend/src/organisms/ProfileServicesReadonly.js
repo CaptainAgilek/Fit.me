@@ -135,7 +135,7 @@ export function ProfileServicesReadonly({ servicesState, user_id }) {
             }
         });
     }
-    console.log(servicesList);
+    
     return (
         <Container>
             {servicesState.loading && <Loading />}

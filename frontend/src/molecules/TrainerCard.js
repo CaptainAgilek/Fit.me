@@ -6,10 +6,10 @@ export function TrainerCard({ trainer, order }) {
     return (
         <>
             <Row style={{ paddingBottom: "1rem" }}>
-                <Col lg={5} style={{ paddingRight: "0" }}>
+                <Col lg={5} sm={8} style={{ paddingRight: "0" }}>
                     <Image src={trainer.profile_photo.url} style={{ width: "100%", height: "25vh" }} fluid></Image>
                 </Col>
-                <Col lg={7} style={{ paddingLeft: "0" }}>
+                <Col lg={7} sm={10} style={{ paddingLeft: "0" }}>
                     <Card className={order === 1 ? "organization-detail-trainer-card-first" : "organization-detail-trainer-card-second"}>
                         <Card.Body>
                             <Card.Title style={{ marginLeft: "0.85rem" }}>{trainer.firstname + " " + trainer.lastname}</Card.Title>

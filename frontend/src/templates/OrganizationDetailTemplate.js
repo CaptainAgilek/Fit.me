@@ -18,8 +18,6 @@ import {
   OrganizationDetailInfo,
 } from "src/organisms/";
 
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-
 export function OrganizationDetailTemplate({
   state,
   error,
@@ -31,12 +29,11 @@ export function OrganizationDetailTemplate({
   mapProvider,
   actionsState,
 }) {
-  const DBG_DISABLE_MAP = true;
 
   const [locationState, setLocationState] = useState(null);
   useEffect(() => {
     const getLocation = async () => {
-      if (!error && !DBG_DISABLE_MAP) {
+      if (!error) {
         const res = await mapProvider.search({
           query:
             organizationFetcher.data.organization.places[0].street +
@@ -71,9 +68,6 @@ export function OrganizationDetailTemplate({
       {userFetcher &&
         userFetcher.data &&
         console.log(userFetcher.data, "userdata")}
-      {
-        //organizationFetcher && console.log(organizationFetcher)
-      }
       {console.log(state)}
       {console.log(servicesState)}
       {state.showData && (
@@ -106,19 +100,23 @@ export function OrganizationDetailTemplate({
             </Row>
 
             <Row className="justify-content-center organization-profile-section-container">
+            <Col xs={12}>
+            <Row className="justify-content-center">
               <OrganizationDetailInfo
                 organizationFetcher={organizationFetcher}
               />
               <OrganizationDetailMap locationState={locationState} />
+              </Row>
+              </Col>
             </Row>
 
             <Row className="justify-content-center ">
-              <Col lg={10} className="organization-detail-actions">
+              <Col xl={10} lg={10} className="organization-detail-actions">
                 <Row className="justify-content-center ">
                   <h1>Připravované akce</h1>
                 </Row>
                 <Row className="justify-content-center ">
-                  <Col lg={5}>
+                  <Col lg={5} md={5} xs={5}>
                     <hr className="organization-detail-actions-hr"></hr>
                   </Col>
                 </Row>
@@ -144,7 +142,7 @@ export function OrganizationDetailTemplate({
                   <h1>Naši trenéři</h1>
                 </Row>
                 <Row className="justify-content-center ">
-                  <Col lg={5}>
+                  <Col sm={5} xs={7}>
                     <hr className="organization-detail-trainers-hr"></hr>
                   </Col>
                 </Row>
