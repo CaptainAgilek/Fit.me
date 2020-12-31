@@ -8,8 +8,8 @@ import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import moment from "moment";
 
-import { Loading } from "src/atoms/";
-import { Footer, ErrorBanner } from "src/molecules/";
+import { Loading, HeaderImg, SimpleBanner } from "src/atoms/";
+import { Footer, ErrorBanner, CategoryBoxCol } from "src/molecules/";
 import { Navigation } from "src/organisms/";
 
 const FILTERED_ACTIONS_QUERY = gql`
@@ -33,6 +33,9 @@ const FILTERED_ACTIONS_QUERY = gql`
 `;
 
 export function SignedInUserLandingTemplate({ error }) {
+
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
   const currentDate = new Date();
 
   const [timeFilter, setTimeFilter] = useState({
@@ -56,10 +59,17 @@ export function SignedInUserLandingTemplate({ error }) {
   return (
     <>
       <Navigation />
-
+      <HeaderImg img="/images/landing_page_header.jpg" className="d-flex">
+        <SimpleBanner headline="Najdi si cvičení přesně pro tebe">
+          Rychle a jednoduše
+        </SimpleBanner>
+      </HeaderImg>
       {error && <ErrorBanner message={error.message} />}
 
       <Container className="organization-profile-top-margin organization-profile-section-container">
+        <Row>
+          <CategoryBoxCol selectedCategory={selectedCategory} selectCategory={setSelectedCategory}/>
+        </Row>
         <Row className="justify-content-md-center organization-profile-section-container">
           <h1>Filtr</h1>
         </Row>

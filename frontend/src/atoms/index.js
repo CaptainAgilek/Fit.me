@@ -7,6 +7,7 @@ export { RegistrationLink } from "./RegistrationLink";
 export { FormikSwitch } from "./FormikSwitch";
 export { Button } from "./Button";
 export { SlideBanner } from "./SlideBanner";
+export { SimpleBanner } from "./SimpleBanner";
 export { BasicSlide } from "./BasicSlide";
 export { Slideshow } from "./Slideshow";
 export { CategoryBox } from "./CategoryBox";
@@ -30,3 +31,5 @@ export { CalendarLegendText } from './CalendarLegendText';
 
 export { ResetPasswordForm } from './ResetPasswordForm';
 export { OrganizationDetailInfoLine } from "./OrganizationDetailInfoLine";
+export { HeaderImg } from './HeaderImg';
+
