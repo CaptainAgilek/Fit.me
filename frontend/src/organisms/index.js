@@ -13,3 +13,8 @@ export { OrganizationProfileManagementCol } from "./OrganizationProfileManagemen
 export { ProfileServices } from "./ProfileServices";
 export { TrainerProfileForm } from './TrainerProfileForm';
 export { TrainerProfileManagementCol } from './TrainerProfileManagementCol';
+export { ProfileServicesReadonly } from './ProfileServicesReadonly';
+export { TrainersList } from "./TrainersList";
+export { OrganizationPricing } from "./OrganizationPricing";
+export { OrganizationDetailRatings } from "./OrganizationDetailRatings";
+export { OrganizationDetailInfo } from "./OrganizationDetailInfo";

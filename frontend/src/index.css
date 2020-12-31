@@ -333,11 +333,15 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
 .organization-secondary-button {
   background-color: #ffffff !important;
   border-color: #e8aa3c !important;
-  color: #000000 !important;
+  color: #2c2c2c !important;
   font-weight: bolder !important;
   /*padding: 100px;*/
   margin-right: 10px;
   margin-top: 10px;
+}
+
+.organization-secondary-button:focus {
+  box-shadow: 0 0 0 0.2rem rgba(232, 170, 60, 0.5) !important;
 }
 
 .organization-profile-section-container {
@@ -553,4 +557,175 @@ html {
 .paswordResetIcon {
   filter: invert(60%) sepia(11%) saturate(2938%) hue-rotate(81deg)
     brightness(86%) contrast(86%);
+}
+
+.organization-detail-header {
+  color: #ffffff;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 3rem;
+}
+
+.organization-detail-slogan-first {
+  color: #2c2c2c;
+  font-size: 2rem;
+}
+
+.organization-detail-slogan-second {
+  color: #96c648;
+  font-size: 2rem;
+}
+
+.map-container {
+  width: 90%;
+  height: 90%;
+}
+
+.organization-detail-info {
+  background-color: #ececec;
+  color: #2c2c2c;
+}
+
+.organization-detail-carousel-container {
+  margin: 1rem;
+}
+
+.organization-detail-info-line {
+  margin-bottom: 0.5rem;
+}
+
+.organization-detail-actions-hr {
+  height: 0.01rem !important;
+  background-color: #96c648 !important;
+}
+
+.organization-detail-trainers-hr {
+  height: 0.01rem !important;
+  background-color: #2c2c2c !important;
+}
+
+.organization-detail-actions {
+  background-color: rgba(44, 44, 44, 0.77);
+  color: #ffffff;
+  padding: unset !important;
+  padding-bottom: 0.5rem !important;
+  margin: 1rem;
+}
+
+.organization-detail-trainers {
+  background-color: rgba(150, 198, 72, 0.9);
+  color: #ffffff;
+  padding: unset !important;
+  padding-bottom: 0.5rem !important;
+  margin: 1rem;
+}
+
+.organization-detail-action-card {
+  color: #2c2c2c;
+  border: none;
+  width: 100%;
+  height: 100%;
+}
+
+.organization-detail-action-card-image {
+  height: unset !important;
+}
+
+.organization-detail-action-card-body {
+  background-color: #96c648;
+  color: #ffffff;
+}
+
+.organization-detail-action-card-body .card-title.h5 {
+  text-align: center;
+}
+
+.organization-detail-trainer-card-first {
+  height: 100%;
+  width: 100%;
+  color: #ffffff !important;
+  background-color: rgba(44, 44, 44, 0.77) !important;
+}
+
+.organization-detail-trainer-card-second {
+  height: 100%;
+  width: 100%;
+  color: #2c2c2c !important;
+}
+
+.organization-detail-trainer-card-icon {
+  max-width: 3vh;
+  max-height: 3vh;
+  filter: invert(99%) sepia(0%) saturate(1489%) hue-rotate(184deg)
+    brightness(81%) contrast(87%);
+}
+
+@media (max-width: 991.98px) {
+  .organization-detail-trainers-carousel-item.carousel-item {
+    overflow-y: scroll !important;
+  }
+}
+
+.organization-detail-trainers-carousel-item.carousel-item {
+  height: 35rem;
+  overflow: hidden;
+  width: 100%;
+}
+
+.organization-detail-trainers-carousel-item.carousel-item img {
+  width: 100%;
+}
+
+ol.carousel-indicators .active {
+  background-color: #96c648 !important;
+}
+
+.organization-detail-trainers
+  .organization-detail-carousel-container
+  ol.carousel-indicators
+  .active {
+  background-color: #2c2c2c !important;
+}
+
+ol.carousel-indicators :not(.active) {
+  background-color: #ffffff;
+}
+
+.sportsman-secondary-button {
+  background-color: #ffffff !important;
+  border-color: #e0226b !important;
+  color: #2c2c2c !important;
+  font-weight: bolder !important;
+  /*padding: 100px;*/
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.sportsman-secondary-button:focus {
+  box-shadow: 0 0 0 0.2rem rgba(224, 34, 107, 0.5) !important;
+}
+
+.organization-detail-rating-star {
+  padding-right: 0.1rem !important;
+  padding-left: 0.1rem !important;
+}
+
+.star-full {
+  filter: invert(66%) sepia(68%) saturate(361%) hue-rotate(41deg)
+    brightness(95%) contrast(90%);
+}
+
+.overflow-horizontal-scroll-cond {
+  overflow-x: hidden;
+  
+}
+
+@media (max-width: 991.98px) {
+  .overflow-horizontal-scroll-cond {
+    
+    overflow-x: scroll;
+  }
 }

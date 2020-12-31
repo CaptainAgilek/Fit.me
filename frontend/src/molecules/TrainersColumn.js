@@ -17,6 +17,7 @@ export function TrainersColumn({
             href={"#" + trainer.user_id}
             onClick={() => handleTrainerSelection(trainer)}
             className="organization-profile-trainer-tab"
+            key={trainer.user_id}
           >
             <Row className="d-flex align-items-center">
               <Col xs={9} sm={8} md={9} lg={9} xl={10}>

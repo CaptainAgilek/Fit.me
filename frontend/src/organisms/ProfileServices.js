@@ -189,7 +189,7 @@ export function ProfileServices({ servicesState, user_id }) {
             return (
               <>
                 <CategoryBox
-                  key={service.user_id}
+                  key={service.service_id}
                   color={service.color}
                   img={service.imageUrl}
                 >

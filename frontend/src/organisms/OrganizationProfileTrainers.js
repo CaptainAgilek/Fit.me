@@ -94,7 +94,7 @@ export function OrganizationProfileTrainers({ organizationState }) {
           <Col sm={6} md={7} lg={8}>
             {organizationState.data &&
               organizationState.data.organization.trainers.map((trainer) => (
-                <Tab.Content>
+                <Tab.Content key={trainer.user_id}>
                   <Tab.Pane eventKey={"#" + trainer.user_id}>
                     <Container>
                       <Row>

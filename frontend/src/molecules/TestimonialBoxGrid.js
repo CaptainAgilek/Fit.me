@@ -44,6 +44,7 @@ export function TestimonialBoxGrid({ ratingsData }) {
             img={x.sportsman.profile_photo && x.sportsman.profile_photo.url}
             name={x.sportsman.firstname + " " + x.sportsman.lastname}
             rating={x.stars + "/5"}
+            key={x.id}
           >
             {x.text}
           </TestimonialBox>

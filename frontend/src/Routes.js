@@ -13,6 +13,7 @@ import { SignUpPage } from "src/pages/SignUpPage";
 import { SignInPage } from "src/pages/SignInPage";
 import { PasswordResetPage } from "src/pages/PasswordResetPage";
 import { SignedInUserLandingPage } from "src/pages/SignedInUserLandingPage";
+import { OrganizationDetailPage } from "src/pages/OrganizationDetailPage";
 
 export const route = {
   home: () => `/`,
@@ -28,6 +29,8 @@ export const route = {
   trainerProfiler: () => `/trainer/profile`,
 
   signedInUserLandingPage: () => `/home`,
+
+  organizationDetailPage: () => `/home/organizationDetail`,
 };
 
 export function Routes() {
@@ -68,6 +71,7 @@ export function Routes() {
         exact
         component={SignedInUserLandingPage}
       />
+      <PrivateRoute path={route.organizationDetailPage()} exact component={OrganizationDetailPage} />
       <Route path="*" component={PageNotFound} />
     </Switch>
   );

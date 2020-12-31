@@ -329,5 +329,6 @@ export const typeDefs = gql`
       lastname: String
       type: UserType!
     ): AuthInfo!
+    addRating(organization_id: Int!, user_id: Int!, text: String!, stars: Int!): Boolean!
   }
 `;
