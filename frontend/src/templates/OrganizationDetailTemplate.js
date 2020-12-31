@@ -29,7 +29,6 @@ export function OrganizationDetailTemplate({
   mapProvider,
   actionsState,
 }) {
-
   const [locationState, setLocationState] = useState(null);
   useEffect(() => {
     const getLocation = async () => {
@@ -100,23 +99,28 @@ export function OrganizationDetailTemplate({
             </Row>
 
             <Row className="justify-content-center organization-profile-section-container">
-            <Col xs={12}>
-            <Row className="justify-content-center">
-              <OrganizationDetailInfo
-                organizationFetcher={organizationFetcher}
-              />
-              <OrganizationDetailMap locationState={locationState} />
-              </Row>
+              <Col xs={12}>
+                <Row className="justify-content-center">
+                  <OrganizationDetailInfo
+                    organizationFetcher={organizationFetcher}
+                  />
+                  <OrganizationDetailMap locationState={locationState} />
+                </Row>
               </Col>
             </Row>
 
             <Row className="justify-content-center ">
-              <Col xl={10} lg={10} className="organization-detail-actions">
+              <Col
+                xl={10}
+                lg={10}
+                xs={12}
+                className="organization-detail-actions"
+              >
                 <Row className="justify-content-center ">
                   <h1>Připravované akce</h1>
                 </Row>
                 <Row className="justify-content-center ">
-                  <Col lg={5} md={5} xs={5}>
+                  <Col lg={5} md={5} xs={6}>
                     <hr className="organization-detail-actions-hr"></hr>
                   </Col>
                 </Row>

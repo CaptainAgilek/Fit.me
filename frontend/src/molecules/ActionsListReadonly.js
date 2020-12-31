@@ -37,7 +37,7 @@ export function ActionsListReadonly({
   //console.log(organizationData, "orgdata");
 
   return (
-    <Col lg={10} sm={12}>
+    <Col lg={10} sm={12} style={{paddingLeft:"2rem", paddingRight:"2rem"}}>
       <ListGroup horizontal className="overflow-horizontal-scroll-cond">
         {organizationData.organization &&
           actionsState.data &&

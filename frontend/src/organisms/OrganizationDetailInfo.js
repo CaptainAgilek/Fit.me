@@ -12,7 +12,7 @@ export function OrganizationDetailInfo({ organizationFetcher }) {
       .toString();
 
   return (
-    <Col xl={4} lg={4} md={4} sm={12} xs={12} className="organization-detail-info">
+    <Col xl={3} lg={4} md={4} sm={6} xs={12} className="organization-detail-info">
       <Row>
         <Carousel
           indicators={true}
@@ -21,7 +21,7 @@ export function OrganizationDetailInfo({ organizationFetcher }) {
         >
           {organizationFetcher.data.organization.photo_gallery.map((photo) => (
             <Carousel.Item key={photo.photo_id}>
-              <Image src={photo.url} fluid />
+              <Image src={photo.url} fluid style={{maxHeight: "15rem"}}/>
             </Carousel.Item>
           ))}
         </Carousel>

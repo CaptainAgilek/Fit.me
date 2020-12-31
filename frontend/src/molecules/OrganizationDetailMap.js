@@ -6,7 +6,7 @@ import { MapContainer, TileLayer, Marker } from "react-leaflet";
 export function OrganizationDetailMap({ locationState }) {
   const DBG_DISABLE_MAP = false;
   return (
-    <Col xl={4} lg={4} md={4} sm={12} xs={12} className="organization-detail-info">
+    <Col xl={4} lg={4} md={4} sm={6} xs={12} className="organization-detail-info">
       {locationState && console.log(locationState)}
       {!DBG_DISABLE_MAP && locationState && (
         <MapContainer

@@ -5,11 +5,10 @@ import { Row, Col, Image } from "react-bootstrap";
 export function OrganizationDetailInfoLine({ image, text }) {
   return (
     <Row className="organization-detail-info-line">
-      <Col xl={1} lg={2} md={2} sm={1} xs={2}>
-        <Image src={image} fluid></Image>
+      <Col xl={2} lg={2} md={2} sm={2} xs={2}>
+        <Image src={image} fluid style={{maxHeight:"2rem"}}></Image>
       </Col>
-
-      {text}
+      <Col xs={10}>{text}</Col>
     </Row>
   );
 }
