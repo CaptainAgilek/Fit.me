@@ -27,8 +27,9 @@ export function TrainersContentBody({
               style={{
                 height: "100%",
               }}
+              defaultValue={trainer.description}
             >
-              {trainer.description}
+              
             </Form.Control>
           </Form.Group>
         </Form.Row>

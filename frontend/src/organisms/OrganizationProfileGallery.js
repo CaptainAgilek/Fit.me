@@ -31,7 +31,7 @@ export function OrganizationProfileGallery({ photoGallery, profileFetcher }) {
         <Row>
           {photoGallery &&
             photoGallery.map((x) => (
-              <Col xl={3} lg={4} md={6} sm={12}>
+              <Col xl={3} lg={4} md={6} sm={12} key={x.photo_id}>
                 <Container className="organization-profile-gallery-card">
                   <Row className="organization-profile-gallery-card-header">
                     <GalleryPhotoTitle photo={x} />

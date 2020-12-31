@@ -39,7 +39,7 @@ export function ActionsListReadonly({
 
   return (
     <Col lg={10} sm={12}>
-      <ListGroup horizontal>
+      <ListGroup horizontal className="overflow-horizontal-scroll-cond">
         {organizationData.organization &&
           actionsState.data &&
           actions.map((action) => (

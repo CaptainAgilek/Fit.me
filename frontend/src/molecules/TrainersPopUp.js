@@ -112,7 +112,7 @@ export function TrainersPopUp({
                */
                 trainersFetcher.data &&
                   trainersFetcher.data.trainersNotEmployed.map((x) => (
-                    <ListGroup.Item className="ignore-last-child-styling">
+                    <ListGroup.Item className="ignore-last-child-styling" key={x.user_id}>
                       <Form>
                         <Form.Group>
                           <Row className="d-flex align-items-center">

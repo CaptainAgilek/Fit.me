@@ -694,3 +694,15 @@ ol.carousel-indicators :not(.active) {
   filter: invert(66%) sepia(68%) saturate(361%) hue-rotate(41deg)
     brightness(95%) contrast(90%);
 }
+
+.overflow-horizontal-scroll-cond {
+  overflow-x: hidden;
+  
+}
+
+@media (max-width: 991.98px) {
+  .overflow-horizontal-scroll-cond {
+    
+    overflow-x: scroll;
+  }
+}
