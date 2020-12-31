@@ -8,7 +8,7 @@ import {
   ErrorBanner,
   OrganizationDetailMap,
 } from "src/molecules/";
-import { Loading, CustomAlert } from "src/atoms/";
+import { Loading, CustomAlert, HeaderImg } from "src/atoms/";
 import {
   Navigation,
   ProfileServicesReadonly,
@@ -71,10 +71,13 @@ export function OrganizationDetailTemplate({
       {console.log(servicesState)}
       {state.showData && (
         <>
-          <div className="headerImg organization-detail-header organization-profile-section-container">
+          <HeaderImg
+            img="/images/organization_header.jpg"
+            className="organization-detail-header organization-profile-section-container"
+          >
             {organizationFetcher.data.organization &&
               organizationFetcher.data.organization.organization_name}
-          </div>
+          </HeaderImg>
 
           <Container
             className="organization-profile-top-margin organization-profile-section-container"
