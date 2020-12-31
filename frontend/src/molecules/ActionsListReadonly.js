@@ -47,7 +47,7 @@ export function ActionsListReadonly({
                         className="borderNone organization-detail-actions"
                     >
                         <Card className="borderNone organization-detail-action-card">
-                            <Card.Img variant="top" src={action.photo.url} className="organization-detail-action-card-image" />
+                            <Card.Img variant="top" src={action.photo ? action.photo.url : "/images/add_img.png"} className="organization-detail-action-card-image" />
                             <Card.Body className="organization-detail-action-card-body">
                                 <Card.Title>{action.name}</Card.Title>
                             </Card.Body>

@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { CategoryBox, Loading } from "../atoms";
-import { ErrorBanner, DeleteButton } from "../molecules";
-import { Button, Container, Modal } from "react-bootstrap";
-import { gql, useMutation } from "@apollo/client";
+import { ErrorBanner } from "../molecules";
+import { Container } from "react-bootstrap";
 
 export function ProfileServicesReadonly({ servicesState, user_id }) {
     // console.log('user_id: ', user_id);
@@ -136,7 +135,7 @@ export function ProfileServicesReadonly({ servicesState, user_id }) {
             }
         });
     }
-
+    console.log(servicesList);
     return (
         <Container>
             {servicesState.loading && <Loading />}
@@ -149,16 +148,16 @@ export function ProfileServicesReadonly({ servicesState, user_id }) {
                 <div className="d-flex justify-content-center align-items-start flex-wrap text-center">
                     {servicesList.map((service) => {
                         return (
-                            <>
-                                <CategoryBox
-                                    key={service.user_id}
-                                    color={service.color}
-                                    img={service.imageUrl}
-                                >
 
-                                    {service.children}
-                                </CategoryBox>
-                            </>
+                            <CategoryBox
+                                key={service.service_id}
+                                color={service.color}
+                                img={service.imageUrl}
+                            >
+
+                                {service.children}
+                            </CategoryBox>
+
                         );
                     })}
                 </div>

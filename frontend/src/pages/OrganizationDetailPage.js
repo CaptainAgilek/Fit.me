@@ -6,7 +6,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { OrganizationDetailTemplate } from "src/templates/OrganizationDetailTemplate";
 import { useAuth } from "src/utils/auth";
 
-import { OpenStreetMapProvider } from 'leaflet-geosearch';
+import { OpenStreetMapProvider } from "leaflet-geosearch";
 
 const USER_PROFILE_QUERY = gql`
   query getSportsman($filter: SportsmanFilter!) {
@@ -142,7 +142,7 @@ export function OrganizationDetailPage(props) {
   const filter = { id: user.user_id };
 
   const userFetcher = useQuery(USER_PROFILE_QUERY, {
-    variables: { filter }
+    variables: { filter },
   });
 
   const organizationFetcher = useQuery(ORGANIZATION_PROFILE_QUERY, {
@@ -150,25 +150,27 @@ export function OrganizationDetailPage(props) {
     onCompleted: () => {
       actionsState.refetch({
         place_id:
-          organizationFetcher.data && organizationFetcher.data.organization &&
+          organizationFetcher.data &&
+          organizationFetcher.data.organization &&
           organizationFetcher.data.organization.places[0].place_id,
-      })
-    }
+      });
+    },
   });
 
   const servicesState = useQuery(SERVICE_QUERY, {
     variables: {
-      user_id: organizationId
+      user_id: organizationId,
     },
   });
 
   const actionsState = useQuery(ACTIONS_QUERY, {
     variables: {
       place_id:
-        (organizationFetcher.data && organizationFetcher.data.organization &&
+        (organizationFetcher.data &&
+          organizationFetcher.data.organization &&
           organizationFetcher.data.organization.places[0].place_id) ||
         null,
-    }
+    },
   });
 
   const state = {
@@ -186,14 +188,15 @@ export function OrganizationDetailPage(props) {
       organizationFetcher.data.organization != null,
   };
 
-  const error = userFetcher.error || organizationFetcher.error || userFetcher.data == null || organizationFetcher.data == null ||
+  const error =
+    userFetcher.error ||
+    organizationFetcher.error ||
+    userFetcher.data == null ||
+    organizationFetcher.data == null ||
     (userFetcher.data && !userFetcher.data.sportsman) ||
     (organizationFetcher.data && !organizationFetcher.data.organization);
 
-
   const mapProvider = new OpenStreetMapProvider();
-
-  //loading, error, actionSuccess, setActionSuccess, organizationData, userData
 
   return (
     <>
@@ -206,7 +209,8 @@ export function OrganizationDetailPage(props) {
         userFetcher={userFetcher}
         servicesState={servicesState}
         mapProvider={mapProvider}
-        actionsState={actionsState} />
+        actionsState={actionsState}
+      />
     </>
   );
 }

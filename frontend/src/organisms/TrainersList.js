@@ -34,7 +34,7 @@ export function TrainersList({ trainers }) {
 
                 {pairs.map(pair =>
                     (
-                        <Carousel.Item className="organization-detail-trainers-carousel-item">
+                        <Carousel.Item className="organization-detail-trainers-carousel-item" key={pair[0].user_id}>
                             {pair[0] && <TrainerCard trainer={pair[0]} order={1} />}
                             {pair[1] && <TrainerCard trainer={pair[1]} order={2} />}
                         </Carousel.Item>

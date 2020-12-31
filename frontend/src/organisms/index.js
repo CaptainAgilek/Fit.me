@@ -17,3 +17,4 @@ export { ProfileServicesReadonly } from './ProfileServicesReadonly';
 export { TrainersList } from "./TrainersList";
 export { OrganizationPricing } from "./OrganizationPricing";
 export { OrganizationDetailRatings } from "./OrganizationDetailRatings";
+export { OrganizationDetailInfo } from "./OrganizationDetailInfo";

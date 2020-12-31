@@ -14,7 +14,7 @@ export function OrganizationDetailRatings({ ratings, userData, organizationFetch
 
     const displayedRatings = ratings.slice(-5);
 
-    const [ratingText, setRatingText] = useState(null);
+    const [ratingText, setRatingText] = useState(undefined);
 
     const handleChange = (e) => {
         setRatingText(e.target.value);
@@ -24,13 +24,9 @@ export function OrganizationDetailRatings({ ratings, userData, organizationFetch
         //console.log(e.key);
 
         if (!ratingText) {
-
-            console.log("empty");
             return;
         }
         if (e.key === "Enter" && !e.shiftKey) {
-            //console.log(e.target);
-            console.log(ratingText);
 
             //TODO: send ratingText & starState to db, refetch after
             addRatingHandler({
@@ -68,7 +64,6 @@ export function OrganizationDetailRatings({ ratings, userData, organizationFetch
         }
         stars[index] = value;
         setStarState(stars);
-        console.log(starState, "stars");
     }
 
     const handleSetStarClick = (index, value) => {
@@ -76,11 +71,10 @@ export function OrganizationDetailRatings({ ratings, userData, organizationFetch
         setStarsClicked(true);
     }
 
-    //console.log(displayedRatings, "dRatings");
     return (
         <>
             {ratings && displayedRatings.map((rating) => (
-                <Col lg={3} xs={12}>
+                <Col lg={3} xs={12} key={rating.id}>
                     <Card className="borderNone">
                         <Card.Body>
                             <Row style={{ paddingBottom: "1.5rem" }}>
@@ -90,11 +84,11 @@ export function OrganizationDetailRatings({ ratings, userData, organizationFetch
                                 <Col>
                                     <Row style={{ fontSize: "3vh" }}>{rating.sportsman.firstname + " " + rating.sportsman.lastname}</Row>
                                     <Row>
-                                        {[...Array(rating.stars)].map(() =>
-                                            <Col lg={1} xs={2} className="organization-detail-rating-star star-full"><Image src="/images/icons/star-solid.svg"></Image></Col>
+                                        {[...Array(rating.stars)].map((_, index) =>
+                                            <Col lg={1} xs={2} className="organization-detail-rating-star star-full" key={index}><Image src="/images/icons/star-solid.svg"></Image></Col>
                                         )}
-                                        {[...Array(5 - rating.stars)].map(() =>
-                                            <Col lg={1} xs={2} className="organization-detail-rating-star"><Image src="/images/icons/star-regular.svg"></Image></Col>
+                                        {[...Array(5 - rating.stars)].map((_, index) =>
+                                            <Col lg={1} xs={2} className="organization-detail-rating-star" key={index}><Image src="/images/icons/star-regular.svg"></Image></Col>
                                         )}
                                     </Row>
                                 </Col>
@@ -119,7 +113,7 @@ export function OrganizationDetailRatings({ ratings, userData, organizationFetch
                                 <Row style={{ fontSize: "3vh" }}>{userData.sportsman.firstname + " " + userData.sportsman.lastname}</Row>
                                 <Row>
                                     {[...Array(5)].map((_, index) =>
-                                        <Col lg={1} xs={2} className={classNames("organization-detail-rating-star", { "star-full": starState[index] })} id={index}>
+                                        <Col lg={1} xs={2} className={classNames("organization-detail-rating-star", { "star-full": starState[index] })} id={index} key={index}>
                                             <Image src={(starState[index] ? "/images/icons/star-solid.svg" : "/images/icons/star-regular.svg")}
                                                 onClick={(e) => handleSetStarClick(index, true)}
                                                 onMouseEnter={(e) => handleSetStar(index, true)}

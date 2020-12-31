@@ -35,3 +35,4 @@ export { CalendarLegendRow } from './CalendarLegendRow';
 export { ActionsListReadonly } from './ActionsListReadonly';
 export { TrainerCard } from './TrainerCard';
 export { OrganizationPricingCard } from "./OrganizationPricingCard";
+export { OrganizationDetailMap } from "./OrganizationDetailMap";
