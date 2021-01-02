@@ -7,6 +7,8 @@ import { Col, Row, Container } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import moment from "moment";
+import Autocomplete from "react-autocomplete";
+import { Formik, Field } from "formik";
 
 import { Loading, HeaderImg, SimpleBanner } from "src/atoms/";
 import { Footer, ErrorBanner, CategoryBoxCol } from "src/molecules/";
@@ -32,9 +34,22 @@ const FILTERED_ACTIONS_QUERY = gql`
   }
 `;
 
-export function SignedInUserLandingTemplate({ error }) {
+const ORGANIZATIONS_QUERY = gql`
+  query getOrganizationsByCityString($cityString: String!) {
+    getOrganizationsByCityString(cityString: $cityString) {
+      user_id
+      organization_name
+      places {
+        city
+      }
+    }
+  }
+`;
 
+export function SignedInUserLandingTemplate({ error, mapProvider }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [addressCity, setAddressCity] = useState("Praha");
+  const [foundOrganizations, setFoundOrganizations] = useState([]);
 
   const currentDate = new Date();
 
@@ -46,6 +61,16 @@ export function SignedInUserLandingTemplate({ error }) {
   const [cityFilter, setCityFilter] = useState("Praha");
   const [categoryFilter, setCategoryFilter] = useState();
 
+  const [
+    getOrganizationsByCityStringQuery,
+    { loadingOrg, dataOrg },
+  ] = useLazyQuery(ORGANIZATIONS_QUERY, {
+    onCompleted: (data) => {
+      console.log("data", data);
+      setFoundOrganizations(data.getOrganizationsByCityString);
+    },
+  });
+
   const [getActionsQuery, { loading, data }] = useLazyQuery(
     FILTERED_ACTIONS_QUERY
   );
@@ -56,6 +81,15 @@ export function SignedInUserLandingTemplate({ error }) {
     getActionsQuery({ variables: { filter } });
   };
 
+  const [searchResults, setSearchResults] = useState([]);
+
+  const updateResults = async (input) => {
+    const res = await mapProvider.search({
+      query: input,
+    });
+    console.log(res);
+    setSearchResults(res);
+  };
   return (
     <>
       <Navigation />
@@ -68,7 +102,92 @@ export function SignedInUserLandingTemplate({ error }) {
 
       <Container className="organization-profile-top-margin organization-profile-section-container">
         <Row>
-          <CategoryBoxCol selectedCategory={selectedCategory} selectCategory={setSelectedCategory}/>
+          <CategoryBoxCol
+            selectedCategory={selectedCategory}
+            selectCategory={setSelectedCategory}
+          />
+        </Row>
+        <Row>
+          <Col className="justify-content-center justify-items-center text-center mt-5">
+            <h1>Zadejte město</h1>
+            <div>
+              <Formik
+                initialValues={{ value: "" }}
+                onSubmit={(values, { setSubmitting }) => {
+                  setTimeout(() => {
+                    alert(JSON.stringify(values, null, 2));
+                    getOrganizationsByCityStringQuery({
+                      variables: { cityString: values.value },
+                    });
+
+                    setSubmitting(false);
+                  }, 400);
+                }}
+              >
+                {({
+                  values,
+                  errors,
+                  touched,
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  isSubmitting,
+                  setFieldValue,
+                  /* and other goodies */
+                }) => (
+                  <>
+                    <form
+                      onSubmit={handleSubmit}
+                      onChange={(e) => updateResults(e.target.value)}
+                    >
+                      <Autocomplete
+                        getItemValue={(item) => item.label}
+                        items={searchResults}
+                        renderMenu={(children) =>
+                          children && (
+                            <div className="result-menu">{children}</div>
+                          )
+                        }
+                        wrapperStyle={{
+                          position: "relative",
+                          display: "inline-block",
+                        }}
+                        renderItem={(item, isHighlighted) => (
+                          <div
+                            style={{
+                              background: isHighlighted ? "lightgray" : "white",
+                            }}
+                          >
+                            {item.label}
+                          </div>
+                        )}
+                        renderInput={function (props) {
+                          return <input {...props} style={{ width: "60vw" }} />;
+                        }}
+                        value={values.value}
+                        onChange={(e) => setFieldValue("value", e.target.value)}
+                        onSelect={(val) => setFieldValue("value", val)}
+                      />
+                      <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="ml-2"
+                      >
+                        Submit
+                      </button>
+                    </form>
+                  </>
+                )}
+              </Formik>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            {loadingOrg && <Loading />}
+            {foundOrganizations &&
+              foundOrganizations.map((org) => <p> {org.organization_name}</p>)}
+          </Col>
         </Row>
         <Row className="justify-content-md-center organization-profile-section-container">
           <h1>Filtr</h1>

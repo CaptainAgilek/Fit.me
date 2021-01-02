@@ -224,6 +224,7 @@ export const typeDefs = gql`
     sportsmen: [Sportsman]!
     sportsman(filter: SportsmanFilter!): Sportsman
     organization(user_id: Int!): Organization
+    getOrganizationsByCityString(cityString: String!): [Organization]!
     trainersNotEmployed(user_id: Int!): [Trainer]
     trainer(user_id: Int!): Trainer!
     filteredActions(filter: ActionsFilter!): [Action]!
