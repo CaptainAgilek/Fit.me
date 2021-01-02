@@ -73,7 +73,6 @@ code {
   }
 }
 
-
 .read-more-img {
   width: 100%;
   height: 100vh;
@@ -720,12 +719,21 @@ ol.carousel-indicators :not(.active) {
 
 .overflow-horizontal-scroll-cond {
   overflow-x: hidden;
-  
 }
 
 @media (max-width: 991.98px) {
   .overflow-horizontal-scroll-cond {
-    
     overflow-x: scroll;
   }
+}
+
+.result-menu {
+  position: absolute;
+  top: 30px;
+  z-index: 1000;
+  border-radius: 3px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  max-height: 1000%;
+  overflow-y: auto;
+  text-align: left;
 }
