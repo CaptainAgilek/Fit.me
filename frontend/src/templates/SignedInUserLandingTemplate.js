@@ -223,21 +223,18 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
                               <div
                                 className={
                                   "organization-detail-rating-star" +
-                                  (index + 1 <= item.avgSum)
-                                    ? " star-full"
-                                    : ""
+                                  ((index + 1) <= item.avgSum ? " star-full" : "")
                                 }
                                 key={index}
                               >
-                                {console.log(index)}
                                 <Image
                                   src={
                                     "/images/icons/" +
-                                    (index + 1 <= item.avgSum
+                                    ((index + 1) <= item.avgSum
                                       ? "star-solid.svg"
                                       : "star-regular.svg")
                                   }
-                                  style={{width: "23px"}}
+                                  style={{ width: "23px" }}
                                 ></Image>
                               </div>
                             ))}
