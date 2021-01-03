@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import moment from "moment";
 import Autocomplete from "react-autocomplete";
+import PaginationList from "react-pagination-list";
 import { Formik, Field } from "formik";
 
 import { Loading, HeaderImg, SimpleBanner } from "src/atoms/";
@@ -115,7 +116,6 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
                 initialValues={{ value: "" }}
                 onSubmit={(values, { setSubmitting }) => {
                   setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2));
                     getOrganizationsByCityStringQuery({
                       variables: { cityString: values.value },
                     });
@@ -183,10 +183,17 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col className="justify-content-center justify-items-center text-center mt-5">
             {loadingOrg && <Loading />}
-            {foundOrganizations &&
-              foundOrganizations.map((org) => <p> {org.organization_name}</p>)}
+            {foundOrganizations && (
+              <PaginationList
+                data={foundOrganizations}
+                pageSize={5}
+                renderItem={(item, key) => (
+                  <p key={key}>{item.organization_name}</p>
+                )}
+              />
+            )}
           </Col>
         </Row>
         <Row className="justify-content-md-center organization-profile-section-container">
