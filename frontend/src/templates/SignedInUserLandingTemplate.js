@@ -3,13 +3,14 @@ import React, { useState } from "react";
 import { gql, useLazyQuery } from "@apollo/client";
 import DatePicker from "react-datepicker";
 import TimeRangeSlider from "react-time-range-slider";
-import { Col, Row, Container } from "react-bootstrap";
+import { Col, Row, Container, Card, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import moment from "moment";
 import Autocomplete from "react-autocomplete";
 import PaginationList from "react-pagination-list";
 import { Formik, Field } from "formik";
+import { route } from "src/Routes";
 
 import { Loading, HeaderImg, SimpleBanner } from "src/atoms/";
 import { Footer, ErrorBanner, CategoryBoxCol } from "src/molecules/";
@@ -40,6 +41,9 @@ const ORGANIZATIONS_QUERY = gql`
     getOrganizationsByCityString(cityString: $cityString) {
       user_id
       organization_name
+      profile_photo {
+        url
+      }
       places {
         city
       }
@@ -67,7 +71,6 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
     { loadingOrg, dataOrg },
   ] = useLazyQuery(ORGANIZATIONS_QUERY, {
     onCompleted: (data) => {
-      console.log("data", data);
       setFoundOrganizations(data.getOrganizationsByCityString);
     },
   });
@@ -168,13 +171,13 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
                         onChange={(e) => setFieldValue("value", e.target.value)}
                         onSelect={(val) => setFieldValue("value", val)}
                       />
-                      <button
+                      <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="ml-2"
+                        className="ml-2 mb-1"
                       >
-                        Submit
-                      </button>
+                        Hledat
+                      </Button>
                     </form>
                   </>
                 )}
@@ -190,7 +193,33 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
                 data={foundOrganizations}
                 pageSize={5}
                 renderItem={(item, key) => (
-                  <p key={key}>{item.organization_name}</p>
+                  <Card key={key} style={{ width: "60vw" }} className="mb-3">
+                    <div className="d-flex">
+                      <Card.Img
+                        variant="top"
+                        src={item.profile_photo.url}
+                        style={{ width: "40%", textAlign: "left" }}
+                      />
+                      <div
+                        style={{
+                          width: "80%",
+                          textAlign: "left",
+                          padding: "10px",
+                        }}
+                      >
+                        <Card.Title>{item.organization_name}</Card.Title>
+                        <Card.Text>
+                          Some quick example text to build on the card title and
+                          make up the bulk of the card's content.
+                        </Card.Text>
+                        <a href={route.organizationDetailPage() + "?organizationId=" + item.user_id}>
+                          <Button variant="primary" style={{ float: "right" }}>
+                            Detail
+                          </Button>
+                        </a>
+                      </div>
+                    </div>
+                  </Card>
                 )}
               />
             )}
