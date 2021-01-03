@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { gql, useLazyQuery } from "@apollo/client";
 import DatePicker from "react-datepicker";
 import TimeRangeSlider from "react-time-range-slider";
-import { Col, Row, Container, Card, Button } from "react-bootstrap";
+import { Col, Row, Container, Card, Button, Image } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import moment from "moment";
@@ -47,6 +47,9 @@ const ORGANIZATIONS_QUERY = gql`
       places {
         city
       }
+      ratings {
+        stars
+      }
     }
   }
 `;
@@ -71,7 +74,13 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
     { loadingOrg, dataOrg },
   ] = useLazyQuery(ORGANIZATIONS_QUERY, {
     onCompleted: (data) => {
-      setFoundOrganizations(data.getOrganizationsByCityString);
+      const orgsData = data.getOrganizationsByCityString.map((org) => ({
+        ...org,
+        avgSum:
+          org.ratings.map((r) => r.stars).reduce((a, b) => a + b, 0) /
+          (org.ratings.length | 1),
+      }));
+      setFoundOrganizations(orgsData);
     },
   });
 
@@ -204,29 +213,53 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
                         style={{
                           textAlign: "left",
                           padding: "10px",
+                          width: "100%",
                         }}
                       >
                         <Card.Title>{item.organization_name}</Card.Title>
                         <Card.Text>
-                          Some quick example text to build on the card title and
-                          make up the bulk of the card's content.
-                        </Card.Text>
-                        <a
-                          href={
-                            route.organizationDetailPage() +
-                            "?organizationId=" +
-                            item.user_id
-                          }
-                          target="_blank"
-                        >
-                          <Button
-                            variant="primary"
-                            style={{ float: "right" }}
-                            className="mt-5"
+                          <Row className="m-0">
+                            {[...Array(5)].map((star, index) => (
+                              <div
+                                className={
+                                  "organization-detail-rating-star" +
+                                  (index + 1 <= item.avgSum)
+                                    ? " star-full"
+                                    : ""
+                                }
+                                key={index}
+                              >
+                                {console.log(index)}
+                                <Image
+                                  src={
+                                    "/images/icons/" +
+                                    (index + 1 <= item.avgSum
+                                      ? "star-solid.svg"
+                                      : "star-regular.svg")
+                                  }
+                                  style={{width: "23px"}}
+                                ></Image>
+                              </div>
+                            ))}
+                          </Row>
+
+                          <a
+                            href={
+                              route.organizationDetailPage() +
+                              "?organizationId=" +
+                              item.user_id
+                            }
+                            target="_blank"
                           >
-                            Detail
-                          </Button>
-                        </a>
+                            <Button
+                              variant="primary"
+                              style={{ float: "right" }}
+                              className="mt-5"
+                            >
+                              Detail
+                            </Button>
+                          </a>
+                        </Card.Text>
                       </div>
                     </div>
                   </Card>
