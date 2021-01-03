@@ -198,11 +198,10 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
                       <Card.Img
                         variant="top"
                         src={item.profile_photo.url}
-                        style={{ width: "40%", textAlign: "left" }}
+                        style={{ width: "25%", textAlign: "left" }}
                       />
                       <div
                         style={{
-                          width: "80%",
                           textAlign: "left",
                           padding: "10px",
                         }}
@@ -212,8 +211,19 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
                           Some quick example text to build on the card title and
                           make up the bulk of the card's content.
                         </Card.Text>
-                        <a href={route.organizationDetailPage() + "?organizationId=" + item.user_id}>
-                          <Button variant="primary" style={{ float: "right" }}>
+                        <a
+                          href={
+                            route.organizationDetailPage() +
+                            "?organizationId=" +
+                            item.user_id
+                          }
+                          target="_blank"
+                        >
+                          <Button
+                            variant="primary"
+                            style={{ float: "right" }}
+                            className="mt-5"
+                          >
                             Detail
                           </Button>
                         </a>
