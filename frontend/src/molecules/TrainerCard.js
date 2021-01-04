@@ -8,7 +8,7 @@ export function TrainerCard({ trainer, order }) {
       <Row style={{ paddingBottom: "1rem" }}>
         <Col xl={5} lg={3} md={8} sm={9} style={{ paddingRight: "0" }}>
           <Image
-            src={trainer.profile_photo.url}
+            src={trainer.profile_photo ? trainer.profile_photo.url : "https://icon-library.com/images/trainer-icon/trainer-icon-22.jpg"}
             style={{ width: "100%", height: "25vh" }}
             fluid
           ></Image>

@@ -15,7 +15,7 @@ export function OrganizationDetailMap({ locationState }) {
       className="organization-detail-info"
     >
       {locationState && locationState.length > 0 && console.log(locationState)}
-      {!DBG_DISABLE_MAP && locationState && (
+      {!DBG_DISABLE_MAP && locationState && locationState.length > 0 && (
         <MapContainer
           center={[locationState[0].y, locationState[0].x]}
           zoom={13}

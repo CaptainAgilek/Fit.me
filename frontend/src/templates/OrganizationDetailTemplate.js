@@ -29,7 +29,7 @@ export function OrganizationDetailTemplate({
   mapProvider,
   actionsState,
 }) {
-  const [locationState, setLocationState] = useState(null);
+  const [locationState, setLocationState] = useState([]);
   useEffect(() => {
     const getLocation = async () => {
       if (!error) {
@@ -42,7 +42,9 @@ export function OrganizationDetailTemplate({
             organizationFetcher.data.organization.places[0].city,
         });
         //console.log(res, "res");
-        setLocationState([res[0]]);
+        if (res && res.length > 0) {
+          setLocationState([res[0]]);
+        }
       }
     };
 
