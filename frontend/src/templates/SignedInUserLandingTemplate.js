@@ -227,7 +227,7 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
                     <div className="d-flex">
                       <Card.Img
                         variant="top"
-                        src={item.profile_photo.url}
+                        src={item.profile_photo ? item.profile_photo.url : "https://cdn.onlinewebfonts.com/svg/img_506952.png"}
                         style={{ width: "25%", textAlign: "left" }}
                       />
                       <div
