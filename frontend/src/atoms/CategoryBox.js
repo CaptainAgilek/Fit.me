@@ -7,12 +7,13 @@ export function CategoryBox({
   children,
   border,
   handleCategoryClick,
+  selectedCategory,
 }) {
   return (
     <div
       className="category-box"
       style={{ backgroundColor: color, border: border ? "7px solid" : "none" }}
-      onClick={handleCategoryClick && (() => handleCategoryClick(id))}
+      onClick={handleCategoryClick && (() => handleCategoryClick(selectedCategory === id ? null : id))}
     >
       <div className="category-box-img">
         <img className="img-fluid" src={img} alt="category icon" />

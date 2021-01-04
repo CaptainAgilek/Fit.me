@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { gql, useLazyQuery } from "@apollo/client";
 import DatePicker from "react-datepicker";
@@ -15,6 +15,7 @@ import { route } from "src/Routes";
 import { Loading, HeaderImg, SimpleBanner } from "src/atoms/";
 import { Footer, ErrorBanner, CategoryBoxCol } from "src/molecules/";
 import { Navigation } from "src/organisms/";
+import { JsonProvider } from "leaflet-geosearch";
 
 const FILTERED_ACTIONS_QUERY = gql`
   query filteredActions($filter: ActionsFilter!) {
@@ -40,6 +41,12 @@ const ORGANIZATIONS_QUERY = gql`
   query getOrganizationsByCityString($cityString: String!) {
     getOrganizationsByCityString(cityString: $cityString) {
       user_id
+      user {
+        services {
+          service_id
+          name
+        }
+      }
       organization_name
       profile_photo {
         url
@@ -55,6 +62,16 @@ const ORGANIZATIONS_QUERY = gql`
 `;
 
 export function SignedInUserLandingTemplate({ error, mapProvider }) {
+  const [location, setLocation] = useState(null);
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      console.log("Latitude is :", position.coords.latitude);
+      console.log("Longitude is :", position.coords.longitude);
+
+      console.log(mapProvider.endpoint({query: "lat=" + position.coords.latitude + "&lon=" + position.coords.longtitude, type: JsonProvider.REVERSE}));
+      setLocation(position);
+    });
+  }, []);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [addressCity, setAddressCity] = useState("Praha");
   const [foundOrganizations, setFoundOrganizations] = useState([]);
@@ -80,7 +97,11 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
           org.ratings.map((r) => r.stars).reduce((a, b) => a + b, 0) /
           (org.ratings.length | 1),
       }));
-      setFoundOrganizations(orgsData);
+
+      /*filter organizations by category */
+      const filteredByCategory = selectedCategory ? orgsData.filter(org => org.user.services.some(service => service.service_id === selectedCategory)) : orgsData;
+
+      setFoundOrganizations(filteredByCategory);
     },
   });
 
@@ -223,14 +244,14 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
                               <div
                                 className={
                                   "organization-detail-rating-star" +
-                                  ((index + 1) <= item.avgSum ? " star-full" : "")
+                                  (index + 1 <= item.avgSum ? " star-full" : "")
                                 }
                                 key={index}
                               >
                                 <Image
                                   src={
                                     "/images/icons/" +
-                                    ((index + 1) <= item.avgSum
+                                    (index + 1 <= item.avgSum
                                       ? "star-solid.svg"
                                       : "star-regular.svg")
                                   }

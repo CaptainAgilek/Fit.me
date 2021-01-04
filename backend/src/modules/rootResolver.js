@@ -56,6 +56,14 @@ export default {
         { dbConnection },
       );
     },
+    async services(parent, _, { dbConnection }) {
+      return await dbConnection.query(
+        `SELECT * FROM service
+          JOIN user_service USING (service_id)
+          WHERE user_id = ?`,
+        [parent.user_id],
+      );
+    }
   },
   Sportsman: {
     async user(parent, _, { dbConnection }) {

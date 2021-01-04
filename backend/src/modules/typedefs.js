@@ -133,6 +133,7 @@ export const typeDefs = gql`
     email: String!
     is_verified: Boolean!
     roles: [Role]!
+    services: [Service]!
   }
 
   type Sportsman {
