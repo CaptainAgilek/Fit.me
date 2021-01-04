@@ -315,11 +315,12 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
             </>
           )}
         </Row>
+            {/*
         <Row className="justify-content-md-center organization-profile-section-container">
           <h1>Filtr</h1>
         </Row>
 
-        <Row className="justify-content-md-center organization-profile-section-container">
+    <Row className="justify-content-md-center organization-profile-section-container">
           <Col sm="12" md="4">
             <DatePicker
               className="mx-2"
@@ -413,11 +414,7 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
                     requestActions({ filter: filter });
                   }}
                 >
-                  {/** hodnota value muze sedet s category_id v DB (jestli ty
-                  categories budou "hardcoded"), usetrime tim praci
 
-                  mozna pujde neco podobnyho i u mesta ... zalezi jestli tam zustane
-                  nejaky dropdown*/}
                   <option value="null">Vše</option>
                   <option value="1">Aerial Jóga</option>
                   <option value="2">Gravid Jóga</option>
@@ -468,6 +465,7 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
             </Row>
           </>
         )}
+        */}
       </Container>
       <Footer />
     </>
