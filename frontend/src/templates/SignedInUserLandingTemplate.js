@@ -13,7 +13,12 @@ import { Formik, Field } from "formik";
 import { route } from "src/Routes";
 
 import { Loading, HeaderImg, SimpleBanner } from "src/atoms/";
-import { Footer, ErrorBanner, CategoryBoxCol } from "src/molecules/";
+import {
+  Footer,
+  ErrorBanner,
+  CategoryBoxCol,
+  OrganizationDetailMap,
+} from "src/molecules/";
 import { Navigation } from "src/organisms/";
 import { JsonProvider } from "leaflet-geosearch";
 
@@ -68,7 +73,16 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
       console.log("Latitude is :", position.coords.latitude);
       console.log("Longitude is :", position.coords.longitude);
 
-      console.log(mapProvider.endpoint({query: "lat=" + position.coords.latitude + "&lon=" + position.coords.longtitude, type: JsonProvider.REVERSE}));
+      console.log(
+        mapProvider.endpoint({
+          query:
+            "lat=" +
+            position.coords.latitude +
+            "&lon=" +
+            position.coords.longtitude,
+          type: JsonProvider.REVERSE,
+        })
+      );
       setLocation(position);
     });
   }, []);
@@ -99,7 +113,13 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
       }));
 
       /*filter organizations by category */
-      const filteredByCategory = selectedCategory ? orgsData.filter(org => org.user.services.some(service => service.service_id === selectedCategory)) : orgsData;
+      const filteredByCategory = selectedCategory
+        ? orgsData.filter((org) =>
+            org.user.services.some(
+              (service) => service.service_id === selectedCategory
+            )
+          )
+        : orgsData;
 
       setFoundOrganizations(filteredByCategory);
     },
@@ -216,75 +236,84 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
           </Col>
         </Row>
         <Row>
-          <Col className="justify-content-center justify-items-center text-center mt-5">
-            {loadingOrg && <Loading />}
-            {foundOrganizations && (
-              <PaginationList
-                data={foundOrganizations}
-                pageSize={5}
-                renderItem={(item, key) => (
-                  <Card key={key} style={{ width: "60vw" }} className="mb-3">
-                    <div className="d-flex">
-                      <Card.Img
-                        variant="top"
-                        src={item.profile_photo ? item.profile_photo.url : "https://cdn.onlinewebfonts.com/svg/img_506952.png"}
-                        style={{ width: "25%", textAlign: "left" }}
-                      />
-                      <div
-                        style={{
-                          textAlign: "left",
-                          padding: "10px",
-                          width: "100%",
-                        }}
-                      >
-                        <Card.Title>{item.organization_name}</Card.Title>
-                        <Card.Text>
-                          <Row className="m-0">
-                            {[...Array(5)].map((star, index) => (
-                              <div
-                                className={
-                                  "organization-detail-rating-star" +
-                                  (index + 1 <= item.avgSum ? " star-full" : "")
-                                }
-                                key={index}
-                              >
-                                <Image
-                                  src={
-                                    "/images/icons/" +
+          {loadingOrg && <Loading />}
+          {foundOrganizations && foundOrganizations.length > 0 &&  (
+            <>
+              <Col>
+                <PaginationList
+                  data={foundOrganizations}
+                  pageSize={5}
+                  renderItem={(item, key) => (
+                    <Card key={key} className="mb-3">
+                      <div className="d-flex">
+                        <Card.Img
+                          variant="top"
+                          src={
+                            item.profile_photo
+                              ? item.profile_photo.url
+                              : "https://cdn.onlinewebfonts.com/svg/img_506952.png"
+                          }
+                          style={{ width: "25%", textAlign: "left" }}
+                        />
+                        <div
+                          style={{
+                            textAlign: "left",
+                            padding: "10px",
+                            width: "100%",
+                          }}
+                        >
+                          <Card.Title>{item.organization_name}</Card.Title>
+                          <Card.Text>
+                            <Row className="m-0">
+                              {[...Array(5)].map((star, index) => (
+                                <div
+                                  className={
+                                    "organization-detail-rating-star" +
                                     (index + 1 <= item.avgSum
-                                      ? "star-solid.svg"
-                                      : "star-regular.svg")
+                                      ? " star-full"
+                                      : "")
                                   }
-                                  style={{ width: "23px" }}
-                                ></Image>
-                              </div>
-                            ))}
-                          </Row>
+                                  key={index}
+                                >
+                                  <Image
+                                    src={
+                                      "/images/icons/" +
+                                      (index + 1 <= item.avgSum
+                                        ? "star-solid.svg"
+                                        : "star-regular.svg")
+                                    }
+                                    style={{ width: "23px" }}
+                                  ></Image>
+                                </div>
+                              ))}
+                            </Row>
 
-                          <a
-                            href={
-                              route.organizationDetailPage() +
-                              "?organizationId=" +
-                              item.user_id
-                            }
-                            target="_blank"
-                          >
-                            <Button
-                              variant="primary"
-                              style={{ float: "right" }}
-                              className="mt-5"
+                            <a
+                              href={
+                                route.organizationDetailPage() +
+                                "?organizationId=" +
+                                item.user_id
+                              }
+                              target="_blank"
                             >
-                              Detail
-                            </Button>
-                          </a>
-                        </Card.Text>
+                              <Button
+                                variant="primary"
+                                style={{ float: "right" }}
+                                className="mt-5"
+                              >
+                                Detail
+                              </Button>
+                            </a>
+                          </Card.Text>
+                        </div>
                       </div>
-                    </div>
-                  </Card>
-                )}
-              />
-            )}
-          </Col>
+                    </Card>
+                  )}
+                />
+              </Col>
+              <OrganizationDetailMap locationState={[{ x: 10, y: 20 }]} />
+            </>
+          )}
         </Row>
         <Row className="justify-content-md-center organization-profile-section-container">
           <h1>Filtr</h1>

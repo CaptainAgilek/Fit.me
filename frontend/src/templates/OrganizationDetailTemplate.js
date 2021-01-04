@@ -42,7 +42,7 @@ export function OrganizationDetailTemplate({
             organizationFetcher.data.organization.places[0].city,
         });
         //console.log(res, "res");
-        setLocationState(res[0]);
+        setLocationState([res[0]]);
       }
     };
 

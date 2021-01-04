@@ -583,6 +583,12 @@ html {
   height: 90%;
 }
 
+@media (max-width: 767px) {
+  .map-container {
+    height: 520px;
+  }
+}
+
 .organization-detail-info {
   background-color: #ececec;
   color: #2c2c2c;
