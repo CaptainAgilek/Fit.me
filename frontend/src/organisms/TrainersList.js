@@ -1,8 +1,9 @@
 import React from "react";
 
-import { Col, Carousel } from "react-bootstrap";
+import { Col, Carousel, Button } from "react-bootstrap";
 
 import { TrainerCard } from "src/molecules/TrainerCard";
+import { route } from "src/Routes";
 
 export function TrainersList({ trainers }) {
   const makePairs = () => {

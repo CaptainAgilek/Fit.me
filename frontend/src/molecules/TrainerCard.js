@@ -1,6 +1,7 @@
 import React from "react";
 
-import { Row, Col, Image, Card } from "react-bootstrap";
+import { Row, Col, Image, Card, Button } from "react-bootstrap";
+import { route } from "src/Routes";
 
 export function TrainerCard({ trainer, order }) {
   return (
@@ -12,7 +13,16 @@ export function TrainerCard({ trainer, order }) {
             style={{ width: "100%", height: "25vh" }}
             fluid
           ></Image>
+          <a
+            href={route.trainerDetailPage() + "?trainerId=" + trainer.user_id}
+            target="_blank"
+          >
+            <Button variant="secondary" style={{ float: "center" }}>
+              Detail
+            </Button>
+          </a>
         </Col>
+
         <Col xl={7} lg={9} md={8} sm={9} style={{ paddingLeft: "0" }}>
           <Card
             className={

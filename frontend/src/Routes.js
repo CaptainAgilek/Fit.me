@@ -14,6 +14,7 @@ import { SignInPage } from "src/pages/SignInPage";
 import { PasswordResetPage } from "src/pages/PasswordResetPage";
 import { SignedInUserLandingPage } from "src/pages/SignedInUserLandingPage";
 import { OrganizationDetailPage } from "src/pages/OrganizationDetailPage";
+import { TrainerDetailPage } from "src/pages/TrainerDetailPage";
 
 export const route = {
   home: () => `/`,
@@ -31,6 +32,7 @@ export const route = {
   signedInUserLandingPage: () => `/home`,
 
   organizationDetailPage: () => `/home/organizationDetail`,
+  trainerDetailPage: () => `/home/trainerDetail`,
 };
 
 export function Routes() {
@@ -41,6 +43,11 @@ export function Routes() {
       <Route path={route.signIn()} exact component={SignInPage} />
       <Route path={route.verification()} exact component={VerificationPage} />
       <Route path={route.passwordReset()} exact component={PasswordResetPage} />
+      <PrivateRoute
+        path={route.trainerDetailPage()}
+        exact
+        component={TrainerDetailPage}
+      />
       <Route
         path={route.trainerProfiler()}
         exact
@@ -71,7 +78,12 @@ export function Routes() {
         exact
         component={SignedInUserLandingPage}
       />
-      <PrivateRoute path={route.organizationDetailPage()} exact component={OrganizationDetailPage} />
+      <PrivateRoute
+        path={route.organizationDetailPage()}
+        exact
+        component={OrganizationDetailPage}
+      />
+
       <Route path="*" component={PageNotFound} />
     </Switch>
   );
