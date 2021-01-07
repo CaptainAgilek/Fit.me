@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 import { gql, useLazyQuery } from "@apollo/client";
-import { Col, Row, Container, Card, Button, Image } from "react-bootstrap";
+import { Col, Row, Container } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import moment from "moment";
-import PaginationList from "react-pagination-list";
-import { route } from "src/Routes";
 
 import { Loading, HeaderImg, SimpleBanner } from "src/atoms/";
 import {
@@ -14,6 +12,7 @@ import {
   ErrorBanner,
   CategoryBoxCol,
   OrganizationDetailMap,
+  OrganizationPaginationList,
 } from "src/molecules/";
 import { Navigation, SearchCityForm } from "src/organisms/";
 import { RequestType } from "leaflet-geosearch/lib/providers/provider";
@@ -146,75 +145,8 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
           {foundOrganizations && foundOrganizations.length > 0 && (
             <>
               <Col>
-                <PaginationList
-                  data={foundOrganizations}
-                  pageSize={5}
-                  renderItem={(item, key) => (
-                    <Card key={key} className="mb-3">
-                      <div className="d-flex">
-                        <Card.Img
-                          variant="top"
-                          src={
-                            item.profile_photo
-                              ? item.profile_photo.url
-                              : "https://cdn.onlinewebfonts.com/svg/img_506952.png"
-                          }
-                          style={{ width: "25%", textAlign: "left" }}
-                        />
-                        <div
-                          style={{
-                            textAlign: "left",
-                            padding: "10px",
-                            width: "100%",
-                          }}
-                        >
-                          <Card.Title>{item.organization_name}</Card.Title>
-                          <Card.Text>
-                            <Row className="m-0">
-                              {[...Array(5)].map((star, index) => (
-                                <div
-                                  className={
-                                    "organization-detail-rating-star" +
-                                    (index + 1 <= item.avgSum
-                                      ? " star-full"
-                                      : "")
-                                  }
-                                  key={index}
-                                >
-                                  <Image
-                                    src={
-                                      "/images/icons/" +
-                                      (index + 1 <= item.avgSum
-                                        ? "star-solid.svg"
-                                        : "star-regular.svg")
-                                    }
-                                    style={{ width: "23px" }}
-                                  ></Image>
-                                </div>
-                              ))}
-                            </Row>
-
-                            <a
-                              href={
-                                route.organizationDetailPage() +
-                                "?organizationId=" +
-                                item.user_id
-                              }
-                              target="_blank"
-                            >
-                              <Button
-                                variant="primary"
-                                style={{ float: "right" }}
-                                className="mt-5"
-                              >
-                                Detail
-                              </Button>
-                            </a>
-                          </Card.Text>
-                        </div>
-                      </div>
-                    </Card>
-                  )}
+                <OrganizationPaginationList
+                  foundOrganizations={foundOrganizations}
                 />
               </Col>
               <OrganizationDetailMap locationState={[{ x: 10, y: 20 }]} />
