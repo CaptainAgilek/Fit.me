@@ -18,7 +18,7 @@ export function OrganizationPaginationList({ foundOrganizations }) {
                   ? item.profile_photo.url
                   : "https://cdn.onlinewebfonts.com/svg/img_506952.png"
               }
-              style={{ width: "25%", textAlign: "left" }}
+              style={{ width: "36%", textAlign: "left" }}
             />
             <div
               style={{
