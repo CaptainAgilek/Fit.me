@@ -28,7 +28,7 @@ export function OrganizationPaginationList({ foundOrganizations }) {
               }}
             >
               <Card.Title>{item.organization_name}</Card.Title>
-              <Card.Text>
+              <div>
                 <Row className="m-0">
                   {[...Array(5)].map((star, index) => (
                     <div
@@ -67,7 +67,7 @@ export function OrganizationPaginationList({ foundOrganizations }) {
                     Detail
                   </Button>
                 </a>
-              </Card.Text>
+              </div>
             </div>
           </div>
         </Card>

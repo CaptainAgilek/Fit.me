@@ -27,7 +27,7 @@ export function OrganizationDetailMap({ locationState }) {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {locationState.map((loc) => (
-            <Marker position={[loc.y, loc.x]}></Marker>
+            <Marker key={loc} position={[loc.y, loc.x]}></Marker>
           ))}
         </MapContainer>
       )}

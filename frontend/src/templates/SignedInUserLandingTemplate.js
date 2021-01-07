@@ -105,7 +105,6 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
     const res = await mapProvider.search({
       query: input,
     });
-    console.log(res);
     setSearchResults(res);
   };
   return (
