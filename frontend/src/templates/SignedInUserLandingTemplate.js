@@ -5,9 +5,7 @@ import { Col, Row, Container, Card, Button, Image } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import ListGroup from "react-bootstrap/ListGroup";
 import moment from "moment";
-import Autocomplete from "react-autocomplete";
 import PaginationList from "react-pagination-list";
-import { Formik, Field } from "formik";
 import { route } from "src/Routes";
 
 import { Loading, HeaderImg, SimpleBanner } from "src/atoms/";
@@ -17,7 +15,7 @@ import {
   CategoryBoxCol,
   OrganizationDetailMap,
 } from "src/molecules/";
-import { Navigation } from "src/organisms/";
+import { Navigation, SearchCityForm } from "src/organisms/";
 import { RequestType } from "leaflet-geosearch/lib/providers/provider";
 
 const FILTERED_ACTIONS_QUERY = gql`
@@ -83,8 +81,10 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
         const result = await fetch(url);
         const json = await result.json();
         const parsed = mapProvider.parse({ data: json });
-        console.log(parsed[0].label);
-        setLocation(parsed[0].label);
+        {
+          /* console.log(parsed[0].label);
+        setLocation(parsed[0].label);*/
+        }
       }
       fetchAddress(reverseUrl);
     });
@@ -150,73 +150,14 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
           <Col className="justify-content-center justify-items-center text-center mt-5">
             <h1>Zadejte město</h1>
             <div>
-              <Formik
+              <SearchCityForm
                 initialValues={{ value: location }}
-                onSubmit={(values, { setSubmitting }) => {
-                  setTimeout(() => {
-                    getOrganizationsByCityStringQuery({
-                      variables: { cityString: values.value },
-                    });
-
-                    setSubmitting(false);
-                  }, 400);
-                }}
-              >
-                {({
-                  values,
-                  errors,
-                  touched,
-                  handleChange,
-                  handleBlur,
-                  handleSubmit,
-                  isSubmitting,
-                  setFieldValue,
-                  /* and other goodies */
-                }) => (
-                  <>
-                    <form
-                      onSubmit={handleSubmit}
-                      onChange={(e) => updateResults(e.target.value)}
-                    >
-                      <Autocomplete
-                        getItemValue={(item) => item.label}
-                        items={searchResults}
-                        renderMenu={(children) =>
-                          children && (
-                            <div className="result-menu">{children}</div>
-                          )
-                        }
-                        wrapperStyle={{
-                          position: "relative",
-                          display: "inline-block",
-                        }}
-                        renderItem={(item, isHighlighted) => (
-                          <div
-                            style={{
-                              background: isHighlighted ? "lightgray" : "white",
-                            }}
-                          >
-                            {item.label}
-                          </div>
-                        )}
-                        renderInput={function (props) {
-                          return <input {...props} style={{ width: "60vw" }} />;
-                        }}
-                        value={values.value}
-                        onChange={(e) => setFieldValue("value", e.target.value)}
-                        onSelect={(val) => setFieldValue("value", val)}
-                      />
-                      <Button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="ml-2 mb-1"
-                      >
-                        Hledat
-                      </Button>
-                    </form>
-                  </>
-                )}
-              </Formik>
+                getOrganizationsByCityStringQuery={
+                  getOrganizationsByCityStringQuery
+                }
+                updateResults={updateResults}
+                searchResults={searchResults}
+              />
             </div>
           </Col>
         </Row>
