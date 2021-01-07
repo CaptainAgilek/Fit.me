@@ -20,7 +20,7 @@ import {
   OrganizationDetailMap,
 } from "src/molecules/";
 import { Navigation } from "src/organisms/";
-import { JsonProvider } from "leaflet-geosearch";
+import { RequestType } from "leaflet-geosearch/lib/providers/provider";
 
 const FILTERED_ACTIONS_QUERY = gql`
   query filteredActions($filter: ActionsFilter!) {
@@ -67,23 +67,28 @@ const ORGANIZATIONS_QUERY = gql`
 `;
 
 export function SignedInUserLandingTemplate({ error, mapProvider }) {
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState("");
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
-      console.log("Latitude is :", position.coords.latitude);
-      console.log("Longitude is :", position.coords.longitude);
+      const searchQuery = {
+        lat: position.coords.latitude,
+        lon: position.coords.longitude,
+        zoom: 10,
+      };
+      const reverseUrl = mapProvider.endpoint({
+        query: searchQuery,
+        type: RequestType.REVERSE,
+      });
 
-      console.log(
-        mapProvider.endpoint({
-          query:
-            "lat=" +
-            position.coords.latitude +
-            "&lon=" +
-            position.coords.longtitude,
-          type: JsonProvider.REVERSE,
-        })
-      );
-      setLocation(position);
+      async function fetchAddress(url) {
+        const result = await fetch(url);
+        const json = await result.json();
+        const parsed = mapProvider.parse({ data: json });
+        console.log(parsed[0].label);
+        setLocation(parsed[0].label);
+      }
+      fetchAddress(reverseUrl);
     });
   }, []);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -166,7 +171,7 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
             <h1>Zadejte město</h1>
             <div>
               <Formik
-                initialValues={{ value: "" }}
+                initialValues={{ value: location }}
                 onSubmit={(values, { setSubmitting }) => {
                   setTimeout(() => {
                     getOrganizationsByCityStringQuery({
@@ -237,7 +242,7 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
         </Row>
         <Row>
           {loadingOrg && <Loading />}
-          {foundOrganizations && foundOrganizations.length > 0 &&  (
+          {foundOrganizations && foundOrganizations.length > 0 && (
             <>
               <Col>
                 <PaginationList
@@ -315,7 +320,7 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
             </>
           )}
         </Row>
-            {/*
+        {/*
         <Row className="justify-content-md-center organization-profile-section-container">
           <h1>Filtr</h1>
         </Row>
