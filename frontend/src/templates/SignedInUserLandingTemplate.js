@@ -18,26 +18,6 @@ import {
 import { Navigation, SearchCityForm } from "src/organisms/";
 import { RequestType } from "leaflet-geosearch/lib/providers/provider";
 
-const FILTERED_ACTIONS_QUERY = gql`
-  query filteredActions($filter: ActionsFilter!) {
-    filteredActions(filter: $filter) {
-      action_id
-      place_id
-      date
-      time
-      price
-      trainer_id
-      max_capacity
-      name
-      photo_id
-      photo {
-        photo_id
-        url
-      }
-    }
-  }
-`;
-
 const ORGANIZATIONS_QUERY = gql`
   query getOrganizationsByCityString($cityString: String!) {
     getOrganizationsByCityString(cityString: $cityString) {
