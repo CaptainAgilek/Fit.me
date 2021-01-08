@@ -8,6 +8,7 @@ export function SearchCityForm({initialValues, getOrganizationsByCityStringQuery
   return (
     <Formik
       initialValues={initialValues}
+      enableReinitialize
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
           getOrganizationsByCityStringQuery({

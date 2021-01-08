@@ -60,10 +60,9 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
         const result = await fetch(url);
         const json = await result.json();
         const parsed = mapProvider.parse({ data: json });
-        {
-          /* console.log(parsed[0].label);
-        setLocation(parsed[0].label);*/
-        }
+
+        console.log(parsed[0].label);
+        setLocation(parsed[0].label);
       }
       fetchAddress(reverseUrl);
     });
