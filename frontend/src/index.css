@@ -456,6 +456,16 @@ div::-webkit-scrollbar-button:single-button:horizontal:increment {
   filter: none !important;
 }
 
+.action-delete-icon {
+  margin-top: 4px;
+}
+
+@media (max-width: 767px) {
+  .action-delete-icon {
+    margin-top: 7px;
+  }
+}
+
 .action-small-icon {
   width: 18.5px;
   height: 18.5px;
@@ -744,7 +754,7 @@ ol.carousel-indicators :not(.active) {
   text-align: left;
 }
 
-.styles_kPagination__1qVvD .styles_kPaginationListPage__2_6Ph  {
+.styles_kPagination__1qVvD .styles_kPaginationListPage__2_6Ph {
   padding-left: 0px;
   margin: auto !important;
 }

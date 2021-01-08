@@ -145,14 +145,17 @@ export function ActionCardForm({
                   )}
 
                   {editable && action.action_id && (
-                    <DeleteButton
-                      handleRemove={() =>
-                        deleteActionRequest({
-                          variables: { action_id: action.action_id },
-                        })
-                      }
-                      name={action.name}
-                    ></DeleteButton>
+                    <Col xs={3} md={3} lg={3}>
+                      <DeleteButton
+                        handleRemove={() =>
+                          deleteActionRequest({
+                            variables: { action_id: action.action_id },
+                          })
+                        }
+                        name={action.name}
+                        imageClassname="action-delete-icon"
+                      ></DeleteButton>
+                    </Col>
                   )}
                 </Row>
               </div>
