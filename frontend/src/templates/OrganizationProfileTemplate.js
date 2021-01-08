@@ -2,14 +2,14 @@ import React, { useState, useEffect, useMemo } from "react";
 
 import { Col, Row, Container } from "react-bootstrap";
 
-import { Loading, DateFilter, CustomAlert } from "src/atoms/";
+import { Loading, DateFilter, CustomAlert, HeaderImg } from "src/atoms/";
 import {
   Footer,
   OrganizationMenu,
   ActionsList,
   ErrorBanner,
   TestimonialBoxCol,
-  useActionsFilter
+  useActionsFilter,
 } from "src/molecules/";
 import {
   Navigation,
@@ -56,9 +56,9 @@ export function OrganizationProfileTemplate({
 
       {organizationData && actionsState.data && servicesState.data && (
         <>
-          <div className="headerImg organization-profile-section-container">
+          <HeaderImg img="/images/organization_header.jpg">
             <OrganizationMenu />
-          </div>
+          </HeaderImg>
 
           <Container className="organization-profile-top-margin organization-profile-section-container">
             <Row className="justify-content-md-center organization-profile-section-container">
