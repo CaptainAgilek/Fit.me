@@ -1,5 +1,10 @@
 # 4IT580: Backend
 
+## Requirements
+
+- Node.js v12 (or later)
+- Yarn (`npm install --global yarn`)
+
 ## Setup ENV Variables
 
 ```
