@@ -1,6 +1,5 @@
 # Team project: Fit.me 
 
-## Project starter 
 ### Backend
 
 - Apollo server
