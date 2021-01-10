@@ -29,23 +29,6 @@
 - http://dev.frontend.team02.vse.handson.pro/
 - http://dev.backend.team02.vse.handson.pro/graphql
 
-## ENV properties for backend on localhost
-- PORT=4000
-- JWT_SECRET=
-- DB_HOST=localhost
-- DB_NAME=user_team02
-- DB_USER=team02
-- DB_PASSWORD=
-- DB_PORT=4242
-- SMTP_HOST=smtp.sendgrid.net
-- SMTP_PORT=587
-- SMTP_USER=apikey
-- SMTP_PASS=
-- FRONTEND_URL=http://localhost:3000/
-- BACKEND_URL=http://localhost:4000/
-
-Edit .env file, add JWT_SECRET,DB_PASSWORD, SMTP_PASS.
-
 ## ENV properties for frontend on localhost
 - BROWSER=none
 - REACT_EDITOR=none
