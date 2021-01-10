@@ -3,7 +3,6 @@ import { gql, useMutation } from "@apollo/client";
 
 import { Form } from "react-bootstrap";
 
-import { AvatarPicture } from "src/atoms/";
 import { PopUpModal } from "src/molecules/";
 
 const UPLOAD_PHOTO_MUTATION = gql`
@@ -65,7 +64,7 @@ export function EditableActionPicture({ src, user_id, action, setPhotoId }) {
 
   return (
     <>
-      <img className="card-img-top" src={actionImageUrl} onClick={handleShow} />
+      <img className="card-img-top" src={actionImageUrl} onClick={handleShow} alt=""/>
 
       <PopUpModal
         show={show}
