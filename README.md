@@ -5,12 +5,14 @@
 - Apollo server
 - DB connection
 - Auth lib 
+- modules with implementation
 
 ### Frontend
 
 - Apollo client
 - Routing (Home and NotFoundPage)
 - Auth util to handle access token
+- Frontend components
 
 ## JavaScript Packages
 
