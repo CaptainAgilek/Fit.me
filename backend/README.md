@@ -18,6 +18,9 @@ yarn install
 Runs the app in the development mode.\
 Open [http://localhost:4000](http://localhost:4000) to view it in the browser.
 
+## Seed Database
+
+Using phpMyAdmin or MySQL Workbench run following SQL: [`./user_team02_seed.sql`](./user_team02_seed.sql)
 
 ## Run Production
 
@@ -36,6 +39,3 @@ yarn build
 ```bash
 yarn build:watch
 ```
-## Seed Database
-
-Using phpMyAdmin or MySQL Workbench run following SQL: [`./user_team02_seed.sql`](./user_team02_seed.sql)
