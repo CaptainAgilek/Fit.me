@@ -1,13 +1,13 @@
 # Team project: Fit.me 
 
 ## Project starter 
-## Backend
+### Backend
 
 - Apollo server
 - DB connection
 - Auth lib and mocked signin mutation
 
-## Frontend
+### Frontend
 
 - Apollo client
 - Routing (Home and NotFoundPage)
@@ -21,10 +21,10 @@
   - yarn <script-name> (eg. yarn start, yarn prettier, see "scripts" section in package.json)
   
 ## Server Setup
-## SSH 
+### SSH 
 
 - ssh username@vse.handson.pro
 
-## Domains
+### Domains
 
 - dev.frontend.username.vse.handson.pro
