@@ -44,6 +44,6 @@
 - FRONTEND_URL=http://localhost:3000/
 - BACKEND_URL=http://localhost:4000/
 
-- Edit .env file, add JWT_SECRET,DB_PASSWORD, SMTP_PASS.
+Edit .env file, add JWT_SECRET,DB_PASSWORD, SMTP_PASS.
 
 
