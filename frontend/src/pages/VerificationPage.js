@@ -19,7 +19,7 @@ export function VerificationPage(props) {
   );
   useEffect(() => {
     tokenStateRequest({ variables: { token } });
-  }, [token]);
+  }, [token, tokenStateRequest]);
 
   let message = getMessage(token, tokenState);
 
