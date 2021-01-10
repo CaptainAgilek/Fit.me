@@ -52,7 +52,7 @@ export function PasswordResetPage(props) {
 
     useEffect(() => {
         tokenStateRequest({ variables: { token } });
-    }, [token]);
+    }, [token, tokenStateRequest]);
 
     let message = getMessage(token, tokenState);
 
