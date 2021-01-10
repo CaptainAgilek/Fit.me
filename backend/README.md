@@ -5,7 +5,7 @@
 ```
 cp ./.env.example ./.env
 ```
-Edit `.env` file, fill empty properties like JWT_SECRET,DB_PASSWORD, SMTP_PASS.
+Edit `.env` file, fill empty properties like JWT_SECRET for JWT authentication, DB_PASSWORD as password to database, SMTP_PASS as password to SMTP mailing API.
 
 ## Install Dependencies
 
