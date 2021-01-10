@@ -52,7 +52,7 @@ export function ActionCard({
 
       const deepCopyVariables = {
         time: hours + ":" + minutes,
-        date: new String(new Date(values.date).getTime()),
+        date: new Date(values.date).getTime().toString(),
         price: parseFloat(values.price),
         name: values.name,
         action_id: action ? action.action_id : null,
@@ -64,7 +64,7 @@ export function ActionCard({
 
       actionRequest({ variables: { input: deepCopyVariables } });
     },
-    [actionRequest, photoId]
+    [action,actionRequest, photoId]
   );
 
   let time = new Date();
