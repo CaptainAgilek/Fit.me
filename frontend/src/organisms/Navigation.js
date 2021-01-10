@@ -17,7 +17,11 @@ export function Navigation() {
   const { user, signout } = useAuth();
   const history = useHistory();
 
-  const homeLink = route.home();
+  const homeLink = user
+    ? user.roles.some((role) => role.name === "ROLE_SPORTSMAN")
+      ? route.signedInUserLandingPage()
+      : route.home()
+    : route.home();
 
   const [showSignUp, setSignUpVisible] = useState(false);
   const [showSignIn, setSignInVisible] = useState(false);
