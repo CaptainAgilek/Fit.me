@@ -29,7 +29,7 @@
 - http://dev.frontend.team02.vse.handson.pro/
 - http://dev.backend.team02.vse.handson.pro/graphql
 
-## ENV properties for backend
+## ENV properties for backend on localhost
 - PORT=4000
 - JWT_SECRET=
 - DB_HOST=localhost
