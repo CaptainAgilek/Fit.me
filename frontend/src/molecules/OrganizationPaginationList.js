@@ -58,6 +58,7 @@ export function OrganizationPaginationList({ foundOrganizations }) {
                     item.user_id
                   }
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <Button
                     variant="primary"
