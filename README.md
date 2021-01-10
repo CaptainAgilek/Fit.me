@@ -4,7 +4,7 @@
 
 - Apollo server
 - DB connection
-- Auth lib and mocked signin mutation
+- Auth lib 
 
 ### Frontend
 
