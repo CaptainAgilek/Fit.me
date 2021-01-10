@@ -5,8 +5,7 @@
 ```
 cp ./.env.example ./.env
 ```
-
-Edit `.env` file (DB user, password, ...)
+Edit `.env` file JWT_SECRET,DB_PASSWORD, SMTP_PASS
 
 ## Install Dependencies
 
