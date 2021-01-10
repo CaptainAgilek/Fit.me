@@ -107,8 +107,8 @@ export function ProfileServicesReadonly({ servicesState, user_id }) {
   if (servicesState.data) {
     tmpList = servicesState.data.servicesForUser;
 
-    tmpList.map((service) => {
-      categories.map((category) => {
+    tmpList.forEach((service) => {
+      categories.forEach((category) => {
         if (category.id === service.service_id) {
           servicesList.push({
             key: service.service_id,
