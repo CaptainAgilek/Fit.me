@@ -21,7 +21,7 @@ export function ActionsList({
   let actionsList = actions;
   if (editable) {
     const defaultAction = {
-      time: "10" + ":" + "00" + ":" + "00",
+      time: "10:00:00",
       date: `${new Date().getTime()}`,
       price: 200,
       name: "Název akce",
