@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
-import { route } from "src/Routes";
-import { Redirect } from "react-router-dom";
 import { Navigation } from "src/organisms/";
 import { ResetPasswordForm, CustomAlert } from "src/atoms/";
 import { decodeToken } from "src/utils/jwt";
@@ -32,7 +30,7 @@ export function PasswordResetPage(props) {
         VERIFY_PASSWORD_RESET_MUTATION
     );
 
-    const [updatePasswordRequest, updatePasswordRequestState] = useMutation(
+    const [updatePasswordRequest] = useMutation(
         UPDATE_PASSWORD,
         {
             onCompleted: () => {
