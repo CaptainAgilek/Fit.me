@@ -27,10 +27,6 @@ const hasNetworkStatusCode = (error, code) => {
   return error && error.statusCode === code;
 };
 
-{/*const httpLink = createHttpLink({
-  uri: config.GRAPHQL_API,
-});*/}
-
 const uploadLink = createUploadLink({
   uri: config.GRAPHQL_API,
 });
