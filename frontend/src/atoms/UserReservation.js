@@ -16,19 +16,14 @@ function getSportIcon({ name }) {
   switch (name) {
     case "fitness":
       return fitness;
-      break;
     case "football":
       return football;
-      break;
     case "hockey":
       return hockey;
-      break;
     case "kravmaga":
       return kravmaga;
-      break;
     case "pilates":
       return pilates;
-      break;
     default:
       return fitness;
   }
