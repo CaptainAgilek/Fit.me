@@ -28,9 +28,3 @@
 
 - http://dev.frontend.team02.vse.handson.pro/
 - http://dev.backend.team02.vse.handson.pro/graphql
-
-## ENV properties for frontend on localhost
-- BROWSER=none
-- REACT_EDITOR=none
-- REACT_APP_GRAPHQL_API=http://localhost:4000/graphql
-- FRONTEND_URL=http://localhost:3000/
