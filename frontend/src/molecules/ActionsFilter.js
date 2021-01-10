@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 
 export function useActionsFilter(data) {
   const date = new Date();

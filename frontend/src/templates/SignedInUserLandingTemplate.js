@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import { gql, useLazyQuery } from "@apollo/client";
 import { Col, Row, Container } from "react-bootstrap";
-import Form from "react-bootstrap/Form";
-import ListGroup from "react-bootstrap/ListGroup";
-import moment from "moment";
 
 import { Loading, HeaderImg, SimpleBanner } from "src/atoms/";
 import {
@@ -33,6 +30,8 @@ const ORGANIZATIONS_QUERY = gql`
       }
       places {
         city
+        street
+        zip
       }
       ratings {
         stars
@@ -41,8 +40,24 @@ const ORGANIZATIONS_QUERY = gql`
   }
 `;
 
+async function getLocation(org, mapProvider, orgLocations, setOrgLocations) {
+  const res = await mapProvider.search({
+    query:
+      org.places[0].street +
+      ", " +
+      org.places[0].zip +
+      " " +
+      org.places[0].city,
+  });
+
+  if (res && res.length > 0) {
+    setOrgLocations([...orgLocations, res[0]]);
+  }
+}
+
 export function SignedInUserLandingTemplate({ error, mapProvider }) {
   const [location, setLocation] = useState("");
+  const [orgLocations, setOrgLocations] = useState([]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -61,7 +76,6 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
         const json = await result.json();
         const parsed = mapProvider.parse({ data: json });
 
-        console.log(parsed[0].label);
         setLocation(parsed[0].label);
       }
       fetchAddress(reverseUrl);
@@ -84,7 +98,6 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
           org.ratings.map((r) => r.stars).reduce((a, b) => a + b, 0) /
           (org.ratings.length | 1),
       }));
-
       /*filter organizations by category */
       const filteredByCategory = selectedCategory
         ? orgsData.filter((org) =>
@@ -93,7 +106,7 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
             )
           )
         : orgsData;
-
+      filteredByCategory.map((org)=>  getLocation(org, mapProvider, orgLocations, setOrgLocations));
       setFoundOrganizations(filteredByCategory);
     },
   });
@@ -147,7 +160,7 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
                   foundOrganizations={foundOrganizations}
                 />
               </Col>
-              <OrganizationDetailMap locationState={[{ x: 10, y: 20 }]} />
+              <OrganizationDetailMap locationState={orgLocations} />
             </>
           )}
         </Row>
