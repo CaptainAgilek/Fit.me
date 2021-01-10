@@ -37,15 +37,10 @@ export function OrganizationProfileManagementCol({
   const src = organization.profile_photo
     ? organization.profile_photo.url
     : DEFAULT_IMG_URL;
-  const [profileImageUrl, setProfileImageUrl] = useState(src);
   const [selectedFile, setSelectedFile] = useState(null);
   const inputLabel = selectedFile ? selectedFile.name : "Custom file input";
 
-  const [uploadFileHandler] = useMutation(UPLOAD_PHOTO_MUTATION, {
-    onCompleted({ singleUpload }) {
-      setProfileImageUrl(singleUpload.url);
-    },
-  });
+  const [uploadFileHandler] = useMutation(UPLOAD_PHOTO_MUTATION);
 
   const handleBannerUpload = async (selectedFile) => {
     if (!selectedFile) return;
