@@ -5,7 +5,7 @@
 ```
 cp ./.env.example ./.env
 ```
-Edit `.env` file (JWT_SECRET,DB_PASSWORD, SMTP_PASS,...)
+Edit `.env` file, fill empty properties like JWT_SECRET,DB_PASSWORD, SMTP_PASS.
 
 ## Install Dependencies
 
@@ -17,6 +17,11 @@ yarn install
 
 Runs the app in the development mode.\
 Open [http://localhost:4000](http://localhost:4000) to view it in the browser.
+
+## Seed Database
+
+Using phpMyAdmin or MySQL Workbench run following SQL: [`./user_team02_seed.sql`](./user_team02_seed.sql)
+
 
 ## Run Production
 
