@@ -73,37 +73,6 @@ export function TrainerProfileManagementCol({
       </Row>
 
       <Row className="justify-content-md-center botOffset" xs={1}>
-        <GenericPopUp
-          triggerVariant="outline-dark"
-          triggerText="Změnit Banner"
-          modalTitle="Nahrát nový banner"
-          footerLeftVariant="outline-secondary"
-          footerLeftText="Zpět"
-          footerRightVariant="outline-primary"
-          footerRightText="Nahrát"
-          rightButtonOnClick={() => handleBannerUpload(selectedFile)}
-        >
-          <Form>
-            <Form.File
-              id="custom-file"
-              label={inputLabel}
-              onChange={({
-                target: {
-                  validity,
-                  files: [file],
-                },
-              }) => {
-                if (validity.valid) {
-                  setSelectedFile(file);
-                }
-              }}
-              custom
-            />
-          </Form>
-        </GenericPopUp>
-      </Row>
-
-      <Row className="justify-content-md-center botOffset" xs={1}>
         <ChangePasswordPopUp
           userEmail={trainer.user.email}
           onSubmit={changePasswordRequest}
