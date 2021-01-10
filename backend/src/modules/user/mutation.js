@@ -131,8 +131,8 @@ export const signup = async (
   const mailResult = await sendEmail(
     '"Fit.me" <sedm22@vse.cz>',
     email,
-    'Hello ✔',
-    'Hello, prosim potvrdte registraci kliknutim na link ' +
+    'Registrace na Fit.me ✔',
+    'Dobrý den, prosím potvrďte registraci klinutím na odkaz ' +
     process.env.FRONTEND_URL +
     'verification?token=' +
     verificationToken,
@@ -216,7 +216,7 @@ export const resetPassword = async (_, { email }, { dbConnection }) => {
     '"Fit.me" <sedm22@vse.cz>',
     email,
     'Reset hesla',
-    'Kliknutím na následující link si resetujte heslo: ' +
+    'Kliknutím na následující odkaz si resetujte heslo: ' +
     process.env.FRONTEND_URL +
     'passwordReset?token=' +
     token,
@@ -238,7 +238,7 @@ export const verifyPasswordReset = async (_, { token }, { dbConnection }) => {
     return true;  //at this point prepare new mutation that is changePassword without the oldPassword arg
   } catch (error) {
     return false;
-  } 
+  }
 };
 
 export const newPassword = async (_ , { email, newPassword, newPasswordAgain }, { dbConnection }) => {
