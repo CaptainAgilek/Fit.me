@@ -80,16 +80,14 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
       }
       fetchAddress(reverseUrl);
     });
-  }, []);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [addressCity, setAddressCity] = useState("Praha");
-  const [foundOrganizations, setFoundOrganizations] = useState([]);
+  }, [mapProvider]);
 
-  const currentDate = new Date();
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [foundOrganizations, setFoundOrganizations] = useState([]);
 
   const [
     getOrganizationsByCityStringQuery,
-    { loadingOrg, dataOrg },
+    { loadingOrg },
   ] = useLazyQuery(ORGANIZATIONS_QUERY, {
     onCompleted: (data) => {
       const orgsData = data.getOrganizationsByCityString.map((org) => ({
@@ -106,7 +104,9 @@ export function SignedInUserLandingTemplate({ error, mapProvider }) {
             )
           )
         : orgsData;
-      filteredByCategory.map((org)=>  getLocation(org, mapProvider, orgLocations, setOrgLocations));
+      filteredByCategory.map((org) =>
+        getLocation(org, mapProvider, orgLocations, setOrgLocations)
+      );
       setFoundOrganizations(filteredByCategory);
     },
   });
