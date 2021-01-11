@@ -19,34 +19,34 @@ import {
 const events = [
   {
     title: "Cvičení s čínkou",
-    start: new Date("December 14, 2020 11:30:00"),
-    end: new Date("December 14, 2020 12:30:00"),
+    start: new Date("January 14, 2021 11:30:00"),
+    end: new Date("January 14, 2021 12:30:00"),
   },
   {
     title: "Cvičení na záda",
-    start: new Date("December 16, 2020 15:30:00"),
-    end: new Date("December 16, 2020 16:30:00"),
+    start: new Date("January 13, 2021 15:30:00"),
+    end: new Date("January 13, 2021 16:30:00"),
   },
   {
     title: "",
-    start: new Date("December 15, 2020 12:45:00"),
-    end: new Date("December 15, 2020 13:30:00"),
+    start: new Date("January 15, 2021 12:45:00"),
+    end: new Date("January 15, 2021 13:30:00"),
     backgroundColor: "#63d14ccc",
   },
   {
     title: "",
-    start: new Date("December 15, 2020 14:00:00"),
-    end: new Date("December 15, 2020 15:00:00"),
+    start: new Date("January 15, 2021 14:00:00"),
+    end: new Date("January 15, 2021 15:00:00"),
     backgroundColor: "#63d14ccc",
   },
   {
     title: "",
-    start: new Date("December 16, 2020 14:00:00"),
-    end: new Date("December 16, 2020 15:00:00"),
+    start: new Date("January 16, 2021 14:00:00"),
+    end: new Date("January 16, 2021 15:00:00"),
     backgroundColor: "#63d14ccc",
   },
 ];
-const freeHours = [{ date: "2020-12-01" }, { date: "2020-12-03" }];
+const freeHours = [{ date: "2021-01-01" }, { date: "2021-01-03" }];
 
 export function TrainerProfileTemplate({
   trainerData,
