@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Col } from "react-bootstrap";
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 export function OrganizationDetailMap({ locationState }) {
   const DBG_DISABLE_MAP = false;
@@ -14,7 +14,6 @@ export function OrganizationDetailMap({ locationState }) {
       xs={12}
       className="organization-detail-info"
     >
-      {locationState && locationState.length > 0}
       {!DBG_DISABLE_MAP && locationState && locationState.length > 0 && (
         <MapContainer
           center={[locationState[0].y, locationState[0].x]}
@@ -27,7 +26,13 @@ export function OrganizationDetailMap({ locationState }) {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {locationState.map((loc) => (
-            <Marker key={loc} position={[loc.y, loc.x]}></Marker>
+            <Marker key={loc.raw.place_id} position={[loc.y, loc.x]}>
+              <Popup>
+                {loc.orgName}
+                <br />
+                {loc.label}{" "}
+              </Popup>
+            </Marker>
           ))}
         </MapContainer>
       )}

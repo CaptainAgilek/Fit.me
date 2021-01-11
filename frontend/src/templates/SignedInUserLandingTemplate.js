@@ -51,7 +51,8 @@ async function getLocation(org, mapProvider, orgLocations, setOrgLocations) {
   });
 
   if (res && res.length > 0) {
-    setOrgLocations([...orgLocations, res[0]]);
+    res[0].orgName = org.organization_name;
+    setOrgLocations(orgLocations => [...orgLocations, res[0]]);
   }
 }
 
